@@ -1,0 +1,83 @@
+/* app/components/Navbar.module.css */
+.navbar {
+  display: flex;
+  justifyContent: space-between;
+  alignItems: center;
+  padding: 1.25rem 4rem;
+  background: rgba(10, 10, 10, 0.95); /* Ultra dark premium background */
+  backdrop-filter: blur(10px); /* Modern blur effect */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Subtle border */
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  color: #fff;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 3px; /* Luxury spacing */
+  text-decoration: none;
+  text-transform: uppercase;
+  background: linear-gradient(135px, #ffffff 0%, #a3a3a3 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: opacity 0.3s ease;
+}
+
+.logo:hover {
+  opacity: 0.8;
+}
+
+.navLinks {
+  display: flex;
+  gap: 2.5rem;
+  align-items: center;
+}
+
+.link {
+  color: #bc9c22; /* Premium Gold/Bronze Accent color */
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  padding: 0.5rem 0;
+  transition: color 0.3s ease;
+}
+
+/* Luxury underline hover effect */
+.link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: #bc9c22;
+  transition: width 0.3s ease;
+}
+
+.link:hover {
+  color: #ffffff;
+}
+
+.link:hover::after {
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1.25rem 2rem;
+  }
+  .navLinks {
+    gap: 1.5rem;
+  }
+}

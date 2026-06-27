@@ -1,0 +1,77 @@
+.section {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow-y: scroll; /* Scrollbar enable kiya */
+  scroll-snap-type: y mandatory; /* Scroll snap set kiya */
+  scrollbar-width: none; /* Firefox ke liye scrollbar hide kiya */
+}
+
+/* Chrome, Safari aur Opera ke liye scrollbar hide karne ke liye */
+.section::-webkit-scrollbar {
+  display: none;
+}
+
+/* Har ek slide ab full screen legi */
+.slideWrapper {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  scroll-snap-align: start; /* Scroll karne par yahan aakar lock hoga */
+  overflow: hidden;
+}
+
+.imageContainer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.objectCover {
+  object-fit: cover;
+}
+
+/* Text Container Styling */
+.textOverlay {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  background-color: rgba(0, 0, 0, 0.15); /* Thoda dark background text visibility ke liye */
+}
+
+.textCenter {
+  text-align: center;
+  color: #ffffff;
+}
+
+.textLine {
+  display: block;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  line-height: 1.15;
+  letter-spacing: -0.05em;
+}
+
+.textLineLast {
+  font-style: italic;
+}
+
+@media (min-width: 768px) {
+  .textLine {
+    font-size: 4.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .textLine {
+    font-size: 6rem;
+  }
+}
