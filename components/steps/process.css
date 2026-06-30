@@ -46,6 +46,12 @@
   padding-bottom: 120px;
 }
 
+.process-timeline {
+  position: relative;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 /* Dynamic Center Spine */
 .process-line {
   position: absolute;
@@ -73,7 +79,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 160px; /* Generous breathing room between stages */
+  gap: 40px; /* Tighter spacing for faster path progression */
 }
 
 /* Row structures mapping the continuous connecting layout */
@@ -87,7 +93,7 @@
 
 /* Left Aligned Card Row styling */
 .process-row--left {
-  padding-right: 60px;
+  padding-right: 35px;
 }
 .process-row--left .process-row__side {
   grid-column: 1 / 2;
@@ -96,7 +102,7 @@
 
 /* Right Aligned Card Row styling */
 .process-row--right {
-  padding-left: 60px;
+  padding-left: 35px;
 }
 .process-row--right .process-row__side {
   grid-column: 2 / 3;
@@ -133,16 +139,16 @@
 /* Re-designed Premium Card Structure */
 .process-card {
   width: 100%;
-  max-width: 600px;
+  max-width: 550px;
   background: rgba(255, 255, 255, 0.01);
   border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 24px;
   padding: 40px;
-  backdrop-filter: blur(12px);
+  /* backdrop-filter: blur(12px); */
 
   /* Initial Premium Emerge States */
-  opacity: 0;
-  filter: blur(6px);
+  opacity: 1;
+  /* filter: blur(6px); */
   transform: scale(0.92) rotate(0.5deg);
   will-change: transform, filter, opacity;
   transition:
@@ -217,7 +223,7 @@
 
 .process-final {
   position: relative;
-  padding: 100px 0 0;
+  /* padding: 100px 0 0; */
   display: flex;
   justify-content: center;
 }
@@ -250,8 +256,53 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none;
+  /* pointer-events: none; */
   overflow: visible;
+}
+
+.timeline-crosshair {
+  position: absolute;
+  z-index: 20;
+  color: #d4af37;
+  pointer-events: none;
+}
+
+.process-list {
+  position: relative;
+  z-index: 2;
+}
+
+.process-row {
+  display: grid;
+  grid-template-columns: 1fr 120px 1fr;
+  align-items: center;
+  min-height: 220px;
+  position: relative;
+}
+
+.process-row--left .process-row__side {
+  grid-column: 1;
+}
+
+.process-row--right .process-row__side {
+  grid-column: 3;
+}
+
+.process-node {
+  grid-column: 2;
+  justify-self: center;
+}
+
+.process-node__dot {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #d4af37;
+}
+
+.timeline-crosshair svg {
+  width: 48px;
+  height: 48px;
 }
 
 .timeline-track {
@@ -318,16 +369,11 @@
   stroke-dashoffset: 1;
 }
 
-.process-card {
-  width: 100%;
-  max-width: 800px;
-}
-
 .process-card__shape {
   background: #0b0b0b;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 28px;
-  padding: 24px;
+  border-radius: 20px;
+  padding: 16px;
   overflow: hidden;
   transition: 0.35s;
   width: 100%;
@@ -336,11 +382,11 @@
 .process-card__content {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 16px;
 }
 
 .process-card__shape:hover {
-  transform: translateY(-10px);
+  transform: translateY(-6px);
 
   border-color: rgba(213, 178, 122, 0.35);
 
@@ -359,8 +405,8 @@
 }
 
 .process-card__media {
-  flex: 0 0 220px;
-  height: 220px;
+  flex: 0 0 150px;
+  height: 150px;
   overflow: hidden;
   border-radius: 18px;
 }
@@ -381,21 +427,21 @@
 }
 
 .process-card__num {
-  font-size: 12px;
-  letter-spacing: 0.22em;
+  font-size: 11px;
+  letter-spacing: 0.18em;
   color: #b99d69;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .process-card__title {
-  font-size: 36px;
+  font-size: 24px;
   line-height: 1.05;
-  margin: 0 0 16px;
+  margin: 0 0 10px;
 }
 
 .process-card__desc {
-  font-size: 16px;
-  line-height: 1.7;
+  font-size: 13px;
+  line-height: 1.6;
   color: #bdbdbd;
   margin: 0;
 }
@@ -473,7 +519,7 @@
 }
 
 .process-card:hover {
-  transform: translateY(-12px) scale(1.02);
+  transform: translateY(-6px) scale(1.02);
 }
 
 .process-card:hover img {

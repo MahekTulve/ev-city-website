@@ -9,7 +9,7 @@ export function FinalCircles() {
         <span className="pf-circle pf-circle--sm" />
         <span className="pf-circle pf-circle--xs" />
         <span className="pf-core" />
-        <span className="pf-line-bottom" />
+        {/* <span className="pf-line-bottom" /> */}
       </div>
     </div>
   );

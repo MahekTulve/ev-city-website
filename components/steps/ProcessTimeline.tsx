@@ -1,46 +1,88 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { motion, useMotionValue, useSpring } from "framer-motion"; // Adjusted to standard package name if needed, or keep "motion/react"
 import { processSteps } from "./data";
 import { StepCard } from "./StepCard";
 import { FinalCircles } from "./FinalCircles";
 import ScrollVideo from "@/components/scrollvideo/scrollvideo";
 import VisionHero from "./VisionHero";
 
+// Updated path builder with realistic 1200px wide coordinate system
+function buildSnakePath(
+  steps: number,
+  isMobile: boolean,
+  xLeft = 140,       // Perfectly balances card alignment on a 1200px canvas
+  xRight = 1060,     // Perfectly balances right card alignment
+  segH = 700,
+  topPad = 40,
+  extraBottom = 1100
+) {
+  // SAFEGUARD FOR MOBILE: If screen is small, draw a clean straight line down the left axis
+  if (isMobile) {
+    const mobileX = 65; // Aligns perfectly with your 20px/24px mobile CSS left positioning
+    return `M ${mobileX} 0 L ${mobileX} ${topPad + steps * segH + extraBottom}`;
+  }
+
+  // DESKTOP SNAKE PATH
+  let d = `M 600 0 L 600 ${topPad}`; // Canvas center is now 600 (1200 / 2)
+  d += ` L ${xLeft} ${topPad}`;
+
+  let currentX = xLeft;
+
+  for (let i = 0; i < steps; i++) {
+    const yTop = topPad + i * segH;
+    const yBot = yTop + segH;
+
+    d += ` L ${currentX} ${yBot}`;
+
+    if (i < steps - 1) {
+      const nextX = currentX === xLeft ? xRight : xLeft;
+      d += ` L ${nextX} ${yBot}`;
+      currentX = nextX;
+    }
+  }
+
+  const endY = topPad + steps * segH;
+  d += ` L 600 ${endY} L 600 ${endY + extraBottom}`;
+
+  return d;
+}
+
 export function ProcessTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
-  const progressRef = useRef<SVGPathElement>(null);
+  const pathRef = useRef<SVGPathElement>(null);
+  
+  // Track mobile layout state dynamically to fix responsive tracking
+  const [isMobile, setIsMobile] = useState(false);
+  const [rawProgress, setRawProgress] = useState(0);
+
+  const pathProgressValue = useMotionValue(0);
+
+  const smoothProgress = useSpring(pathProgressValue, {
+    stiffness: 65,
+    damping: 20,
+    mass: 0.1,
+  });
+
+  const stepCount = processSteps.length;
+  const segH = 700;
+  const topPad = 40;
+  const extraBottom = 1100;
+
+  const viewH = topPad + stepCount * segH + extraBottom;
+  
+  // Generate the updated stable path
+  const pathD = buildSnakePath(stepCount, isMobile, 140, 1060, segH, topPad, extraBottom);
 
   useEffect(() => {
-    const path = progressRef.current;
-    if (!path) return;
-
-    const length = path.getTotalLength();
-
-    path.style.strokeDasharray = `${length}`;
-    path.style.strokeDashoffset = `${length}`;
-
-    const update = () => {
-      const el = containerRef.current;
-      if (!el) return;
-
-      const rect = el.getBoundingClientRect();
-      const total = rect.height + window.innerHeight;
-      const current = window.innerHeight - rect.top;
-
-      const progress = Math.max(0, Math.min(current / total, 1));
-
-      path.style.strokeDashoffset = `${length - progress * length}`;
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
     };
-
-    update();
-
-    window.addEventListener("scroll", update, {
-      passive: true,
-    });
-
-    return () => window.removeEventListener("scroll", update);
+    
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   useEffect(() => {
@@ -51,16 +93,14 @@ export function ProcessTimeline() {
       const rect = el.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
 
-      // Triggers line drawing precisely when the container hits 65% of viewport
       const triggerOffset = viewportHeight * 0.65;
       const totalHeight = rect.height;
       const amountScrolled = triggerOffset - rect.top;
 
-      const currentProgress = Math.max(
-        0,
-        Math.min(100, (amountScrolled / totalHeight) * 100),
-      );
-      setProgress(currentProgress);
+      const currentProgress = Math.max(0, Math.min(1, amountScrolled / totalHeight));
+      
+      pathProgressValue.set(currentProgress);
+      setRawProgress(currentProgress * 100);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -71,175 +111,67 @@ export function ProcessTimeline() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
-  }, []);
+  }, [pathProgressValue]);
 
   return (
     <section className="process-section">
       <VisionHero />
       <div className="process-container">
-        {/* <header className="process-header">
-          <p className="process-eyebrow">EVHomes</p>
-          <h2 className="process-heading">EV 5 Minute City</h2>
-          <p className="process-sub">
-            Experience a lifestyle where hospitals, schools, parks, shopping,
-            and everyday essentials are all just five minutes away, creating a
-            smarter, more connected way of living.
-          </p>
-        </header> */}
-
         <div className="process-timeline" ref={containerRef}>
-          {/* <div className="process-line" aria-hidden="true">
-            <div className="process-line__fill" style={{ height: `${progress}%` }} />
-          </div> */}
           <svg
             className="timeline-svg"
-            viewBox="0 0 1100 4000"
+            viewBox={`0 0 1200 ${viewH}`} // Expanded canvas width from 100 to 1200
             preserveAspectRatio="none"
+            fill="none"
           >
-            {/* Gray Background Path */}
+            {/* Background trace line */}
             <path
-              className="timeline-track"
-              d={`
-M550 0
-
-L550 180
-
-C550 220 520 240 470 240
-L260 240
-C180 240 170 270 170 340
-L170 620
-C170 690 220 720 290 720
-L550 720
-
-C620 720 690 760 690 820
-L690 1100
-C690 1170 640 1200 570 1200
-L550 1200
-
-C480 1200 420 1240 420 1300
-L420 1460
-C420 1520 380 1560 320 1560
-L170 1560
-C120 1560 110 1600 110 1660
-L110 1940
-C110 2010 170 2050 240 2050
-L550 2050
-
-C620 2050 700 2090 700 2160
-L700 2450
-C700 2520 650 2550 590 2550
-L550 2550
-
-C470 2550 400 2600 400 2660
-L400 2840
-C400 2900 360 2940 300 2940
-L170 2940
-C120 2940 110 2980 110 3040
-L110 3320
-C110 3390 180 3430 250 3430
-L550 3430
-
-C630 3430 710 3470 710 3540
-L710 3820
-C710 3890 660 3930 590 3930
-L550 3930
-
-L550 4180
-`}
+              d={pathD}
+              stroke="#3f3f46"
+              strokeWidth="2"
+              opacity="0.15"
+              vectorEffect="non-scaling-stroke"
             />
 
-            {/* Animated Progress Path */}
-            <path
-              ref={progressRef}
-              className="timeline-progress"
-              d={`
-M550 0
-
-L550 180
-
-C550 220 520 240 470 240
-L260 240
-C180 240 170 270 170 340
-L170 620
-C170 690 220 720 290 720
-L550 720
-
-C620 720 690 760 690 820
-L690 1100
-C690 1170 640 1200 570 1200
-L550 1200
-
-C480 1200 420 1240 420 1300
-L420 1460
-C420 1520 380 1560 320 1560
-L170 1560
-C120 1560 110 1600 110 1660
-L110 1940
-C110 2010 170 2050 240 2050
-L550 2050
-
-C620 2050 700 2090 700 2160
-L700 2450
-C700 2520 650 2550 590 2550
-L550 2550
-
-C470 2550 400 2600 400 2660
-L400 2840
-C400 2900 360 2940 300 2940
-L170 2940
-C120 2940 110 2980 110 3040
-L110 3320
-C110 3390 180 3430 250 3430
-L550 3430
-
-C630 3430 710 3470 710 3540
-L710 3820
-C710 3890 660 3930 590 3930
-L550 3930
-
-L550 4180
-
-L550 4360
-
-L550 4520
-
-L550 4700
-
-L550 5000
-
-`}
+            {/* Stable active line path */}
+            <motion.path
+              ref={pathRef}
+              d={pathD}
+              stroke="#d4af37"
+              strokeWidth="4"
+              vectorEffect="non-scaling-stroke"
+              style={{
+                pathLength: smoothProgress,
+              }}
             />
           </svg>
 
           <ol className="process-list">
             {processSteps.map((step, i) => {
-              // Switches alternate side properties sequentially
               const align: "left" | "right" = i % 2 === 0 ? "left" : "right";
-
-              // Calculates active intersection offsets for individual cards
               const activationPoint = (i / processSteps.length) * 100;
-              const reached = progress >= activationPoint;
+              const reached = rawProgress >= activationPoint;
 
               return (
                 <li
-                  key={step.number}
-                  className={`process-row process-row--${align} ${reached ? "is-reached" : ""}`}
+                  key={step.title || step.number}
+                  className={`process-row process-row--${align} ${
+                    reached ? "is-reached" : ""
+                  }`}
+                  style={{ minHeight: `${segH}px` }}
                 >
                   <div className="process-row__side">
                     <StepCard step={step} align={align} />
                   </div>
-
-                  {/* Intersection Anchor point */}
-                  <div className="process-node" aria-hidden="true">
-                    <span className="process-node__dot" />
-                  </div>
+                  <div className="process-node" aria-hidden="true" />
                 </li>
               );
             })}
           </ol>
+
+          <FinalCircles />
         </div>
 
-        <FinalCircles />
         <div className="process-scrollvideo">
           <ScrollVideo src="/images/earth-scrub.mp4" scrollLength={4} />
         </div>
