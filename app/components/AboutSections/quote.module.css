@@ -1,0 +1,91 @@
+.quoteSection {
+  position: absolute;
+  top: 100vh;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background: #f5f1ea;
+  color: #c9b89a;
+  padding: 120px 80px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 4;
+  transform: scale(0.75);
+  transform-origin: center top;
+  border-radius: 40px;
+  will-change: transform, top, border-radius;
+  transition: border-radius 4.5s cubic-bezier(0.2, 1, 0.2, 1);
+}
+
+.quoteSection.sectionEnterActive {
+  animation: quoteSectionSlideUp 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+}
+
+@keyframes quoteSectionSlideUp {
+  0% { top: 100vh; transform: scale(0.75); border-radius: 40px; }
+  35% { top: 100vh; transform: scale(0.50); border-radius: 40px; }
+  100% { top: 0vh; transform: scale(1); border-radius: 0px; }
+}
+
+.quoteSection.sectionExitReverse {
+  animation: quoteSectionSlideDownReverse 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+}
+
+@keyframes quoteSectionSlideDownReverse {
+  0% { top: 0vh; transform: scale(1); border-radius: 0px; }
+  65%, 100% { top: 100vh; transform: scale(0.50); border-radius: 40px; }
+}
+
+.quoteSection.sectionStaticActive {
+  top: 0vh;
+  transform: scale(1);
+  border-radius: 0px;
+}
+
+.author {
+  font-size: 44px;
+  font-weight: 300;
+  color: #b9a684;
+  margin: 0 0 16px;
+}
+
+.divider {
+  width: 60px;
+  height: 1px;
+  background: #c9b89a;
+  margin-bottom: 18px;
+}
+
+.role {
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: #b9a684;
+  text-transform: uppercase;
+}
+
+.quoteRight {
+  position: relative;
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 300;
+  line-height: 1.35;
+  color: #d3c4a8;
+}
+
+.quoteMark {
+  font-family: Georgia, serif;
+  font-size: 180px;
+  color: #c9b89a;
+  line-height: 0.6;
+  display: block;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .quoteSection {
+    grid-template-columns: 1fr;
+    padding: 80px 28px;
+  }
+}
