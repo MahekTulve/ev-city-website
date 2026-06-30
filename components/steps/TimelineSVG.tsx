@@ -4,109 +4,123 @@ import { RefObject, useEffect, useRef } from "react";
 
 type Props = {
   containerRef: RefObject<HTMLDivElement | null>;
+  steps?: number;
+  rowHeight?: number;
+  topOffset?: number;
+  bottomOffset?: number;   // small straight bit right after last card
+  tailLength?: number;     // NEW: extra straight line through circles → scroll video
+  leftX?: number;
+  rightX?: number;
+  centerX?: number;
+  radius?: number;
+  width?: number;
+  initialDraw?: number;    // NEW: fraction (0–1) pre-drawn before scroll starts
 };
 
-export function TimelineSVG({ containerRef }: Props) {
+export function TimelineSVG({
+  containerRef,
+  steps = 4,
+  rowHeight = 520,
+  topOffset = 180,
+  bottomOffset = 120,
+  tailLength = 1200,        // long enough to reach past FinalCircles + into video
+  leftX = 170,
+  rightX = 930,
+  centerX = 550,
+  radius = 60,
+  width = 1100,
+  initialDraw = 0.04,       // ~4% of the line shows immediately
+}: Props) {
   const progressRef = useRef<SVGPathElement>(null);
 
+  // ---- Build path: serpentine through cards, then snap back to centerX and run straight down ----
+  const R = radius;
+  const segments: string[] = [];
+  segments.push(`M ${centerX} 0`);
+  segments.push(`L ${centerX} ${topOffset - R}`);
+
+  let y = topOffset;
+  const firstX = leftX;
+  segments.push(`Q ${centerX} ${y} ${centerX - R} ${y}`);
+  segments.push(`L ${firstX + R} ${y}`);
+  segments.push(`Q ${firstX} ${y} ${firstX} ${y + R}`);
+
+  let currentX = firstX;
+  for (let i = 1; i < steps; i++) {
+    const nextX = currentX === leftX ? rightX : leftX;
+    const goingRight = nextX > currentX;
+    const yEnd = y + rowHeight;
+
+    segments.push(`L ${currentX} ${yEnd - R}`);
+    segments.push(
+      `Q ${currentX} ${yEnd} ${currentX + (goingRight ? R : -R)} ${yEnd}`
+    );
+    segments.push(`L ${nextX + (goingRight ? -R : R)} ${yEnd}`);
+    segments.push(`Q ${nextX} ${yEnd} ${nextX} ${yEnd + R}`);
+
+    currentX = nextX;
+    y = yEnd;
+  }
+
+  // After the last card: short drop, curve back to centerX, then long straight tail
+  segments.push(`L ${currentX} ${y + bottomOffset - R}`);
+  // quarter curve from vertical-down to horizontal toward center
+  const towardCenter = centerX > currentX ? R : -R;
+  segments.push(
+    `Q ${currentX} ${y + bottomOffset} ${currentX + towardCenter} ${y + bottomOffset}`
+  );
+  // horizontal across to just before center
+  segments.push(`L ${centerX - towardCenter} ${y + bottomOffset}`);
+  // curve from horizontal to vertical-down at centerX
+  segments.push(
+    `Q ${centerX} ${y + bottomOffset} ${centerX} ${y + bottomOffset + R}`
+  );
+  // long straight tail going through FinalCircles centre into the scroll video
+  segments.push(`L ${centerX} ${y + bottomOffset + tailLength}`);
+
+  const d = segments.join(" ");
+  const viewBoxHeight = y + bottomOffset + tailLength + 20;
+
+  // ---- Scroll-driven draw with a pre-drawn head segment ----
   useEffect(() => {
     const path = progressRef.current;
     const container = containerRef.current;
-
     if (!path || !container) return;
 
-    const totalLength = path.getTotalLength();
-
-    path.style.strokeDasharray = `${totalLength}`;
-    path.style.strokeDashoffset = `${totalLength}`;
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = `${len}`;
+    // Pre-draw the first `initialDraw` fraction so the line head is visible immediately
+    path.style.strokeDashoffset = `${len - len * initialDraw}`;
 
     const update = () => {
       const rect = container.getBoundingClientRect();
-
-      const viewport = window.innerHeight;
-
-      // amount of section revealed
-
-      const start = viewport * 0.80;
-
-      const end = rect.height + viewport * 0.20;
-
+      const vh = window.innerHeight;
+      const start = vh * 0.8;
+      const total = rect.height + vh * 0.2;
       const travelled = start - rect.top;
-
-      const progress = Math.max(
-        0,
-        Math.min(travelled / end, 1)
-      );
-
-      path.style.strokeDashoffset =
-        `${totalLength - progress * totalLength}`;
+      const scrollP = Math.max(0, Math.min(travelled / total, 1));
+      // never go below the initial draw amount
+      const p = Math.max(initialDraw, scrollP);
+      path.style.strokeDashoffset = `${len - p * len}`;
     };
 
     update();
-
-    window.addEventListener("scroll", update, {
-      passive: true,
-    });
-
+    window.addEventListener("scroll", update, { passive: true });
     window.addEventListener("resize", update);
-
     return () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [containerRef]);
-
-  const path = `
-M550 0
-
-L550 170
-
-C550 210 520 240 470 240
-L250 240
-C185 240 170 270 170 330
-L170 620
-C170 690 220 720 300 720
-L550 720
-
-C630 720 700 760 700 830
-L700 1140
-C700 1210 650 1240 590 1240
-L550 1240
-
-C470 1240 390 1290 390 1360
-L390 1510
-C390 1560 360 1600 310 1600
-L170 1600
-C120 1600 110 1640 110 1700
-L110 2000
-C110 2080 180 2120 250 2120
-L550 2120
-
-
-
-
-`;
+  }, [containerRef, d, initialDraw]);
 
   return (
     <svg
       className="timeline-svg"
-      viewBox="0 0 1100 4050"
-      preserveAspectRatio="none"
+      viewBox={`0 0 ${width} ${viewBoxHeight}`}
+      preserveAspectRatio="xMidYMid meet"
     >
-      {/* Background */}
-
-      <path
-        d={path}
-        className="timeline-track"
-      />
-
-      {/* Animated */}
-
-      <path
-        ref={progressRef}
-        d={path}
-        className="timeline-progress"
-      />
+      <path d={d} className="timeline-track" />
+      <path ref={progressRef} d={d} className="timeline-progress" />
     </svg>
   );
 }

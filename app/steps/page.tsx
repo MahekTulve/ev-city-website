@@ -1,4 +1,3 @@
-import "@/components/steps/process.css";
 import { ProcessTimeline } from "@/components/steps/ProcessTimeline";
 import "@/components/steps/process.css";
 

@@ -5,6 +5,7 @@ import { processSteps } from "./data";
 import { StepCard } from "./StepCard";
 import { FinalCircles } from "./FinalCircles";
 import ScrollVideo from "@/components/scrollvideo/scrollvideo";
+import VisionHero from "./VisionHero";
 
 export function ProcessTimeline() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -74,8 +75,9 @@ export function ProcessTimeline() {
 
   return (
     <section className="process-section">
+      <VisionHero />
       <div className="process-container">
-        <header className="process-header">
+        {/* <header className="process-header">
           <p className="process-eyebrow">EVHomes</p>
           <h2 className="process-heading">EV 5 Minute City</h2>
           <p className="process-sub">
@@ -83,7 +85,7 @@ export function ProcessTimeline() {
             and everyday essentials are all just five minutes away, creating a
             smarter, more connected way of living.
           </p>
-        </header>
+        </header> */}
 
         <div className="process-timeline" ref={containerRef}>
           {/* <div className="process-line" aria-hidden="true">
