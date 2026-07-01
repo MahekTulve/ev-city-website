@@ -4,23 +4,23 @@ import styles from "./extraordinary.module.css";
 interface ExtraordinaryProps {
   isEntering: boolean;
   isActive: boolean;
+  isFinal: boolean; // Received here
 }
 
-export default function ExtraordinarySection({ isEntering, isActive }: ExtraordinaryProps) {
+export default function ExtraordinarySection({ isEntering, isActive, isFinal }: ExtraordinaryProps) {
   
-  // Section Wrapper class
   const sectionClass = `${styles.extraordinarySection} ${
     isEntering ? styles.slideInActive : styles.slideOutBelow
   }`;
 
-  // CHANGE HERE: text ab isEntering hote hi move hona shuru karega
+  // Agar isFinal true hai, to text disappear hone wali class lagao
   const leftContentClass = `${styles.leftContent} ${
-    isEntering ? styles.textMoveToPosition : styles.textCentered
+    isFinal ? styles.textDisappear : (isEntering ? styles.textMoveToPosition : styles.textCentered)
   }`;
 
-  // CHANGE HERE: container bhi isEntering hote hi slide-up aur fade-in hoga
+  // Agar isFinal true hai, to container ko scale-up aur center karne wali class lagao
   const containerClass = `${styles.container} ${
-    isEntering ? styles.containerReveal : styles.containerHidden
+    isFinal ? styles.containerFinalStage : (isEntering ? styles.containerReveal : styles.containerHidden)
   }`;
 
   return (
@@ -37,7 +37,8 @@ export default function ExtraordinarySection({ isEntering, isActive }: Extraordi
         <div className={containerClass}>
           {/* Center Image */}
           <div className={styles.centerContainer}>
-            <div className={styles.imageWrapper}>
+            {/* Wrapper ko scale karne ke liye dynamic class */}
+            <div className={`${styles.imageWrapper} ${isFinal ? styles.imageLarge : ''}`}>
               <img 
                 src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1000&auto=format&fit=crop" 
                 alt="Minimalist Architectural High-rise Tower" 
@@ -47,7 +48,7 @@ export default function ExtraordinarySection({ isEntering, isActive }: Extraordi
           </div>
           
           {/* Right Content */}
-          <div className={styles.rightContent}>
+          <div className={`${styles.rightContent} ${isFinal ? styles.rightContentLarge : ''}`}>
             <h4 className={styles.headingRight}>Pioneering<br />the future</h4>
             <div className={styles.divider} />
             <p className={styles.description}>
