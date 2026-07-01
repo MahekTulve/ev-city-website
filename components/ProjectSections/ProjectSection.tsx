@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, FileSearch } from "lucide-react";
 import { CATEGORIES, CITY_LABEL, type Category, type City, PROJECTS } from "./data";
 import ProjectCard from "./ProjectCard";
-export default function ProjectsSection() {
+export default function ProjectSection() {
   const [category, setCategory] = useState<Category>("residential");
   const [hoverCat, setHoverCat] = useState<Category | null>(null);
   const cities = useMemo(

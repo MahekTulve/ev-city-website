@@ -1,4 +1,4 @@
-import { CardBody, CardContainer, CardItem } from "@/components/projects/3d-card";
+import { CardBody, CardContainer, CardItem } from "@/components/ProjectSections/3d-card";
 import type { Project } from "./data";
 export default function ProjectCard({ project }: { project: Project }) {
   return (
