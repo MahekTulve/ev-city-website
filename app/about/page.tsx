@@ -35,6 +35,7 @@ export default function About() {
 
   // Nayi states 3rd section ke animation ko lock aur trigger karne ke liye
   const [isExtraordinaryActive, setIsExtraordinaryActive] = useState(false);
+  const [isExtraordinaryFinal, setIsExtraordinaryFinal] = useState(false);
   const [isExtraordinaryEntering, setIsExtraordinaryEntering] = useState(false);
 
   const isTransitioning = useRef(false);
@@ -51,25 +52,44 @@ export default function About() {
 
       // --- SECTION 3: EXTRAORDINARY SECTION LOGIC ---
       if (isExtraordinaryActive) {
-        if (e.deltaY < 0) {
-          // User upar scroll kare toh 3rd section ko exit karein aur 2nd active karein
-          e.preventDefault();
-          isTransitioning.current = true;
-          setDirection("up");
+        if (e.deltaY > 0) {
+          // Agar user ek aur baar niche scroll kare aur hum abhi final stage me nahi hain
+          if (!isExtraordinaryFinal) {
+            e.preventDefault();
+            isTransitioning.current = true;
+            setIsExtraordinaryFinal(true); // Next phase animation trigger!
 
-          setIsExtraordinaryEntering(false);
-          setIsExtraordinaryActive(false);
-          setIsQuoteActive(true);
-
-          setTimeout(() => {
-            if (paragraphRef.current) {
-              paragraphRef.current.scrollTop = paragraphRef.current.scrollHeight;
-            }
-            isTransitioning.current = false;
-          }, 4500); // Wahi timing jo aapke standard component exit ki hai
+            setTimeout(() => {
+              isTransitioning.current = false;
+            }, 2500); // Animation duration lock
+            return;
+          }
           return;
         }
-        return;
+
+        if (e.deltaY < 0) {
+          e.preventDefault();
+          isTransitioning.current = true;
+
+          // Agar hum final stage me hain, to scroll up karne par wapas normal stage par aayenge
+          if (isExtraordinaryFinal) {
+            setIsExtraordinaryFinal(false);
+            setTimeout(() => { isTransitioning.current = false; }, 2500);
+          } else {
+            // Wapas Quote Section par jaane ka purana logic
+            setDirection("up");
+            setIsExtraordinaryActive(false);
+            setIsQuoteActive(true);
+
+            setTimeout(() => {
+              if (paragraphRef.current) {
+                paragraphRef.current.scrollTop = paragraphRef.current.scrollHeight;
+              }
+              isTransitioning.current = false;
+            }, 3000);
+          }
+          return;
+        }
       }
 
       // --- SECTION 2: PARAGRAPH SCROLL LOGIC (QUOTE SECTION) ---
@@ -196,10 +216,11 @@ export default function About() {
       </div>
 
       {/* 3. Extraordinary Section */}
-      <ExtraordinarySection
-        isEntering={isExtraordinaryEntering}
-        isActive={isExtraordinaryActive}
-      />
+     <ExtraordinarySection 
+  isEntering={isExtraordinaryEntering}
+  isActive={isExtraordinaryActive}
+  isFinal={isExtraordinaryFinal} // Naya prop pass kiya
+/>
     </div>
   );
 }

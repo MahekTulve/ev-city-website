@@ -41,11 +41,17 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  /* Text move hone me 2.2s lega, jo section ke sath smooth chalega */
-  transition: all 4s cubic-bezier(0.76, 0, 0.24, 1);
-  will-change: transform, top, left;
+  /* cubic-bezier ko update kiya premium deceleration ke liye */
+  transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
+  will-change: transform, top, left, opacity;
+  opacity: 1;
 }
-
+.textDisappear {
+  top: -10rem;
+  left: -10rem;
+  opacity: 0;
+  transform: scale(0.8);
+}
 /* Jab section abhi upar aa raha hai, text center me rahega */
 .textCentered {
   top: 50%;
@@ -71,21 +77,26 @@
   max-width: 800px;
   align-items: center;
   gap: 40px;
-  will-change: transform, opacity;
+  will-change: transform, opacity, width, max-width, bottom, right;
+  transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
 }
-
+.containerFinalStage {
+  opacity: 1;
+  bottom: 50%;
+  right: 50%;
+  transform: translate(50%, 50%); /* Screen ke absolute center alignment ke liye */
+  max-width: 1100px; /* Width expand ho gayi */
+  width: 90%;
+  gap: 60px; /* Elements ke beech gap bada diya */
+}
 .containerHidden {
   opacity: 0;
   transform: translateY(500px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 .containerReveal {
   opacity: 1;
   transform: translateY(0);
-  transition:
-    opacity 2.2s cubic-bezier(0.76, 0, 0.24, 1) 1.2s,
-    transform 2.5s cubic-bezier(0.76, 0, 0.24, 1) 1.2s;
 }
 
 /* --- BAKI RE-USED STYLES --- */
@@ -120,8 +131,13 @@
   max-width: 270px;
   background-color: #e0dcd3;
   overflow: hidden;
+  /* Size change handle karne ke liye transition */
+  transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1);
 }
-
+.imageLarge {
+  max-width: 400px; /* Image scale up size */
+   aspect-ratio: 0.8 / 1.02;
+}
 .buildingImage {
   width: 100%;
   height: 100%;
@@ -132,6 +148,7 @@
   display: flex;
   flex-direction: column;
   padding-left: 20px;
+  transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .headingRight {
@@ -141,7 +158,9 @@
   line-height: 1.2;
   margin: 0 0 16px 0;
 }
-
+.rightContentLarge .headingRight {
+  font-size: clamp(36px, 4vw, 54px); /* Heading badi ho gayi */
+}
 .divider {
   width: 40px;
   height: 1px;
@@ -156,7 +175,10 @@
   color: #a3957b;
   max-width: 280px;
 }
-
+.rightContentLarge .description {
+  font-size: clamp(16px, 1.5vw, 20px); /* Paragraph text bada ho gaya */
+  max-width: 400px; /* Width badh gayi taaki readable rahe */
+}
 @media (max-width: 992px) {
   .container {
     grid-template-columns: 1fr;
