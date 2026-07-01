@@ -4,9 +4,9 @@
   left: 0;
   width: 100%;
   min-height: 100vh;
-  background: #f5f1ea;
+  background: #ffffff;
   color: #c9b89a;
-  padding: 120px 80px;
+  padding: 120px 200px;
   display: grid;
   grid-template-columns: 1fr 2fr;
   gap: 60px;
@@ -17,17 +17,31 @@
   transform-origin: center top;
   border-radius: 40px;
   will-change: transform, top, border-radius;
-  transition: border-radius 4.5s cubic-bezier(0.2, 1, 0.2, 1);
+  transition: border-radius 3.5s cubic-bezier(0.2, 1, 0.2, 1);
 }
 
 .quoteSection.sectionEnterActive {
-  animation: quoteSectionSlideUp 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+  animation: quoteSectionSlideUp 3.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
 }
 
 @keyframes quoteSectionSlideUp {
-  0% { top: 100vh; transform: scale(0.75); border-radius: 40px; }
-  35% { top: 100vh; transform: scale(0.50); border-radius: 40px; }
-  100% { top: 0vh; transform: scale(1); border-radius: 0px; }
+  0% {
+    top: 100vh;
+    transform: scale(0.75);
+    border-radius: 40px;
+  }
+
+  35% {
+    top: 100vh;
+    transform: scale(0.50);
+    border-radius: 40px;
+  }
+
+  100% {
+    top: 0vh;
+    transform: scale(1);
+    border-radius: 0px;
+  }
 }
 
 .quoteSection.sectionExitReverse {
@@ -35,8 +49,18 @@
 }
 
 @keyframes quoteSectionSlideDownReverse {
-  0% { top: 0vh; transform: scale(1); border-radius: 0px; }
-  65%, 100% { top: 100vh; transform: scale(0.50); border-radius: 40px; }
+  0% {
+    top: 0vh;
+    transform: scale(1);
+    border-radius: 0px;
+  }
+
+  65%,
+  100% {
+    top: 100vh;
+    transform: scale(0.50);
+    border-radius: 40px;
+  }
 }
 
 .quoteSection.sectionStaticActive {
@@ -66,21 +90,42 @@
   text-transform: uppercase;
 }
 
+
 .quoteRight {
   position: relative;
-  font-size: clamp(28px, 3vw, 44px);
-  font-weight: 300;
-  line-height: 1.35;
+  font-size: clamp(24px, 4.5vw, 55px);
+  font-weight: 200;
+  line-height: 1.4;
   color: #d3c4a8;
+  max-height: 7.2em;
+  overflow-y: auto;
+  padding-right: 15px;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  font-family: "NeueRegradeRegular";
+
+}
+
+.quoteRight::-webkit-scrollbar {
+  width: 4px;
+}
+
+.quoteRight::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.quoteRight::-webkit-scrollbar-thumb {
+  background: #c9b89a;
+  border-radius: 10px;
 }
 
 .quoteMark {
   font-family: Georgia, serif;
-  font-size: 180px;
+  font-size: 140px;
   color: #c9b89a;
   line-height: 0.6;
   display: block;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 @media (max-width: 768px) {

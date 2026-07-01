@@ -5,3 +5,63 @@
   background: #f5f1ea;
   font-family: 'Helvetica Neue', Arial, sans-serif;
 }
+/* .nextSection{
+  display: flex;
+  height: 100vh;
+  width: 100%;
+} */
+
+
+.pageContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f5f1ea;
+}
+
+/* Base Wrapper for all full-page stack sheets */
+.sectionWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1); /* Premium Smooth Spring easing curve */
+  will-change: transform;
+}
+
+/* Phase 1: Jab current view me user screen dekh raha ho */
+.viewing {
+  transform: translateY(0);
+  z-index: 20;
+}
+
+/* Phase 2: Jo section abhi scroll down hoke aana baki hai (Niche wait kar raha hai) */
+.hiddenBelow {
+  transform: translateY(100%);
+  z-index: 10;
+}
+
+/* Phase 3: Jo section scroll up ho chuka hai (Upar ja chuka hai) */
+.hiddenAbove {
+  transform: translateY(-100%);
+  z-index: 5;
+}
+/* Quote section ka base wrapper */
+.quoteWrapper {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 20;
+  /* Same timing use karenge taaki dono section sath me move hon */
+  transition: transform 3.5s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform;
+}
+
+/* Jab 3rd section upar aane lage, tab 2nd section thoda sa upar slide hoga (Parallax Effect) */
+.quoteMovingUp {
+  transform: translateY(-50%); /* Aap is value ko -30% se -50% ke beech adjust kar sakte hain */
+}
