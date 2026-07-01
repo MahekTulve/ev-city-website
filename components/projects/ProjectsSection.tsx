@@ -2,33 +2,20 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, FileSearch } from "lucide-react";
-import {
-  CATEGORIES,
-  CITY_LABEL,
-  Category,
-  City,
-  PROJECTS,
-} from "./data";
+import { CATEGORIES, CITY_LABEL, type Category, type City, PROJECTS } from "./data";
 import ProjectCard from "./ProjectCard";
-
 export default function ProjectsSection() {
   const [category, setCategory] = useState<Category>("residential");
   const [hoverCat, setHoverCat] = useState<Category | null>(null);
-
   const cities = useMemo(
     () => CATEGORIES.find((c) => c.id === category)?.cities ?? [],
     [category],
   );
   const [city, setCity] = useState<City>(cities[0]);
-
-  // keep city valid when category changes
   const activeCity = cities.includes(city) ? city : cities[0];
-  // const projects = PROJECTS[category]?.[activeCity] ?? [];
-
-    const gridKey = `${category}:${activeCity}`;
+  const gridKey = `${category}:${activeCity}`;
   const [renderKey, setRenderKey] = useState(gridKey);
   const [visible, setVisible] = useState(true);
-
   useEffect(() => {
     if (gridKey === renderKey) return;
     setVisible(false);
@@ -38,21 +25,15 @@ export default function ProjectsSection() {
     }, 220);
     return () => clearTimeout(t);
   }, [gridKey, renderKey]);
-  const [activeCatForRender, activeCityForRender] = renderKey.split(":") as [
-    Category,
-    City,
-  ];
-  const projects =
-    PROJECTS[activeCatForRender]?.[activeCityForRender] ?? [];
+  const [activeCatForRender, activeCityForRender] = renderKey.split(":") as [Category, City];
+  const projects = PROJECTS[activeCatForRender]?.[activeCityForRender] ?? [];
   const pickCity = (cat: Category, c: City) => {
     setCategory(cat);
     setCity(c);
     setHoverCat(null);
   };
-
   return (
-    <section className="relative min-h-screen w-full bg-black bg-[url('/images/bg-proj.jpg')] bg-cover bg-top bg-no-repeat py-10">
-      {/* Enquire now floating badge */}
+    <section className="relative min-h-screen w-full bg-neutral-950 py-10">
       <button
         type="button"
         className="fixed right-5 top-1/3 z-30 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-gradient-to-br from-amber-300 via-yellow-500 to-amber-700 text-center text-[11px] font-bold uppercase text-black shadow-[0_8px_30px_rgba(0,0,0,0.6)] ring-2 ring-amber-200/60 transition hover:scale-105"
@@ -61,13 +42,11 @@ export default function ProjectsSection() {
         Enquire
         <span>Now</span>
       </button>
-
       <div className="mx-auto max-w-7xl px-4">
-        {/* Top category tabs */}
         <div className="flex flex-wrap justify-center gap-4 pb-8">
           {CATEGORIES.map((cat) => {
             const active = cat.id === category;
-             const open = hoverCat === cat.id;
+            const open = hoverCat === cat.id;
             return (
               <div
                 key={cat.id}
@@ -79,7 +58,6 @@ export default function ProjectsSection() {
                   onClick={() => {
                     setCategory(cat.id);
                     setCity(cat.cities[0]);
-                 
                   }}
                   className={`flex w-56 items-center justify-between gap-3 border px-5 py-3 text-sm font-semibold uppercase tracking-[0.18em] transition-all duration-300 ${
                     active
@@ -88,12 +66,9 @@ export default function ProjectsSection() {
                   }`}
                 >
                   {cat.label}
-                  <ChevronDown
-                       className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
-                  />
+                  <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
                 </button>
-
-                   <div
+                <div
                   className={`absolute left-0 right-0 top-full z-20 origin-top transform pt-2 transition-all duration-300 ease-out ${
                     open
                       ? "pointer-events-auto translate-y-0 opacity-100"
@@ -124,8 +99,6 @@ export default function ProjectsSection() {
             );
           })}
         </div>
-
-        {/* City sub-tabs */}
         {cities.length > 1 && (
           <div className="flex flex-wrap justify-center gap-8 border-b border-neutral-800/80 pb-5">
             {cities.map((c) => {
@@ -134,21 +107,17 @@ export default function ProjectsSection() {
                 <button
                   key={c}
                   onClick={() => setCity(c)}
-                 className={`relative pb-2 text-sm font-semibold uppercase tracking-[0.25em] transition-colors duration-300 ${
+                  className={`relative pb-2 text-sm font-semibold uppercase tracking-[0.25em] transition-colors duration-300 ${
                     active ? "text-white" : "text-neutral-500 hover:text-neutral-300"
                   }`}
                 >
                   {CITY_LABEL[c]}
-                  {active && (
-                    <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-amber-500" />
-                  )}
+                  {active && <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-amber-500" />}
                 </button>
               );
             })}
           </div>
         )}
-
-        {/* Project grid */}
         <div
           className={`grid grid-cols-1 gap-8 py-10 transition-all duration-300 ease-out sm:grid-cols-2 lg:grid-cols-3 ${
             visible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
@@ -164,7 +133,6 @@ export default function ProjectsSection() {
             </div>
           ))}
         </div>
-
         {projects.length === 0 && (
           <p className="py-20 text-center text-neutral-400">
             No projects available in this location yet.

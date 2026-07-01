@@ -125,15 +125,15 @@
   width: 14px;
   height: 14px;
   border-radius: 50%;
-  background: #0b0b0d;
-  border: 2px solid rgba(255, 255, 255, 0.2);
+  background: #0b0b0b;
+  border: 2px solid #d4af37;
+  box-shadow: 0 0 12px 2px rgba(212, 175, 55, 0.4);
   transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .process-row.is-reached .process-node__dot {
-  background: #c9a87a;
-  border-color: #c9a87a;
-  box-shadow: 0 0 0 6px rgba(201, 168, 122, 0.2);
+  background: #D4AF37;
+  box-shadow: 0 0 20px 4px rgba(212, 175, 55, 0.6);
 }
 
 /* Re-designed Premium Card Structure */
@@ -276,7 +276,7 @@
   display: grid;
   grid-template-columns: 1fr 120px 1fr;
   align-items: center;
-  min-height: 350;
+  min-height: 350px;
   position: relative;
 }
 
@@ -319,27 +319,18 @@
   stroke-linejoin: round;
 }
 
-
 .timeline-wrapper {
   position: relative;
 }
 
-.timeline-svg {
-  position: absolute;
-
-  left: 0;
-
-  top: 0;
-
-  width: 100%;
-
-  height: 100%;
-
-  overflow: visible;
-
-  pointer-events: none;
-
-  z-index: 0;
+.timeline-svg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    overflow:visible;
+    pointer-events:none;
+    z-index:0;
 }
 
 .timeline-track {
@@ -369,35 +360,92 @@
   stroke-dashoffset: 1;
 }
 
+/* ==========================================================================
+   Premium Image-Matched Card Styles
+   ========================================================================== */
+
+/* ==========================================================================
+   Champagne Gold (#c2b99c) Premium Glow Interaction
+   ========================================================================== */
+
 .process-card__shape {
-  background: #0b0b0b;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 20px;
-  padding: 16px;
-  overflow: hidden;
-  transition: 0.35s;
+  position: relative;
   width: 100%;
+  padding: 36px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  /* Premium Translucent Dark Base */
+  background: rgba(11, 11, 11, 1); 
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 24px; 
+
+  /* Resting Border: Very faint champagne tint */
+  border: 1px solid rgba(194, 185, 156, 0.18);
+
+  /* Resting Shadow: Subtle depth */
+  box-shadow: 
+    0 20px 50px rgba(0, 0, 0, 0.6), 
+    0 0 20px rgba(194, 185, 156, 0.02);
+
+  /* Smooth cinematic transition */
+  transition: 
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Subtle top border reflection matching the color */
+.process-card__shape::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 10%;
+  width: 80%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(194, 185, 156, 0.3),
+    transparent
+  );
+  opacity: 1;
+  transition: background 0.4s ease;
+}
+
+/* --- THE HOVER GLOW EFFECT --- */
+.process-card__shape:hover {
+  /* Lift the card up slightly */
+  transform: translateY(-5px);
+  
+  /* Crisp, illuminated border using your exact color token */
+  border-color: rgba(194, 185, 156, 0.65); 
+  
+  /* Multi-layered light bloom simulation */
+  box-shadow: 
+    0 40px 80px rgba(0, 0, 0, 0.8),            /* 1. Deep background separation */
+    0 0 15px rgba(194, 185, 156, 0.35),         /* 2. Sharp illumination core */
+    0 0 45px rgba(194, 185, 156, 0.18),         /* 3. Medium ambient radiance */
+    0 0 90px rgba(194, 185, 156, 0.08),         /* 4. Large dramatic environmental bloom */
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);    /* 5. Subtle internal rim highlight */
+}
+
+/* Boost the top reflection line on hover */
+.process-card__shape:hover::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(194, 185, 156, 0.8),
+    transparent
+  );
 }
 
 .process-card__content {
   display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.process-card__shape:hover {
-  transform: translateY(-6px);
-
-  border-color: rgba(213, 178, 122, 0.35);
-
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.45);
-}
-
-/* golden glow */
-
-.process-card__shape:hover {
-  transform: translateY(-5px);
-  border-color: #3a3a3a;
+  align-items: flex-start;
+  gap: 24px;
 }
 
 .process-card__shape:hover::before {
@@ -405,8 +453,8 @@
 }
 
 .process-card__media {
-  flex: 0 0 150px;
-  height: 150px;
+  flex: 0 0 220px;
+  height: 160px;
   overflow: hidden;
   border-radius: 18px;
 }
@@ -415,7 +463,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 .process-card__text {
@@ -426,23 +473,33 @@
   transform: scale(1);
 }
 
+/* Card Step Numbers (01, 02, 03) */
 .process-card__num {
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  color: #b99d69;
-  margin-bottom: 8px;
-}
-
-.process-card__title {
-  font-size: 24px;
-  line-height: 1.05;
-  margin: 0 0 10px;
-}
-
-.process-card__desc {
   font-size: 13px;
+  font-weight: 600;
+  font-family: monospace;
+  letter-spacing: 0.15em;
+  color: #c9a87a; /* Clean gold/bronze */
+  margin-bottom: 16px;
+  display: block;
+  opacity: 0.9;
+}
+
+/* Main Titles (Your Future, Education, etc.) */
+.process-card__title {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.15;
+  color: #ffffff; /* Crisp white */
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+/* Card Descriptions */
+.process-card__desc {
+  font-size: 15px;
   line-height: 1.6;
-  color: #bdbdbd;
+  color: #a8a4a3; /* Subdued, elegant gray */
   margin: 0;
 }
 
