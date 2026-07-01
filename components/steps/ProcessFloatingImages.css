@@ -1,0 +1,56 @@
+.pfi-wrapper {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.pfi-left,
+.pfi-right {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+  top: 50%;
+}
+
+.pfi-left {
+  left: 4vw;
+  top: 42%; /* Lifted up */
+  width: 190px;
+  height: 140px; /* Editorial portrait aspect ratio */
+  transform: translateY(-50%) rotate(-2deg) !important;
+}
+
+.pfi-right {
+  right: 4vw;
+  top: 58%; /* Dropped down */
+  width: 190px;
+  height: 140px; /* Wide landscape aspect ratio */
+  transform: translateY(-50%) rotate(3deg) !important;
+}
+
+/* Change from viewport edges to aligning with your 1100px-1200px inner grid */
+.pfi-left {
+  left: calc(50% - 700px); /* Adjust based on your center line */
+  top: 50%;
+}
+
+.pfi-right {
+  right: calc(50% - 700px);
+  top: 50%;
+}
+
+/* If screen shrinks too close to the container, it gracefully handles it */
+@media (max-width: 1400px) {
+  .pfi-left { left: 2vw; }
+  .pfi-right { right: 2vw; }
+}
+
+@media (max-width: 991px) {
+  .pfi-wrapper {
+    display: none;
+  }
+}
