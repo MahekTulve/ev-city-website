@@ -3,7 +3,7 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
-  background-color: #ffffff;
+  background-color: #fcf3e3;
 }
 
 .slide {
@@ -39,8 +39,15 @@
 }
 
 @keyframes lastCardExitTopSuperSlow {
-  0% { opacity: 1; transform: scale(1) translateY(0); }
-  100% { opacity: 0; transform: scale(0.62) translateY(-120%); }
+  0% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.62) translateY(-120%);
+  }
 }
 
 .slide.lastExit .slideImage {
@@ -48,8 +55,13 @@
 }
 
 @keyframes imageExitTopSuperSlow {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.61); }
+  0% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1.61);
+  }
 }
 
 .slide.lastEnterReverse {
@@ -59,9 +71,20 @@
 }
 
 @keyframes lastCardEnterTopReverse {
-  0% { opacity: 0; transform: scale(0.62) translateY(-120%); }
-  45% { opacity: 1; transform: scale(0.62) translateY(0); }
-  100% { opacity: 1; transform: scale(1) translateY(0); }
+  0% {
+    opacity: 0;
+    transform: scale(0.62) translateY(-120%);
+  }
+
+  45% {
+    opacity: 1;
+    transform: scale(0.62) translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 .slide.active {
@@ -70,10 +93,26 @@
 }
 
 @keyframes frameEnter {
-  0%, 50% { opacity: 0; transform: scale(0.52) translateX(100%); }
-  55% { opacity: 1; }
-  75% { opacity: 1; transform: scale(0.52) translateX(0); }
-  100% { opacity: 1; transform: scale(1) translateX(0); }
+
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0.52) translateX(100%);
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(0.52) translateX(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
 }
 
 .slide.activeReverse {
@@ -82,10 +121,26 @@
 }
 
 @keyframes frameEnterFromLeft {
-  0%, 50% { opacity: 0; transform: scale(0.52) translateX(-100%); }
-  55% { opacity: 1; }
-  75% { opacity: 1; transform: scale(0.52) translateX(0); }
-  100% { opacity: 1; transform: scale(1) translateX(0); }
+
+  0%,
+  50% {
+    opacity: 0;
+    transform: scale(0.52) translateX(-100%);
+  }
+
+  55% {
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 1;
+    transform: scale(0.52) translateX(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
 }
 
 .slide.prev {
@@ -94,9 +149,20 @@
 }
 
 @keyframes frameExitLeft {
-  0% { opacity: 1; transform: scale(1) translateX(0); }
-  30% { opacity: 1; transform: scale(0.52) translateX(0); }
-  100% { opacity: 0; transform: scale(0.52) translateX(-100%); }
+  0% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(0.52) translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.52) translateX(-100%);
+  }
 }
 
 .slide.next {
@@ -110,9 +176,20 @@
 }
 
 @keyframes frameExitRight {
-  0% { opacity: 1; transform: scale(1) translateX(0); }
-  30% { opacity: 1; transform: scale(0.52) translateX(0); }
-  100% { opacity: 0; transform: scale(0.52) translateX(100%); }
+  0% {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+
+  30% {
+    opacity: 1;
+    transform: scale(0.52) translateX(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.52) translateX(100%);
+  }
 }
 
 .slideImage {
@@ -130,8 +207,14 @@
 }
 
 @keyframes imageExitLeft {
-  0% { transform: scale(1); }
-  50%, 100% { transform: scale(1.61); }
+  0% {
+    transform: scale(1);
+  }
+
+  50%,
+  100% {
+    transform: scale(1.61);
+  }
 }
 
 .slide.active .slideImage {
@@ -139,8 +222,15 @@
 }
 
 @keyframes imageEnter {
-  0%, 75% { transform: scale(1.61); }
-  100% { transform: scale(1); }
+
+  0%,
+  75% {
+    transform: scale(1.61);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .slide.lastEnterReverse .slideImage {
@@ -148,8 +238,15 @@
 }
 
 @keyframes imageEnterTopReverse {
-  0%, 45% { transform: scale(1.61); }
-  100% { transform: scale(1); }
+
+  0%,
+  45% {
+    transform: scale(1.61);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .slide.nextReverse .slideImage {
@@ -157,8 +254,14 @@
 }
 
 @keyframes imageExitRight {
-  0% { transform: scale(1); }
-  50%, 100% { transform: scale(1.61); }
+  0% {
+    transform: scale(1);
+  }
+
+  50%,
+  100% {
+    transform: scale(1.61);
+  }
 }
 
 .slide.activeReverse .slideImage {
@@ -166,8 +269,15 @@
 }
 
 @keyframes imageEnterFromLeft {
-  0%, 74% { transform: scale(1.61); }
-  100% { transform: scale(1); }
+
+  0%,
+  74% {
+    transform: scale(1.61);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .headline {
@@ -181,7 +291,7 @@
   z-index: 4;
   pointer-events: none;
   padding: 0 24px;
-  color: #fae34c;
+  color: #ffffff;
   will-change: transform, opacity;
   opacity: 0;
   transform: translate(-100px, 120px);
@@ -214,41 +324,111 @@
 }
 
 @keyframes headlineBottomLeftIn {
-  0% { opacity: 0; transform: translate(-100vw, 100vh); }
-  35% { opacity: 0.5; }
-  100% { opacity: 1; transform: translate(0, 0); }
+  0% {
+    opacity: 0;
+    transform: translate(-100vw, 100vh);
+  }
+
+  35% {
+    opacity: 0.5;
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
 @keyframes headlineExitTopSlow {
-  0% { opacity: 1; transform: translate(0, 0); }
-  100% { opacity: 0; transform: translate(0, -120vh); }
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(0, -120vh);
+  }
 }
 
 @keyframes headlineEnterTopReverseKey {
-  0% { opacity: 0; transform: translate(0, -120vh); }
-  45% { opacity: 1; transform: translate(0, 0); }
-  100% { opacity: 1; transform: translate(0, 0); }
+  0% {
+    opacity: 0;
+    transform: translate(0, -120vh);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
 }
 
-.slide.initialActive .headlineActive { animation-delay: 0.3s; }
-.slide.lastEnterReverse .headlineActive { animation-delay: 3.2s; }
+.slide.initialActive .headlineActive {
+  animation-delay: 0.3s;
+}
 
-.line1 { font-size: clamp(40px, 6vw, 84px); font-weight: 300; letter-spacing: 1px; margin-right: 30%; }
-.line2 { font-size: clamp(40px, 6vw, 84px); font-weight: 300; letter-spacing: 1px; margin-top: 8px; margin-left: 10%; }
-.line3 { font-size: clamp(36px, 5.5vw, 76px); font-style: italic; font-weight: 300; margin-top: 18px; }
+.slide.lastEnterReverse .headlineActive {
+  animation-delay: 3.2s;
+}
+
+.line1 {
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-right: 30%;
+}
+
+.line2 {
+  font-size: clamp(40px, 6vw, 84px);
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-top: 8px;
+  margin-left: 10%;
+}
+
+.line3 {
+  font-size: clamp(36px, 5.5vw, 76px);
+  font-style: italic;
+  font-weight: 300;
+  margin-top: 18px;
+}
 
 .header {
   position: absolute;
   top: 32px;
   left: 48px;
-  z-index: 5;
-  color: #fff;
+  z-index: 999;
+  color: #c7b496;
   letter-spacing: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1.2;
+  font-weight: 200;
+
 }
 
-.logoMain { font-size: 22px; font-weight: 300; }
-.logoMain b { font-weight: 700; }
-.logoSub { font-size: 11px; margin-top: 4px; letter-spacing: 3px; opacity: 0.9; }
+.logoMain {
+  font-size: 27px;
+}
+
+.logoSub b,
+.logoMain b {
+  font-weight: 500;
+  color: #746957;
+
+}
+
+.logoSub {
+  font-size: 18px;
+  letter-spacing: 0rem;
+  opacity: 0.9;
+}
 
 .diamond {
   position: absolute;
@@ -279,8 +459,15 @@
 }
 
 @keyframes indicatorsExitTop {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(-120vh); }
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-120vh);
+  }
 }
 
 .indicatorsLastEnterReverse {
@@ -288,9 +475,20 @@
 }
 
 @keyframes indicatorsEnterTopReverse {
-  0% { opacity: 0; transform: translateY(-120vh); }
-  45% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 1; transform: translateY(0); }
+  0% {
+    opacity: 0;
+    transform: translateY(-120vh);
+  }
+
+  45% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .bar {
@@ -310,12 +508,26 @@
 }
 
 @keyframes fillAnim {
-  from { transform: scaleX(0); }
-  to { transform: scaleX(1); }
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
 }
 
 @media (max-width: 768px) {
-  .header { left: 24px; }
-  .indicators { left: 24px; bottom: 32px; }
-  .bar { width: 140px; }
+  .header {
+    left: 24px;
+  }
+
+  .indicators {
+    left: 24px;
+    bottom: 32px;
+  }
+
+  .bar {
+    width: 140px;
+  }
 }

@@ -1,3 +1,5 @@
+// app/components/AboutSections/QuoteSection.tsx
+import { ForwardedRef, forwardRef } from "react";
 import styles from "./quote.module.css";
 
 interface QuoteSectionProps {
@@ -6,11 +8,10 @@ interface QuoteSectionProps {
   isQuoteActive: boolean;
 }
 
-export default function QuoteSection({
-  isLastExiting,
-  isLastEntering,
-  isQuoteActive,
-}: QuoteSectionProps) {
+const QuoteSection = forwardRef(function QuoteSection(
+  { isLastExiting, isLastEntering, isQuoteActive }: QuoteSectionProps,
+  ref: ForwardedRef<HTMLDivElement>
+) {
   return (
     <section
       className={`${styles.quoteSection} ${
@@ -28,10 +29,15 @@ export default function QuoteSection({
         <div className={styles.divider} />
         <div className={styles.role}>Managing Director</div>
       </div>
-      <div className={styles.quoteRight}>
-        <span className={styles.quoteMark}>“</span>
-        We transform locations into extraordinary destinations by placing people at the heart of our design philosophy.
+      
+      {/* paragraph me inner content check karne ke liye ref bound kiya */}
+      <div className={styles.quoteRight} ref={ref}>
+        We transform locations into extraordinary destinations by placing people at the heart of our design philosophy. 
+        Our spaces inspire collaboration, foster sustainable growth, and create communities where generations thrive. 
+       
       </div>
     </section>
   );
-}
+});
+
+export default QuoteSection;

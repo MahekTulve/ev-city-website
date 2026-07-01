@@ -1,22 +1,23 @@
 'use client'
 import { useEffect, useState, useRef } from "react";
-import SliderSection from "@/app/components/AboutSections/SliderSection";
-import QuoteSection from "@/app/components/AboutSections/QuoteSection";
+import SliderSection from "@/components/AboutSections/SliderSection";
+import QuoteSection from "@/components/AboutSections/QuoteSection";
+import ExtraordinarySection from "@/components/AboutSections/ExtraordinarySection";
 import styles from "./about.module.css";
 
 const slides = [
   {
-    image: "https://images.unsplash.com/photo-1778731525372-0ec34ead8d08?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "https://images.unsplash.com/photo-1778731525372-0ec34ead8d08?q=80&w=2070&auto=format&fit=crop",
     line2: "the spaces",
     line3: "we create.",
   },
   {
-    image: "https://images.unsplash.com/photo-1776482127999-81dd824eb42c?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "https://images.unsplash.com/photo-1776482127999-81dd824eb42c?q=80&w=1170&auto=format&fit=crop",
     line2: "the quality",
     line3: "we stand by.",
   },
   {
-    image: "https://images.unsplash.com/photo-1778731525362-d4236da27aa4?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "https://images.unsplash.com/photo-1778731525362-d4236da27aa4?q=80&w=2070&auto=format&fit=crop",
     line2: "the stories",
     line3: "we fulfil.",
   },
@@ -28,10 +29,17 @@ export default function About() {
   const [isLastExiting, setIsLastExiting] = useState(false);
   const [isLastEntering, setIsLastEntering] = useState(false);
   const [direction, setDirection] = useState("down");
+
+  // Section states
   const [isQuoteActive, setIsQuoteActive] = useState(false);
+
+  // Nayi states 3rd section ke animation ko lock aur trigger karne ke liye
+  const [isExtraordinaryActive, setIsExtraordinaryActive] = useState(false);
+  const [isExtraordinaryEntering, setIsExtraordinaryEntering] = useState(false);
 
   const isTransitioning = useRef(false);
   const lockPage = useRef(true);
+  const paragraphRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (lockPage.current) {
@@ -41,25 +49,84 @@ export default function About() {
     const handleWheel = (e: WheelEvent) => {
       if (isTransitioning.current) return;
 
-      if (isQuoteActive && e.deltaY < 0) {
-        e.preventDefault();
-        isTransitioning.current = true;
-        setDirection("up");
-        setIsLastExiting(false);
-        setIsLastEntering(true);
-        setIsQuoteActive(false);
-        lockPage.current = true;
-        document.body.style.overflow = "hidden";
-        setIndex(slides.length - 1);
+      // --- SECTION 3: EXTRAORDINARY SECTION LOGIC ---
+      if (isExtraordinaryActive) {
+        if (e.deltaY < 0) {
+          // User upar scroll kare toh 3rd section ko exit karein aur 2nd active karein
+          e.preventDefault();
+          isTransitioning.current = true;
+          setDirection("up");
 
-        setTimeout(() => {
-          setIsLastEntering(false);
-          isTransitioning.current = false;
-        }, 4500);
+          setIsExtraordinaryEntering(false);
+          setIsExtraordinaryActive(false);
+          setIsQuoteActive(true);
+
+          setTimeout(() => {
+            if (paragraphRef.current) {
+              paragraphRef.current.scrollTop = paragraphRef.current.scrollHeight;
+            }
+            isTransitioning.current = false;
+          }, 4500); // Wahi timing jo aapke standard component exit ki hai
+          return;
+        }
         return;
       }
 
-      if (window.scrollY < 50 && lockPage.current && !isQuoteActive) {
+      // --- SECTION 2: PARAGRAPH SCROLL LOGIC (QUOTE SECTION) ---
+      if (isQuoteActive) {
+        const para = paragraphRef.current;
+        if (para) {
+          const isAtTop = para.scrollTop <= 0;
+          const isAtBottom = para.scrollHeight - para.scrollTop <= para.clientHeight + 1;
+
+          if (e.deltaY < 0 && !isAtTop) {
+            para.scrollTop += e.deltaY * 0.6;
+            return;
+          }
+
+          if (e.deltaY > 0 && !isAtBottom) {
+            para.scrollTop += e.deltaY * 0.6;
+            return;
+          }
+        }
+
+        // Paragraph top par hai aur upar scroll kiya -> Back to Slider
+        if (e.deltaY < 0) {
+          e.preventDefault();
+          isTransitioning.current = true;
+          setDirection("up");
+          setIsLastExiting(false);
+          setIsLastEntering(true);
+          setIsQuoteActive(false);
+          lockPage.current = true;
+          setIndex(slides.length - 1);
+
+          setTimeout(() => {
+            setIsLastEntering(false);
+            isTransitioning.current = false;
+          }, 4500);
+          return;
+        }
+
+        // About.tsx ke andar jahan section change ho raha hai:
+        if (e.deltaY > 0) {
+          e.preventDefault();
+          isTransitioning.current = true;
+          setDirection("down");
+
+          setIsQuoteActive(false);
+          setIsExtraordinaryEntering(true);
+
+          setTimeout(() => {
+            setIsExtraordinaryActive(true);
+            isTransitioning.current = false;
+          }, 3000); // Isko 3000ms (3s) rakhein taaki jab tak section slow slide complete kare, tab tak scroll lock rahe.
+          return;
+        }
+      }
+
+      // --- SECTION 1: STANDARD SLIDER LOGIC ---
+      if (lockPage.current && !isQuoteActive && !isExtraordinaryActive) {
         if (e.deltaY > 0) {
           e.preventDefault();
 
@@ -77,10 +144,8 @@ export default function About() {
             setDirection("down");
 
             setTimeout(() => {
-              lockPage.current = false;
               setIsQuoteActive(true);
-              document.body.style.overflow = "unset";
-              window.scrollTo(0, window.innerHeight);
+              if (paragraphRef.current) paragraphRef.current.scrollTop = 0;
               isTransitioning.current = false;
             }, 4500);
           }
@@ -100,27 +165,18 @@ export default function About() {
       }
     };
 
-    const handleScroll = () => {
-      if (window.scrollY === 0 && !lockPage.current) {
-        lockPage.current = true;
-        setIsQuoteActive(false);
-        document.body.style.overflow = "hidden";
-      }
-    };
-
     window.addEventListener("wheel", handleWheel, { passive: false });
-    window.addEventListener("scroll", handleScroll);
 
     return () => {
       window.removeEventListener("wheel", handleWheel);
-      window.removeEventListener("scroll", handleScroll);
       document.body.style.overflow = "unset";
     };
-  }, [index, isQuoteActive]);
+  }, [index, isQuoteActive, isExtraordinaryActive]);
 
   return (
     <div className={styles.page}>
-      <SliderSection 
+      {/* 1. Slider Section */}
+      <SliderSection
         slides={slides}
         index={index}
         isInitial={isInitial}
@@ -128,11 +184,21 @@ export default function About() {
         isLastEntering={isLastEntering}
         direction={direction}
       />
-      
-      <QuoteSection 
-        isLastExiting={isLastExiting}
-        isLastEntering={isLastEntering}
-        isQuoteActive={isQuoteActive}
+
+      {/* 2. Quote Section (Yahan hum class wrapper add kar rahe hain parallax ke liye) */}
+      <div className={`${styles.quoteWrapper} ${isExtraordinaryEntering ? styles.quoteMovingUp : ''}`}>
+        <QuoteSection
+          ref={paragraphRef}
+          isLastExiting={isLastExiting}
+          isLastEntering={isLastEntering}
+          isQuoteActive={isQuoteActive}
+        />
+      </div>
+
+      {/* 3. Extraordinary Section */}
+      <ExtraordinarySection
+        isEntering={isExtraordinaryEntering}
+        isActive={isExtraordinaryActive}
       />
     </div>
   );
