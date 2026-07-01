@@ -1,4 +1,4 @@
-import ProjectsSection from "@/components/projects/ProjectsSection";
+import ProjectsSection from "@/components/ProjectSections/ProjectSection";
 
 export const metadata = {
   title: "Our Projects | EV Group",

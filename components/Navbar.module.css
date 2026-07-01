@@ -1,14 +1,23 @@
 /* app/components/Navbar.module.css */
+
 .navbar {
   display: flex;
-  justifyContent: space-between;
-  alignItems: center;
+  justify-content: space-between;
+  align-items: center;
   padding: 1.25rem 4rem;
-  background: rgba(10, 10, 10, 0.95); /* Ultra dark premium background */
-  backdrop-filter: blur(10px); /* Modern blur effect */
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08); /* Subtle border */
-  position: sticky;
+
+  /* Transparent Glass Effect */
+  background: rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  /* Gold Bottom Border */
+  border-bottom: 1px solid rgba(188, 156, 34, 0.6);
+
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 100%;
   z-index: 1000;
 }
 
@@ -18,15 +27,12 @@
 }
 
 .logo {
-  color: #fff;
+  color: white;
   font-size: 1.6rem;
   font-weight: 700;
-  letter-spacing: 3px; /* Luxury spacing */
+  letter-spacing: 3px;
   text-decoration: none;
   text-transform: uppercase;
-  background: linear-gradient(135px, #ffffff 0%, #a3a3a3 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   transition: opacity 0.3s ease;
 }
 
@@ -41,7 +47,7 @@
 }
 
 .link {
-  color: #bc9c22; /* Premium Gold/Bronze Accent color */
+  color: #bc9c22;
   font-size: 0.9rem;
   font-weight: 500;
   text-decoration: none;
@@ -52,31 +58,32 @@
   transition: color 0.3s ease;
 }
 
-/* Luxury underline hover effect */
+/* Gold underline */
 .link::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: 0;
-  left: 0;
+  left: 50%;
+  bottom: -4px;
   width: 0;
-  height: 1px;
-  background-color: #bc9c22;
+  height: 2px;
+  background: #bc9c22;
+  transform: translateX(-50%);
   transition: width 0.3s ease;
 }
 
 .link:hover {
-  color: #ffffff;
+  color: white;
 }
 
 .link:hover::after {
   width: 100%;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .navbar {
-    padding: 1.25rem 2rem;
+    padding: 1rem 2rem;
   }
+
   .navLinks {
     gap: 1.5rem;
   }

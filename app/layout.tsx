@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar';
 import './globals.css';
 // import Navbar from '../components/Navbar';
 // import Footer from '../components/Footer';
@@ -15,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}>
-        {/* <Navbar /> */}
+        <Navbar />
         <main>
           {children}
         </main>
