@@ -60,15 +60,15 @@ export function ProcessTimeline() {
   const pathProgressValue = useMotionValue(0);
 
   const smoothProgress = useSpring(pathProgressValue, {
-    stiffness: 65,
-    damping: 20,
+    stiffness: 150,
+    damping: 15,
     mass: 0.1,
   });
 
   const stepCount = processSteps.length;
-  const segH = 700;
+  const segH = 350;
   const topPad = 40;
-  const extraBottom = 1100;
+  const extraBottom = 400;
 
   const viewH = topPad + stepCount * segH + extraBottom;
   

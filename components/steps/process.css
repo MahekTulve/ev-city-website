@@ -276,7 +276,7 @@
   display: grid;
   grid-template-columns: 1fr 120px 1fr;
   align-items: center;
-  min-height: 220px;
+  min-height: 350;
   position: relative;
 }
 
