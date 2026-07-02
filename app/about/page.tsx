@@ -4,6 +4,8 @@ import SliderSection from "@/components/AboutSections/SliderSection";
 import QuoteSection from "@/components/AboutSections/QuoteSection";
 import ExtraordinarySection from "@/components/AboutSections/ExtraordinarySection";
 import styles from "./about.module.css";
+import VideoSection from "@/components/AboutSections/VideoSection";
+import FinalTextSection from "@/components/AboutSections/FinalTextSection";
 
 const slides = [
   {
@@ -29,15 +31,18 @@ export default function About() {
   const [isLastExiting, setIsLastExiting] = useState(false);
   const [isLastEntering, setIsLastEntering] = useState(false);
   const [direction, setDirection] = useState("down");
-
+  const [isVideoActive, setIsVideoActive] = useState(false);
   // Section states
   const [isQuoteActive, setIsQuoteActive] = useState(false);
 
   // Nayi states 3rd section ke animation ko lock aur trigger karne ke liye
   const [isExtraordinaryActive, setIsExtraordinaryActive] = useState(false);
   const [isExtraordinaryFinal, setIsExtraordinaryFinal] = useState(false);
+  const [isExtraordinaryStepThree, setIsExtraordinaryStepThree] = useState(false); // Nayi state
   const [isExtraordinaryEntering, setIsExtraordinaryEntering] = useState(false);
-
+  const [isExtraordinaryStepFour, setIsExtraordinaryStepFour] = useState(false);
+  const [isVideoMinimize, setIsVideoMinimize] = useState(false);
+  const [isFinalTextActive, setIsFinalTextActive] = useState(false);
   const isTransitioning = useRef(false);
   const lockPage = useRef(true);
   const paragraphRef = useRef<HTMLDivElement>(null);
@@ -53,15 +58,47 @@ export default function About() {
       // --- SECTION 3: EXTRAORDINARY SECTION LOGIC ---
       if (isExtraordinaryActive) {
         if (e.deltaY > 0) {
-          // Agar user ek aur baar niche scroll kare aur hum abhi final stage me nahi hain
           if (!isExtraordinaryFinal) {
             e.preventDefault();
             isTransitioning.current = true;
-            setIsExtraordinaryFinal(true); // Next phase animation trigger!
-
-            setTimeout(() => {
-              isTransitioning.current = false;
-            }, 2500); // Animation duration lock
+            setIsExtraordinaryFinal(true);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
+            return;
+          }
+          else if (!isExtraordinaryStepThree) {
+            e.preventDefault();
+            isTransitioning.current = true;
+            setIsExtraordinaryStepThree(true);
+            setTimeout(() => { isTransitioning.current = false; }, 1500);
+            return;
+          }
+          else if (!isExtraordinaryStepFour) {
+            e.preventDefault();
+            isTransitioning.current = true;
+            setIsExtraordinaryStepFour(true);
+            setTimeout(() => { isTransitioning.current = false; }, 1500);
+            return;
+          }
+          // NEW SCROLL 5: Video Section Reveal Trigger!
+          else if (!isVideoActive) {
+            e.preventDefault();
+            isTransitioning.current = true;
+            setIsVideoActive(true); // Video section triggers here!
+            setTimeout(() => { isTransitioning.current = false; }, 1500);
+            return;
+          }
+          else if (!isVideoMinimize) {
+            e.preventDefault();
+            isTransitioning.current = true;
+            setIsVideoMinimize(true); // Video minimize trigger!
+            setTimeout(() => { isTransitioning.current = false; }, 1500);
+            return;
+          }
+          else if (!isFinalTextActive) {
+            e.preventDefault();
+            isTransitioning.current = true;
+            setIsFinalTextActive(true); // Final Curtain effect trigger!
+            setTimeout(() => { isTransitioning.current = false; }, 1500);
             return;
           }
           return;
@@ -71,27 +108,34 @@ export default function About() {
           e.preventDefault();
           isTransitioning.current = true;
 
-          // Agar hum final stage me hain, to scroll up karne par wapas normal stage par aayenge
-          if (isExtraordinaryFinal) {
+         if (isFinalTextActive) {
+            setIsFinalTextActive(false);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
+          } else if (isVideoMinimize) {
+            setIsVideoMinimize(false);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
+          } else if (isVideoActive) {
+            setIsVideoActive(false);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
+          } else if (isExtraordinaryStepFour) {
+            setIsExtraordinaryStepFour(false);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
+          } else if (isExtraordinaryStepThree) {
+            setIsExtraordinaryStepThree(false);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
+          } else if (isExtraordinaryFinal) {
             setIsExtraordinaryFinal(false);
-            setTimeout(() => { isTransitioning.current = false; }, 2500);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
           } else {
-            // Wapas Quote Section par jaane ka purana logic
             setDirection("up");
             setIsExtraordinaryActive(false);
+            setIsExtraordinaryEntering(false);
             setIsQuoteActive(true);
-
-            setTimeout(() => {
-              if (paragraphRef.current) {
-                paragraphRef.current.scrollTop = paragraphRef.current.scrollHeight;
-              }
-              isTransitioning.current = false;
-            }, 3000);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
           }
           return;
         }
       }
-
       // --- SECTION 2: PARAGRAPH SCROLL LOGIC (QUOTE SECTION) ---
       if (isQuoteActive) {
         const para = paragraphRef.current;
@@ -124,11 +168,11 @@ export default function About() {
           setTimeout(() => {
             setIsLastEntering(false);
             isTransitioning.current = false;
-          }, 4500);
+          }, 2000); // 4500ms bohot zyada laggy tha, optimized to 2s
           return;
         }
 
-        // About.tsx ke andar jahan section change ho raha hai:
+        // Section 2 se Section 3 par jaane ka trigger
         if (e.deltaY > 0) {
           e.preventDefault();
           isTransitioning.current = true;
@@ -137,14 +181,14 @@ export default function About() {
           setIsQuoteActive(false);
           setIsExtraordinaryEntering(true);
 
+          // TIMING OPTIMIZED: 3000ms ke bade block ko 1200ms kiya taaki user ko wait na karna pade
           setTimeout(() => {
             setIsExtraordinaryActive(true);
             isTransitioning.current = false;
-          }, 3000); // Isko 3000ms (3s) rakhein taaki jab tak section slow slide complete kare, tab tak scroll lock rahe.
+          }, 1200);
           return;
         }
       }
-
       // --- SECTION 1: STANDARD SLIDER LOGIC ---
       if (lockPage.current && !isQuoteActive && !isExtraordinaryActive) {
         if (e.deltaY > 0) {
@@ -191,7 +235,7 @@ export default function About() {
       window.removeEventListener("wheel", handleWheel);
       document.body.style.overflow = "unset";
     };
-  }, [index, isQuoteActive, isExtraordinaryActive]);
+  }, [index, isQuoteActive, isExtraordinaryActive, isExtraordinaryFinal, isExtraordinaryStepThree, isExtraordinaryStepFour, isVideoActive, isVideoMinimize, isFinalTextActive]);
 
   return (
     <div className={styles.page}>
@@ -216,11 +260,19 @@ export default function About() {
       </div>
 
       {/* 3. Extraordinary Section */}
-     <ExtraordinarySection 
-  isEntering={isExtraordinaryEntering}
-  isActive={isExtraordinaryActive}
-  isFinal={isExtraordinaryFinal} // Naya prop pass kiya
-/>
+      <ExtraordinarySection
+        isEntering={isExtraordinaryEntering}
+        isActive={isExtraordinaryActive}
+        isFinal={isExtraordinaryFinal} // Naya prop pass kiya
+        isStepThree={isExtraordinaryStepThree}
+        isStepFour={isExtraordinaryStepFour}
+        isVideoActive={isVideoActive}
+      />
+      <VideoSection isActive={isVideoActive}
+        isMinimized={isVideoMinimize}
+        isFinalText={isFinalTextActive}
+      />
+      <FinalTextSection isActive={isFinalTextActive} />
     </div>
   );
 }
