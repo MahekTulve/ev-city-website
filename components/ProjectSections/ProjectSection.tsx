@@ -1,8 +1,13 @@
 "use client";
-
 import { useEffect, useMemo, useState } from "react";
 import { ChevronDown, FileSearch } from "lucide-react";
-import { CATEGORIES, CITY_LABEL, type Category, type City, PROJECTS } from "./data";
+import {
+  CATEGORIES,
+  CITY_LABEL,
+  type Category,
+  type City,
+  PROJECTS,
+} from "@/components/ProjectSections/projects";
 import ProjectCard from "./ProjectCard";
 export default function ProjectSection() {
   const [category, setCategory] = useState<Category>("residential");
@@ -43,6 +48,15 @@ export default function ProjectSection() {
         <span>Now</span>
       </button>
       <div className="mx-auto max-w-7xl px-4">
+        <div className="pb-6 text-center">
+          <p className="text-xs font-semibold uppercase tracking-[0.4em] text-amber-500">
+            Our Projects
+          </p>
+          <h2 className="mt-3 text-3xl font-bold uppercase tracking-wide text-white sm:text-4xl">
+            {CATEGORIES.find((c) => c.id === category)?.label}
+          </h2>
+          <div className="mx-auto mt-4 h-px w-24 bg-amber-500/60" />
+        </div>
         <div className="flex flex-wrap justify-center gap-4 pb-8">
           {CATEGORIES.map((cat) => {
             const active = cat.id === category;
@@ -66,7 +80,9 @@ export default function ProjectSection() {
                   }`}
                 >
                   {cat.label}
-                  <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`} />
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+                  />
                 </button>
                 <div
                   className={`absolute left-0 right-0 top-full z-20 origin-top transform pt-2 transition-all duration-300 ease-out ${
@@ -112,7 +128,9 @@ export default function ProjectSection() {
                   }`}
                 >
                   {CITY_LABEL[c]}
-                  {active && <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-amber-500" />}
+                  {active && (
+                    <span className="absolute -bottom-[1px] left-0 right-0 h-[2px] bg-amber-500" />
+                  )}
                 </button>
               );
             })}
@@ -123,12 +141,8 @@ export default function ProjectSection() {
             visible ? "translate-y-0 opacity-100" : "translate-y-2 opacity-0"
           }`}
         >
-          {projects.map((p, i) => (
-            <div
-              key={p.id}
-              className="animate-fade-in"
-              style={{ animationDelay: `${i * 60}ms`, animationFillMode: "both" }}
-            >
+          {projects.map((p) => (
+            <div key={p.id}>
               <ProjectCard project={p} />
             </div>
           ))}
