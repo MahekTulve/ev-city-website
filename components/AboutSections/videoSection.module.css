@@ -1,0 +1,137 @@
+.videoSection {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f5f1ea; /* Pure background color maintained */
+  z-index: 40;
+  will-change: transform, clip-path, opacity, width, height, border-radius;
+  transition: all 2.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.videoHidden {
+  opacity: 0;
+  transform: translate(50%, -50%);
+  clip-path: inset(10vh 0 10vh 0);
+}
+
+.videoReveal {
+  opacity: 1;
+  transform: translate(-50%, -50%); 
+  clip-path: inset(0vh 0 0vh 0);
+  width: 100%;
+  height: 100vh;
+  border-radius: 0px;
+}
+
+.videoMinimized {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  clip-path: inset(0% 0% 0% 0%); /* No mask */
+  width: 450px; 
+  height: 250px;
+  max-width: 90%; 
+  border-radius: 24px;
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   FINAL STAGE: VIDEO PARDA WIPE UP LOGIC (Niche se upar gayab hona)
+   ========================================================================== */
+/* Is specific block ko check karke update kar lijiye */
+.videoWipeUp {
+  opacity: 1;
+  transform: translate(-50%, -50%);
+  width: 450px; 
+  height: 250px;
+  border-radius: 24px;
+    clip-path: inset(0% 0% 100% 0%); 
+  
+  box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+  /* Easing curve ko aur sharp kiya taaki parda safely 2.3s me wipe ho jaye */
+  transition: clip-path 2.2s cubic-bezier(0.76, 0, 0.24, 1),
+              box-shadow 1.2s ease;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.mainVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ==========================================================================
+   FINAL TEXT TYPOGRAPHY & REVEAL SLIDE ANIMATION
+   ========================================================================== */
+.finalTextContainer {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 100%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 10;
+  will-change: transform, opacity;
+}
+
+/* Shuruat me text screen ke neeche chupa rahega aur invisible hoga */
+.textSlideDownHidden {
+  opacity: 0;
+  transform: translate(-50%, calc(-50% + 150px)) scale(0.95);
+  transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Video parda uthte hi text smoothly scroll up hokar perfect center shot karega */
+.textSlideUpReveal {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  /* 0.3s ka micro delay taaki video mask thoda move ho chuka ho tab entry ho */
+  transition: all 2.6s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+}
+
+.finalTitle {
+  font-size: clamp(44px, 5vw, 64px);
+  font-weight: 300;
+  color: #bfae91;
+  text-transform: uppercase;
+  margin: 0 0 8px 0;
+  letter-spacing: -1px;
+}
+
+.finalSubtitle {
+  font-size: clamp(20px, 2vw, 26px);
+  font-style: italic;
+  font-weight: 300;
+  color: #a3957b;
+  margin: 0 0 24px 0;
+}
+
+.finalDivider {
+  width: 50px;
+  height: 1px;
+  background-color: #bfae91;
+  margin-bottom: 28px;
+}
+
+.finalDescription {
+  font-size: clamp(16px, 1.6vw, 20px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: #8c7f67;
+  max-width: 600px;
+}
