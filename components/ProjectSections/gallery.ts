@@ -33,27 +33,22 @@ export const PROJECT_GALLERY: Record<string, GalleryItem[]> = {
 
   "ev-heart-city-1": [
     {
-      title: "Main Entrance",
-      image: "/gallery/heart-city/entrance.jpg",
+      title: "Aerial View",
+      image: "https://www.evgroup.in/images/projects/mumbai/heart-city-1/heart-city-1-aerial.jpg",
     },
     {
-      title: "Podium",
-      image: "/gallery/heart-city/podium.jpg",
+      title: "Building No - 01",
+      image: "https://www.evgroup.in/images/projects/mumbai/heart-city-1/heart-city-1-building-1.jpg",
     },
     {
-      title: "Kids Play Area",
-      image: "/gallery/heart-city/play-area.jpg",
+      title: "Building No - 02",
+      image: "https://www.evgroup.in/images/projects/mumbai/heart-city-1/heart-city-1-building-2.jpg",
+    },
+    {
+      title: "Building No - 03",
+      image: "https://www.evgroup.in/images/projects/mumbai/heart-city-1/heart-city-1-building-3.jpg",
     },
   ],
 
-  "ev-zion-1": [
-    {
-      title: "Front View",
-      image: "/gallery/zion/front.jpg",
-    },
-    {
-      title: "Terrace",
-      image: "/gallery/zion/terrace.jpg",
-    },
-  ],
+  "ev-zion-1": [],
 };

@@ -19,6 +19,8 @@ import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 
 import "yet-another-react-lightbox/styles.css";
 import "yet-another-react-lightbox/plugins/thumbnails.css";
+import "./ProjectDetail.css";
+
 
 const FALLBACK =
   "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&w=1600&q=70";
@@ -33,8 +35,8 @@ export default function ProjectDetail({
   const [lightboxSlides, setLightboxSlides] = useState<
     { src: string; alt?: string }[]
   >([]);
-const [videoOpen, setVideoOpen] = useState(false);
-const [selectedVideo, setSelectedVideo] = useState("");
+  const [videoOpen, setVideoOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState("");
 
   return (
     <div className="min-h-screen bg-neutral-950 text-neutral-100">
@@ -198,120 +200,112 @@ const [selectedVideo, setSelectedVideo] = useState("");
       </div> */}
 
       {/* Location */}
-      <SectionTitle eyebrow="Where to Find Us" title="Location" />
-      <div className="mx-auto max-w-7xl px-4 pb-16">
-        <div className="flex items-center justify-center gap-2 pb-4 text-sm text-neutral-300">
-          <MapPin className="h-4 w-4 text-amber-500" /> {p.location}
-        </div>
-        <div className="overflow-hidden rounded-xl border border-amber-700/40">
-          <iframe
-            title={`${p.name} location`}
-            src={p.mapEmbed}
-            className="h-[400px] w-full"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
-        </div>
-      </div>
+      {p.mapEmbed && (
+        <>
+          <SectionTitle eyebrow="Where to Find Us" title="Location" />
 
-      {/* Gallery */}
-      <SectionTitle eyebrow="Visual Tour" title="Gallery" />
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 pb-16 sm:grid-cols-3 lg:grid-cols-4">
-        {p.gallery.map((g, i) => (
-          <div
-            key={i}
-            onClick={() => {
-              setLightboxSlides(
-                p.gallery.map((g) => ({
-                  src: g.image,
-                  alt: g.title,
-                })),
-              );
-              setLightboxIndex(i);
-              setLightboxOpen(true);
-            }}
-            className="group cursor-pointer overflow-hidden rounded-lg border border-neutral-800 transition hover:border-amber-500"
-          >
-            <div className="aspect-[4/3] overflow-hidden">
-              <img
-                src={g.image}
-                alt={g.title}
-                className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+          <div className="mx-auto max-w-7xl px-4 pb-16">
+            <div className="flex items-center justify-center gap-2 pb-4 text-sm text-neutral-300">
+              <MapPin className="h-4 w-4 text-amber-500" /> {p.location}
+            </div>
+
+            <div className="overflow-hidden rounded-xl border border-amber-700/40">
+              <iframe
+                title={`${p.name} location`}
+                src={p.mapEmbed}
+                className="h-[400px] w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
               />
             </div>
-            <p className="bg-black/60 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.18em] text-neutral-300">
-              {g.title}
-            </p>
           </div>
-        ))}
-      </div>
+        </>
+      )}
+
+      {/* Gallery */}
+      {p.gallery.length > 0 && (
+        <>
+          <SectionTitle eyebrow="Visual Tour" title="Gallery" />
+
+          <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 pb-16 sm:grid-cols-3 lg:grid-cols-4">
+            {p.gallery.map((g, i) => (
+              <div
+                key={i}
+                onClick={() => {
+                  setLightboxSlides(
+                    p.gallery.map((g) => ({
+                      src: g.image,
+                      alt: g.title,
+                    })),
+                  );
+                  setLightboxIndex(i);
+                  setLightboxOpen(true);
+                }}
+                className="group cursor-pointer overflow-hidden rounded-lg border border-neutral-800 transition hover:border-amber-500"
+              >
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={g.image}
+                    alt={g.title}
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-110"
+                  />
+                </div>
+
+                <p className="bg-black/60 px-3 py-2 text-center text-xs font-semibold uppercase tracking-[0.18em] text-neutral-300">
+                  {g.title}
+                </p>
+              </div>
+            ))}
+          </div>
+        </>
+      )}
 
       {/* Videos */}
-<SectionTitle eyebrow="Watch" title="Videos" />
+      {p.videos.length > 0 && (
+        <>
+          <SectionTitle eyebrow="Watch" title="Videos" />
 
-<div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 px-4 pb-24 sm:grid-cols-2 lg:grid-cols-3">
-  {p.videos.map((v, i) => (
-    <div
-      key={i}
-      onClick={() => {
-        setSelectedVideo(v.url);
-        setVideoOpen(true);
-      }}
-      className="group relative cursor-pointer overflow-hidden rounded-lg border border-neutral-800"
-    >
-      <div className="aspect-video overflow-hidden">
-        <img
-          src={v.thumbnail ?? p.image}
-          alt={v.title}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-        />
-      </div>
-
-      <div className="absolute inset-0 flex items-center justify-center bg-black/40 transition group-hover:bg-black/20">
-        <PlayCircle className="h-14 w-14 text-amber-400 drop-shadow-lg transition group-hover:scale-110" />
-      </div>
-
-      <p className="border-t border-neutral-800 bg-black/60 px-4 py-3 text-center text-sm font-medium text-neutral-200">
-        {v.title}
-      </p>
-    </div>
-  ))}
-
-  {videoOpen && (
+         <div className="video-slider mx-auto max-w-7xl px-4 pb-24">
   <div
-    className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/40 backdrop-blur-sm"
-    onClick={() => setVideoOpen(false)}
+    className="video-slider-track"
+    style={
+      {
+        "--quantity": p.videos.length,
+      } as React.CSSProperties
+    }
   >
-    <div
-      className="relative w-[90%] max-w-3xl"
-      onClick={(e) => e.stopPropagation()}
-    >
-      <button
-        onClick={() => setVideoOpen(false)}
-        className="absolute -top-10 right-0 text-3xl text-white hover:text-amber-400"
+    {[...p.videos, ...p.videos].map((v, i) => (
+      <div
+        key={i}
+        className="video-slide"
+        onClick={() => {
+          setSelectedVideo(v.url);
+          setVideoOpen(true);
+        }}
       >
-        ✕
-      </button>
+        <div className="group relative overflow-hidden rounded-lg border border-neutral-800 bg-neutral-900">
+          <div className="aspect-video overflow-hidden">
+            <img
+              src={v.thumbnail ?? p.image}
+              alt={v.title}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
 
-      <div className="aspect-video overflow-hidden rounded-xl bg-black shadow-2xl">
-        <iframe
-          src={selectedVideo}
-          className="h-full w-full"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-          allowFullScreen
-        />
+          <div className="absolute inset-0 flex items-center justify-center bg-black/40 transition group-hover:bg-black/20">
+            <PlayCircle className="h-14 w-14 text-amber-400 transition group-hover:scale-110" />
+          </div>
+
+         <p className="border-t border-neutral-800 bg-black/60 px-4 py-3 text-center text-sm font-medium text-neutral-200 min-h-[72px] flex items-center justify-center leading-5 line-clamp-2">
+  {v.title}
+</p>
+        </div>
       </div>
-    </div>
+    ))}
   </div>
-)}
-        <Lightbox
-          open={lightboxOpen}
-          close={() => setLightboxOpen(false)}
-          index={lightboxIndex}
-          slides={lightboxSlides}
-          plugins={[Zoom, Fullscreen, Thumbnails]}
-        />
-      </div>
+</div>
+        </>
+      )}
     </div>
   );
 }
