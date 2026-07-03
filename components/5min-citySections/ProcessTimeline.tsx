@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useSpring,
   useMotionValueEvent,
+  useTransform,
 } from "framer-motion";
 
 import { processSteps } from "./data";
@@ -21,13 +22,11 @@ function buildSnakePath(
   xRight = 1060,
   segH = 350,
   topPad = 40,
-  extraBottom = 400
+  extraBottom = 400,
 ) {
   if (isMobile) {
     const mobileX = 65;
-    return `M ${mobileX} 0 L ${mobileX} ${
-      topPad + steps * segH + extraBottom
-    }`;
+    return `M ${mobileX} 0 L ${mobileX} ${topPad + steps * segH + extraBottom}`;
   }
 
   let d = `M 600 0
@@ -69,7 +68,7 @@ export function ProcessTimeline() {
 
   // Moving glowing head
   const headGlowRef = useRef<SVGCircleElement>(null);
-const headCoreRef = useRef<SVGCircleElement>(null);
+  const headCoreRef = useRef<SVGCircleElement>(null);
 
   const [isMobile, setIsMobile] = useState(false);
   const [rawProgress, setRawProgress] = useState(0);
@@ -88,10 +87,7 @@ const headCoreRef = useRef<SVGCircleElement>(null);
   const topPad = 40;
   const extraBottom = 400;
 
-  const svgHeight =
-    topPad +
-    stepCount * segH +
-    extraBottom;
+  const svgHeight = topPad + stepCount * segH + extraBottom;
 
   const pathD = buildSnakePath(
     stepCount,
@@ -100,8 +96,10 @@ const headCoreRef = useRef<SVGCircleElement>(null);
     1060,
     segH,
     topPad,
-    extraBottom
+    extraBottom,
   );
+
+  const stepThresholds = processSteps.map((_, i) => i / processSteps.length);
 
   // Responsive layout
   useEffect(() => {
@@ -113,8 +111,7 @@ const headCoreRef = useRef<SVGCircleElement>(null);
 
     window.addEventListener("resize", resize);
 
-    return () =>
-      window.removeEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
   }, []);
 
   // Scroll Progress
@@ -122,8 +119,7 @@ const headCoreRef = useRef<SVGCircleElement>(null);
     const update = () => {
       if (!containerRef.current) return;
 
-      const rect =
-        containerRef.current.getBoundingClientRect();
+      const rect = containerRef.current.getBoundingClientRect();
 
       const viewport = window.innerHeight;
 
@@ -131,10 +127,7 @@ const headCoreRef = useRef<SVGCircleElement>(null);
 
       const amount = trigger - rect.top;
 
-      const progress = Math.max(
-        0,
-        Math.min(1, amount / rect.height)
-      );
+      const progress = Math.max(0, Math.min(1, amount / rect.height));
 
       progressValue.set(progress);
 
@@ -156,227 +149,185 @@ const headCoreRef = useRef<SVGCircleElement>(null);
   }, [progressValue]);
 
   // Move glowing head along path
- useMotionValueEvent(
-  smoothProgress,
-  "change",
-  (latest) => {
-    if (
-      !activePathRef.current ||
-      !headGlowRef.current ||
-      !headCoreRef.current
-    )
+  useMotionValueEvent(smoothProgress, "change", (latest) => {
+    if (!activePathRef.current || !headGlowRef.current || !headCoreRef.current)
       return;
 
     const length = activePathRef.current.getTotalLength();
 
-    const point = activePathRef.current.getPointAtLength(
-      latest * length
-    );
+    const point = activePathRef.current.getPointAtLength(latest * length);
 
-    headGlowRef.current.setAttribute(
-      "cx",
-      point.x.toString()
-    );
+    headGlowRef.current.setAttribute("cx", point.x.toString());
 
-    headGlowRef.current.setAttribute(
-      "cy",
-      point.y.toString()
-    );
+    headGlowRef.current.setAttribute("cy", point.y.toString());
 
-    headCoreRef.current.setAttribute(
-      "cx",
-      point.x.toString()
-    );
+    headCoreRef.current.setAttribute("cx", point.x.toString());
 
-    headCoreRef.current.setAttribute(
-      "cy",
-      point.y.toString()
-    );
-  }
-);
+    headCoreRef.current.setAttribute("cy", point.y.toString());
+  });
 
   return (
-  <section className="process-section">
-    <VisionHero />
+    <section className="process-section">
+      <VisionHero />
 
-    <div className="process-container">
-      <div
-        className="process-timeline"
-        ref={containerRef}
-      >
-        <svg
-          className="timeline-svg"
-          viewBox={`0 0 1200 ${svgHeight}`}
-          preserveAspectRatio="none"
-          fill="none"
-        >
-          {/* =========================
+      <div className="process-container">
+        <div className="process-timeline" ref={containerRef}>
+          <svg
+            className="timeline-svg"
+            viewBox={`0 0 1200 ${svgHeight}`}
+            preserveAspectRatio="none"
+            fill="none"
+          >
+            {/* =========================
                DEFINITIONS
           ========================== */}
 
-          <defs>
-            <linearGradient
-              id="goldGradient"
-              x1="0%"
-              y1="0%"
-              x2="0%"
-              y2="100%"
-            >
-              <stop
-                offset="0%"
-                stopColor="#FFFCE8"
-              />
+            <defs>
+              <linearGradient
+                id="goldGradient"
+                x1="0%"
+                y1="0%"
+                x2="0%"
+                y2="100%"
+              >
+                <stop offset="0%" stopColor="#FFFCE8" />
 
-              <stop
-                offset="20%"
-                stopColor="#FFE9A0"
-              />
+                <stop offset="20%" stopColor="#FFE9A0" />
 
-              <stop
-                offset="55%"
-                stopColor="#F5D36B"
-              />
+                <stop offset="55%" stopColor="#F5D36B" />
 
-              <stop
-                offset="100%"
-                stopColor="#D4AF37"
-              />
-            </linearGradient>
+                <stop offset="100%" stopColor="#D4AF37" />
+              </linearGradient>
 
-            <filter
-              id="goldGlow"
-              x="-50%"
-              y="-50%"
-              width="200%"
-              height="200%"
-            >
-              <feGaussianBlur
-                stdDeviation="5"
-                result="blur"
-              />
+              <filter
+                id="goldGlow"
+                x="-50%"
+                y="-50%"
+                width="200%"
+                height="200%"
+              >
+                <feGaussianBlur stdDeviation="5" result="blur" />
 
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
 
-            <filter
-              id="headGlow"
-              x="-300%"
-              y="-300%"
-              width="600%"
-              height="600%"
-            >
-              <feGaussianBlur
-                stdDeviation="8"
-                result="blur"
-              />
+              <filter
+                id="headGlow"
+                x="-300%"
+                y="-300%"
+                width="600%"
+                height="600%"
+              >
+                <feGaussianBlur stdDeviation="8" result="blur" />
 
-              <feMerge>
-                <feMergeNode in="blur" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
 
-          {/* =========================
+            {/* =========================
               BACKGROUND TRACK
           ========================== */}
 
-          <path
-            d={pathD}
-            fill="none"
-            stroke="#2b2b2b"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+            <path
+              d={pathD}
+              fill="none"
+              stroke="#2b2b2b"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
 
-          {/* =========================
+            {/* =========================
               SOFT GLOW PATH
           ========================== */}
 
-          <motion.path
-            d={pathD}
-            fill="none"
-            stroke="#c2b99c"
-            strokeWidth="12"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={0.35}
-            filter="url(#goldGlow)"
-            style={{
-              pathLength: smoothProgress,
-            }}
-          />
+            <motion.path
+              d={pathD}
+              fill="none"
+              stroke="#c2b99c"
+              strokeWidth="12"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity={0.35}
+              filter="url(#goldGlow)"
+              style={{
+                pathLength: smoothProgress,
+              }}
+            />
 
-          {/* =========================
+            {/* =========================
                MAIN GOLD PATH
           ========================== */}
 
-          <motion.path
-            ref={activePathRef}
-            d={pathD}
-            fill="none"
-            stroke="url(#goldGradient)"
-            strokeWidth="4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            style={{
-              pathLength: smoothProgress,
-            }}
-          />
+            <motion.path
+              ref={activePathRef}
+              d={pathD}
+              fill="none"
+              stroke="url(#goldGradient)"
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{
+                pathLength: smoothProgress,
+              }}
+            />
+          </svg>
 
-    
-        </svg>
-
-        {/* =========================
+          {/* =========================
              TIMELINE CARDS
         ========================== */}
 
-        <ol className="process-list">
-          {processSteps.map((step, i) => {
-            const align =
-              i % 2 === 0 ? "left" : "right";
+          <ol className="process-list">
+            {processSteps.map((step, i) => {
+              const align = i % 2 === 0 ? "left" : "right";
 
-            const reached =
-              rawProgress >=
-              (i / processSteps.length) * 100;
+              // const reached =
+              //   rawProgress >=
+              //   (i / processSteps.length) * 100;
+              const [reached, setReached] = useState(false);
 
-            return (
-              <li
-                key={step.number}
-                className={`process-row process-row--${align} ${
-                  reached ? "is-reached" : ""
-                }`}
-                style={{
-                  minHeight: `${segH}px`,
-                }}
-              >
-                <div className="process-row__side">
-                  <StepCard
-                    step={step}
-                    align={align}
-                  />
-                </div>
+              // Create a transform that turns 0-1 progress into a boolean
+              const isReached = useTransform(
+                smoothProgress,
+                (val) => val >= i / processSteps.length,
+              );
 
-               
-              </li>
-            );
-          })}
-        </ol>
+              // Sync the MotionValue to local state
+              useMotionValueEvent(isReached, "change", (latest) => {
+                setReached(latest);
+              });
 
-        <FinalCircles />
+              return (
+                <li
+                  key={step.number}
+                  className={`process-row process-row--${align} ${
+                    reached ? "is-reached" : ""
+                  }`}
+                  style={{
+                    minHeight: `${segH}px`,
+                  }}
+                >
+                  <div className="process-row__side">
+                    <StepCard step={step} align={align} isReached={reached} />
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+
+          <FinalCircles />
+        </div>
+
+        <div className="process-scrollvideo">
+          <ScrollVideo src="/images/earth-scrub.mp4" scrollLength={4} />
+        </div>
       </div>
-
-      <div className="process-scrollvideo">
-        <ScrollVideo
-          src="/images/earth-scrub.mp4"
-          scrollLength={4}
-        />
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  );
 }

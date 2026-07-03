@@ -33,25 +33,24 @@ export const PROJECT_AMENITIES: Record<string, Amenity[]> = {
 
   "ev-heart-city-1": [
     {
-      title: "Indoor Games",
-      image: "/amenities/indoor-games.png",
+      title: "Gym",
+      image: "https://cdn.evhomes.tech/8d50570c-122a-4dd1-9bcd-9325faee25c8-Ev_Gym_View-transformed.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWxlbmFtZSI6IjhkNTA1NzBjLTEyMmEtNGRkMS05YmNkLTkzMjVmYWVlMjVjOC1Fdl9HeW1fVmlldy10cmFuc2Zvcm1lZC5wbmciLCJpYXQiOjE3Mzc0NjIyNTR9.dDcM_JUaTG3HwH-_ienamy88_rakKmIw9z0iQdZcPdY",
     },
     {
       title: "Kids Play Area",
-      image: "/amenities/playground.png",
+      image: "https://cdn.evhomes.tech/4ad04f23-3505-4ee6-b371-165237f8ef17-kIDSA%20PLAY%20aREA.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWxlbmFtZSI6IjRhZDA0ZjIzLTM1MDUtNGVlNi1iMzcxLTE2NTIzN2Y4ZWYxNy1rSURTQSBQTEFZIGFSRUEucG5nIiwiaWF0IjoxNzM3NDYyMjU0fQ.sbJz10GK_aZbDkCCQCPaXSfRo2sfGW18C5e6iva3CFA",
+    },
+     {
+      title: "Meditation",
+      image: "https://cdn.evhomes.tech/15190ae6-7dfe-4489-9ac5-71f058380d70-Ev_Meditations_View-transformed.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWxlbmFtZSI6IjE1MTkwYWU2LTdkZmUtNDQ4OS05YWM1LTcxZjA1ODM4MGQ3MC1Fdl9NZWRpdGF0aW9uc19WaWV3LXRyYW5zZm9ybWVkLnBuZyIsImlhdCI6MTczNzQ2MjI1NH0.lbHhUdv9-vhv5XS8902p6M-Mvw82edIHfPW8OdN04nA",
+    },
+     {
+      title: "Swimming",
+      image: "https://cdn.evhomes.tech/a0549cf8-58f1-448c-9a06-b4931b3bb03e-POOL.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaWxlbmFtZSI6ImEwNTQ5Y2Y4LTU4ZjEtNDQ4Yy05YTA2LWI0OTMxYjNiYjAzZS1QT09MLnBuZyIsImlhdCI6MTczNzQ2MjI1NH0.AJXmMCxMGhHnZ45xbxxu8CS_zjrSW0f1azd-06XsDt0",
     },
   ],
 
-  "ev-zion-1": [
-    {
-      title: "Yoga Deck",
-      image: "/amenities/yoga.png",
-    },
-    {
-      title: "Swimming Pool",
-      image: "/amenities/pool.png",
-    },
-  ],
+  "ev-zion-1": [],
 
   "ev-carmel": [],
   "ev-regency": [],

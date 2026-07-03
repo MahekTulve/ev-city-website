@@ -1,0 +1,107 @@
+.section {
+  padding: var(--spacing-120) var(--spacing-40);
+  background-color: var(--surface-canvas);
+}
+
+.container {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: var(--spacing-120);
+  text-align: center;
+}
+
+.heading {
+  font-family: var(--font-editorial-new);
+  font-size: var(--text-heading-sm);
+  line-height: var(--leading-heading-sm);
+  letter-spacing: var(--tracking-heading-sm);
+  font-weight: var(--font-weight-light);
+  color: var(--color-press-black);
+  margin: 0;
+  margin-bottom: var(--spacing-30);
+}
+
+.subheading {
+  font-family: var(--font-pp-mondwest);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+  font-weight: var(--font-weight-light);
+  color: var(--color-newsprint-gray);
+  margin: 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--spacing-60);
+  margin-top: var(--spacing-60);
+}
+
+.card {
+  padding: var(--spacing-50);
+  background-color: var(--surface-canvas);
+  border: 1px solid var(--color-echo-green);
+  border-radius: var(--radius-lg);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  border-color: var(--color-highlighter-green);
+  box-shadow: var(--shadow-lg);
+}
+
+.iconWrapper {
+  font-size: 40px;
+  color: var(--color-highlighter-green);
+  margin-bottom: var(--spacing-25);
+  line-height: 1;
+}
+
+.cardTitle {
+  font-family: var(--font-twk-lausanne);
+  font-size: var(--text-subheading);
+  line-height: var(--leading-subheading);
+  letter-spacing: var(--tracking-subheading);
+  font-weight: var(--font-weight-w550);
+  color: var(--color-press-black);
+  margin: 0;
+  margin-bottom: var(--spacing-15);
+}
+
+.cardDescription {
+  font-family: var(--font-pp-mondwest);
+  font-size: var(--text-body-sm);
+  line-height: var(--leading-body-sm);
+  letter-spacing: var(--tracking-body-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-newsprint-gray);
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-60) var(--spacing-20);
+  }
+
+  .heading {
+    font-size: 48px;
+    letter-spacing: -0.96px;
+  }
+
+  .grid {
+    gap: var(--spacing-40);
+  }
+
+  .card {
+    padding: var(--spacing-35);
+  }
+
+  .cardTitle {
+    font-size: 36px;
+    letter-spacing: -0.72px;
+  }
+}

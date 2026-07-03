@@ -18,7 +18,7 @@ export default function Navbar() {
         <Link href="/about" className={styles.link}>
           About
         </Link>
-         <Link href="/projects" className={styles.link}>
+         <Link href="/features" className={styles.link}>
           Projects
         </Link>
         <Link href="/5min-city" className={styles.link}>
