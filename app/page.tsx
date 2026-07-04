@@ -1,11 +1,20 @@
+import FeaturesSection from "@/components/FeaturesSections/zoom-parallax-demo";
+
 export default function Home() {
   return (
     <main>
-      <img
-        src="/images/city.jpg"
-        alt="5 Minute City"
-        className="w-full h-full object-cover"
-      />
+      <video
+  src="/images/ev_city_vid.mp4"
+  autoPlay
+  muted
+  loop
+  playsInline
+  className="w-full h-screen object-cover"
+/>
+
+      <div className="min-h-screen flex flex-col items-center justify-center border-t transition-colors duration-500 bg-gray-50 dark:bg-black border-black/5 dark:border-white/10">
+        <FeaturesSection />
+      </div>
     </main>
   );
 }

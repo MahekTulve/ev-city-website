@@ -1,6 +1,4 @@
 import PerspectiveScrollShowcase from "@/components/scroll-showcase/scroll-showcase";
-import FeaturesSection from "@/components/FeaturesSections/zoom-parallax-demo";
-
 
 const dummyProjects = [
   {
@@ -34,16 +32,12 @@ export default function PerspectiveScrollDemo() {
     <div className="w-full min-h-screen overflow-x-clip transition-colors duration-500 bg-white dark:bg-black text-black dark:text-white font-sans antialiased">
       {/* Top Filler Content */}
       <div className="h-[10vh] flex items-center justify-center border-t transition-colors duration-500 bg-gray-50 dark:bg-black border-black/5 dark:border-white/10">
-  <h1 className="text-4xl text-black/50 dark:text-white/50">
-    Visionary Communities
-  </h1>
-</div>
+        <h1 className="text-4xl text-black/50 dark:text-white/50">
+          Visionary Communities
+        </h1>
+      </div>
 
-<PerspectiveScrollShowcase projects={dummyProjects} />
-
-<div className="min-h-screen flex flex-col items-center justify-center border-t transition-colors duration-500 bg-gray-50 dark:bg-black border-black/5 dark:border-white/10">
-  <FeaturesSection />
-</div>
+      <PerspectiveScrollShowcase projects={dummyProjects} />
     </div>
   );
 }

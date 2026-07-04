@@ -1,4 +1,4 @@
-import FeaturesSection from "@/components/FeaturesSections/zoom-parallax-demo";
+import HoverFooter from "@/components/footer/footer-demo";
 import PerspectiveScrollDemo from "@/components/scroll-showcase/scroll-demo";
 
 export const metadata = {
@@ -10,6 +10,8 @@ export default function FeaturesPage() {
     <>
       {/* <FeaturesSection /> */}
       <PerspectiveScrollDemo />
+
+      <HoverFooter />
     </>
   );
 }

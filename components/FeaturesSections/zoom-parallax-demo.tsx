@@ -2,6 +2,7 @@
 import React from "react";
 import Lenis from "@studio-freight/lenis";
 import { ZoomParallax } from "@/components/FeaturesSections/zoom-parallax";
+import { TextHoverEffect } from "@/components/footer/hover-footer";
 
 export default function ZoomParallaxDemo() {
   React.useEffect(() => {
@@ -48,22 +49,31 @@ export default function ZoomParallaxDemo() {
 
   return (
     <main className="min-h-screen w-full">
-      <div className="relative flex h-[20vh] items-center justify-center">
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -top-1/2 left-1/2 h-[120vmin] w-[120vmin] -translate-x-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,--theme(--color-foreground/.1),transparent_50%)] blur-[30px]"
+      {/* Container for Stacked Animated Text */}
+      <div className="relative flex flex-col h-[42vh] items-center justify-center overflow-hidden py-4">
+        <div aria-hidden className="absolute inset-0" />
+
+        {/* Normal White "PRESENTING" Text Effect */}
+        <TextHoverEffect
+          text="PRESENTING"
+          className="h-16 w-full max-w-xl"
+          variant="white"
         />
-        <h1 className="text-center text-4xl font-bold text-[#DAA520]
-    drop-shadow-[0_0_20px_rgba(218,165,32,0.6)]">
-          PRESENTING 5 MINUTE CITY
-        </h1>
+        
+        {/* Massive Colorful "5 MINUTE CITY" Text Effect */}
+        <TextHoverEffect
+          text="THE 5 MINUTE CITY"
+          className="h-44 w-full"
+          variant="gradient"
+        />
       </div>
-       <ZoomParallax images={images} />
+
+      <ZoomParallax images={images} />
 
       {/* Next Section */}
       <section className="flex h-screen items-center justify-center bg-white">
         <h2 className="text-6xl font-bold text-black">
-          MORE CONTENT
+          V A S H I
         </h2>
       </section>
     </main>
