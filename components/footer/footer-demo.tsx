@@ -176,7 +176,7 @@ function HoverFooter() {
 
       {/* Text hover effect */}
       <div className="lg:flex hidden h-[30rem] -mt-52 -mb-36">
-        <TextHoverEffect text="Nurui" className="z-50" />
+        <TextHoverEffect text="EV CITY" className="z-50" />
       </div>
 
       <FooterBackgroundGradient />
