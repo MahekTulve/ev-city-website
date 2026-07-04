@@ -1,90 +1,421 @@
-/* app/components/Navbar.module.css */
+.landingWrapper {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
-.navbar {
+.lnLoaded {
+  opacity: 1;
+}
+
+.lnNavbar {
+  position: fixed;
+  top: 20px;
+  left: 0;
+  right: 0;
+  z-index: 1500;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  padding: 1.25rem 4rem;
+  padding: 0 16px;
+  font-family: "Geist Mono", monospace, sans-serif;
+  pointer-events: none;
+}
 
-  /* Transparent Glass Effect */
+.lnNavbarInner {
+  width: 100%;
+  max-width: 1440px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px 0 20px;
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition:
+    max-width 0.5s ease,
+    background 0.5s ease,
+    border-color 0.5s ease,
+    padding 0.5s ease;
+  pointer-events: auto;
+  position: relative;
+}
+
+.lnNavbarLogo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #bc9c22;
+}
+
+.logoText {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  color: #fff;
+}
+
+.lnNavbarLeft,
+.lnNavbarLogo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.lnNavbarDivider {
+  margin: 0 12px;
+  color: rgba(188, 156, 34, 0.4);
+}
+
+.lnNavbarLinks {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 8px;
+}
+
+.lnNavbarLink {
+  color: #bc9c22;
+  text-decoration: none;
+  font-size: 14px;
+  padding: 6px 14px;
+  opacity: 0.85;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.lnNavbarLink:hover {
+  color: #fff;
+  opacity: 1;
+}
+
+.lnNavbarLinkHighlight {
+  position: absolute;
+  background: rgba(188, 156, 34, 0.12);
+  border: 1px solid rgba(188, 156, 34, 0.25);
+  border-radius: 8px;
+  pointer-events: none;
+  transition:
+    transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.2s;
+}
+
+.lnNavbarRight {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lnNavbarPro {
+  color: #bc9c22;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+
+  padding: 6px 12px;
+  border: 1px solid rgba(188, 156, 34, 0.5);
+  border-radius: 8px;
+
+  transition: all 0.3s ease;
+}
+
+.lnNavbarPro:hover {
+  background: rgba(188, 156, 34, 0.12);
+  color: #fff;
+}
+
+.lnNavbarBrowse {
+  color: #bc9c22;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lnNavbarSoon {
+  font-size: 9px;
+  background: #ff4757;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-weight: bold;
+}
+
+/* .lnNavbarGithub {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 6px 12px;
+    border-radius: 8px;
+} */
+
+.lnNavbarHamburger {
+  display: none;
+  flex-direction: column;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.lnNavbarHamburger span {
+  display: block;
+  width: 20px;
+  height: 20px;
+  height: 2px;
+  background: #bc9c22;
+  border-radius: 2px;
+}
+
+.lnNavbarLinkHighlight {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.lnNavbar .lnNavbarInner {
+  max-width: 1440px;
+  background: transparent;
+  border: 1px solid transparent;
+  transition:
+    max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    background 0.4s ease,
+    backdrop-filter 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.lnNavbarScrolled .lnNavbarInner {
+  max-width: 1276px;
+
+  /* Glass effect */
   background: rgba(0, 0, 0, 0.15);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 
-  /* Gold Bottom Border */
-  border-bottom: 1px solid rgba(188, 156, 34, 0.6);
-
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  z-index: 1000;
+  /* Gold border */
+  border: 1px solid rgba(188, 156, 34, 0.35);
 }
 
-.logoContainer {
-  display: flex;
-  align-items: center;
-}
-
-.logo {
-  color: white;
-  font-size: 1.6rem;
-  font-weight: 700;
-  letter-spacing: 3px;
+.lnNavbarLink {
+  color: #fff;
   text-decoration: none;
-  text-transform: uppercase;
-  transition: opacity 0.3s ease;
-}
-
-.logo:hover {
-  opacity: 0.8;
-}
-
-.navLinks {
-  display: flex;
-  gap: 2.5rem;
-  align-items: center;
-}
-
-.link {
-  color: #bc9c22;
-  font-size: 0.9rem;
-  font-weight: 500;
-  text-decoration: none;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  font-size: 14px;
+  padding: 6px 14px;
+  opacity: 0.75;
+  transition: opacity 0.25s ease;
   position: relative;
-  padding: 0.5rem 0;
-  transition: color 0.3s ease;
+  z-index: 1;
 }
 
-/* Gold underline */
-.link::after {
-  content: "";
-  position: absolute;
-  left: 50%;
-  bottom: -4px;
-  width: 0;
-  height: 2px;
-  background: #bc9c22;
-  transform: translateX(-50%);
-  transition: width 0.3s ease;
+.lnNavbarHamburger {
+  display: none;
 }
 
-.link:hover {
-  color: white;
-}
+@media (max-width: 1024px) {
+  .lnNavbarInner {
+    padding: 0 14px;
+  }
 
-.link:hover::after {
-  width: 100%;
+  .lnNavbarLinks {
+    gap: 4px;
+  }
+
+  .lnNavbarLink {
+    padding: 6px 10px;
+    font-size: 13px;
+  }
+
+  .lnNavbarPro {
+    font-size: 11px;
+    padding: 6px 10px;
+  }
 }
 
 @media (max-width: 768px) {
-  .navbar {
-    padding: 1rem 2rem;
+  .lnNavbar {
+    top: 12px;
+    padding: 0 12px;
   }
 
-  .navLinks {
-    gap: 1.5rem;
+  .lnNavbarInner {
+    height: 52px;
+    padding: 0 12px;
+    border-radius: 14px;
+  }
+
+  .lnNavbarDivider,
+  .lnNavbarLinks,
+  .lnNavbarBrowse,
+  .lnNavbarGithub,
+  .lnNavbarPro {
+    display: none;
+  }
+
+  .lnNavbarHamburger {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .lnNavbarLogo {
+    font-size: 16px;
+  }
+}
+
+.sidebarOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(4px);
+  z-index: 1998;
+}
+
+.mobileSidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+
+  width: min(380px, 85vw);
+  height: 100vh;
+
+  background: #0b0b0d;
+    border-left: 1px solid rgba(188, 156, 34, 0.25);
+
+  z-index: 1999;
+
+  padding: 32px 24px;
+
+  display: flex;
+  flex-direction: column;
+  z-index: 1999;
+}
+
+.closeButton {
+  align-self: flex-end;
+
+  width: 42px;
+  height: 42px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.mobileNav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 48px;
+}
+
+.mobileNav a {
+  text-decoration: none;
+  color: white;
+
+  font-size: 1.4rem;
+  font-weight: 500;
+
+  padding: 14px 0;
+}
+
+.mobileEnquire {
+  margin-top: 24px;
+  padding: 14px 18px !important;
+
+  border-radius: 12px;
+  text-align: center;
+
+   background: rgba(188, 156, 34, 0.1);
+    border: 1px solid rgba(188, 156, 34, 0.3);
+    color: #bc9c22 !important;
+}
+
+.mobileEnquire:hover {
+    color: #fff !important;
+    background: rgba(188, 156, 34, 0.18);
+}
+
+@media (max-width: 480px) {
+  .mobileSidebar {
+    width: min(280px, 82vw);
+    padding: 18px 16px;
+  }
+
+  .closeButton {
+    width: 34px;
+    height: 34px;
+    font-size: 16px;
+  }
+
+  .mobileNav {
+    margin-top: 20px;
+    gap: 4px;
+  }
+
+  .mobileNav a,
+  .mobileNavLink {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.2;
+
+    padding: 10px 12px;
+    border-radius: 10px;
+
+    text-decoration: none;
+     color: #bc9c22;
+    transition: all 0.3s ease;
+  }
+
+  .mobileNav a:hover,
+  .mobileNavLink:hover {
+  color: #fff;
+    background: rgba(188, 156, 34, 0.08);
+  }
+
+  .mobileEnquire {
+    margin-top: 12px;
+
+    font-size: 14px !important;
+    font-weight: 600;
+
+    padding: 12px !important;
+
+    border-radius: 10px;
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .lnNavbarHamburger {
+    width: 28px;
+    height: 28px;
+  }
+
+  .lnNavbarHamburger span {
+    width: 20px;
+    height: 2px;
   }
 }
