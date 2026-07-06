@@ -3,6 +3,7 @@ import React from "react";
 import Lenis from "@studio-freight/lenis";
 import { ZoomParallax } from "@/components/FeaturesSections/zoom-parallax";
 import { TextHoverEffect } from "@/components/footer/hover-footer";
+import Vashi from "../Vashi/vashi";
 
 export default function ZoomParallaxDemo() {
   React.useEffect(() => {
@@ -70,12 +71,12 @@ export default function ZoomParallaxDemo() {
 
       <ZoomParallax images={images} />
 
-      {/* Next Section */}
-      <section className="flex h-screen items-center justify-center bg-white">
+      {/* <section className="flex h-screen items-center justify-center bg-white">
         <h2 className="text-6xl font-bold text-black">
           V A S H I
         </h2>
-      </section>
+      </section> */}
+      <Vashi />
     </main>
   );
 }
