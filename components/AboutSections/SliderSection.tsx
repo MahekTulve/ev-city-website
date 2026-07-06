@@ -75,7 +75,7 @@ export default function SliderSection({
 
       {/* HUD Overlay Elements */}
       <div className={styles.header}>
-        <div className={styles.logoMain}><b>5Minutes</b>City</div>
+        <div className={styles.logoMain}><b>5Minute</b>City</div>
         <div className={styles.logoSub}>BY EV <b>Homes</b></div>
       </div>
 

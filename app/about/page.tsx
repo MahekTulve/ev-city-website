@@ -41,6 +41,9 @@ export default function About() {
   const [isExtraordinaryStepThree, setIsExtraordinaryStepThree] = useState(false); // Nayi state
   const [isExtraordinaryEntering, setIsExtraordinaryEntering] = useState(false);
   const [isExtraordinaryStepFour, setIsExtraordinaryStepFour] = useState(false);
+  // --- Page.tsx me ye do nayi states add karein ---
+  const [isExtraordinaryStepFive, setIsExtraordinaryStepFive] = useState(false); // Step H
+  const [isExtraordinaryStepSix, setIsExtraordinaryStepSix] = useState(false);   // Step I
   const [isVideoMinimize, setIsVideoMinimize] = useState(false);
   const [isFinalTextActive, setIsFinalTextActive] = useState(false);
   const isTransitioning = useRef(false);
@@ -79,6 +82,20 @@ export default function About() {
             setTimeout(() => { isTransitioning.current = false; }, 1500);
             return;
           }
+          else if (!isExtraordinaryStepFive) {
+            e.preventDefault();
+            isTransitioning.current = true;
+            setIsExtraordinaryStepFive(true);
+            setTimeout(() => { isTransitioning.current = false; }, 1500);
+            return;
+          }
+          else if (!isExtraordinaryStepSix) {
+            e.preventDefault();
+            isTransitioning.current = true;
+            setIsExtraordinaryStepSix(true);
+            setTimeout(() => { isTransitioning.current = false; }, 1500);
+            return;
+          }
           // NEW SCROLL 5: Video Section Reveal Trigger!
           else if (!isVideoActive) {
             e.preventDefault();
@@ -108,7 +125,7 @@ export default function About() {
           e.preventDefault();
           isTransitioning.current = true;
 
-         if (isFinalTextActive) {
+          if (isFinalTextActive) {
             setIsFinalTextActive(false);
             setTimeout(() => { isTransitioning.current = false; }, 1200);
           } else if (isVideoMinimize) {
@@ -116,6 +133,12 @@ export default function About() {
             setTimeout(() => { isTransitioning.current = false; }, 1200);
           } else if (isVideoActive) {
             setIsVideoActive(false);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
+          } else if (isExtraordinaryStepSix) {
+            setIsExtraordinaryStepSix(false);
+            setTimeout(() => { isTransitioning.current = false; }, 1200);
+          } else if (isExtraordinaryStepFive) {
+            setIsExtraordinaryStepFive(false);
             setTimeout(() => { isTransitioning.current = false; }, 1200);
           } else if (isExtraordinaryStepFour) {
             setIsExtraordinaryStepFour(false);
@@ -190,6 +213,7 @@ export default function About() {
         }
       }
       // --- SECTION 1: STANDARD SLIDER LOGIC ---
+      // --- SECTION 1: STANDARD SLIDER LOGIC (Inside your handleWheel) ---
       if (lockPage.current && !isQuoteActive && !isExtraordinaryActive) {
         if (e.deltaY > 0) {
           e.preventDefault();
@@ -199,7 +223,9 @@ export default function About() {
             setDirection("down");
             isTransitioning.current = true;
             setIndex((prev) => prev + 1);
-            setTimeout(() => { isTransitioning.current = false; }, 7500);
+
+            // 7500ms ko badalkar 800ms kiya taaki agla scroll fast trigger ho sake
+            setTimeout(() => { isTransitioning.current = false; }, 4500);
           }
           else if (index === slides.length - 1) {
             isTransitioning.current = true;
@@ -211,7 +237,7 @@ export default function About() {
               setIsQuoteActive(true);
               if (paragraphRef.current) paragraphRef.current.scrollTop = 0;
               isTransitioning.current = false;
-            }, 4500);
+            }, 4500); // Agar last card ka exit bhi fast chahiye toh isko aur css ke lastExit ko bhi kam kar sakte hain
           }
         }
         else if (e.deltaY < 0) {
@@ -223,7 +249,9 @@ export default function About() {
             setDirection("up");
             isTransitioning.current = true;
             setIndex((prev) => prev - 1);
-            setTimeout(() => { isTransitioning.current = false; }, 7500);
+
+            // 7500ms ko badalkar 800ms kiya
+            setTimeout(() => { isTransitioning.current = false; }, 4500);
           }
         }
       }
@@ -235,7 +263,7 @@ export default function About() {
       window.removeEventListener("wheel", handleWheel);
       document.body.style.overflow = "unset";
     };
-  }, [index, isQuoteActive, isExtraordinaryActive, isExtraordinaryFinal, isExtraordinaryStepThree, isExtraordinaryStepFour, isVideoActive, isVideoMinimize, isFinalTextActive]);
+  }, [index, isQuoteActive, isExtraordinaryActive, isExtraordinaryFinal, isExtraordinaryStepThree, isExtraordinaryStepFour, isVideoActive, isVideoMinimize, isFinalTextActive, isExtraordinaryStepFive, isExtraordinaryStepSix]);
 
   return (
     <div className={styles.page}>
@@ -266,6 +294,8 @@ export default function About() {
         isFinal={isExtraordinaryFinal} // Naya prop pass kiya
         isStepThree={isExtraordinaryStepThree}
         isStepFour={isExtraordinaryStepFour}
+        isStepFive={isExtraordinaryStepFive} // <-- Yeh line add karein
+        isStepSix={isExtraordinaryStepSix}
         isVideoActive={isVideoActive}
       />
       <VideoSection isActive={isVideoActive}
