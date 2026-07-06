@@ -89,7 +89,7 @@
 
 .slide.active {
   z-index: 3;
-  animation: frameEnter 7.7s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+  animation: frameEnter 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
 }
 
 @keyframes frameEnter {
@@ -117,7 +117,7 @@
 
 .slide.activeReverse {
   z-index: 3;
-  animation: frameEnterFromLeft 7.7s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+  animation: frameEnterFromLeft 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
 }
 
 @keyframes frameEnterFromLeft {
@@ -145,7 +145,7 @@
 
 .slide.prev {
   z-index: 2;
-  animation: frameExitLeft 7.7s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+  animation: frameExitLeft 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
 }
 
 @keyframes frameExitLeft {
@@ -172,7 +172,7 @@
 
 .slide.nextReverse {
   z-index: 2;
-  animation: frameExitRight 7.7s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+  animation: frameExitRight 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
 }
 
 @keyframes frameExitRight {
@@ -218,7 +218,7 @@
 }
 
 .slide.active .slideImage {
-  animation: imageEnter 7.7s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+  animation: imageEnter 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
 }
 
 @keyframes imageEnter {
@@ -265,7 +265,7 @@
 }
 
 .slide.activeReverse .slideImage {
-  animation: imageEnterFromLeft 7.7s cubic-bezier(0.2, 1, 0.2, 1) forwards;
+  animation: imageEnterFromLeft 4.5s cubic-bezier(0.2, 1, 0.2, 1) forwards;
 }
 
 @keyframes imageEnterFromLeft {
@@ -310,7 +310,7 @@
 
 .headlineActive {
   animation: headlineBottomLeftIn 5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 4s;
+  animation-delay: 2s;
 }
 
 .headlineLastExit {
