@@ -12,7 +12,7 @@ interface ExtraordinaryProps {
   isVideoActive: boolean;
 }
 
-export default function ExtraordinarySection({ isEntering, isActive, isFinal, isStepThree, isStepFour, isVideoActive,isStepFive,isStepSix, }: ExtraordinaryProps) {
+export default function ExtraordinarySection({ isEntering, isActive, isFinal, isStepThree, isStepFour, isVideoActive, isStepFive, isStepSix, }: ExtraordinaryProps) {
 
   const sectionClass = `${styles.extraordinarySection} ${isEntering ? styles.slideInActive : styles.slideOutBelow
     } `;
@@ -29,8 +29,8 @@ export default function ExtraordinarySection({ isEntering, isActive, isFinal, is
 
   // STEP 4 CONTAINER: Shuruat me hidden rahega, trigger hone par center me slide hoga
   const stepFourClass = `${styles.stepFourContainer} ${isStepFive ? styles.stepFourExitUp : (isStepFour ? styles.stepFourReveal : styles.stepFourHidden)}`;
-const stepFiveClass = `${styles.stepFiveContainer} ${isStepSix ? styles.stepFiveExitUp : (isStepFive ? styles.stepFiveReveal : styles.stepFiveHidden)}`;
-const stepSixClass = `${styles.stepSixContainer} ${isStepSix ? styles.stepSixReveal : styles.stepSixHidden} ${isVideoActive ? styles.section3ShiftLeft : ''}`;
+  const stepFiveClass = `${styles.stepFiveContainer} ${isStepSix ? styles.stepFiveExitUp : (isStepFive ? styles.stepFiveReveal : styles.stepFiveHidden)}`;
+  const stepSixClass = `${styles.stepSixContainer} ${isStepSix ? styles.stepSixReveal : styles.stepSixHidden} ${isVideoActive ? styles.section3ShiftLeft : ''}`;
   return (
     <section className={sectionClass}>
       <div className={styles.maincontainer}>
@@ -83,7 +83,7 @@ const stepSixClass = `${styles.stepSixContainer} ${isStepSix ? styles.stepSixRev
         </div>
 
         {/* --- NEW STEP 4 CONTENT (IMAGE LEFT, TEXT RIGHT) --- */}
-       <div className={stepFourClass}>
+        <div className={stepFourClass}>
           <div className={styles.step4LeftContainer}>
             <div className={`${styles.step4ImageWrapper} ${isStepFour ? styles.step4ImageExpanded : styles.step4ImageSquare}`}>
               <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop" alt="S" className={styles.buildingImage} />

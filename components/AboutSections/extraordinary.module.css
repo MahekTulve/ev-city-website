@@ -7,7 +7,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #f5f1ea;
+  background-color: #fff6e8;
   padding: 80px 60px;
   box-sizing: border-box;
   display: flex;
@@ -135,9 +135,11 @@
 .stepThreeHidden {
   opacity: 0;
   top: 50%;
-  transform: translate(-50%, calc(-50% + 150px));
+  transform: translate(-1300px, 250px) scale(0.5);
+  /* Position aur Size dono ko ek sath rakha */
+  transition: all 2.5s cubic-bezier(0.76, 0, 0.24, 1);
   pointer-events: none;
-  transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+  /* transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1); */
 }
 
 /* Active hone par smoothly bottom se slip hokar perfect center me shot ho jayega */
@@ -183,7 +185,6 @@
 .step3ImageWrapper {
   position: relative;
   width: 100%;
-  background-color: #e0dcd3;
   overflow: hidden;
   will-change: max-width, aspect-ratio, transform;
   transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
@@ -259,7 +260,6 @@
   width: 100%;
   aspect-ratio: 1 / 1.02;
   max-width: 270px;
-  background-color: #e0dcd3;
   overflow: hidden;
   transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1), aspect-ratio 2s ease;
 }
@@ -288,30 +288,77 @@
   color: #bfae91;
   line-height: 1.2;
   margin: 0 0 16px 0;
+  font-family: 'Playfair Display', serif;
+
 }
 
 .rightContentLarge .headingRight {
   font-size: 250px;
+  font-weight: 200;
+  line-height: 14rem;
+
+}
+
+.rightContentLarge {
+  background-image: linear-gradient(to bottom, #ffffff 0%, #fff6e8 100%);
+  border-top-left-radius: 45%;
+  border-top-right-radius: 45%;
+  height: 100%;
+
 }
 
 .divider {
-  width: 40px;
-  height: 1px;
+  width: 70px;
+  height: 1.5px;
   background-color: #bfae91;
   margin-bottom: 24px;
+  margin-left: 20px;
 }
 
 .description {
   font-size: clamp(14px, 1.2vw, 16px);
   font-weight: 300;
-  line-height: 1.6;
-  color: #a3957b;
+  line-height: 2;
+  color: #3a362e;
   max-width: 280px;
+  font-family: 'Playfair Display', serif;
+  margin-left: 15px;
+
 }
 
 .rightContentLarge .description {
-  font-size: clamp(16px, 1.5vw, 20px);
+  font-size: clamp(16px, 1.5vw, 18px);
   max-width: 400px;
+
+}
+
+.letterspace {
+  color: #a3957b;
+  letter-spacing: 0.2rem;
+  font-size: clamp(15px, 1.4vw, 18px);
+
+}
+
+.rightContentLarge .letterspace {
+  font-size: clamp(18px, 5.5vw, 75px);
+  line-height: 4.8rem;
+
+}
+
+.letterspaSecon {
+  font-size: 16px;
+  line-height: 1rem;
+}
+
+.rightContentLarge .letterspaSecon {
+  font-size: 30px;
+  letter-spacing: 0.1rem;
+  line-height: 2rem;
+}
+
+.rightContentLarge .lettersIcon {
+  font-size: 25px;
+  margin: 10px 0px;
 }
 
 .stepThreeExitUp {
@@ -342,9 +389,11 @@
 .stepFourHidden {
   opacity: 0;
   top: 50%;
-  transform: translate(-50%, calc(-50% + 150px));
+  transform: translate(900px, 250px) scale(0.5);
+  /* Position aur Size dono ko ek sath rakha */
+  transition: all 2.5s cubic-bezier(0.76, 0, 0.24, 1);
   pointer-events: none;
-  transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+  /* transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1); */
 }
 
 /* Active hone par smoothly bottom se slip hokar perfect center me shot ho jayega */
@@ -437,6 +486,7 @@
   color: #a3957b;
   max-width: 400px;
 }
+
 /* ==========================================================================
    8. STEP 5: H CONTAINER LOGIC (TEXT LEFT, IMAGE RIGHT)
    ========================================================================== */
@@ -455,9 +505,11 @@
 .stepFiveHidden {
   opacity: 0;
   top: 50%;
-  transform: translate(-50%, calc(-50% + 150px));
+  transform: translate(-1300px, 250px) scale(0.5);
+  /* Position aur Size dono ko ek sath rakha */
+  transition: all 2.5s cubic-bezier(0.76, 0, 0.24, 1);
   pointer-events: none;
-  transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+  /* transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1); */
 }
 
 .stepFiveReveal {
@@ -563,9 +615,11 @@
 .stepSixHidden {
   opacity: 0;
   top: 50%;
-  transform: translate(-50%, calc(-50% + 150px));
+  transform: translate(900px, 250px) scale(0.5);
+  /* Position aur Size dono ko ek sath rakha */
+  transition: all 2.5s cubic-bezier(0.76, 0, 0.24, 1);
   pointer-events: none;
-  transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+  /* transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1); */
 }
 
 .stepSixReveal {
@@ -655,23 +709,31 @@
 
 /* Media Query Responsive Support */
 @media (max-width: 992px) {
-  .stepFiveContainer, .stepSixContainer {
+
+  .stepFiveContainer,
+  .stepSixContainer {
     grid-template-columns: 1fr;
     gap: 40px;
     text-align: center;
   }
-  .step5LeftContent, .step6RightContent {
+
+  .step5LeftContent,
+  .step6RightContent {
     align-items: center;
     padding-left: 0;
     padding-right: 0;
   }
-  .step5Description, .step6Description {
+
+  .step5Description,
+  .step6Description {
     max-width: 450px;
   }
+
   .step6LeftContainer {
     align-items: center;
   }
 }
+
 /* ==========================================================================
    6. RESPONSIVE / MEDIA QUERIES
    ========================================================================== */
