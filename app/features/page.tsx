@@ -1,3 +1,4 @@
+import RealEstateJourney from "@/components/ev-city/denmark";
 import HoverFooter from "@/components/footer/footer-demo";
 import PerspectiveScrollDemo from "@/components/scroll-showcase/scroll-demo";
 
@@ -12,6 +13,8 @@ export default function FeaturesPage() {
       <PerspectiveScrollDemo />
 
       <HoverFooter />
+
+      <RealEstateJourney />
     </>
   );
 }
