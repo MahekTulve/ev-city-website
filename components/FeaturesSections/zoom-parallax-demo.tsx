@@ -6,6 +6,7 @@ import { ZoomParallax } from "@/components/FeaturesSections/zoom-parallax";
 import { TextHoverEffect } from "@/components/footer/hover-footer";
 import VashiLetter from "../AboutSections/VashiLetter";
 import Vashi from "../Vashi/vashi";
+import RealEstateJourney from "../ev-city/denmark";
 
 export default function ZoomParallaxDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -90,7 +91,7 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div>
-     
+      <RealEstateJourney />
     </main>
   );
 }
