@@ -1,0 +1,192 @@
+.cityscape {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  min-height: 400vh;
+  /* background: linear-gradient(
+    180deg,
+    #cfe8ff 0%,
+    #bfe0ff 20%,
+    #e9d8c3 55%,
+    #d8c3a0 78%,
+    #b9a583 100%
+  ); */
+  background:
+    radial-gradient(
+      circle at 85% 15%,
+      rgba(218,165,32,0.15) 0%,
+      transparent 25%
+    ),
+    linear-gradient(
+      180deg,
+      #000000 0%,
+      #0a0a0a 25%,
+      #111111 55%,
+      #181818 80%,
+      #222222 100%
+    );
+}
+
+.sun {
+  position: absolute;
+  top: 60px;
+  right: 80px;
+  width: 160px;
+  height: 160px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    #fff2a8 0%,
+    #ffca6b 60%,
+    rgba(255, 202, 107, 0) 75%
+  );
+  filter: blur(2px);
+}
+
+.section {
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  padding: 0 2rem;
+}
+
+.hero {
+  height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sectionLeft {
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 2rem;
+}
+
+.sectionRight {
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 2rem;
+  text-align: right;
+}
+
+.sectionCenter {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .sectionLeft,
+  .sectionRight {
+    padding: 0 6rem;
+  }
+}
+
+.title {
+  max-width: 56rem;
+  font-family: Georgia, serif;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #DAA520;
+  line-height: 1.05;
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 4.5rem;
+  }
+}
+
+.subtitle {
+  margin-top: 1.5rem;
+  max-width: 36rem;
+  font-size: 1.125rem;
+color: rgba(255, 255, 255, 0.75);
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    font-size: 1.25rem;
+  }
+}
+
+.scrollHint {
+  margin-top: 3rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+color: rgba(218,165,32,0.8);}
+
+.sectionText {
+  max-width: 32rem;
+  color: #ffffff;
+}
+
+.sectionHeading {
+  font-family: Georgia, serif;
+  font-size: 2.25rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+@media (min-width: 768px) {
+  .sectionHeading {
+    font-size: 3rem;
+  }
+}
+
+.sectionCopy {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+ color: rgba(255, 255, 255, 0.7);
+}
+
+.elementLayer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+}
+
+.floatingElement {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+
+.skyline {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 260px;
+}
+
+.building {
+  position: absolute;
+  bottom: 0;
+}
+
+.miniCrane {
+  position: absolute;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 3rem;
+   background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+}
