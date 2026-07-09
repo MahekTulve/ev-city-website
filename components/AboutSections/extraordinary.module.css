@@ -2,6 +2,8 @@
    1. MAIN VIEWPORT LAYER & BACKGROUND
    ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Kalnia:wght@100..700&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400..700&family=Kalnia:wght@100..700&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
 
 .extraordinarySection {
   width: 100%;
@@ -9,15 +11,14 @@
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #fff6e8;
-  padding: 80px 60px;
+  /* background-color: #fff6e8; */
+  background-color: #0b0a09;
+  padding: 0px 60px 50px 0px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-
-  /* TIMING ADJUSTED: 3s se hata kar 1.2s kiya taaki component code timeouts ke sath perfectly sync ho sake */
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.3, 1);
   will-change: transform;
 }
@@ -39,6 +40,7 @@
   height: 100%;
   margin: 0 auto;
   margin-left: 7%;
+
 }
 
 /* ==========================================================================
@@ -51,19 +53,20 @@
   transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform, top, left, opacity;
   opacity: 1;
+  width: 100%;
 }
 
 /* Is class ko aap extraordinary.module.css ke aakhir me jod dijiye */
 
 .textCentered {
   top: 50%;
-  left: 50%;
+  left: 20%;
   transform: translate(-50%, -50%);
 }
 
 .textMoveToPosition {
-  top: 5rem;
-  left: 15rem;
+  top: 1rem;
+  left: 1rem;
   transform: translate(0, 0);
 }
 
@@ -80,13 +83,13 @@
 .container {
   position: absolute;
   bottom: 0;
-  right: 0;
+  right: 10%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 100%;
-  max-width: 800px;
+  max-width: 700px;
   align-items: center;
-  gap: 40px;
+  gap: 10px;
   will-change: transform, opacity, width, max-width, bottom, right;
   transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
 
@@ -172,19 +175,60 @@
   transition: all 1s ease;
 }
 
-/* Trigger hote hi smoothly upscale hokar 1 par lock ho jayega */
 .step3TextScaleUp {
-  opacity: 1;
-  transform: scale(1);
-  transition: all 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
-  background-image: linear-gradient(to bottom, #ffffff 0%, #fff6e8 100%);
-  border-top-left-radius: 45%;
-  border-top-right-radius: 45%;
-  height: 100%;
+  background-image: radial-gradient(circle 800px at top left,
+      #fff0d4 0%,
+      #ffae0028 5%,
+      #df981e0f 30%,
+      #30200515 40%,
+      /* #0b0a09 70%, */
+      #0b0a09 100%);
+
+  overflow: visible;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  height: 80%;
+  padding-left: 20px;
+  position: relative;
+  z-index: 1;
 
 }
 
-/* --- STEP 3 IMAGE SQUARE TO STRETCH LOGIC --- */
+.step3TextScaleUp::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+
+  border: 1px solid #9a7a3d;
+  border-bottom: none;
+
+  pointer-events: none;
+  z-index: 1;
+
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+}
+
+.step3TextScaleUp::after {
+  content: "";
+  filter: blur(2px);
+  z-index: 1;
+  background: radial-gradient(circle, #ffedc2 0%, #ae8a35a8 30%, #0000 90%);
+  width: 2px;
+  height: 150px;
+  position: absolute;
+  border-top-right-radius: 45%;
+  top: 45%;
+  right: -1;
+  transform: translate(-50%);
+}
+
 .step3RightContainer {
   display: flex;
   justify-content: center;
@@ -208,7 +252,7 @@
 }
 
 .step3ImageExpanded {
-  max-width: 430px;
+  max-width: 500px;
   aspect-ratio: 0.8 / 1.02;
   transform: scale(1);
 }
@@ -216,7 +260,10 @@
 /* Step 3 Typography Details */
 
 .step3Heading {
-  color: #bfae91;
+  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   line-height: 1.2;
   margin: 0 0 16px 0;
   font-size: 250px;
@@ -225,13 +272,14 @@
   position: absolute;
   right: -10%;
   font-family: "Kalnia", serif;
+  z-index: 20;
 
 }
 
 .step3Divider {
-  width: 40px;
+  width: 70px;
   height: 1px;
-  background-color: #bfae91;
+  background-color: #e7bd65;
   margin-bottom: 24px;
 }
 
@@ -240,7 +288,7 @@
   flex-direction: column;
   padding-right: 20px;
   position: absolute;
-  top: 45%;
+  top: 50%;
   right: 10px;
   flex-direction: column;
   align-items: flex-end;
@@ -254,33 +302,65 @@
   align-items: flex-end;
   text-align: right;
   font-weight: 300;
-  color: #3a362e;
+  color: #fff5e2;
   font-family: 'Playfair Display', serif;
   margin-left: 20px;
   font-size: clamp(16px, 1.5vw, 18px);
   line-height: 1.5;
-
+  margin-top: 55px;
 }
 
-/* ==========================================================================
-   5. SHARED TYPOGRAPHY & CORE COMPONENTS
-   ========================================================================== */
-.titleMain {
-  font-size: clamp(48px, 5vw, 56px);
+.thestart,
+.mainthe {
+  display: flex;
+  font-size: 130px;
   font-weight: 300;
-  color: #bfae91;
-  line-height: 1;
+  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   margin: 0;
-  letter-spacing: -1px;
+  letter-spacing: 1px;
+  font-family: "cormorant garamond", serif;
 }
 
-.titleSub {
-  font-size: clamp(48px, 5vw, 55px);
-  font-style: italic;
-  font-weight: 300;
-  color: #bfae91;
-  line-height: 1.1;
-  margin: 0;
+.thestart {
+  font-size: 50px;
+  font-weight: 450;
+  margin-top: 20px;
+}
+
+.fivenumber {
+  font-size: 150px;
+  font-family: "Cormorant Garamond", serif;
+
+  /* 2. NAYA CODE: Yeh numbers ko bilkul ek barabar aur seedha (Lining style) karega */
+  font-variant-numeric: lining-nums;
+  -moz-font-feature-settings: "lnum";
+  -webkit-font-feature-settings: "lnum";
+  font-feature-settings: "lnum";
+}
+
+.minttop {
+  margin-top: 50px;
+  margin-left: 10px;
+  font-weight: 450;
+}
+
+.vashitop {
+  margin-top: 130px;
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 150px;
+}
+
+.text05 {
+  font-size: 350px;
+  font-family: "cormorant garamond", serif;
+  color: #b88f421f;
+  line-height: 20rem;
+  margin-top: 200px;
+
 }
 
 .centerContainer {
@@ -292,14 +372,50 @@
 .imageWrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1 / 1.02;
-  max-width: 270px;
+  aspect-ratio: 0.8 / 1.02;
+  max-width: 300px;
   overflow: hidden;
   transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1), aspect-ratio 2s ease;
+  z-index: 10;
+
+}
+
+.cornerHighlight {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  right: 55%;
+  bottom: 10px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* TOP-LEFT CORNER Border */
+.cornerHighlight::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80px;
+  height: 80px;
+  border-top: 2px solid #cea66052;
+  border-left: 2px solid #cea66052;
+}
+
+/* BOTTOM-RIGHT CORNER Border */
+.cornerHighlight::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  height: 80px;
+  border-bottom: 2px solid #cea66052;
+  border-right: 2px solid #cea66052;
 }
 
 .imageLarge {
-  max-width: 400px;
+  max-width: 500px;
   aspect-ratio: 0.8 / 1.02;
 }
 
@@ -307,6 +423,22 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+
+}
+
+.bgcircle {
+  height: 300px;
+  width: 300px;
+  position: absolute;
+  left: -10%;
+  border-radius: 50%;
+  top: 30%;
+  border: 1px solid #e9c279ac;
+  z-index: 5;
+}
+
+.bgcircleremove {
+  display: none;
 }
 
 .rightContent {
@@ -314,25 +446,97 @@
   flex-direction: column;
   transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
   position: relative;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
 }
 
+.rightContentLarge {
+  background-image: radial-gradient(circle 800px at top right,
+      #fff0d4 0%,
+      #ffae0028 5%,
+      #df981e0f 30%,
+      #30200515 40%,
+      #0b0a09 100%);
+
+  overflow: visible;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  height: 85%;
+  padding-left: 20px;
+  position: relative;
+}
+
+/* Border waale hisse mein koi badlav nahi, yeh bilkul sahi hai */
+.rightContentLarge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+
+  border: 1px solid #9a7a3d;
+  border-bottom: none;
+
+  pointer-events: none;
+  z-index: 1;
+
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+}
+
+.rightContentLarge::after {
+  content: "";
+  filter: blur(2px);
+  z-index: 1;
+  background: radial-gradient(circle, #ffedc2 0%, #ae8a35a8 30%, #0000 90%);
+  width: 2px;
+  height: 150px;
+  position: absolute;
+  border-top-right-radius: 45%;
+  top: 40%;
+  right: -1;
+  transform: translate(-50%);
+}
+
+.diviDescripcon,
 .diviDescrip {
   display: flex;
   flex-direction: column;
-  padding-left: 20px;
   position: absolute;
+  padding-left: 15px;
+  top: 80%;
+
+}
+
+.diviDescripcon {
   top: 45%;
 
 }
 
+.rightContentLarge .diviDescrip {
+  top: 43%;
+  padding-left: 20px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
 .headingRight {
-  font-size: 50px;
+  font-size: 60px;
   font-weight: 300;
-  color: #bfae91;
+  color: #e7bd65;
   line-height: 1.2;
   margin: 0 0 16px 0;
   font-family: 'Playfair Display', serif;
-  text-decoration: "italic"
+  text-decoration: "italic";
+  transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1);
+
 }
 
 .step6Heading,
@@ -342,46 +546,53 @@
   font-weight: 400;
   line-height: 14rem;
   position: absolute;
-  color: #bfae91;
+  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   left: -5%;
   font-family: "Kalnia", serif;
+  z-index: 20;
 }
-.step6Heading{
-    left: 3%;
-}
-.rightContentLarge {
-  background-image: linear-gradient(to bottom, #ffffff 0%, #fff6e8 100%);
-  border-top-left-radius: 45%;
-  border-top-right-radius: 45%;
-  height: 100%;
-  padding-left: 20px;
 
+
+.step6Heading {
+  left: 3%;
 }
+
+
 
 .divider {
-  width: 70px;
+  width: 40px;
   height: 1.5px;
-  background-color: #bfae91;
+  background-color: #e7bd65;
+  margin-bottom: 15px;
+
+}
+
+.rightContentLarge .divider {
+  width: 70px;
   margin-bottom: 24px;
+
 }
 
 .description {
   font-size: clamp(14px, 1.2vw, 16px);
   font-weight: 300;
-  line-height: 2;
-  color: #3a362e;
+  color: #fff5e2;
   max-width: 280px;
   font-family: 'Playfair Display', serif;
-  margin-left: 20px;
-
-  /* font-style: italic; */
+  transition: margin-top 2s cubic-bezier(0.76, 0, 0.24, 1)
+    /* font-style: italic; */
 }
 
 .rightContentLarge .description {
   font-size: clamp(16px, 1.5vw, 18px);
   max-width: 300px;
   line-height: 1.5;
-
+  margin-left: 20px;
+  line-height: 2;
+  margin-top: 50px;
 }
 
 /* मुख्य कंटेनर */
@@ -411,41 +622,55 @@
   font-family: "Kalnia", serif;
 }
 
-/* Ye nayi class niche add karein */
 .activeLetter {
-  color: #bb9e6c !important;
-  /* Highlight hone par full bright color */
+  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-shadow: 0 0 10px rgba(191, 174, 145, 0.3);
-  /* Optional: Premium look ke liye soft glow */
 }
 
 
 .letterspace {
-  color: #a3957b;
+  color: #e7bd65;
   letter-spacing: 0.2rem;
-  font-size: clamp(15px, 1.4vw, 18px);
-
+  font-size: clamp(18px, 1.8vw, 23px);
+  font-family: "Kalnia", serif;
+  line-height: 1rem;
+  transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
+    margin-top 2s cubic-bezier(0.76, 0, 0.24, 1),
+    padding-bottom 2s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
 .lettersSle,
 .letterA,
 .rightContentLarge .letterspace {
   font-size: clamp(18px, 5.5vw, 75px);
-  line-height: 2rem;
-  margin-top: 20px;
+  line-height: 1.2;
+  margin-top: 10px;
   font-family: "Kalnia", serif;
-  color: #a3957b;
+  position: absolute;
+  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  padding-top: 10px;
+  padding-bottom: 50px;
 }
-.lettersSle{
-    font-size: 50px;
 
+.lettersSle {
+  font-size: 50px;
+  width: 100%;
 }
+
 .letterspaSecon {
-  font-size: 16px;
-  line-height: 1rem;
+  font-size: 17px;
+  line-height: 0rem;
+  transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
+    line-height 2s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-.letterspaSecon,
+.letterspaSecontext,
 .letterspaAsec,
 .rightContentLarge .letterspaSecon {
   font-size: 28px;
@@ -460,11 +685,22 @@
 
 }
 
+.activeIcon {
+  font-size: 9px;
+  margin: 10px 0px;
+  color: #f7c66c;
+  transform: rotate(45deg);
+  transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
+    margin 2s cubic-bezier(0.76, 0, 0.24, 1);
+
+}
+
 .lettersIcon {
   font-size: 13px;
   margin: 15px 0px;
-  color: #a3957b;
+  color: #f7c66c;
   transform: rotate(45deg);
+
 }
 
 .stepThreeExitUp {
@@ -480,10 +716,10 @@
 .dotgrid {
   position: absolute;
   top: 24px;
-  right: -15%;
-  width: 99px;
-  height: 99px;
-  background-image: radial-gradient(circle, #c9a96e43 2.2px, transparent 2.2px);
+  right: -20%;
+  width: 110px;
+  height: 110px;
+  background-image: radial-gradient(circle, #f5d7501e 2.2px, transparent 2.2px);
   background-size: 12px 12px;
   opacity: .5;
 }
@@ -548,6 +784,7 @@
   transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
     aspect-ratio 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
     transform 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s;
+
 }
 
 /* Shuruat me image choti aur perfectly Square (1/1) shape me dabi rahegi */
@@ -559,7 +796,7 @@
 
 /* TRIGGER STATE: Expand hokar premium vertical size le legi */
 .step4ImageExpanded {
-  max-width: 400px;
+  max-width: 500px;
   aspect-ratio: 0.8 / 1.02;
   transform: scale(1);
 }
@@ -586,33 +823,74 @@
 }
 
 .step4TextScaleUp {
-  opacity: 1;
-  transform: scale(1);
-  transition: all 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
-  background-image: linear-gradient(to bottom, #ffffff 0%, #fff6e8 100%);
-  border-top-left-radius: 45%;
-  border-top-right-radius: 45%;
-  height: 100%;
+  background-image: radial-gradient(circle 800px at top right,
+      #fff0d4 0%,
+      #ffae0028 5%,
+      #df981e0f 30%,
+      #30200515 40%,
+      #0b0a09 100%);
+
+  overflow: visible;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  height: 85%;
   padding-left: 20px;
+  position: relative;
+}
+
+.step4TextScaleUp::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+
+  border: 1px solid #9a7a3d;
+  border-bottom: none;
+
+  pointer-events: none;
+  z-index: 1;
+
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+}
+
+.step4TextScaleUp::after {
+  content: "";
+  filter: blur(2px);
+  z-index: 1;
+  background: radial-gradient(circle, #ffedc2 0%, #ae8a35a8 30%, #0000 90%);
+  width: 2px;
+  height: 150px;
+  position: absolute;
+  border-top-right-radius: 45%;
+  top: 40%;
+  right: -1;
+  transform: translate(-50%);
 }
 
 
 
 .step4Divider {
-  width: 40px;
   height: 1px;
-  background-color: #bfae91;
+  background-color: #e7bd65;
+  width: 70px;
   margin-bottom: 24px;
 }
 
 .step4Description {
-  color: #3a362e;
+  color: #fff5e2;
   max-width: 280px;
   font-family: 'Playfair Display', serif;
-  margin-left: 20px;
+  margin-left: 15px;
   font-size: clamp(16px, 1.5vw, 18px);
   max-width: 300px;
   line-height: 1.5;
+  margin-top: 40px;
 }
 
 /* ==========================================================================
@@ -670,13 +948,57 @@
 }
 
 .step5TextScaleUp {
-  opacity: 1;
-  transform: scale(1);
-  transition: all 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
-  background-image: linear-gradient(to bottom, #ffffff 0%, #fff6e8 100%);
-  border-top-left-radius: 45%;
+  background-image: radial-gradient(circle 800px at top left,
+      #fff0d4 0%,
+      #ffae0028 5%,
+      #df981e0f 30%,
+      #30200515 40%,
+      /* #0b0a09 70%, */
+      #0b0a09 100%);
+
+  overflow: visible;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  height: 80%;
+  padding-left: 20px;
+  position: relative;
+  z-index: 1;
+
+}
+
+.step5TextScaleUp::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+
+  border: 1px solid #9a7a3d;
+  border-bottom: none;
+
+  pointer-events: none;
+  z-index: 1;
+
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+}
+
+.step5TextScaleUp::after {
+  content: "";
+  filter: blur(2px);
+  z-index: 1;
+  background: radial-gradient(circle, #ffedc2 0%, #ae8a35a8 30%, #0000 90%);
+  width: 2px;
+  height: 150px;
+  position: absolute;
   border-top-right-radius: 45%;
-  height: 100%;
+  top: 45%;
+  right: -1;
+  transform: translate(-50%);
 }
 
 .step5RightContainer {
@@ -700,13 +1022,16 @@
 }
 
 .step5ImageExpanded {
-  max-width: 430px;
+  max-width: 500px;
   aspect-ratio: 0.8 / 1.02;
   transform: scale(1);
 }
 
 .step5Heading {
-  color: #bfae91;
+  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   line-height: 1.2;
   margin: 0 0 16px 0;
   font-size: 250px;
@@ -715,12 +1040,14 @@
   position: absolute;
   right: -10%;
   font-family: "Kalnia", serif;
+  z-index: 20;
+
 }
 
 .step5Divider {
-  width: 40px;
+  width: 70px;
   height: 1px;
-  background-color: #bfae91;
+  background-color: #e7bd65;
   margin-bottom: 24px;
 }
 
@@ -731,11 +1058,12 @@
   align-items: flex-end;
   text-align: right;
   font-weight: 300;
-  color: #3a362e;
+  color: #fff5e2;
   font-family: 'Playfair Display', serif;
   margin-left: 20px;
   font-size: clamp(16px, 1.5vw, 18px);
   line-height: 1.5;
+  margin-top: 50px;
 }
 
 /* ==========================================================================
@@ -791,7 +1119,7 @@
 }
 
 .step6ImageExpanded {
-  max-width: 400px;
+  max-width: 500px;
   aspect-ratio: 0.8 / 1.02;
   transform: scale(1);
 }
@@ -811,33 +1139,74 @@
 }
 
 .step6TextScaleUp {
-  opacity: 1;
-  transform: scale(1);
-  transition: all 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s;
-  background-image: linear-gradient(to bottom, #ffffff 0%, #fff6e8 100%);
-  border-top-left-radius: 45%;
-  border-top-right-radius: 45%;
-  height: 100%;
+  background-image: radial-gradient(circle 800px at top right,
+      #fff0d4 0%,
+      #ffae0028 5%,
+      #df981e0f 30%,
+      #30200515 40%,
+      #0b0a09 100%);
+
+  overflow: visible;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  height: 85%;
   padding-left: 20px;
+  position: relative;
+}
+
+/* Border waale hisse mein koi badlav nahi, yeh bilkul sahi hai */
+.step6TextScaleUp::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+
+  border: 1px solid #9a7a3d;
+  border-bottom: none;
+
+  pointer-events: none;
+  z-index: 1;
+
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+}
+
+.step6TextScaleUp::after {
+  content: "";
+  filter: blur(2px);
+  z-index: 1;
+  background: radial-gradient(circle, #ffedc2 0%, #ae8a35a8 30%, #0000 90%);
+  width: 2px;
+  height: 150px;
+  position: absolute;
+  border-top-right-radius: 45%;
+  top: 40%;
+  right: -1;
+  transform: translate(-50%);
 }
 
 
-
 .step6Divider {
-  width: 40px;
+  width: 70px;
   height: 1px;
-  background-color: #bfae91;
+  background-color: #e7bd65;
   margin-bottom: 24px;
 }
 
 .step6Description {
-  color: #3a362e;
+  color: #fff5e2;
   max-width: 280px;
   font-family: 'Playfair Display', serif;
   margin-left: 20px;
   font-size: clamp(16px, 1.5vw, 18px);
   max-width: 300px;
   line-height: 1.5;
+  margin-top: 30px;
 }
 
 /* Also extend step 4 exit logic to match the chain */
