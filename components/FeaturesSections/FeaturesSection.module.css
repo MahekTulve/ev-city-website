@@ -13,6 +13,22 @@
   text-align: center;
 }
 
+/* ===========================
+   Luxury Gold Glow
+=========================== */
+
+.cityGlow {
+  position: relative;
+  display: inline-block;
+
+  background: rgb(182, 160, 62);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+
+  /* animation: cityGlow 2s ease-in-out infinite alternate; */
+}
 .heading {
   font-family: var(--font-editorial-new);
   font-size: var(--text-heading-sm);
