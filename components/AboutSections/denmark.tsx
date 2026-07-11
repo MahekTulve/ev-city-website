@@ -41,7 +41,7 @@ const NODES: Node[] = [
   { time: "15", label: "AIRPORT", sub: "Travel with Ease", icon: <Plane size={26} />, x: 92, y: 55 },
 ];
 
-export default  function Denmark() {
+export default  function VashiDenmark() {
   return (
     <main className={styles.page}>
       <p className={styles.topLabel}>EVERYTHING WITHIN REACH</p>
