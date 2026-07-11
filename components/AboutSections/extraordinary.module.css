@@ -1,6 +1,4 @@
-/* ==========================================================================
-   1. MAIN VIEWPORT LAYER & BACKGROUND
-   ========================================================================== */
+
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Kalnia:wght@100..700&family=Varela+Round&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400..700&family=Kalnia:wght@100..700&family=Varela+Round&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
@@ -8,10 +6,7 @@
 .extraordinarySection {
   width: 100%;
   height: 100vh;
-  position: fixed;
-  top: 0;
   left: 0;
-  /* background-color: #fff6e8; */
   background-color: #0b0a09;
   padding: 0px 60px 50px 0px;
   box-sizing: border-box;
@@ -19,10 +14,21 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  will-change: transform, position;
+}
+.keepItFixed {
+  position: fixed;
+  top: 0;
+  z-index: 50; 
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.3, 1);
-  will-change: transform;
 }
 
+.makeItScrollable {
+  position: absolute;
+  top: 0;
+  z-index: 50;
+  transition: none; 
+}
 .slideOutBelow {
   transform: translateY(100%);
   z-index: 30;
