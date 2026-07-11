@@ -13,8 +13,8 @@ import VashiLetter from "../AboutSections/VashiLetter";
 import RealEstateJourney from "../ev-city/denmark";
 import styles from "./FeaturesSection.module.css";
 
-// --- Timing constants (tuned to match the reference video) ---
-const WORD_DURATION =400 ; // ms each word is on screen before the next
+// --- Timing constants ---
+const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
 
 export default function ZoomParallaxDemo() {
@@ -23,17 +23,19 @@ export default function ZoomParallaxDemo() {
   // States for tracking the animation timeline
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [introFinished, setIntroFinished] = useState(false);
-  // Separate trigger to restart the blocks staggered animation whenever the section enters the view
   const [triggerMainHeading, setTriggerMainHeading] = useState(false);
+  
+  // Tracks whether the section has hit the 80% visibility threshold
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
 
   const introText =
     "EV HOMES PRESENTS THE FUTURE OF CONNECTED LIVING WHERE EVERYTHING YOU NEED IS JUST FIVE MINUTES AWAY";
   const introWords = introText.split(" ");
 
-  // Handle the rapid flashing word intro
+  // Handle the flashing word intro
   useEffect(() => {
-    // Only run if the heading sequence is currently active/visible
-    if (!introFinished) {
+    // Only run if the section is 80% visible AND the intro isn't finished yet
+    if (isSectionVisible && !introFinished) {
       if (currentWordIndex < introWords.length) {
         const timer = setTimeout(() => {
           setCurrentWordIndex((prev) => prev + 1);
@@ -42,22 +44,24 @@ export default function ZoomParallaxDemo() {
       } else {
         const finishTimer = setTimeout(() => {
           setIntroFinished(true);
-          // Small extra millisecond buffer to gracefully fire the block words
           setTimeout(() => setTriggerMainHeading(true), 50);
         }, FINISH_HOLD);
         return () => clearTimeout(finishTimer);
       }
     }
-  }, [currentWordIndex, introFinished, introWords.length]);
+  }, [currentWordIndex, introFinished, introWords.length, isSectionVisible]);
 
-  // Reset function to re-trigger everything when scrolling back to the top
-  const handleViewportReset = (isInView: boolean) => {
-    if (!isInView) {
-      // Revert everything back to original state when it goes off screen
-      setIntroFinished(false);
-      setCurrentWordIndex(0);
-      setTriggerMainHeading(false);
-    }
+  // Triggered when section hits 80% visibility
+  const handleViewportEnter = () => {
+    setIsSectionVisible(true);
+  };
+
+  // Revert everything back to original state when it goes off screen
+  const handleViewportLeave = () => {
+    setIsSectionVisible(false);
+    setIntroFinished(false);
+    setCurrentWordIndex(0);
+    setTriggerMainHeading(false);
   };
 
   const { scrollYProgress } = useScroll({
@@ -149,13 +153,12 @@ export default function ZoomParallaxDemo() {
     { src: "https://evhomes.tech/images/marina1.png", alt: "10marina" },
   ];
 
-  // Staggered Block Sequence Variants
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.25, // Delay block-by-block reveal
+        staggerChildren: 0.25,
       },
     },
   };
@@ -172,7 +175,7 @@ export default function ZoomParallaxDemo() {
       y: 0,
       transition: {
         type: "spring",
-        damping: 11, // High impact poppy spring bounce
+        damping: 11,
         stiffness: 120,
       },
     },
@@ -184,9 +187,10 @@ export default function ZoomParallaxDemo() {
     <main className="w-full">
       {/* Scroll-Aware Retriggerable Header Section */}
       <motion.div
-        onViewportLeave={() => handleViewportReset(false)}
-        viewport={{ once: false, amount: 0.3 }}
-        className="relative flex flex-col h-[65vh] items-center justify-center overflow-hidden py-12 px-4 bg-black select-none"
+        onViewportEnter={handleViewportEnter}
+        onViewportLeave={handleViewportLeave}
+        viewport={{ once: false, amount: 0.8 }} // Triggers precisely at 80% visibility
+        className="relative flex flex-col h-[65vh] items-center justify-center overflow-hidden py-12 px-4 bg-transparent select-none"
       >
         <AnimatePresence mode="wait">
           {!introFinished ? (
@@ -199,29 +203,29 @@ export default function ZoomParallaxDemo() {
               transition={{ duration: 0.25 }}
               className="absolute inset-0 flex items-center justify-center p-4"
             >
-             <AnimatePresence mode="wait">
-  {introWords.map((word, index) => {
-    if (index !== currentWordIndex) return null;
-    const isEmphasized = ["FUTURE", "CONNECTED", "FIVE", "MINUTES"].includes(word);
+              <AnimatePresence mode="wait">
+                {introWords.map((word, index) => {
+                  if (index !== currentWordIndex) return null;
+                  const isEmphasized = ["FUTURE", "CONNECTED", "FIVE", "MINUTES"].includes(word);
 
-    return (
-      <motion.span
-        key={word + index}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.1 }}
-        className={`text-center text-5xl md:text-7xl font-black tracking-tight uppercase break-words px-4 ${
-          isEmphasized
-            ? "bg-gradient-to-b from-[#FDE68A] via-[#D4AF37] to-[#8B6B16] bg-clip-text text-transparent"
-            : "text-white"
-        }`}
-      >
-        {word}
-      </motion.span>
-    );
-  })}
-</AnimatePresence>
+                  return (
+                    <motion.span
+                      key={word + index}
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.1 }}
+                      className={`text-center text-5xl md:text-7xl font-black tracking-tight uppercase break-words px-4 ${
+                        isEmphasized
+                          ? "bg-gradient-to-b from-[#FDE68A] via-[#D4AF37] to-[#8B6B16] bg-clip-text text-transparent"
+                          : "text-white"
+                      }`}
+                    >
+                      {word}
+                    </motion.span>
+                  );
+                })}
+              </AnimatePresence>
             </motion.div>
           ) : (
             /* Main Heading Block-by-Block Entry */
@@ -241,42 +245,39 @@ export default function ZoomParallaxDemo() {
 
               <motion.h1 className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-5xl md:text-7xl lg:text-8xl font-black tracking-tight uppercase">
                 {headingText.split(" ").map((word, index) => {
-  const highlight =
-    word === "5" || word === "MINUTE" || word === "CITY";
+                  const highlight = word === "5" || word === "MINUTE" || word === "CITY";
 
-  return (
-    <motion.span
-      key={index}
-      variants={blockWordVariants}
-      className={`relative inline-block ${
-        highlight
-          ? styles.cityGlow
-          : "bg-gradient-to-b from-white to-neutral-300 bg-clip-text text-transparent"
-      }`}
-    >
-      {word}
+                  return (
+                    <motion.span
+                      key={index}
+                      variants={blockWordVariants}
+                      className={`relative inline-block ${
+                        highlight
+                          ? styles.cityGlow
+                          : "bg-gradient-to-b from-white to-neutral-300 bg-clip-text text-transparent"
+                      }`}
+                    >
+                      {word}
 
-      {highlight && (
-        <>
-          <span
-            className={styles.sparkle}
-            style={{ top: "-10px", left: "-8px", animationDelay: "0s" }}
-          />
-
-          <span
-            className={styles.sparkle}
-            style={{ top: "12px", right: "-10px", animationDelay: ".6s" }}
-          />
-
-          <span
-            className={styles.sparkle}
-            style={{ bottom: "-10px", left: "50%", animationDelay: "1.2s" }}
-          />
-        </>
-      )}
-    </motion.span>
-  );
-})}
+                      {highlight && (
+                        <>
+                          <span
+                            className={styles.sparkle}
+                            style={{ top: "-10px", left: "-8px", animationDelay: "0s" }}
+                          />
+                          <span
+                            className={styles.sparkle}
+                            style={{ top: "12px", right: "-10px", animationDelay: ".6s" }}
+                          />
+                          <span
+                            className={styles.sparkle}
+                            style={{ bottom: "-10px", left: "50%", animationDelay: "1.2s" }}
+                          />
+                        </>
+                      )}
+                    </motion.span>
+                  );
+                })}
               </motion.h1>
             </motion.div>
           )}
