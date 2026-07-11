@@ -17,14 +17,15 @@
       rgba(218,165,32,0.15) 0%,
       transparent 25%
     ),
-    linear-gradient(
+    #0b0a09;
+    /* linear-gradient(
       180deg,
       #000000 0%,
       #0a0a0a 25%,
       #111111 55%,
       #181818 80%,
       #222222 100%
-    );
+    ); */
 }
 
 .sun {

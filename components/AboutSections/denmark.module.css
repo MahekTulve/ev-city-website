@@ -1,0 +1,434 @@
+.page {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at center, rgba(40, 30, 10, 0.55) 0%, #0b0a09 70%),
+        #000;
+    color: #f5e6b8;
+    font-family: "Georgia", "Times New Roman", serif;
+    padding: 32px 48px 48px;
+    position: relative;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at center, rgba(40, 30, 10, 0.45) 0%, #0b0a09 85%),
+        url('/images/landmark.png') center center / cover no-repeat;
+}
+
+.topLabel {
+    text-align: center;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    color: #d9ae59;
+    font-family: "Helvetica", sans-serif;
+    margin-bottom: 8px;
+}
+
+.topLabel {
+  text-align: center;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  color: #d9ae59;
+  font-family: "Helvetica", sans-serif;
+  margin-bottom: 8px;
+}
+
+.topLabel::before,
+.topLabel::after {
+  content: "";
+  display: inline-block;    /* 👈 Yeh add kiya taaki width aur height apply ho sake */
+  vertical-align: middle;   /* 👈 Yeh add kiya taaki line text ke beech me align ho */
+  width: 50px;
+  height: 2px;
+  margin: 0 12px;
+  background-color: #d9ae59;
+}
+.title {
+    text-align: center;
+    font-size: 64px;
+    letter-spacing: 0.05em;
+    color: #f8f2df;
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.05;
+}
+
+.title .big {
+    color: #e6c76a;
+    font-style: italic;
+    padding: 0 8px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #cfc3a3;
+    font-family: "Helvetica", sans-serif;
+    font-size: 14px;
+    margin-top: 14px;
+    line-height: 1.6;
+}
+
+.divider {
+    width: 1px;
+    height: 32px;
+    background: linear-gradient(#d4af37, transparent);
+    margin: 20px auto;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    gap: 24px;
+    align-items: start;
+}
+
+.card {
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 16px;
+    padding: 20px 22px;
+    background: rgba(10, 10, 10, 0.55);
+    backdrop-filter: blur(6px);
+    box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.06);
+}
+
+.brandMark {
+    color: #d4af37;
+    margin-bottom: 10px;
+}
+
+.brandName {
+    font-size: 26px;
+    letter-spacing: 0.15em;
+    color: #e6c76a;
+    margin: 0;
+}
+
+.brandCity {
+    font-family: "Helvetica", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    color: #cfc3a3;
+    margin: 4px 0 16px;
+}
+
+.brandDesc {
+    font-family: "Helvetica", sans-serif;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #b8ac8a;
+    margin: 0;
+}
+
+.infoRow {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 12px 4px;
+}
+
+.infoRow+.infoRow {
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+.infoIcon {
+    color: #d4af37;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.infoTitle {
+    color: #e6c76a;
+    font-family: "Helvetica", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    margin: 0 0 4px;
+}
+
+.infoSub {
+    color: #cfc3a3;
+    font-family: "Helvetica", sans-serif;
+    font-size: 13px;
+    margin: 0;
+}
+
+.mapWrap {
+    position: relative;
+    min-height: 560px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding-top: 20px;
+    width: 100vw;
+}
+
+.arcSvg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.nodes {
+    position: relative;
+    width: 100%;
+    height: 480px;
+}
+
+.node {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+}
+
+.nodeTime {
+    font-size: 28px;
+    color: #f5e6b8;
+    font-family: "Georgia", serif;
+    line-height: 1;
+}
+
+.nodeMin {
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: #d4af37;
+    margin-bottom: 8px;
+    font-family: "Helvetica", sans-serif;
+}
+
+.nodeCircle {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1.5px solid #d4af37;
+    background: radial-gradient(circle, #1a1608 0%, #050505 80%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4af37;
+    box-shadow:
+        0 0 20px rgba(212, 175, 55, 0.35),
+        inset 0 0 10px rgba(212, 175, 55, 0.15);
+}
+
+.nodeLabel {
+    margin-top: 12px;
+    color: #e6c76a;
+    font-family: "Helvetica", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.15em;
+    text-align: center;
+}
+
+.nodeSub {
+    color: #b8ac8a;
+    font-family: "Helvetica", sans-serif;
+    font-size: 11px;
+    margin-top: 2px;
+    text-align: center;
+}
+
+.center {
+    position: absolute;
+    left: 50%;
+    top: 22%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.centerCircle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 2px solid #d4af37;
+    background: radial-gradient(circle, #0d0a04 0%, #000 80%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow:
+        0 0 40px rgba(212, 175, 55, 0.5),
+        inset 0 0 25px rgba(212, 175, 55, 0.2);
+}
+
+.centerBrand {
+    color: #d4af37;
+    margin-bottom: 6px;
+}
+
+.centerName {
+    font-size: 20px;
+    letter-spacing: 0.2em;
+    color: #e6c76a;
+}
+
+.centerCity {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    color: #cfc3a3;
+    margin-top: 2px;
+    font-family: "Helvetica", sans-serif;
+}
+
+.tower {
+    position: absolute;
+    left: 50%;
+    bottom: 90px;
+    transform: translateX(-50%);
+    width: 220px;
+    height: 240px;
+    background: linear-gradient(180deg, #2a2418 0%, #0a0805 100%);
+    clip-path: polygon(20% 15%, 40% 5%, 60% 5%, 80% 15%, 85% 100%, 15% 100%);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 0 60px rgba(212, 175, 55, 0.25);
+}
+
+.towerGlow {
+    position: absolute;
+    left: 50%;
+    bottom: 70px;
+    transform: translateX(-50%);
+    width: 320px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #d4af37;
+    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
+    background: radial-gradient(ellipse, rgba(212, 175, 55, 0.15), transparent 70%);
+}
+
+.explore360 {
+    position: absolute;
+    right: -20px;
+    bottom: 10px;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 1px solid #d4af37;
+    background: radial-gradient(circle, #0a0805 0%, #000 80%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.35);
+}
+
+.explore360 small {
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: #cfc3a3;
+    font-family: "Helvetica", sans-serif;
+}
+
+.explore360 span {
+    font-size: 38px;
+    color: #e6c76a;
+    font-family: "Georgia", serif;
+}
+
+.viewBtn {
+    margin-top: 14px;
+    padding: 10px 22px;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    border-radius: 999px;
+    background: transparent;
+    color: #e6c76a;
+    font-family: "Helvetica", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.dragBar {
+    margin: 24px auto 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 12px 28px;
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    border-radius: 999px;
+    width: fit-content;
+    color: #e6c76a;
+    font-family: "Helvetica", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.3em;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.dragBar button {
+    background: none;
+    border: none;
+    color: #d4af37;
+    cursor: pointer;
+}
+
+.features {
+    margin: 40px auto 0;
+    max-width: 1100px;
+    display: flex;
+    justify-content: space-between;
+    padding: 18px 32px;
+    border: 1px solid rgba(212, 175, 55, 0.35);
+    border-radius: 999px;
+    background: rgba(10, 10, 10, 0.6);
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #d4af37;
+}
+
+.featureText p {
+    margin: 0;
+    color: #e6c76a;
+    font-family: "Helvetica", sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    line-height: 1.4;
+}
+
+.featureText p+p {
+    color: #cfc3a3;
+}
+
+.sideDock {
+    position: fixed;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 12px 8px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #d4af37;
+    z-index: 20;
+}
+
+.sideDock button {
+    background: none;
+    border: none;
+    color: #d4af37;
+    cursor: pointer;
+    padding: 6px;
+}
+
+@media (max-width: 1100px) {
+    .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .explore360 {
+        position: static;
+        margin: 20px auto 0;
+    }
+}

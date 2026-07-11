@@ -17,8 +17,12 @@ interface ExtraordinaryProps {
 
 export default function VashiLetter({ isEntering, isActive, isFinal, isStepThree, isStepFour, isVideoActive, isStepFive, isStepSix, }: ExtraordinaryProps) {
 
-    const sectionClass = `${styles.extraordinarySection} ${isEntering ? styles.slideInActive : styles.slideOutBelow} `;
-    const leftContentClass = `${styles.leftContent} ${isFinal ? styles.textDisappear : (isEntering ? styles.textMoveToPosition : styles.textCentered)}`;
+    // VashiLetter.tsx ke andar jahan classes banayi hain:
+    const sectionClass = `
+  ${styles.extraordinarySection} 
+  ${isEntering ? styles.slideInActive : styles.slideOutBelow}
+  ${isStepSix ? styles.makeItScrollable : styles.keepItFixed}
+`; const leftContentClass = `${styles.leftContent} ${isFinal ? styles.textDisappear : (isEntering ? styles.textMoveToPosition : styles.textCentered)}`;
     const containerClass = `${styles.container} ${isStepThree ? styles.containerExitUp : (isFinal ? styles.containerFinalStage : (isEntering ? styles.containerReveal : styles.containerHidden))}`;
     const stepThreeClass = `${styles.stepThreeContainer} ${isStepFour ? styles.stepThreeExitUp : (isStepThree ? styles.stepThreeReveal : styles.stepThreeHidden)}`;
     const stepFourClass = `${styles.stepFourContainer} ${isStepFive ? styles.stepFourExitUp : (isStepFour ? styles.stepFourReveal : styles.stepFourHidden)}`;

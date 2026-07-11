@@ -11,6 +11,7 @@ import Lenis from "@studio-freight/lenis";
 import { ZoomParallax } from "@/components/FeaturesSections/zoom-parallax";
 import VashiLetter from "../AboutSections/VashiLetter";
 import RealEstateJourney from "../ev-city/denmark";
+import Denmark from "../AboutSections/denmark";
 
 export default function ZoomParallaxDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -281,7 +282,9 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div>
+      <Denmark/>
       <RealEstateJourney />
+      
     </main>
   );
 }
