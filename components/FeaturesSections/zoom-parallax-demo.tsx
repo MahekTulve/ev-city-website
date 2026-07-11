@@ -12,9 +12,8 @@ import { ZoomParallax } from "@/components/FeaturesSections/zoom-parallax";
 import VashiLetter from "../AboutSections/VashiLetter";
 import RealEstateJourney from "../ev-city/denmark";
 
-import Denmark from "../AboutSections/denmark";
-
 import styles from "./FeaturesSection.module.css";
+import VashiDenmark from "../AboutSections/denmark";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -304,7 +303,7 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div>
-      <Denmark/>
+      <VashiDenmark/>
       <RealEstateJourney />
       
     </main>
