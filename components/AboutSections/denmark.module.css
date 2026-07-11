@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+
 .page {
-    min-height: 100vh;
+    height: 110vh;
     background:
         radial-gradient(ellipse at center, rgba(40, 30, 10, 0.55) 0%, #0b0a09 70%),
         #000;
@@ -23,47 +25,49 @@
 }
 
 .topLabel {
-  text-align: center;
-  letter-spacing: 0.1em;
-  font-size: 12px;
-  color: #d9ae59;
-  font-family: "Helvetica", sans-serif;
-  margin-bottom: 8px;
+    text-align: center;
+    letter-spacing: 0.1em;
+    font-size: 12px;
+    color: #d9ae59;
+    font-family: "Helvetica", sans-serif;
+    margin-bottom: 8px;
 }
 
 .topLabel::before,
 .topLabel::after {
-  content: "";
-  display: inline-block;    /* 👈 Yeh add kiya taaki width aur height apply ho sake */
-  vertical-align: middle;   /* 👈 Yeh add kiya taaki line text ke beech me align ho */
-  width: 50px;
-  height: 2px;
-  margin: 0 12px;
-  background-color: #d9ae59;
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 50px;
+    height: 2px;
+    margin: 0 12px;
+    background-color: #d9ae59;
 }
+
 .title {
     text-align: center;
     font-size: 64px;
-    letter-spacing: 0.05em;
-    color: #f8f2df;
+    letter-spacing: 0.09em;
+    color: #ffffff;
     font-weight: 400;
     margin: 0;
     line-height: 1.05;
 }
 
 .title .big {
-    color: #e6c76a;
+    color: #dfc26d;
     font-style: italic;
-    padding: 0 8px;
+    font-family: "cormorant garamond", serif;
 }
 
 .subtitle {
     text-align: center;
-    color: #cfc3a3;
-    font-family: "Helvetica", sans-serif;
-    font-size: 14px;
-    margin-top: 14px;
-    line-height: 1.6;
+    color: #dcd7ca;
+    font-family: "cormorant garamond", serif;
+    font-size: 16px;
+    margin-top: 6px;
+    line-height: 1.4;
+    letter-spacing: 0.08rem;
 }
 
 .divider {
@@ -74,9 +78,8 @@
 }
 
 .layout {
-    display: grid;
-    grid-template-columns: 300px 1fr 300px;
-    gap: 24px;
+    display: flex;
+    flex-direction: column;
     align-items: start;
 }
 
@@ -87,8 +90,14 @@
     background: rgba(10, 10, 10, 0.55);
     backdrop-filter: blur(6px);
     box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.06);
+    max-width: 270px;
 }
-
+.cardrow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
 .brandMark {
     color: #d4af37;
     margin-bottom: 10px;
@@ -154,9 +163,7 @@
     min-height: 560px;
     display: flex;
     justify-content: center;
-    align-items: flex-end;
-    padding-top: 20px;
-    width: 100vw;
+    width: 100%;
 }
 
 .arcSvg {
@@ -165,12 +172,14 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
+    top: -80px;
 }
 
 .nodes {
     position: relative;
     width: 100%;
     height: 480px;
+     top: -80px;
 }
 
 .node {
@@ -231,7 +240,7 @@
 .center {
     position: absolute;
     left: 50%;
-    top: 22%;
+    top: 5%;
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
@@ -272,31 +281,6 @@
     font-family: "Helvetica", sans-serif;
 }
 
-.tower {
-    position: absolute;
-    left: 50%;
-    bottom: 90px;
-    transform: translateX(-50%);
-    width: 220px;
-    height: 240px;
-    background: linear-gradient(180deg, #2a2418 0%, #0a0805 100%);
-    clip-path: polygon(20% 15%, 40% 5%, 60% 5%, 80% 15%, 85% 100%, 15% 100%);
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    box-shadow: 0 0 60px rgba(212, 175, 55, 0.25);
-}
-
-.towerGlow {
-    position: absolute;
-    left: 50%;
-    bottom: 70px;
-    transform: translateX(-50%);
-    width: 320px;
-    height: 60px;
-    border-radius: 50%;
-    border: 1px solid #d4af37;
-    box-shadow: 0 0 40px rgba(212, 175, 55, 0.6);
-    background: radial-gradient(ellipse, rgba(212, 175, 55, 0.15), transparent 70%);
-}
 
 .explore360 {
     position: absolute;
@@ -344,6 +328,8 @@
 }
 
 .dragBar {
+    position: absolute;
+    top: 55%;
     margin: 24px auto 0;
     display: flex;
     align-items: center;
@@ -368,6 +354,8 @@
 }
 
 .features {
+    position: absolute;
+    top: 70%;
     margin: 40px auto 0;
     max-width: 1100px;
     display: flex;
@@ -398,21 +386,6 @@
     color: #cfc3a3;
 }
 
-.sideDock {
-    position: fixed;
-    right: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 12px 8px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
-    border-radius: 999px;
-    background: rgba(0, 0, 0, 0.5);
-    color: #d4af37;
-    z-index: 20;
-}
 
 .sideDock button {
     background: none;
