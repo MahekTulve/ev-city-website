@@ -21,6 +21,7 @@
   pointer-events: none;
 }
 
+/* 1. INITIAL STATE: Full-width with Glass Blur Background */
 .lnNavbarInner {
   width: 100%;
   max-width: 1440px;
@@ -31,16 +32,33 @@
   padding: 0 8px 0 20px;
   border-radius: 16px;
   border: 1px solid transparent;
-  background: transparent;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  
+  /* Glass effect blur initially active */
+  background: rgba(37, 36, 32, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  
   transition:
-    max-width 0.5s ease,
-    background 0.5s ease,
-    border-color 0.5s ease,
+    max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    background 0.4s ease,
+    backdrop-filter 0.4s ease,
+    border-color 0.4s ease,
     padding 0.5s ease;
   pointer-events: auto;
   position: relative;
+}
+
+/* 2. SCROLLED STATE: Shrinks, gets gold border, turns background off */
+.lnNavbarScrolled .lnNavbarInner {
+  max-width: 1276px;
+
+  /* Disables the background & blur completely as requested */
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+
+  /* Adds the gold border configuration */
+  border: 1px solid rgba(188, 156, 34, 0.35);
 }
 
 .lnNavbarLogo {
@@ -78,12 +96,12 @@
 }
 
 .lnNavbarLink {
-  color: #bc9c22;
+  color: #fff;
   text-decoration: none;
   font-size: 14px;
   padding: 6px 14px;
-  opacity: 0.85;
-  transition: all 0.3s ease;
+  opacity: 0.75;
+  transition: opacity 0.25s ease;
   position: relative;
   z-index: 1;
 }
@@ -95,10 +113,14 @@
 
 .lnNavbarLinkHighlight {
   position: absolute;
-  background: rgba(188, 156, 34, 0.12);
-  border: 1px solid rgba(188, 156, 34, 0.25);
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   pointer-events: none;
+  z-index: 0;
   transition:
     transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.2s;
@@ -115,11 +137,9 @@
   text-decoration: none;
   font-size: 12px;
   font-weight: 700;
-
   padding: 6px 12px;
   border: 1px solid rgba(188, 156, 34, 0.5);
   border-radius: 8px;
-
   transition: all 0.3s ease;
 }
 
@@ -144,18 +164,6 @@
   font-weight: bold;
 }
 
-/* .lnNavbarGithub {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #fff;
-    text-decoration: none;
-    font-size: 14px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 6px 12px;
-    border-radius: 8px;
-} */
-
 .lnNavbarHamburger {
   display: none;
   flex-direction: column;
@@ -169,60 +177,9 @@
 .lnNavbarHamburger span {
   display: block;
   width: 20px;
-  height: 20px;
   height: 2px;
   background: #bc9c22;
   border-radius: 2px;
-}
-
-.lnNavbarLinkHighlight {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 0;
-  height: 0;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.lnNavbar .lnNavbarInner {
-  max-width: 1440px;
-  background: transparent;
-  border: 1px solid transparent;
-  transition:
-    max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
-    background 0.4s ease,
-    backdrop-filter 0.4s ease,
-    border-color 0.4s ease;
-}
-
-.lnNavbarScrolled .lnNavbarInner {
-  max-width: 1276px;
-
-  /* Glass effect */
-  background: rgba(0, 0, 0, 0.15);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-
-  /* Gold border */
-  border: 1px solid rgba(188, 156, 34, 0.35);
-}
-
-.lnNavbarLink {
-  color: #fff;
-  text-decoration: none;
-  font-size: 14px;
-  padding: 6px 14px;
-  opacity: 0.75;
-  transition: opacity 0.25s ease;
-  position: relative;
-  z-index: 1;
-}
-
-.lnNavbarHamburger {
-  display: none;
 }
 
 @media (max-width: 1024px) {
@@ -260,7 +217,6 @@
   .lnNavbarDivider,
   .lnNavbarLinks,
   .lnNavbarBrowse,
-  .lnNavbarGithub,
   .lnNavbarPro {
     display: none;
   }
@@ -288,17 +244,11 @@
   position: fixed;
   top: 0;
   right: 0;
-
   width: min(380px, 85vw);
   height: 100vh;
-
   background: #0b0b0d;
-    border-left: 1px solid rgba(188, 156, 34, 0.25);
-
-  z-index: 1999;
-
+  border-left: 1px solid rgba(188, 156, 34, 0.25);
   padding: 32px 24px;
-
   display: flex;
   flex-direction: column;
   z-index: 1999;
@@ -306,16 +256,12 @@
 
 .closeButton {
   align-self: flex-end;
-
   width: 42px;
   height: 42px;
-
   border: none;
   border-radius: 50%;
-
   background: rgba(255, 255, 255, 0.08);
   color: white;
-
   font-size: 22px;
   cursor: pointer;
 }
@@ -330,28 +276,24 @@
 .mobileNav a {
   text-decoration: none;
   color: white;
-
   font-size: 1.4rem;
   font-weight: 500;
-
   padding: 14px 0;
 }
 
 .mobileEnquire {
   margin-top: 24px;
   padding: 14px 18px !important;
-
   border-radius: 12px;
   text-align: center;
-
-   background: rgba(188, 156, 34, 0.1);
-    border: 1px solid rgba(188, 156, 34, 0.3);
-    color: #bc9c22 !important;
+  background: rgba(188, 156, 34, 0.1);
+  border: 1px solid rgba(188, 156, 34, 0.3);
+  color: #bc9c22 !important;
 }
 
 .mobileEnquire:hover {
-    color: #fff !important;
-    background: rgba(188, 156, 34, 0.18);
+  color: #fff !important;
+  background: rgba(188, 156, 34, 0.18);
 }
 
 @media (max-width: 480px) {
@@ -376,36 +318,29 @@
     display: flex;
     align-items: center;
     gap: 10px;
-
     font-size: 15px;
     font-weight: 500;
     line-height: 1.2;
-
     padding: 10px 12px;
     border-radius: 10px;
-
     text-decoration: none;
-     color: #bc9c22;
+    color: #bc9c22;
     transition: all 0.3s ease;
   }
 
   .mobileNav a:hover,
   .mobileNavLink:hover {
-  color: #fff;
+    color: #fff;
     background: rgba(188, 156, 34, 0.08);
   }
 
   .mobileEnquire {
     margin-top: 12px;
-
     font-size: 14px !important;
     font-weight: 600;
-
     padding: 12px !important;
-
     border-radius: 10px;
     text-align: center;
-
     background: rgba(255, 255, 255, 0.08);
   }
 

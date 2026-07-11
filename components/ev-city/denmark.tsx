@@ -528,11 +528,11 @@ export default function RealEstateJourney() {
 
   return (
     <div ref={containerRef} className={styles.cityscape}>
-      <motion.div
+      {/* <motion.div
         className={styles.sun}
         animate={{ scale: [1, 1.08, 1] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-      />
+      /> */}
 
       <section className={`${styles.section} ${styles.hero}`}>
         <motion.h1
