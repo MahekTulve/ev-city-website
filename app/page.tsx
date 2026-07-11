@@ -12,9 +12,9 @@ export default function Home() {
   className="w-full h-screen object-cover"
 />
 
-      <div className="min-h-screen flex flex-col items-center justify-center border-t transition-colors duration-500 bg-gray-50 dark:bg-black border-black/5 dark:border-white/10">
-        <FeaturesSection />
-      </div>
+     <div className="min-h-screen flex flex-col items-center justify-center border-t transition-colors duration-500 border-black/5 dark:border-white/10">
+  <FeaturesSection />
+</div>
     </main>
   );
 }
