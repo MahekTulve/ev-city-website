@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "./extraordinary.module.css";
 import { RxComponentInstance } from "react-icons/rx";
 import { FaSquareFull } from "react-icons/fa";
+import { motion, Variants } from "framer-motion";
 
 interface ExtraordinaryProps {
     isEntering: boolean;
@@ -29,6 +30,35 @@ export default function VashiLetter({ isEntering, isActive, isFinal, isStepThree
         isStepFour ||
         isStepFive ||
         isStepSix;
+    // Parent variant jo stagger effect handle karega
+    const containerVariants: Variants = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.4, // Words ek ke baad ek aayenge
+            },
+        },
+    };
+
+    const blockWordVariants: Variants = {
+        hidden: {
+            opacity: 0,
+            scale: 0.85,
+            y: 40,
+        },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            transition: {
+                type: "spring",
+                damping: 20,
+                stiffness: 50,
+            },
+        },
+    };
+    const headingText = "THE 5 MINUTE CITY";
+
     return (
         <section className={sectionClass}>
 
@@ -62,14 +92,43 @@ export default function VashiLetter({ isEntering, isActive, isFinal, isStepThree
                 </div>
             )}
             <div className={styles.maincontainer}>
-
-                {/* --- STEP 1 & 2 CONTENT --- */}
                 <div className={leftContentClass}>
-                    <p className={styles.mainthe}>
-                        <span className={styles.thestart}>the</span>
-                        <span className={styles.fivenumber}>05</span>
-                        <span className={styles.minttop}> Minute City</span>
-                        <span className={styles.vashitop}> VASHI</span></p>
+                    <motion.p
+                        variants={containerVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: false, amount: 0.3 }}
+                        className={styles.mainthe}
+                    >
+                        {/* Har word ko gradient dene ke liye Tailwind classes add ki hain */}
+                        <motion.span
+                            variants={blockWordVariants}
+                            className={`${styles.thestart} bg-gradient-to-b from-[#e7bd65] via-[#f2e18b] to-[#b98d3d] bg-clip-text text-transparent transform-gpu`}
+                        >
+                            the
+                        </motion.span>
+
+                        <motion.span
+                            variants={blockWordVariants}
+                            className={`${styles.fivenumber} bg-gradient-to-b from-[#e7bd65] via-[#f2e18b] to-[#b98d3d] bg-clip-text text-transparent transform-gpu`}
+                        >
+                            05
+                        </motion.span>
+
+                        <motion.span
+                            variants={blockWordVariants}
+                            className={`${styles.minttop} bg-gradient-to-b from-[#e7bd65] via-[#f2e18b] to-[#b98d3d] bg-clip-text text-transparent transform-gpu`}
+                        >
+                            Minute City
+                        </motion.span>
+
+                        <motion.span
+                            variants={blockWordVariants}
+                            className={`${styles.vashitop} bg-gradient-to-b from-[#e7bd65] via-[#f2e18b] to-[#b98d3d] bg-clip-text text-transparent transform-gpu`}
+                        >
+                            VASHI
+                        </motion.span>
+                    </motion.p>
 
                 </div>
 
@@ -92,7 +151,6 @@ export default function VashiLetter({ isEntering, isActive, isFinal, isStepThree
                     </div>
                     <div className={`${styles.rightContent} ${isFinal ? styles.rightContentLarge : ''}`}>
                         <h4 className={styles.headingRight}>V</h4>
-
                         <div className={styles.diviDescrip} >
                             <div className={styles.divider} />
                             <span className={styles.letterspace}>VALUE</span>

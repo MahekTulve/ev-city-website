@@ -43,43 +43,33 @@
 
 }
 
-/* ==========================================================================
-   2. STEP 1 & 2: LEFT CONTENT (TEXT ANIMATION)
-   ========================================================================== */
 .leftContent {
   position: absolute;
   display: flex;
   flex-direction: column;
-  transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: all 1.8s cubic-bezier(0.76, 0, 0.24, 1);
   will-change: transform, top, left, opacity;
   opacity: 1;
   width: 100%;
+  top: 15%;
+  left: 5%;
 }
 
-/* Is class ko aap extraordinary.module.css ke aakhir me jod dijiye */
-
-.textCentered {
-  top: 50%;
-  left: 20%;
-  transform: translate(-50%, -50%);
-}
-
+.textCentered,
 .textMoveToPosition {
-  top: 1rem;
-  left: 1rem;
+  top: 1%;
+  left: 1%;
   transform: translate(0, 0);
 }
 
 .textDisappear {
-  top: -10rem;
+  top: -25rem;
   left: -10rem;
   opacity: 0;
-  transform: scale(0.8);
+  transform: scale(0.75);
 }
 
-/* ==========================================================================
-   3. STEP 1 & 2: MAIN CONTAINER (IMAGE + RIGHT TEXT)
-   ========================================================================== */
+
 .container {
   position: absolute;
   bottom: 0;
@@ -211,8 +201,29 @@
   pointer-events: none;
   z-index: 1;
 
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  /* RIGHT SIDE SYMMETRY: standard 0deg se right-side curve ke angles ko perfectly soft blend kiya hai */
+  -webkit-mask-image:
+    conic-gradient(from 0deg at 67% 30%, 
+      black 0deg, 
+      transparent 40deg,          /* Top se aakar line smoothly yahan fade-out hui */
+      transparent 75deg,          /* --- 20% ABSOLUTE GAP: Yahan border poori tarah khatam hai --- */
+      black 135deg,               /* Right-center ke paas se line smoothly fade-in hona shuru hui */
+      black 360deg                /* Baki pure left aur top ka hissa solid rahega */
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  mask-image:
+    conic-gradient(from 0deg at 67% 30%, 
+      black 0deg, 
+      transparent 40deg, 
+      transparent 75deg, 
+      black 135deg, 
+      black 360deg
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .step3TextScaleUp::after {
@@ -225,7 +236,7 @@
   position: absolute;
   border-top-right-radius: 45%;
   top: 45%;
-  right: -1;
+  left: 1;
   transform: translate(-50%);
 }
 
@@ -310,18 +321,16 @@
   margin-top: 55px;
 }
 
+/* extraordinary.module.css */
 .thestart,
 .mainthe {
   display: flex;
   font-size: 130px;
   font-weight: 300;
-  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
   margin: 0;
   letter-spacing: 1px;
   font-family: "cormorant garamond", serif;
+  /* Yaha background-clip ya text-fill nahi likhna hai */
 }
 
 .thestart {
@@ -466,7 +475,6 @@
   position: relative;
 }
 
-/* Border waale hisse mein koi badlav nahi, yeh bilkul sahi hai */
 .rightContentLarge::before {
   content: "";
   position: absolute;
@@ -484,8 +492,30 @@
   pointer-events: none;
   z-index: 1;
 
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  -webkit-mask-image: 
+    conic-gradient(from 0deg at 33% 30%, 
+      black 0deg, 
+      black 220deg,               
+      transparent 280deg,         
+      transparent 310deg,          
+      black 350deg,               
+      black 360deg
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  mask-image: 
+    conic-gradient(from 0deg at 33% 30%, 
+      black 0deg, 
+      black 220deg, 
+      transparent 280deg, 
+      transparent 310deg, 
+      black 350deg, 
+      black 360deg
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .rightContentLarge::after {
@@ -855,8 +885,30 @@
   pointer-events: none;
   z-index: 1;
 
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  -webkit-mask-image: 
+    conic-gradient(from 0deg at 50% 30%, 
+      black 0deg, 
+      black 220deg,                
+      transparent 280deg,          
+      transparent 310deg,          
+      black 350deg,             
+      black 360deg
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  mask-image: 
+    conic-gradient(from 0deg at 50% 30%, 
+      black 0deg, 
+      black 220deg, 
+      transparent 280deg, 
+      transparent 310deg, 
+      black 350deg, 
+      black 360deg
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .step4TextScaleUp::after {
@@ -983,8 +1035,28 @@
   pointer-events: none;
   z-index: 1;
 
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  -webkit-mask-image:
+    conic-gradient(from 0deg at 67% 30%, 
+      black 0deg, 
+      transparent 40deg,          
+      transparent 75deg,         
+      black 135deg,               
+      black 360deg                
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  mask-image:
+    conic-gradient(from 0deg at 67% 30%, 
+      black 0deg, 
+      transparent 40deg, 
+      transparent 75deg, 
+      black 135deg, 
+      black 360deg
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .step5TextScaleUp::after {
@@ -997,7 +1069,7 @@
   position: absolute;
   border-top-right-radius: 45%;
   top: 45%;
-  right: -1;
+  left: 1;
   transform: translate(-50%);
 }
 
@@ -1172,8 +1244,30 @@
   pointer-events: none;
   z-index: 1;
 
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
-  mask-image: linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  -webkit-mask-image: 
+    conic-gradient(from 0deg at 40% 30%, 
+      black 0deg, 
+      black 210deg,               
+      transparent 275deg,          
+      transparent 305deg,         
+      black 345deg,               
+      black 360deg
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  mask-image: 
+    conic-gradient(from 0deg at 40% 30%, 
+      black 0deg, 
+      black 210deg, 
+      transparent 275deg, 
+      transparent 305deg, 
+      black 345deg, 
+      black 360deg
+    ),
+    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
 }
 
 .step6TextScaleUp::after {
@@ -1217,7 +1311,22 @@
   transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
-/* Media Query Responsive Support */
+@media (min-width: 1650px) {
+  .containerFinalStage {
+    max-width: 1500px;
+    width: 90%;
+    gap: 60px;
+
+  }
+
+  .maincontainer {
+    margin-left: 12%;
+    max-width: 1400px;
+
+  }
+
+}
+
 @media (max-width: 992px) {
 
   .stepFiveContainer,
