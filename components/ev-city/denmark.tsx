@@ -1,8 +1,15 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  type MotionValue,
+} from "framer-motion";
 import styles from "./denmark.module.css";
+import ParticleTextReveal from "./ParticleTextReveal";
+import GlowingTextReveal from "./GlowingReveal";
 
 // Note: this project uses TanStack Router, not Next.js — no router imports
 // are needed here, but keep that in mind if you add navigation later.
@@ -116,11 +123,34 @@ function CraneIcon() {
       </defs>
 
       {/* base */}
-      <rect x="58" y="184" width="44" height="10" rx="2" fill="url(#craneSteel)" />
-      <rect x="58" y="184" width="44" height="2.5" rx="1.2" fill="#6c7580" opacity="0.6" />
+      <rect
+        x="58"
+        y="184"
+        width="44"
+        height="10"
+        rx="2"
+        fill="url(#craneSteel)"
+      />
+      <rect
+        x="58"
+        y="184"
+        width="44"
+        height="2.5"
+        rx="1.2"
+        fill="#6c7580"
+        opacity="0.6"
+      />
 
       {/* mast */}
-      <rect x="75" y="32" width="10" height="156" fill="url(#craneBrass)" stroke="#5a4526" strokeWidth="0.75" />
+      <rect
+        x="75"
+        y="32"
+        width="10"
+        height="156"
+        fill="url(#craneBrass)"
+        stroke="#5a4526"
+        strokeWidth="0.75"
+      />
       {/* mast lattice, finer and more numerous */}
       {[46, 62, 78, 94, 110, 126, 142, 158, 174].map((y) => (
         <g key={y} stroke="#4a3a20" strokeWidth="0.6" opacity="0.55">
@@ -130,8 +160,25 @@ function CraneIcon() {
       ))}
 
       {/* operator cab */}
-      <rect x="79" y="27" width="28" height="17" rx="1.5" fill="url(#craneCab)" stroke="#181b1e" strokeWidth="1" />
-      <rect x="83" y="30" width="10" height="9" rx="1" fill="url(#craneGlass)" opacity="0.9" />
+      <rect
+        x="79"
+        y="27"
+        width="28"
+        height="17"
+        rx="1.5"
+        fill="url(#craneCab)"
+        stroke="#181b1e"
+        strokeWidth="1"
+      />
+      <rect
+        x="83"
+        y="30"
+        width="10"
+        height="9"
+        rx="1"
+        fill="url(#craneGlass)"
+        opacity="0.9"
+      />
 
       {/* jib group (subtle sway) */}
       <motion.g
@@ -140,22 +187,88 @@ function CraneIcon() {
         style={{ transformOrigin: "80px 24px" }}
       >
         {/* long jib */}
-        <line x1="80" y1="24" x2="152" y2="24" stroke="url(#craneBrass)" strokeWidth="4" strokeLinecap="round" />
+        <line
+          x1="80"
+          y1="24"
+          x2="152"
+          y2="24"
+          stroke="url(#craneBrass)"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
         {/* counter-jib */}
-        <line x1="80" y1="24" x2="42" y2="24" stroke="url(#craneBrass)" strokeWidth="4" strokeLinecap="round" />
+        <line
+          x1="80"
+          y1="24"
+          x2="42"
+          y2="24"
+          stroke="url(#craneBrass)"
+          strokeWidth="4"
+          strokeLinecap="round"
+        />
         {/* fine top-chord lattice along jib */}
         {[88, 100, 112, 124, 136].map((x) => (
-          <line key={x} x1={x} y1="19" x2={x + 6} y2="24" stroke="#4a3a20" strokeWidth="0.6" opacity="0.5" />
+          <line
+            key={x}
+            x1={x}
+            y1="19"
+            x2={x + 6}
+            y2="24"
+            stroke="#4a3a20"
+            strokeWidth="0.6"
+            opacity="0.5"
+          />
         ))}
         {/* counterweight */}
-        <rect x="29" y="19" width="15" height="13" fill="url(#craneSteel)" stroke="#181b1e" strokeWidth="0.6" />
+        <rect
+          x="29"
+          y="19"
+          width="15"
+          height="13"
+          fill="url(#craneSteel)"
+          stroke="#181b1e"
+          strokeWidth="0.6"
+        />
         {/* support cables */}
-        <line x1="80" y1="7" x2="150" y2="24" stroke="#7d8590" strokeWidth="0.9" />
-        <line x1="80" y1="7" x2="44" y2="24" stroke="#7d8590" strokeWidth="0.9" />
-        <line x1="80" y1="7" x2="80" y2="24" stroke="#7d8590" strokeWidth="0.9" />
+        <line
+          x1="80"
+          y1="7"
+          x2="150"
+          y2="24"
+          stroke="#7d8590"
+          strokeWidth="0.9"
+        />
+        <line
+          x1="80"
+          y1="7"
+          x2="44"
+          y2="24"
+          stroke="#7d8590"
+          strokeWidth="0.9"
+        />
+        <line
+          x1="80"
+          y1="7"
+          x2="80"
+          y2="24"
+          stroke="#7d8590"
+          strokeWidth="0.9"
+        />
         {/* hook cable + hook */}
-        <line x1="140" y1="24" x2="140" y2="68" stroke="#2a2f35" strokeWidth="0.9" />
-        <path d="M136 68 h8 v5 a4 4 0 0 1 -8 0 z" fill="url(#craneBrass)" stroke="#5a4526" strokeWidth="0.5" />
+        <line
+          x1="140"
+          y1="24"
+          x2="140"
+          y2="68"
+          stroke="#2a2f35"
+          strokeWidth="0.9"
+        />
+        <path
+          d="M136 68 h8 v5 a4 4 0 0 1 -8 0 z"
+          fill="url(#craneBrass)"
+          stroke="#5a4526"
+          strokeWidth="0.5"
+        />
       </motion.g>
     </motion.svg>
   );
@@ -193,10 +306,35 @@ function MixerIcon() {
       </defs>
 
       {/* chassis */}
-      <rect x="10" y="80" width="150" height="26" rx="3" fill="url(#mixerChassis)" stroke="#15171a" strokeWidth="1" />
+      <rect
+        x="10"
+        y="80"
+        width="150"
+        height="26"
+        rx="3"
+        fill="url(#mixerChassis)"
+        stroke="#15171a"
+        strokeWidth="1"
+      />
       {/* cab */}
-      <rect x="10" y="53" width="42" height="55" rx="3" fill="url(#mixerCab)" stroke="#8f8770" strokeWidth="1" />
-      <rect x="16" y="61" width="20" height="15" rx="1.5" fill="url(#mixerGlass)" />
+      <rect
+        x="10"
+        y="53"
+        width="42"
+        height="55"
+        rx="3"
+        fill="url(#mixerCab)"
+        stroke="#8f8770"
+        strokeWidth="1"
+      />
+      <rect
+        x="16"
+        y="61"
+        width="20"
+        height="15"
+        rx="1.5"
+        fill="url(#mixerGlass)"
+      />
 
       {/* mixing drum support */}
       <rect x="60" y="61" width="70" height="8" fill="url(#mixerChassis)" />
@@ -207,15 +345,44 @@ function MixerIcon() {
         transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
         style={{ transformOrigin: "100px 60px" }}
       >
-        <ellipse cx="100" cy="60" rx="42" ry="29" fill="url(#mixerDrum)" stroke="#4a2f1a" strokeWidth="1" />
-        <path d="M62 60 a38 25 0 0 1 76 0" fill="none" stroke="#5c3a20" strokeWidth="1.6" opacity="0.6" />
-        <path d="M68 45 l64 30" stroke="#5c3a20" strokeWidth="1.6" opacity="0.5" />
-        <path d="M68 75 l64 -30" stroke="#5c3a20" strokeWidth="1.6" opacity="0.5" />
+        <ellipse
+          cx="100"
+          cy="60"
+          rx="42"
+          ry="29"
+          fill="url(#mixerDrum)"
+          stroke="#4a2f1a"
+          strokeWidth="1"
+        />
+        <path
+          d="M62 60 a38 25 0 0 1 76 0"
+          fill="none"
+          stroke="#5c3a20"
+          strokeWidth="1.6"
+          opacity="0.6"
+        />
+        <path
+          d="M68 45 l64 30"
+          stroke="#5c3a20"
+          strokeWidth="1.6"
+          opacity="0.5"
+        />
+        <path
+          d="M68 75 l64 -30"
+          stroke="#5c3a20"
+          strokeWidth="1.6"
+          opacity="0.5"
+        />
         <ellipse cx="86" cy="48" rx="14" ry="7" fill="#e8c9a0" opacity="0.25" />
       </motion.g>
 
       {/* chute */}
-      <path d="M132 78 l19 17 l-7 4 l-17 -15 z" fill="#6c6f74" stroke="#22262c" strokeWidth="0.75" />
+      <path
+        d="M132 78 l19 17 l-7 4 l-17 -15 z"
+        fill="#6c6f74"
+        stroke="#22262c"
+        strokeWidth="0.75"
+      />
 
       {/* wheels */}
       <circle cx="34" cy="112" r="14" fill="#1c1e21" />
@@ -248,18 +415,59 @@ function BlueprintIcon() {
       </defs>
 
       {/* rolled edge */}
-      <ellipse cx="20" cy="80" rx="9" ry="69" fill="url(#blueprintRoll)" stroke="#0a1523" strokeWidth="1" />
+      <ellipse
+        cx="20"
+        cy="80"
+        rx="9"
+        ry="69"
+        fill="url(#blueprintRoll)"
+        stroke="#0a1523"
+        strokeWidth="1"
+      />
       {/* main sheet */}
-      <rect x="20" y="10" width="100" height="140" fill="url(#blueprintPaper)" stroke="#0a1523" strokeWidth="1" />
+      <rect
+        x="20"
+        y="10"
+        width="100"
+        height="140"
+        fill="url(#blueprintPaper)"
+        stroke="#0a1523"
+        strokeWidth="1"
+      />
       {/* subtle paper sheen */}
-      <rect x="20" y="10" width="38" height="140" fill="#ffffff" opacity="0.04" />
+      <rect
+        x="20"
+        y="10"
+        width="38"
+        height="140"
+        fill="#ffffff"
+        opacity="0.04"
+      />
 
       {/* grid lines, fine gold thread */}
       {[30, 50, 70, 90, 110, 130].map((y) => (
-        <line key={y} x1="28" y1={y} x2="112" y2={y} stroke="#c9a660" strokeWidth="0.4" opacity="0.28" />
+        <line
+          key={y}
+          x1="28"
+          y1={y}
+          x2="112"
+          y2={y}
+          stroke="#c9a660"
+          strokeWidth="0.4"
+          opacity="0.28"
+        />
       ))}
       {[40, 60, 80, 100].map((x) => (
-        <line key={x} x1={x} y1="14" x2={x} y2="146" stroke="#c9a660" strokeWidth="0.4" opacity="0.28" />
+        <line
+          key={x}
+          x1={x}
+          y1="14"
+          x2={x}
+          y2="146"
+          stroke="#c9a660"
+          strokeWidth="0.4"
+          opacity="0.28"
+        />
       ))}
 
       {/* drafted building outline */}
@@ -270,12 +478,52 @@ function BlueprintIcon() {
         strokeWidth="1.4"
         strokeLinejoin="round"
       />
-      <line x1="48" y1="90" x2="48" y2="130" stroke="#e9dfc4" strokeWidth="0.8" opacity="0.85" />
-      <line x1="72" y1="90" x2="72" y2="130" stroke="#e9dfc4" strokeWidth="0.8" opacity="0.85" />
+      <line
+        x1="48"
+        y1="90"
+        x2="48"
+        y2="130"
+        stroke="#e9dfc4"
+        strokeWidth="0.8"
+        opacity="0.85"
+      />
+      <line
+        x1="72"
+        y1="90"
+        x2="72"
+        y2="130"
+        stroke="#e9dfc4"
+        strokeWidth="0.8"
+        opacity="0.85"
+      />
       {/* dimension ticks for a drafted feel */}
-      <line x1="40" y1="134" x2="72" y2="134" stroke="#c9a660" strokeWidth="0.5" opacity="0.5" />
-      <line x1="40" y1="132" x2="40" y2="136" stroke="#c9a660" strokeWidth="0.5" opacity="0.5" />
-      <line x1="72" y1="132" x2="72" y2="136" stroke="#c9a660" strokeWidth="0.5" opacity="0.5" />
+      <line
+        x1="40"
+        y1="134"
+        x2="72"
+        y2="134"
+        stroke="#c9a660"
+        strokeWidth="0.5"
+        opacity="0.5"
+      />
+      <line
+        x1="40"
+        y1="132"
+        x2="40"
+        y2="136"
+        stroke="#c9a660"
+        strokeWidth="0.5"
+        opacity="0.5"
+      />
+      <line
+        x1="72"
+        y1="132"
+        x2="72"
+        y2="136"
+        stroke="#c9a660"
+        strokeWidth="0.5"
+        opacity="0.5"
+      />
     </motion.svg>
   );
 }
@@ -302,7 +550,15 @@ function HardHatIcon() {
       </defs>
 
       {/* brim */}
-      <ellipse cx="70" cy="66" rx="61" ry="13" fill="url(#hatBrim)" stroke="#6e5527" strokeWidth="1" />
+      <ellipse
+        cx="70"
+        cy="66"
+        rx="61"
+        ry="13"
+        fill="url(#hatBrim)"
+        stroke="#6e5527"
+        strokeWidth="1"
+      />
       {/* dome */}
       <path
         d="M18 62 a52 42 0 0 1 104 0 z"
@@ -313,11 +569,31 @@ function HardHatIcon() {
       {/* soft highlight */}
       <ellipse cx="48" cy="38" rx="16" ry="10" fill="#ffffff" opacity="0.2" />
       {/* center ridge */}
-      <path d="M70 21 v41" stroke="#8a6a35" strokeWidth="2" strokeLinecap="round" opacity="0.8" />
+      <path
+        d="M70 21 v41"
+        stroke="#8a6a35"
+        strokeWidth="2"
+        strokeLinecap="round"
+        opacity="0.8"
+      />
       {/* side ridge */}
-      <path d="M34 60 a40 34 0 0 1 72 0" fill="none" stroke="#8a6a35" strokeWidth="1.2" opacity="0.7" />
+      <path
+        d="M34 60 a40 34 0 0 1 72 0"
+        fill="none"
+        stroke="#8a6a35"
+        strokeWidth="1.2"
+        opacity="0.7"
+      />
       {/* headband hint */}
-      <rect x="30" y="58" width="80" height="5" rx="2.5" fill="#2a2f35" opacity="0.35" />
+      <rect
+        x="30"
+        y="58"
+        width="80"
+        height="5"
+        rx="2.5"
+        fill="#2a2f35"
+        opacity="0.35"
+      />
     </motion.svg>
   );
 }
@@ -356,13 +632,50 @@ function BuildingFrameIcon() {
       </g>
 
       {/* completed floors (partial glass) */}
-      <rect x="34" y="160" width="42" height="34" fill="url(#frameGlass)" opacity="0.75" />
-      <rect x="84" y="160" width="42" height="34" fill="url(#frameGlass)" opacity="0.55" />
-      <line x1="55" y1="160" x2="55" y2="194" stroke="#3d434c" strokeWidth="0.6" opacity="0.4" />
-      <line x1="105" y1="160" x2="105" y2="194" stroke="#3d434c" strokeWidth="0.6" opacity="0.4" />
+      <rect
+        x="34"
+        y="160"
+        width="42"
+        height="34"
+        fill="url(#frameGlass)"
+        opacity="0.75"
+      />
+      <rect
+        x="84"
+        y="160"
+        width="42"
+        height="34"
+        fill="url(#frameGlass)"
+        opacity="0.55"
+      />
+      <line
+        x1="55"
+        y1="160"
+        x2="55"
+        y2="194"
+        stroke="#3d434c"
+        strokeWidth="0.6"
+        opacity="0.4"
+      />
+      <line
+        x1="105"
+        y1="160"
+        x2="105"
+        y2="194"
+        stroke="#3d434c"
+        strokeWidth="0.6"
+        opacity="0.4"
+      />
 
       {/* small crane on top */}
-      <line x1="105" y1="8" x2="105" y2="20" stroke="#af8c52" strokeWidth="2.25" />
+      <line
+        x1="105"
+        y1="8"
+        x2="105"
+        y2="20"
+        stroke="#af8c52"
+        strokeWidth="2.25"
+      />
       <motion.line
         x1="80"
         y1="8"
@@ -408,8 +721,14 @@ function ScrollConstructionElement({
   config: ConstructionElementConfig;
   progress: MotionValue<number>;
 }) {
-  const x = useTransform(progress, config.scrollRange, [config.startX, config.endX]);
-  const y = useTransform(progress, config.scrollRange, [config.startY, config.endY]);
+  const x = useTransform(progress, config.scrollRange, [
+    config.startX,
+    config.endX,
+  ]);
+  const y = useTransform(progress, config.scrollRange, [
+    config.startY,
+    config.endY,
+  ]);
   const rotate = useTransform(progress, config.scrollRange, config.rotateRange);
   const scale = useTransform(progress, config.scrollRange, config.scaleRange);
   return (
@@ -443,13 +762,34 @@ type BuildingConfig = {
 
 const skylineBuildings: BuildingConfig[] = [
   { left: "3%", height: 130, width: 60, color: "#5b6b7a" },
-  { left: "13%", height: 190, width: 46, color: "#6d7f8f", underConstruction: true, delay: 0.4 },
+  {
+    left: "13%",
+    height: 190,
+    width: 46,
+    color: "#6d7f8f",
+    underConstruction: true,
+    delay: 0.4,
+  },
   { left: "24%", height: 100, width: 70, color: "#8a7a63" },
   { left: "37%", height: 230, width: 50, color: "#54697a" },
-  { left: "48%", height: 150, width: 56, color: "#7a6b57", underConstruction: true, delay: 0.9 },
+  {
+    left: "48%",
+    height: 150,
+    width: 56,
+    color: "#7a6b57",
+    underConstruction: true,
+    delay: 0.9,
+  },
   { left: "60%", height: 180, width: 44, color: "#5b6b7a" },
   { left: "70%", height: 110, width: 66, color: "#84756a" },
-  { left: "82%", height: 210, width: 48, color: "#4f6577", underConstruction: true, delay: 0.15 },
+  {
+    left: "82%",
+    height: 210,
+    width: 48,
+    color: "#4f6577",
+    underConstruction: true,
+    delay: 0.15,
+  },
   { left: "92%", height: 140, width: 54, color: "#6d7f8f" },
 ];
 
@@ -475,7 +815,13 @@ function Building({ config }: { config: BuildingConfig }) {
         width={config.width}
         height={config.height}
       >
-        <rect x="0" y="0" width={config.width} height={config.height} fill={config.color} />
+        <rect
+          x="0"
+          y="0"
+          width={config.width}
+          height={config.height}
+          fill={config.color}
+        />
         {windows.map(({ r, c, id }) => (
           <motion.rect
             key={id}
@@ -498,7 +844,14 @@ function Building({ config }: { config: BuildingConfig }) {
       {config.underConstruction && (
         <div className={styles.miniCrane}>
           <svg viewBox="0 0 60 40" width="60" height="40">
-            <line x1="30" y1="6" x2="30" y2="36" stroke="#f4b400" strokeWidth="2.5" />
+            <line
+              x1="30"
+              y1="6"
+              x2="30"
+              y2="36"
+              stroke="#f4b400"
+              strokeWidth="2.5"
+            />
             <motion.line
               x1="8"
               y1="6"
@@ -521,6 +874,13 @@ function Building({ config }: { config: BuildingConfig }) {
 
 export default function RealEstateJourney() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start 80%", "end 30%"],
+  });
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -535,14 +895,21 @@ export default function RealEstateJourney() {
       /> */}
 
       <section className={`${styles.section} ${styles.hero}`}>
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9 }}
-          className={styles.title}
+        <div
+          ref={heroRef}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+          }}
         >
-          Scroll Into the Skyline
-        </motion.h1>
+          <GlowingTextReveal
+            text="Scroll Into the Skyline"
+            progress={heroProgress}
+            color="#DAA520"
+            className={styles.particleTitle} // Reusing your layout styles
+          />
+        </div>
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -593,7 +960,11 @@ export default function RealEstateJourney() {
 
       <div className={styles.elementLayer}>
         {elements.map((config, i) => (
-          <ScrollConstructionElement key={i} config={config} progress={scrollYProgress} />
+          <ScrollConstructionElement
+            key={i}
+            config={config}
+            progress={scrollYProgress}
+          />
         ))}
       </div>
 

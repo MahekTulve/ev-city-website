@@ -14,6 +14,7 @@ import RealEstateJourney from "../ev-city/denmark";
 
 import styles from "./FeaturesSection.module.css";
 import VashiDenmark from "../AboutSections/denmark";
+import FlashingIntroWords from "./FlashingIntroWords";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -189,7 +190,13 @@ export default function ZoomParallaxDemo() {
   return (
     <main className="w-full">
       {/* Scroll-Aware Retriggerable Header Section */}
-      <motion.div
+         <FlashingIntroWords
+        introText="EV HOMES PRESENTS THE FUTURE OF CONNECTED LIVING WHERE EVERYTHING YOU NEED IS JUST FIVE MINUTES AWAY"
+        headingText="THE 5 MINUTE CITY"
+        emphasizedWords={["FUTURE", "CONNECTED", "FIVE", "MINUTES"]}
+        highlightHeadingWords={["5", "MINUTE", "CITY"]}
+    />
+      {/* <motion.div
         onViewportEnter={handleViewportEnter}
         onViewportLeave={handleViewportLeave}
         viewport={{ once: false, amount: 0.8 }} // Triggers precisely at 80% visibility
@@ -197,7 +204,7 @@ export default function ZoomParallaxDemo() {
       >
         <AnimatePresence mode="wait">
           {!introFinished ? (
-            /* Intro Quick Flashing Sequence */
+          
             <motion.div
               key="intro-words"
               initial={{ opacity: 0 }}
@@ -231,7 +238,7 @@ export default function ZoomParallaxDemo() {
               </AnimatePresence>
             </motion.div>
           ) : (
-            /* Main Heading Block-by-Block Entry */
+          
             <motion.div
               key="main-heading"
               initial="hidden"
@@ -285,7 +292,7 @@ export default function ZoomParallaxDemo() {
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
+      </motion.div> */}
 
       <ZoomParallax images={images} />
 
