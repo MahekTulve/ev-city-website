@@ -52,12 +52,15 @@
     font-weight: 400;
     margin: 0;
     line-height: 1.05;
+
 }
 
 .title .big {
-    color: #dfc26d;
-    font-style: italic;
-    font-family: "cormorant garamond", serif;
+    background-image: linear-gradient(10deg, transparent 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, transparent 100%);
+    font-family: 'Times New Roman', Times, serif;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
@@ -84,46 +87,108 @@
 }
 
 .card {
-    border: 1px solid rgba(212, 175, 55, 0.35);
+    border: 1px solid rgba(185, 147, 64, 0.171);
     border-radius: 16px;
-    padding: 20px 22px;
+    padding: 15px 18px;
     background: rgba(10, 10, 10, 0.55);
     backdrop-filter: blur(6px);
     box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.06);
-    max-width: 270px;
+    max-width: 250px;
 }
-.cardrow{
+
+.card::after {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 1px;
+    background-image: linear-gradient(10deg, transparent 0%, #8a6103 35%, #fff3b6 50%, #8a6203 70%, transparent 100%);
+    border-radius: 50%;
+    bottom: -1px;
+    filter: blur(1px);
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    width: 90%;
+    height: 1px;
+    background-image: linear-gradient(10deg, transparent 0%, #8a6103 35%, #fff3b6 50%, #8a6203 70%, transparent 100%);
+
+    border-radius: 50%;
+    top: -1px;
+    filter: blur(1px);
+}
+
+.cardrow {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
 }
+
 .brandMark {
-    color: #d4af37;
-    margin-bottom: 10px;
+    color: #b38833;
+    margin-bottom: 5px;
 }
 
 .brandName {
     font-size: 26px;
     letter-spacing: 0.15em;
-    color: #e6c76a;
+    background-image: linear-gradient(10deg, #8a6203 35%, #fff3b6 50%, #8a6203 70%, #fff3b6 85%, #8a6203 80%, #8a6203 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     margin: 0;
 }
 
 .brandCity {
     font-family: "Helvetica", sans-serif;
     font-size: 12px;
-    letter-spacing: 0.3em;
-    color: #cfc3a3;
-    margin: 4px 0 16px;
+    letter-spacing: 0.2em;
+    color: #e1dbc9;
+    padding-bottom: 4px;
+}
+
+.divderscond,
+.divder {
+    display: flex;
+    width: 100%;
+    height: 2px;
+    background-image: linear-gradient(10deg, transparent 0%, #8a6103 35%, #fff3b6 50%, #8a6203 70%, transparent 100%);
+
+}
+
+.divderscond::after,
+.divder::after {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 3px;
+    background: #fff3b6;
+    left: 50%;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 2px #fff3b6, 0 0 8px 1px #8a6103;
+    filter: blur(1px);
+}
+
+.divderscond {
+    height: 1px;
+    background-image: linear-gradient(10deg, transparent 0%, #8a6103 50%, #fff3b6 70%, #8a6203 80%, transparent 100%);
+
+}
+
+.divderscond::after {
+    height: 1px;
+    width: 7px;
+    left: 65%;
 }
 
 .brandDesc {
     font-family: "Helvetica", sans-serif;
     font-size: 13px;
     line-height: 1.7;
-    color: #b8ac8a;
-    margin: 0;
+    color: #dad4c1;
+    margin-top: 6px;
 }
 
 .infoRow {
@@ -133,18 +198,15 @@
     padding: 12px 4px;
 }
 
-.infoRow+.infoRow {
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
-}
 
 .infoIcon {
-    color: #d4af37;
+    color: #b38833;
     flex-shrink: 0;
     margin-top: 2px;
 }
 
 .infoTitle {
-    color: #e6c76a;
+    color: #b38833;
     font-family: "Helvetica", sans-serif;
     font-size: 12px;
     letter-spacing: 0.2em;
@@ -169,17 +231,19 @@
 .arcSvg {
     position: absolute;
     inset: 0;
-    width: 100%;
+    display: block;
+    overflow: hidden;
+    width: 92vw;
     height: 100%;
     pointer-events: none;
-    top: -80px;
+    top: -35%;
 }
 
 .nodes {
     position: relative;
     width: 100%;
     height: 480px;
-     top: -80px;
+    top: -35px;
 }
 
 .node {
@@ -188,12 +252,15 @@
     flex-direction: column;
     align-items: center;
     transform: translate(-50%, -50%);
+    /* FIX 1: Width ko strictly explicit kar do taaki variable sizes structure ko push na karein */
+    width: 140px;
+    text-align: center;
 }
 
 .nodeTime {
     font-size: 28px;
     color: #f5e6b8;
-    font-family: "Georgia", serif;
+    font-family: "Helvetica", sans-serif;
     line-height: 1;
 }
 
@@ -209,15 +276,21 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border: 1.5px solid #d4af37;
-    background: radial-gradient(circle, #1a1608 0%, #050505 80%);
+    border: 2px solid transparent;
+    background-image:
+        radial-gradient(circle, #0d0a04 0%, #000 80%),
+        linear-gradient(135deg, #d4af37, #fcea93, #8a6103, #fff1c4);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+color: #e1b44c;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    color: #d4af37;
-    box-shadow:
-        0 0 20px rgba(212, 175, 55, 0.35),
-        inset 0 0 10px rgba(212, 175, 55, 0.15);
+    transform-origin: center center;
+    will-change: transform, box-shadow;
+    overflow: hidden;
+    position: relative;
 }
 
 .nodeLabel {
@@ -227,58 +300,91 @@
     font-size: 12px;
     letter-spacing: 0.15em;
     text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    /* Text wrapped in absolute visual bounds */
 }
 
 .nodeSub {
     color: #b8ac8a;
-    font-family: "Helvetica", sans-serif;
+    font-family: "Helvetica-Light", "Helvetica", sans-serif;
     font-size: 11px;
     margin-top: 2px;
     text-align: center;
+    width: 100%;
+    white-space: nowrap;
+    /* Single line alignment strictly maintained */
 }
 
 .center {
     position: absolute;
     left: 50%;
-    top: 5%;
+    top: 10%;
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 5;
+    /* Base map nodes ke upar layer */
 }
 
 .centerCircle {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    border: 2px solid #d4af37;
-    background: radial-gradient(circle, #0d0a04 0%, #000 80%);
+    border: 2px solid transparent;
+    background-image:
+        radial-gradient(circle, #0d0a04 0%, #000 80%),
+        linear-gradient(135deg, #d4af37, #fcea93, #8a6103, #fff1c4);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-shadow:
-        0 0 40px rgba(212, 175, 55, 0.5),
-        inset 0 0 25px rgba(212, 175, 55, 0.2);
+    transform-origin: center center;
+    will-change: transform, box-shadow;
+    overflow: hidden;
+    position: relative;
+}
+
+.centerCircle::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 4px;
+    background: #fff3b6;
+    top: -3px;
+
+    border-radius: 50%;
+    box-shadow: 0 0 20px 2px #fff3b6, 0 0 8px 1px #8a6103;
+    filter: blur(1px);
 }
 
 .centerBrand {
-    color: #d4af37;
-    margin-bottom: 6px;
+    color: #b28e18;
+    margin-bottom: 5px;
 }
 
 .centerName {
     font-size: 20px;
-    letter-spacing: 0.2em;
-    color: #e6c76a;
+    letter-spacing: 0.1em;
+    background-image: linear-gradient(10deg, transparent 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, transparent 100%);
+    font-family: 'Times New Roman', Times, serif;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Times New Roman', Times, serif;
+
 }
 
 .centerCity {
     font-size: 10px;
-    letter-spacing: 0.4em;
+    letter-spacing: 0.15em;
     color: #cfc3a3;
-    margin-top: 2px;
-    font-family: "Helvetica", sans-serif;
+    font-family: 'Times New Roman', Times, serif;
+
 }
 
 
@@ -368,7 +474,7 @@
 
 .feature {
     display: flex;
-    align-items: center;
+    align-items: start;
     gap: 12px;
     color: #d4af37;
 }

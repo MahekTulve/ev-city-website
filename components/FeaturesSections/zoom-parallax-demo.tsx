@@ -13,7 +13,7 @@ import VashiLetter from "../AboutSections/VashiLetter";
 import RealEstateJourney from "../ev-city/denmark";
 
 import styles from "./FeaturesSection.module.css";
-import VashiDenmark from "../AboutSections/denmark";
+import VashiDenmark from "../AboutSections/Vashidenmark";
 import FlashingIntroWords from "./FlashingIntroWords";
 
 // --- Timing constants ---
