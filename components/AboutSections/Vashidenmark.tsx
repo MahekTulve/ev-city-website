@@ -12,19 +12,20 @@ import {
   MapPin,
   Diamond,
   Crown,
-  Timer,
-  Share2,
   Shield,
   Heart,
-  ChevronLeft,
-  ChevronRight,
-  Hand,
   Hotel,
   Utensils,
   Film,
   Building,
+  Clock,
 } from "lucide-react";
 import styles from "./vashidenmark.module.css";
+import { BsHandIndexThumb } from "react-icons/bs";
+import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
+import { MdArrowBack, MdArrowForward } from "react-icons/md";
+import { GrConnect } from "react-icons/gr";
+import { IoDiamondOutline } from "react-icons/io5";
 
 type NodeData = {
   id: number;
@@ -85,49 +86,50 @@ export default function VashiDenmark() {
 
   // GSAP Animation Engine
   useEffect(() => {
-    if (nodesContainerRef.current) {
-      const nodeElements = nodesContainerRef.current.querySelectorAll(`.${styles.node}`);
-      nodeElements.forEach((el) => {
-        const targetLeft = el.getAttribute("data-left");
-        const targetTop = el.getAttribute("data-top");
-        const isVisible = el.getAttribute("data-visible") === "true";
-        const isCenter = el.getAttribute("data-center") === "true";
+  if (nodesContainerRef.current) {
+    const nodeElements = nodesContainerRef.current.querySelectorAll(`.${styles.node}`);
+    nodeElements.forEach((el) => {
+      const targetLeft = el.getAttribute("data-left");
+      const targetTop = el.getAttribute("data-top");
+      const isVisible = el.getAttribute("data-visible") === "true";
+      const isCenter = el.getAttribute("data-center") === "true";
 
-        if (targetLeft && targetTop) {
-          if (isCenter) {
-            gsap.to(el, {
-              left: `${targetLeft}%`,
-              top: `${targetTop}%`,
-              opacity: 0,
-              scale: 0.6,
-              duration: 0.8,
-              ease: "power2.out",
-              overwrite: "auto",
-            });
-          } else if (!isVisible) {
-            gsap.to(el, {
-              left: `${targetLeft}%`,
-              top: `${targetTop}%`,
-              opacity: 0,
-              scale: 0.3,
-              duration: 0.2,
-              ease: "power2.in",
-              overwrite: "auto",
-            });
-          } else {
-            gsap.to(el, {
-              left: `${targetLeft}%`,
-              top: `${targetTop}%`,
-              opacity: 1,
-              scale: 1,
-              duration: 0.85,
-              ease: "power2.out",
-              overwrite: "auto",
-            });
-          }
+      if (targetLeft && targetTop) {
+        if (isCenter) {
+          gsap.to(el, {
+            left: `${targetLeft}%`,
+            top: `${targetTop}%`,
+            opacity: 0,
+            scale: 0.6,
+            duration: 0.8,
+            ease: "power2.out",
+          });
+        } else if (!isVisible) {
+          // Jo visible nahi hain, unhe direct bottom layer par inject karo bina tween animation ke
+          gsap.killTweensOf(el);
+          gsap.set(el, {
+            visibility: "hidden",
+            opacity: 0,
+            scale: 0.3,
+            left: `${targetLeft}%`,
+            top: `${targetTop}%`
+          });
+        } else {
+          // Active view elements animation
+          gsap.set(el, { visibility: "visible" });
+          gsap.to(el, {
+            left: `${targetLeft}%`,
+            top: `${targetTop}%`,
+            opacity: 1,
+            scale: 1,
+            duration: 0.85,
+            ease: "power2.out",
+            overwrite: "auto",
+          });
         }
-      });
-    }
+      }
+    });
+  }
 
     const centerCircleEl = document.querySelector(`.${styles.centerCircle}`);
     if (centerCircleEl) {
@@ -255,6 +257,7 @@ export default function VashiDenmark() {
           </div>
 
           {/* PHYSICAL CONTINUOUS SCROLLING NODES BLOCK */}
+          {/* PHYSICAL CONTINUOUS SCROLLING NODES BLOCK */}
           <div className={styles.nodes} ref={nodesContainerRef}>
             {ALL_NODES.map((n, globalIndex) => {
               let relativeIndex = (globalIndex - startIndex + totalNodes) % totalNodes;
@@ -269,10 +272,12 @@ export default function VashiDenmark() {
               } else if (isCenterSlot) {
                 pos = ARC_POSITIONS[3];
               } else {
-                if (relativeIndex < 3) {
-                  pos = { x: -20, y: 75 };
+                if (relativeIndex === totalNodes - 1) {
+                  pos = { x: -2, y: 100 };
+                } else if (relativeIndex < 3) {
+                  pos = { x: -30, y: 120 };
                 } else {
-                  pos = { x: 115, y: 160 };
+                  pos = { x: 130, y: 140 }; 
                 }
               }
 
@@ -287,7 +292,8 @@ export default function VashiDenmark() {
                   style={{
                     position: "absolute",
                     pointerEvents: isVisible ? "auto" : "none",
-                    visibility: (isVisible || isCenterSlot) ? "visible" : "hidden",
+                    visibility: isVisible ? "visible" : "hidden",
+                    opacity: isVisible ? 1 : 0,
                   }}
                 >
                   <div className={styles.nodeTime}>{n.time}</div>
@@ -302,26 +308,37 @@ export default function VashiDenmark() {
 
           <div className={styles.dragBar}>
             <button onClick={handlePrev} className={styles.arrowBtn} aria-label="Previous Slide">
-              <ChevronLeft size={16} />
+              <MdArrowBack size={22} />
             </button>
             <span>DRAG TO</span>
-            <Hand size={18} />
+            <div className={styles.handIcon}>
+              <BsHandIndexThumb size={18} />
+            </div>
             <span>EXPLORE</span>
             <button onClick={handleNext} className={styles.arrowBtn} aria-label="Next Slide">
-              <ChevronRight size={16} />
+              <MdArrowForward size={22} />
             </button>
           </div>
 
           <div className={styles.features}>
             {[
-              { icon: <Timer size={22} />, a: "SAVE TIME", b: "MORE LIFE" },
-              { icon: <Share2 size={22} />, a: "UNMATCHED", b: "CONNECTIVITY" },
-              { icon: <Diamond size={22} />, a: "PREMIUM", b: "LIFESTYLE" },
-              { icon: <Shield size={22} />, a: "TRUSTED", b: "DEVELOPER" },
-              { icon: <Heart size={22} />, a: "DESIGNED FOR", b: "BETTER LIVING" },
+              { icon: <Clock size={27} />, a: "SAVE TIME", b: "MORE LIFE" },
+              { icon: <GrConnect size={27} />, a: "UNMATCHED", b: "CONNECTIVITY" },
+              { icon: <IoDiamondOutline size={27} />, a: "PREMIUM", b: "LIFESTYLE" },
+              { icon: <Shield size={27} />, a: "TRUSTED", b: "DEVELOPER" },
+              { icon: <Heart size={27} />, a: "DESIGNED FOR", b: "BETTER LIVING" },
             ].map((f) => (
               <div key={f.a} className={styles.feature}>
-                {f.icon}
+                <span className={styles.iconWrapper}>
+                  {f.icon}
+                </span>
+                <svg width="0" height="0" style={{ position: "absolute" }}>
+                  <linearGradient id="my-cool-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#a07000" />
+                    <stop offset="35%" stopColor="#fde77b" />
+                    <stop offset="100%" stopColor="#a07000" />
+                  </linearGradient>
+                </svg>
                 <div className={styles.featureText}>
                   <p>{f.a}</p>
                   <p>{f.b}</p>
