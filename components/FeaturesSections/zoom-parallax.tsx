@@ -31,7 +31,7 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 	const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
 	return (
-		<div ref={container} className="relative h-[200vh]">
+		<div ref={container} className="relative h-[200vh]" style={{ backgroundColor: '#0b0a09' }}>
 			<div className="sticky top-0 h-screen overflow-hidden">
 				{images.map(({ src, alt }, index) => {
 					const scale = scales[index % scales.length];
@@ -39,10 +39,10 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 					return (
 						<motion.div
 							key={index}
-							 style={{
-    scale,
-    ...(index === images.length - 1 ? { opacity } : {}),
-  }}
+							style={{
+								scale,
+								...(index === images.length - 1 ? { opacity } : {}),
+							}}
 							className={`absolute top-0 flex h-full w-full items-center justify-center ${index === 1 ? '[&>div]:!-top-[30vh] [&>div]:!left-[5vw] [&>div]:!h-[30vh] [&>div]:!w-[35vw]' : ''} ${index === 2 ? '[&>div]:!-top-[10vh] [&>div]:!-left-[25vw] [&>div]:!h-[45vh] [&>div]:!w-[20vw]' : ''} ${index === 3 ? '[&>div]:!left-[27.5vw] [&>div]:!h-[25vh] [&>div]:!w-[25vw]' : ''} ${index === 4 ? '[&>div]:!top-[27.5vh] [&>div]:!left-[5vw] [&>div]:!h-[25vh] [&>div]:!w-[20vw]' : ''} ${index === 5 ? '[&>div]:!top-[27.5vh] [&>div]:!-left-[22.5vw] [&>div]:!h-[25vh] [&>div]:!w-[30vw]' : ''} ${index === 6 ? '[&>div]:!top-[22.5vh] [&>div]:!left-[25vw] [&>div]:!h-[15vh] [&>div]:!w-[15vw]' : ''} `}
 						>
 							<div className="relative h-[25vh] w-[25vw]">
