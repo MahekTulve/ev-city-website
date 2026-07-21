@@ -16,6 +16,7 @@ import styles from "./FeaturesSection.module.css";
 import VashiDenmark from "../AboutSections/Vashidenmark";
 import FlashingIntroWords from "./FlashingIntroWords";
 import CinematicText from "../AboutSections/cinematicTex";
+import ExplainDenmark from "../AboutSections/ExplainDenmark";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -312,6 +313,7 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div>
+      <ExplainDenmark/>
       <VashiDenmark/>
       <RealEstateJourney />
       
