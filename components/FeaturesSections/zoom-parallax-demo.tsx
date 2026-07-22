@@ -15,6 +15,8 @@ import RealEstateJourney from "../ev-city/denmark";
 import styles from "./FeaturesSection.module.css";
 import VashiDenmark from "../AboutSections/Vashidenmark";
 import FlashingIntroWords from "./FlashingIntroWords";
+import CinematicText from "../AboutSections/cinematicTex";
+import ExplainDenmark from "../AboutSections/ExplainDenmark";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -188,14 +190,15 @@ export default function ZoomParallaxDemo() {
   const headingText = "THE 5 MINUTE CITY";
 
   return (
-    <main className="w-full">
+    <main className="w-full" >
       {/* Scroll-Aware Retriggerable Header Section */}
-         <FlashingIntroWords
+      <CinematicText/>
+         {/* <FlashingIntroWords
         introText="EV HOMES PRESENTS THE FUTURE OF CONNECTED LIVING WHERE EVERYTHING YOU NEED IS JUST FIVE MINUTES AWAY"
         headingText="THE 5 MINUTE CITY"
         emphasizedWords={["FUTURE", "CONNECTED", "FIVE", "MINUTES"]}
         highlightHeadingWords={["5", "MINUTE", "CITY"]}
-    />
+    /> */}
       {/* <motion.div
         onViewportEnter={handleViewportEnter}
         onViewportLeave={handleViewportLeave}
@@ -310,6 +313,7 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div>
+      <ExplainDenmark/>
       <VashiDenmark/>
       <RealEstateJourney />
       
