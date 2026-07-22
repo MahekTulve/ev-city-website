@@ -1,4 +1,5 @@
 import PerspectiveScrollShowcase from "@/components/scroll-showcase/scroll-showcase";
+import ScrollCarousel from "./ScrollCarousel";
 
 const dummyProjects = [
   {
@@ -27,6 +28,26 @@ const dummyProjects = [
   },
 ];
 
+const slides = [
+  {
+    id: 1,
+    index: "01",
+    title: "EV HEART CITY",
+    location: "MOSARE",
+    description:
+      "A place where mountains, coastline, and culture converge.A place where mountains, coastline, and culture converge.A place where mountains, coastline, and culture converge.A place where mountains, coastline, and culture converge.",
+    image: "/images/ev-heart-city-1.jpg",
+  },
+  {
+    id: 2,
+    index: "02",
+    title: "EV10 MARINA BAY",
+    location: "VASHI",
+    description: "A world of calm waters.A world of calm waters.A world of calm waters.A world of calm waters.",
+    image: "https://evhomes.tech/images/marina1.png",
+  },
+];
+
 export default function PerspectiveScrollDemo() {
   return (
     <div className="w-full min-h-screen overflow-x-clip transition-colors duration-500 bg-white dark:bg-black text-black dark:text-white font-sans antialiased">
@@ -38,6 +59,8 @@ export default function PerspectiveScrollDemo() {
       </div>
 
       <PerspectiveScrollShowcase projects={dummyProjects} />
+
+      {/* <ScrollCarousel slides={slides} slideHeight={1.2} /> */}
     </div>
   );
 }

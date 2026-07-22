@@ -149,7 +149,24 @@ export default function PerspectiveScrollShowcase({ projects }: PerspectiveScrol
                         rotateX,
                         transformStyle: "preserve-3d",
                     }}
-                    className="relative w-[50%] max-w-2xl aspect-[4/3] sm:aspect-[16/9] cursor-grab active:cursor-grabbing"
+                    className="
+  relative
+  w-[92vw]
+  h-[70vh]
+  max-w-[1900px]
+  max-h-[1100px]
+
+  min-[2000px]:w-[88vw]
+  min-[2000px]:h-[78vh]
+  min-[2000px]:max-w-[2100px]
+  min-[2000px]:max-h-[1250px]
+
+  max-sm:w-[92vw]
+  max-sm:h-[58vh]
+
+  cursor-grab
+  active:cursor-grabbing
+"
                 >
                     {projects.map((project, i) => (
                         <ProjectCard
