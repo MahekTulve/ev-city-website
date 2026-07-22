@@ -17,6 +17,7 @@ import VashiDenmark from "../AboutSections/Vashidenmark";
 import FlashingIntroWords from "./FlashingIntroWords";
 import CinematicText from "../AboutSections/cinematicTex";
 import ExplainDenmark from "../AboutSections/ExplainDenmark";
+import AboutFiveMinute from "../AboutSections/AboutFiveMinute";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -298,7 +299,7 @@ export default function ZoomParallaxDemo() {
       </motion.div> */}
 
       <ZoomParallax images={images} />
-
+<AboutFiveMinute/>
       <div ref={containerRef} className="relative h-[600vh] w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <VashiLetter
