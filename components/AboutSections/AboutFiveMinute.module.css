@@ -1,0 +1,479 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+
+.section {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #050504;
+  color: #fff5e2;
+  padding: 80px 5%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Background Grid Pattern Layer */
+.bgGridOverlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(rgba(231, 189, 101, 0.08) 1px, transparent 0);
+  background-size: 36px 36px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Background Ambient Orbs */
+.bgGlow {
+  position: absolute;
+  top: 35%;
+  left: 45%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: 50vh;
+  background: radial-gradient(circle, rgba(231, 189, 101, 0.14) 0%, rgba(5, 5, 4, 0) 70%);
+  filter: blur(120px);
+  animation: pulseAmbient 8s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+@keyframes pulseAmbient {
+  0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.6; }
+  100% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+}
+
+.bgGlowSecondary {
+  position: absolute;
+  bottom: 0%;
+  right: 5%;
+  width: 35vw;
+  height: 35vh;
+  background: radial-gradient(circle, rgba(212, 163, 89, 0.08) 0%, rgba(5, 5, 4, 0) 70%);
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+/* Header Styling */
+.header {
+  text-align: center;
+  max-width: 850px;
+  margin-bottom: 50px;
+  z-index: 2;
+}
+
+.tag {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.35em;
+  color: #e7bd65;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(231, 189, 101, 0.25);
+  padding: 6px 18px;
+  border-radius: 30px;
+  background: rgba(231, 189, 101, 0.04);
+  backdrop-filter: blur(5px);
+}
+
+.tagDot {
+  width: 6px;
+  height: 6px;
+  background: #e7bd65;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #e7bd65;
+}
+
+.mainTitle {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(32px, 4.5vw, 54px);
+  font-weight: 500;
+  color: #ffffff;
+  margin: 0 0 18px 0;
+  letter-spacing: 1px;
+}
+
+.goldText {
+  background: linear-gradient(135deg, #ffffff 0%, #f3d287 35%, #e7bd65 70%, #b98d3d 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 15px rgba(231, 189, 101, 0.25));
+}
+
+.subTitle {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: rgba(255, 245, 226, 0.75);
+  line-height: 1.8;
+  margin: 0;
+  font-weight: 300;
+}
+
+/* Layout Grid */
+.visualizerContainer {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 50px;
+  align-items: center;
+  max-width: 1200px;
+  width: 100%;
+  /* z-index: 2; */
+}
+
+/* RADAR VISUALIZER */
+.radarWrapper {
+  position: relative;
+  width: 440px;
+  height: 440px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG Active Connecting Laser Beam Line */
+.svgBeamLayer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+}
+
+.activeBeamLine {
+  stroke: #e7bd65;
+  stroke-width: 2px;
+  stroke-dasharray: 6 4;
+  animation: dashAnimation 1s linear infinite;
+  filter: drop-shadow(0 0 6px #e7bd65);
+}
+
+@keyframes dashAnimation {
+  to { stroke-dashoffset: -20; }
+}
+
+/* Rotating Sweep Beam Effect */
+.radarSweep {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(231, 189, 101, 0.2) 0deg, transparent 50deg, transparent 360deg);
+  animation: radarSpin 7s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes radarSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Ripple Waves outwards from center */
+.rippleWave1, .rippleWave2 {
+  position: absolute;
+  border: 1px solid rgba(231, 189, 101, 0.4);
+  border-radius: 50%;
+  animation: rippleOut 3s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+  pointer-events: none;
+}
+
+.rippleWave2 {
+  animation-delay: 1.5s;
+}
+
+@keyframes rippleOut {
+  0% { width: 80px; height: 80px; opacity: 1; }
+  100% { width: 420px; height: 420px; opacity: 0; }
+}
+
+/* Radar Rings */
+.ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px dashed rgba(231, 189, 101, 0.2);
+}
+
+.ring1 { width: 160px; height: 160px; }
+.ring2 { width: 280px; height: 280px; }
+.ring3 { 
+  width: 410px; height: 410px; 
+  border-style: solid;
+  border-color: rgba(231, 189, 101, 0.12);
+}
+
+.centerNode {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, #f2e18b 0%, #b98d3d 100%);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 35px rgba(231, 189, 101, 0.6), inset 0 0 15px rgba(255, 255, 255, 0.8);
+}
+
+.homeIcon { font-size: 24px; }
+.centerLabel {
+  font-family: 'Cinzel', serif;
+  font-size: 8px;
+  font-weight: 800;
+  color: #060605;
+  margin-top: 2px;
+  letter-spacing: 0.1em;
+}
+
+/* Floating Outer Nodes with Gentle Bobbing Animation */
+.radarNode {
+  position: absolute;
+  background: rgba(14, 14, 12, 0.9);
+  border: 1px solid rgba(231, 189, 101, 0.35);
+  padding: 10px 20px;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.node1 { top: 25px; left: 10px; animation: floatNode 4s ease-in-out infinite alternate; }
+.node2 { top: 25px; right: 10px; animation: floatNode 4s ease-in-out infinite alternate 1s; }
+.node3 { bottom: 25px; left: 10px; animation: floatNode 4s ease-in-out infinite alternate 2s; }
+.node4 { bottom: 25px; right: 10px; animation: floatNode 4s ease-in-out infinite alternate 3s; }
+
+@keyframes floatNode {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-7px); }
+}
+
+.nodeIcon { font-size: 16px; }
+.nodeTime {
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  color: #e7bd65;
+  font-weight: 700;
+}
+
+.activeRadarNode, .radarNode:hover {
+  background: linear-gradient(135deg, #f2e18b, #d4a359);
+  border-color: #ffffff;
+  transform: scale(1.15) translateY(-4px) !important;
+  box-shadow: 0 10px 30px rgba(231, 189, 101, 0.5);
+}
+
+.activeRadarNode .nodeTime, .radarNode:hover .nodeTime {
+  color: #060605;
+  font-weight: 800;
+}
+
+.nodePulseRing {
+  position: absolute;
+  top: -4px; left: -4px; right: -4px; bottom: -4px;
+  border-radius: 35px;
+  border: 1.5px solid #e7bd65;
+  animation: pulseOutNode 1.5s infinite;
+}
+
+@keyframes pulseOutNode {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.25); opacity: 0; }
+}
+
+.card3DWraper {
+  perspective: 1000px;
+}
+
+.contentCard {
+  position: relative;
+  background: linear-gradient(145deg, rgba(47, 29, 4, 0.151) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid rgba(231, 189, 101, 0.3);
+  border-radius: 24px;
+  padding: 45px;
+  backdrop-filter: blur(25px);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  transition: transform 0.4s ease, border-color 0.4s ease;
+}
+
+.contentCard:hover {
+  border-color: rgba(231, 189, 101, 0.6);
+  transform: translateY(-5px) rotateX(2deg);
+}
+
+/* Entrance Keyframe for card switching */
+.cardAnimKey {
+  animation: slideFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(18px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.badge {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  color: #060605;
+  background: linear-gradient(90deg, #f2e18b, #e7bd65);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(231, 189, 101, 0.3);
+}
+
+.badgePulse {
+  width: 6px;
+  height: 6px;
+  background: #060605;
+  border-radius: 50%;
+  animation: blink 1s infinite alternate;
+}
+
+@keyframes blink {
+  from { opacity: 0.3; }
+  to { opacity: 1; }
+}
+
+.categoryTag {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: #bfae91;
+}
+
+.nodeTitle {
+  font-family: 'Cinzel', serif;
+  font-size: 26px;
+  color: #ffffff;
+  margin: 0 0 15px 0;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.titleIcon { font-size: 26px; }
+
+/* Glowing Shimmer Line */
+.animatedShimmerLine {
+  width: 70px;
+  height: 2px;
+  background: linear-gradient(90deg, #e7bd65 0%, rgba(231, 189, 101, 0) 100%);
+  margin-bottom: 22px;
+  position: relative;
+}
+
+.conceptText {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 15px;
+  color: rgba(255, 245, 226, 0.85);
+  line-height: 1.8;
+  margin: 0 0 28px 0;
+  font-weight: 300;
+}
+
+.benefitHeader {
+  font-family: 'Cinzel', serif;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: #e7bd65;
+  display: block;
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+
+.pillsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.pill {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13.5px;
+  color: #fff0d4;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(231, 189, 101, 0.04);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: 1px solid rgba(231, 189, 101, 0.15);
+  animation: pillFadeIn 0.4s ease forwards;
+  opacity: 0;
+}
+
+@keyframes pillFadeIn {
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.dot {
+  font-size: 8px;
+  color: #e7bd65;
+}
+
+/* Auto-play Timer Indicator Line */
+.progressBarWrapper {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.progressBar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #e7bd65, #f2e18b);
+}
+
+.animateProgress {
+  animation: progressRun 2.5s linear infinite;
+}
+
+@keyframes progressRun {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+.extraspace{
+    height: 220px;
+    width: 100%;
+}
+/* Mobile Responsive Adjustments */
+@media (max-width: 950px) {
+  .visualizerContainer {
+    grid-template-columns: 1fr;
+  }
+  
+  .radarWrapper {
+    width: 320px;
+    height: 320px;
+  }
+  
+  .ring1 { width: 120px; height: 120px; }
+  .ring2 { width: 210px; height: 210px; }
+  .ring3 { width: 300px; height: 300px; }
+
+  .node1 { top: 5px; left: -10px; }
+  .node2 { top: 5px; right: -10px; }
+  .node3 { bottom: 5px; left: -10px; }
+  .node4 { bottom: 5px; right: -10px; }
+
+  .contentCard { padding: 25px; }
+}
