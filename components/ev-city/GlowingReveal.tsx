@@ -115,7 +115,7 @@ export default function GlowingTextReveal({
       <h1
         style={{
           margin: 0,
-          fontFamily: "Inter, sans-serif",
+          fontFamily: "'Cinzel', serif",
           fontWeight: 500,
           fontSize: "5vw",
           textTransform: "uppercase",
