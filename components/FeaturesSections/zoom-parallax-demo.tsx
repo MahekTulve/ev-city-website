@@ -18,7 +18,7 @@ import FlashingIntroWords from "./FlashingIntroWords";
 import CinematicText from "../AboutSections/cinematicTex";
 import ExplainDenmark from "../AboutSections/ExplainDenmark";
 import AboutFiveMinute from "../AboutSections/AboutFiveMinute";
-
+import DenmarkToVashi from "../AboutSections/DenmarkToVashi"
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
@@ -31,7 +31,7 @@ export default function ZoomParallaxDemo() {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [introFinished, setIntroFinished] = useState(false);
   const [triggerMainHeading, setTriggerMainHeading] = useState(false);
-  
+
   // Tracks whether the section has hit the 80% visibility threshold
   const [isSectionVisible, setIsSectionVisible] = useState(false);
 
@@ -193,8 +193,8 @@ export default function ZoomParallaxDemo() {
   return (
     <main className="w-full" >
       {/* Scroll-Aware Retriggerable Header Section */}
-      <CinematicText/>
-         {/* <FlashingIntroWords
+      <CinematicText />
+      {/* <FlashingIntroWords
         introText="EV HOMES PRESENTS THE FUTURE OF CONNECTED LIVING WHERE EVERYTHING YOU NEED IS JUST FIVE MINUTES AWAY"
         headingText="THE 5 MINUTE CITY"
         emphasizedWords={["FUTURE", "CONNECTED", "FIVE", "MINUTES"]}
@@ -299,7 +299,7 @@ export default function ZoomParallaxDemo() {
       </motion.div> */}
 
       <ZoomParallax images={images} />
-<AboutFiveMinute/>
+      <AboutFiveMinute />
       <div ref={containerRef} className="relative h-[600vh] w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <VashiLetter
@@ -314,10 +314,11 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div>
-      <ExplainDenmark/>
-      <VashiDenmark/>
-      <RealEstateJourney />
-      
+      <ExplainDenmark />
+      <VashiDenmark />
+      <DenmarkToVashi/>
+      {/* <RealEstateJourney /> */}
+
     </main>
   );
 }

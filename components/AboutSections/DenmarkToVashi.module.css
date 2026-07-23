@@ -1,0 +1,592 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap');
+
+/* ============================================================
+   CANVAS & ROOT CONTAINER
+   ============================================================ */
+.cityscape {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    min-height: 350vh;
+    background:
+        radial-gradient(ellipse 60% 50% at 50% 30%, rgba(212, 175, 55, 0.08), transparent 70%),
+        radial-gradient(ellipse 60% 45% at 88% 92%, rgba(30, 58, 88, 0.16), transparent 62%),
+        #060606;
+    color: #f5f5f7;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.cityscape::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        linear-gradient(to right, rgba(212, 175, 55, 0.035) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(212, 175, 55, 0.035) 1px, transparent 1px);
+    background-size: 100px 100px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.section {
+    position: relative;
+    display: flex;
+    min-height: 100vh;
+    padding: 2rem;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ============================================================
+   1. GRAND CENTER-ALIGNED DESIGNER HERO HEADER
+   ============================================================ */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    text-align: center;
+    padding: 2rem 1.5rem;
+}
+
+.heroContentWrapper {
+    width: 100%;
+    max-width: 62rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 3;
+}
+
+/* Designer Glass Badge */
+.heroBadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    padding: 0.6rem 1.4rem;
+    background: rgba(212, 175, 55, 0.05);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    backdrop-filter: blur(12px);
+    border-radius: 100px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: #d4af37;
+    box-shadow: 0 0 25px rgba(212, 175, 55, 0.08);
+}
+
+.badgeDot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #d4af37;
+    box-shadow: 0 0 8px #d4af37;
+}
+
+/* Header Title Wrapper & Particles */
+.titleWrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 0.5rem;
+
+}
+
+.particleTitle {
+    font-family: 'Cinzel', serif;
+
+}
+
+.particleTitle {
+    display: block;
+    margin-inline: auto !important;
+    font-size: clamp(3.2rem, 7.5vw, 6.8rem);
+    line-height: 1.05;
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-align: center;
+}
+
+/* Designer Architectural Lines */
+.centerDividerWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    width: 100%;
+    max-width: 28rem;
+}
+
+.dividerLine {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
+}
+
+.dividerDiamond {
+    width: 7px;
+    height: 7px;
+    background: #d4af37;
+    transform: rotate(45deg);
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+}
+
+.subtitle {
+    max-width: 40rem;
+    font-size: clamp(1rem, 1.9vw, 1.15rem);
+    color: rgba(245, 245, 247, 0.8);
+    line-height: 1.55;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    margin: 0 auto;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+
+/* Minimalist Center Scroll Indicator */
+.scrollHintContainer {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
+
+.scrollHint {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.45em;
+    color: rgba(212, 175, 55, 0.75);
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.scrollLineTrack {
+    width: 1.5px;
+    height: 48px;
+    background: rgba(212, 175, 55, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.scrollLineBar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, #d4af37, transparent);
+    animation: slideTrackVertical 2.2s infinite ease-in-out;
+}
+
+@keyframes slideTrackVertical {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+.scrollPill {
+    width: 24px;
+    height: 42px;
+    border: 1.5px solid rgba(212, 175, 55, 0.4);
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    background: rgba(212, 175, 55, 0.03);
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
+}
+
+.scrollDot {
+    width: 4px;
+    height: 8px;
+    background: #d4af37;
+    border-radius: 4px;
+    position: absolute;
+    top: 8px;
+    box-shadow: 0 0 8px #d4af37;
+    animation: scrollPulse 2s infinite ease-in-out;
+}
+
+@keyframes scrollPulse {
+    0% {
+        transform: translateY(0);
+        opacity: 1;
+        height: 8px;
+    }
+
+    50% {
+        height: 14px;
+        /* Stretch effect while moving down */
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: translateY(18px);
+        opacity: 0;
+        height: 6px;
+    }
+}
+
+.scrollTargetTrack {
+    width: 1px;
+    height: 54px;
+    background: linear-gradient(180deg, rgba(212, 175, 55, 0.4), transparent);
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.targetRing {
+    width: 11px;
+    height: 11px;
+    border: 1px solid #d4af37;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    background: #060606;
+    box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+    animation: ringSlide 2.4s infinite cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+@keyframes ringSlide {
+    0% {
+        top: 0%;
+        opacity: 0;
+        transform: scale(0.6);
+    }
+
+    30% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    100% {
+        top: 85%;
+        opacity: 0;
+        transform: scale(0.6);
+    }
+}
+
+.eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: #d4af37;
+    margin-bottom: 1.5rem;
+    font-weight: 500;
+}
+
+.italicGold {
+    font-family: 'Cinzel', serif;
+    font-style: italic;
+    background: linear-gradient(135deg, #fceabb 0%, #d4af37 50%, #af8c52 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ============================================================
+   2. SECTION 2 STRUCTURE (Zig-Zag Alternate Cards Layout)
+   ============================================================ */
+.amenityContainer {
+    width: 100%;
+    max-width: 85rem;
+    padding-bottom: 380px;
+}
+
+.amenityHeaderCenter {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.zigzagTimeline {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    position: relative;
+}
+
+.zigzagRow {
+    display: flex;
+    width: 100%;
+}
+
+.rowLeft {
+    justify-content: flex-start;
+}
+
+.rowRight {
+    justify-content: flex-end;
+}
+
+.amenityCardLuxury {
+    position: relative;
+    width: 100%;
+    max-width: 32rem;
+    background: rgba(14, 13, 11, 0.85);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 2rem 2.5rem;
+    backdrop-filter: blur(20px);
+    transition: all 0.4s ease;
+}
+
+.amenityCardLuxury::before {
+    content: "";
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 18px;
+    height: 18px;
+    border-top: 1.5px solid rgba(212, 175, 55, 0.75);
+    border-left: 1.5px solid rgba(212, 175, 55, 0.75);
+    pointer-events: none;
+}
+
+/* Card container ko overflow block hone se rokein */
+.amenityCardLuxury {
+    position: relative;
+    width: 100%;
+    max-width: 32rem;
+    background: rgba(14, 13, 11, 0.85);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    padding: 2rem 2.5rem;
+    backdrop-filter: blur(20px);
+    transition: all 0.2s ease;
+        will-change: clip-path, opacity, transform;
+}
+
+.zigzagRow {
+    display: flex;
+    width: 100%;
+    overflow: visible; /* Make sure clipped children stay in bounds */
+}
+
+.amenityCardLuxury:hover {
+    border-color: #d4af37;
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+    background: rgba(20, 18, 15, 0.95);
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.iconBadge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(212, 175, 55, 0.06);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.cardNumber {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: rgba(212, 175, 55, 0.35);
+  letter-spacing: -0.02em;
+  transition: color 0.3s ease;
+}
+
+.amenityCardLuxury:hover .cardNumber {
+  color: #d4af37;
+}
+.amenityCardLuxury:hover .iconBadge {
+    background: rgba(212, 175, 55, 0.15);
+    border-color: #d4af37;
+    box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+}
+.titleUnderline {
+  width: 35px;
+  height: 1.5px;
+  background: #d4af37;
+  margin-bottom: 0.4rem;
+  transition: width 0.4s ease;
+}
+
+.amenityCardLuxury:hover .titleUnderline {
+  width: 70px;
+}
+.cardNumber {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.95rem;
+    color: #d4af37;
+}
+
+.cornerTL,
+.cornerBR {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.cornerTL {
+    top: 0;
+    left: 0;
+    border-top: 2px solid #d4af37;
+    border-left: 2px solid #d4af37;
+}
+
+.cornerBR {
+    bottom: 0;
+    right: 0;
+    border-bottom: 2px solid #d4af37;
+    border-right: 2px solid #d4af37;
+}
+
+.amenityCardLuxury:hover .cornerTL {
+    width: 20px;
+    height: 20px;
+}
+
+.amenityCardLuxury:hover .cornerBR {
+    width: 20px;
+    height: 20px;
+}
+
+.cardNumber::before {
+    content: "N\00B0 ";
+    opacity: 0.55;
+}
+
+.cardGlowOverlay {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08), transparent 50%);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.amenityCardLuxury:hover .cardGlowOverlay {
+    opacity: 1;
+}
+
+.cardAccentLine {
+    width: 40px;
+    height: 1px;
+    background: rgba(212, 175, 55, 0.3);
+}
+
+.cardTitle {
+    font-family: 'Cinzel', serif;
+    font-size: 1.5rem;
+    color: #ffffff;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+}
+
+.cardDesc {
+ font-size: 0.98rem;
+  color: rgba(245, 245, 247, 0.65);
+  line-height: 1.75;
+  font-weight: 300;
+}
+
+.editorialHeading {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 1.25;
+}
+
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+   ============================================================ */
+@media (max-width: 768px) {
+    .hero {
+        padding: 1.5rem 1rem;
+    }
+
+    .rowLeft,
+    .rowRight {
+        justify-content: center;
+    }
+
+    .amenityCardLuxury {
+        max-width: 100%;
+    }
+
+    .editorialHeading {
+        font-size: 2.1rem;
+    }
+}
+
+/* ============================================================
+   BACKGROUND LAYERS (UNTOUCHED ANIMATION TARGETS)
+   ============================================================ */
+.elementLayer {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+
+.floatingElement {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.skyline {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 240px;
+    z-index: 1;
+    opacity: 0.5;
+}
+
+.building {
+    position: absolute;
+    bottom: 0;
+}
+
+.miniCrane {
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ground {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2rem;
+    background: linear-gradient(180deg, transparent 0%, rgba(212, 175, 55, 0.12) 100%);
+}
