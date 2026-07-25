@@ -1,6 +1,7 @@
 // import RealEstateJourney from "@/components/ev-city/denmark";
 import HoverFooter from "@/components/footer/footer-demo";
 import PerspectiveScrollDemo from "@/components/scroll-showcase/scroll-demo";
+import Hero from "@/components/scrollvideo/hero";
 import Projects from "@/components/scrollvideo/Projects";
 
 export const metadata = {
@@ -15,6 +16,7 @@ export default function FeaturesPage() {
 
       <Projects />
       <HoverFooter />
+      <Hero />
     </>
   );
 }
