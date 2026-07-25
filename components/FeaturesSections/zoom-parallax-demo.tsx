@@ -19,6 +19,7 @@ import CinematicText from "../AboutSections/cinematicTex";
 import ExplainDenmark from "../AboutSections/ExplainDenmark";
 import AboutFiveMinute from "../AboutSections/AboutFiveMinute";
 import DenmarkToVashi from "../AboutSections/DenmarkToVashi"
+import { MeshGradient } from "@paper-design/shaders-react";
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
@@ -193,7 +194,7 @@ export default function ZoomParallaxDemo() {
   return (
     <main className="w-full" >
       {/* Scroll-Aware Retriggerable Header Section */}
-      <CinematicText />
+      {/* <CinematicText /> */}
       {/* <FlashingIntroWords
         introText="EV HOMES PRESENTS THE FUTURE OF CONNECTED LIVING WHERE EVERYTHING YOU NEED IS JUST FIVE MINUTES AWAY"
         headingText="THE 5 MINUTE CITY"
@@ -297,8 +298,47 @@ export default function ZoomParallaxDemo() {
           )}
         </AnimatePresence>
       </motion.div> */}
+<section className={styles.sharedSequence}>
+  {/* One shader used by both sections */}
+  <div className={styles.sharedShaderTrack} aria-hidden="true">
+    <div className={styles.sharedShaderSticky}>
+      <MeshGradient
+        className={styles.sharedShader}
+        colors={[
+          "#050505",
+          "#0a0401",
+          "#140801",
+          "#412d03",
+          "#4d3e0e",
+        ]}
+        speed={0.35}
+      />
 
-      <ZoomParallax images={images} />
+      <MeshGradient
+        className={styles.sharedShader}
+        colors={[
+          "#000000",
+          "#1F1611",
+          "#523828",
+          "#4e3e10",
+          "#251a04",
+        ]}
+        speed={0.22}
+        style={{
+          opacity: 0.5,
+          mixBlendMode: "overlay",
+        }}
+      />
+
+      <div className={styles.sharedShaderOverlay} />
+    </div>
+  </div>
+
+  <div className={styles.sharedSequenceContent}>
+    <CinematicText />
+    <ZoomParallax images={images} />
+  </div>
+</section>
       <AboutFiveMinute />
       <div ref={containerRef} className="relative h-[600vh] w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
