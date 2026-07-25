@@ -31,8 +31,11 @@ export function ZoomParallax({ images }: ZoomParallaxProps) {
 	const scales = [scale4, scale5, scale6, scale5, scale6, scale8, scale9];
 
 	return (
-		<div ref={container} className="relative h-[200vh]" style={{ backgroundColor: '#0b0a09' }}>
-			<div className="sticky top-0 h-screen overflow-hidden">
+		<div
+  ref={container}
+  className="relative h-[200vh] w-full bg-transparent"
+>
+			<div className="sticky top-0 h-screen overflow-hidden bg-transparent">
 				{images.map(({ src, alt }, index) => {
 					const scale = scales[index % scales.length];
 

@@ -38,37 +38,6 @@ export default function ShaderShowcase() {
         />
       </div>
       <div className={styles.overlay} />
-
-      {/* <div className={styles.pulseWrap}>
-        <PulsingBorder
-          className={styles.pulseBorder}
-          colors={["#7c3aed", "#ec4899", "#ffffff"]}
-          colorBack="#00000000"
-          roundness={1}
-          thickness={0.05}
-          softness={0.3}
-          intensity={2}
-          spotSize={0.3}
-          pulse={0.15}
-          smoke={0.4}
-          smokeSize={0.5}
-        /> */}
-        {/* <div className={styles.rotatingText}>
-          <svg viewBox="0 0 100 100">
-            <defs>
-              <path
-                id="circlePath"
-                d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"
-              />
-            </defs>
-            <text>
-              <textPath href="#circlePath">
-                Loxt • Paper Shaders • Beautiful Experiences •
-              </textPath>
-            </text>
-          </svg>
-        </div> */}
-      {/* </div> */}
     </div>
   );
 }
