@@ -1,0 +1,317 @@
+ .blueprintReveal {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  background: #0a0a0a;
+}
+
+.blueprintRevealContainer {
+  width: 100%;
+  max-width: 1200px;
+}
+
+.blueprintRevealHeader {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.blueprintRevealEyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3em;
+  color: rgba(251, 191, 36, 0.7);
+}
+
+.blueprintRevealTitle {
+  margin-top: 0.75rem;
+  font-size: 1.875rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .blueprintRevealTitle {
+    font-size: 2.25rem;
+  }
+}
+
+/* ============ 3D Sliding Carousel ============ */
+.blueprintCarousel {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.blueprintCarouselTrack {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+}
+
+/* Cards Base Style */
+.blueprintCard {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #111111;
+  text-align: left;
+  cursor: pointer;
+  padding: 0;
+  width: 320px;
+  height: 460px;
+  /* Hardware accelerated smooth sliding transition */
+  transition:
+    transform 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+    opacity 0.7s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.5s ease,
+    box-shadow 0.5s ease;
+  will-change: transform, opacity;
+}
+
+/* Positioning Positions via transforms */
+.blueprintCard[data-position="center"] {
+  transform: translateX(0) scale(1.05);
+  z-index: 3;
+  opacity: 1;
+  border-color: rgba(251, 191, 36, 0.6);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+.blueprintCard[data-position="left"] {
+  transform: translateX(-105%) scale(0.82);
+  z-index: 2;
+  opacity: 0.5;
+}
+
+.blueprintCard[data-position="right"] {
+  transform: translateX(105%) scale(0.82);
+  z-index: 2;
+  opacity: 0.5;
+}
+
+.blueprintCard[data-position="hidden-left"] {
+  transform: translateX(-200%) scale(0.6);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.blueprintCard[data-position="hidden-right"] {
+  transform: translateX(200%) scale(0.6);
+  z-index: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Hover Lift Effect */
+.blueprintCard:hover {
+  border-color: rgba(251, 191, 36, 0.6);
+}
+
+.blueprintCard[data-position="center"]:hover {
+  transform: translateX(0) scale(1.08) translateY(-6px);
+}
+
+/* Inner Images & Reveal */
+.blueprintCardImage {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  user-select: none;
+  pointer-events: none;
+}
+
+.blueprintCardPhoto {
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
+}
+
+/* Auto Reveal Image when card is in Center OR Hovered */
+.blueprintCard[data-position="center"] .blueprintCardPhoto,
+.blueprintCard:hover .blueprintCardPhoto {
+  opacity: 1;
+}
+
+/* Scan Line Animation */
+.blueprintCardScan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 6rem;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(251, 191, 36, 0.45),
+    transparent
+  );
+  pointer-events: none;
+  transition: top 1.1s cubic-bezier(0.4, 0, 0.2, 1);
+  top: -6rem;
+}
+
+/* Trigger scan sweep when active center or on hover */
+.blueprintCard[data-position="center"] .blueprintCardScan,
+.blueprintCard:hover .blueprintCardScan {
+  top: 100%;
+}
+
+.blueprintCardMeta {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.9),
+    rgba(0, 0, 0, 0.2) 40%,
+    transparent
+  );
+
+  pointer-events: none;
+
+  /* Hidden by default */
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+}
+
+.blueprintCard[data-position="center"] .blueprintCardMeta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Or when user hovers a side card */
+.blueprintCard:hover .blueprintCardMeta {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.blueprintCardContent {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.blueprintCardLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: rgba(251, 191, 36, 0.85);
+}
+
+.blueprintCardName {
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: #ffffff;
+}
+
+.blueprintCardHint {
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Arrows */
+.blueprintCarouselArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  background: rgba(0, 0, 0, 0.7);
+  color: rgba(251, 191, 36, 0.9);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+}
+
+.blueprintCarouselArrow:hover {
+  background: rgba(251, 191, 36, 0.2);
+  border-color: rgba(251, 191, 36, 0.9);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.blueprintCarouselArrowPrev {
+  left: 0.5rem;
+}
+.blueprintCarouselArrowNext {
+  right: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .blueprintCarouselArrowPrev {
+    left: 1rem;
+  }
+  .blueprintCarouselArrowNext {
+    right: 1rem;
+  }
+}
+
+.blueprintCarouselArrow svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+/* Navigation Dots */
+.blueprintCarouselDots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.blueprintCarouselDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s ease, width 0.3s ease;
+  padding: 0;
+}
+
+.blueprintCarouselDotActive {
+  background: rgba(251, 191, 36, 0.9);
+  width: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .blueprintCard {
+    width: 220px;
+    height: 340px;
+  }
+  .blueprintCarouselTrack {
+    height: 380px;
+  }
+  .blueprintCard[data-position="left"] {
+    transform: translateX(-70%) scale(0.8);
+  }
+  .blueprintCard[data-position="right"] {
+    transform: translateX(70%) scale(0.8);
+  }
+}
