@@ -20,6 +20,7 @@ import ExplainDenmark from "../AboutSections/ExplainDenmark";
 import AboutFiveMinute from "../AboutSections/AboutFiveMinute";
 import DenmarkToVashi from "../AboutSections/DenmarkToVashi"
 import { MeshGradient } from "@paper-design/shaders-react";
+import { OptimizedShader } from "./OptimizedShader";
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
@@ -300,39 +301,24 @@ export default function ZoomParallaxDemo() {
       </motion.div> */}
 <section className={styles.sharedSequence}>
   {/* One shader used by both sections */}
-  <div className={styles.sharedShaderTrack} aria-hidden="true">
-    <div className={styles.sharedShaderSticky}>
-      <MeshGradient
-        className={styles.sharedShader}
-        colors={[
-          "#050505",
-          "#0a0401",
-          "#140801",
-          "#412d03",
-          "#4d3e0e",
-        ]}
-        speed={0.35}
-      />
-
-      <MeshGradient
-        className={styles.sharedShader}
-        colors={[
-          "#000000",
-          "#1F1611",
-          "#523828",
-          "#4e3e10",
-          "#251a04",
-        ]}
-        speed={0.22}
-        style={{
-          opacity: 0.5,
-          mixBlendMode: "overlay",
-        }}
-      />
-
-      <div className={styles.sharedShaderOverlay} />
-    </div>
+ <div className={styles.sharedShaderTrack} aria-hidden="true">
+  <div className={styles.sharedShaderSticky}>
+    {/* Combined palette into a single lightweight WebGL instance */}
+    <OptimizedShader
+      className={styles.sharedShader}
+      colors={[
+        "#000000",
+        "#0a0401",
+        "#1F1611",
+        "#523828",
+        "#4e3e10",
+        "#251a04",
+      ]}
+      speed={0.25}
+    />
+    <div className={styles.sharedShaderOverlay} />
   </div>
+</div>
 
   <div className={styles.sharedSequenceContent}>
     <CinematicText />

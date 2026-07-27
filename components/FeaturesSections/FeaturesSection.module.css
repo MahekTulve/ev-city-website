@@ -59,6 +59,7 @@ z-index: 20;
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  will-change: transform;
 }
 
 .sharedShaderSticky {
@@ -69,6 +70,9 @@ z-index: 20;
   height: 100svh;
   overflow: hidden;
   background: #000;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .sharedShader {
@@ -76,6 +80,7 @@ z-index: 20;
   inset: 0;
   width: 100%;
   height: 100%;
+  pointer-events: none;
 }
 
 .sharedShaderOverlay {
