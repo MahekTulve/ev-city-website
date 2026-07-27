@@ -3,23 +3,23 @@
   /* width: 100vw; */
   height: 100vh;
   overflow: hidden;
-  background: radial-gradient(ellipse at center, #131110 0%, #050403 70%, #000 100%);
+  background: transparent;
   color: #fff;
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   isolation: isolate;
 
 }
 
-/* Cinematic letterbox bars */
 .bar {
   position: absolute;
   left: 0;
   right: 0;
-  /* height: 10vh; */
-  background: #000;
+  height: 7vh;
+  /* background: #000; */
   z-index: 40;
   pointer-events: none;
   animation: barIn 1.4s cubic-bezier(.7, .05, .2, 1) forwards;
+
 }
 
 .barTop {
@@ -45,14 +45,22 @@
   }
 }
 
+@keyframes barInBot {
+  to {
+    transform: translateY(0);
+  }
+}
+
+/* Film grain */
 
 .grain {
   position: absolute;
   inset: -50%;
-  z-index: 31;
+
+  z-index: 10;
   pointer-events: none;
-  opacity: .12;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  opacity: 0.1;
+  /* background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .8 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>"); */
   animation: grainShift 1.2s steps(6) infinite;
   mix-blend-mode: overlay;
 }
@@ -83,6 +91,8 @@
   }
 }
 
+/* Slides */
+
 .slides {
   position: relative;
   z-index: 20;
@@ -98,29 +108,31 @@
   display: grid;
   place-items: center;
   opacity: 0;
+  visibility: hidden;
   pointer-events: none;
 }
 
 .slideActive {
   opacity: 1;
+
+  visibility: visible;
   pointer-events: auto;
 }
 
 .block {
-  text-align: center;
   max-width: 90vw;
-  /* Initial state bina zoom ke */
+  text-align: center;
   transform: scale(1);
   will-change: transform;
 }
 
 .slideActive .block {
   animation: cinematicZoom 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s forwards;
+
 }
 
-/* Continuous Slow Zoom Keyframe */
 @keyframes cinematicZoom {
-  0% {
+  from {
     transform: scale(1);
   }
 
@@ -131,19 +143,20 @@
 }
 
 .small {
-  font-family: 'Bebas Neue', 'Cinzel', serif;
-  letter-spacing: .55em;
-  font-size: clamp(10px, 1.1vw, 14px);
-  color: rgba(230, 200, 140, .8);
-  text-transform: uppercase;
-  margin-bottom: 2rem;
   display: inline-block;
+  margin-bottom: 2rem;
+  font-family: "Bebas Neue", "Cinzel", serif;
+  font-size: clamp(10px, 1.1vw, 14px);
+  letter-spacing: 0.55em;
+  color: rgba(230, 200, 140, 0.88);
+  text-transform: uppercase;
   opacity: 0;
   transform: translateY(8px);
 }
 
 .slideActive .small {
   animation: smallIn .8s ease-out .15s forwards;
+
 }
 
 @keyframes smallIn {
@@ -159,21 +172,27 @@
   display: inline-block;
   width: 3rem;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(230, 200, 140, .9), transparent);
-  vertical-align: middle;
   margin: 0 1rem;
+  vertical-align: middle;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(230, 200, 140, 0.9),
+    transparent
+  );
 }
 
 /* Headline */
+
 .headline {
-  font-weight: 900;
-  line-height: .95;
-  letter-spacing: .06em;
-  margin: 0;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0 .02em;
+  gap: 0 0.02em;
+  margin: 0;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 0.06em;
   perspective: 1200px;
 }
 
@@ -188,36 +207,46 @@
 
 .word {
   display: inline-flex;
-  margin: 0 .25em;
+  margin: 0 0.25em;
   white-space: nowrap;
 }
 
 .letter {
-  display: inline-block;
   position: relative;
-  background: linear-gradient(10deg, transparent 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, transparent 100%);
-  background-clip: text;
+  display: inline-block;
+  color: transparent;
+  opacity: 0;
+  filter: blur(24px);
+  transform: translateY(40px) scale(1.3);
+  background: linear-gradient(
+    110deg,
+    #80601d 0%,
+    #b98f2c 25%,
+    #fcea93 50%,
+    #b98f2c 75%,
+    #80601d 100%
+  );
+/*   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   filter: blur(24px);
   opacity: 0;
   transform: translateY(60px) scale(1.8);
-  text-shadow: 0 0 20px rgba(255, 201, 100, 0.466);
+  text-shadow: 0 0 20px rgba(255, 201, 100, 0.466); */
+  text-shadow: 0 0 40px rgba(255, 200, 100, 0.25);
 }
 
-/* Chromatic split ghosts */
 .letter::before,
 .letter::after {
   content: attr(data-ch);
   position: absolute;
   inset: 0;
+  pointer-events: none;
+  opacity: 0;
   background: inherit;
   background-clip: text;
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  opacity: 0;
-  pointer-events: none;
 }
 
 .letter::before {
@@ -233,6 +262,7 @@
 }
 
 .slideActive .letter {
+
   animation: slamIn 1.4s cubic-bezier(.2, .7, .15, 1) forwards;
 }
 
@@ -253,12 +283,14 @@
 } */
 @keyframes slamIn {
   0% {
+
     filter: blur(24px);
     opacity: 0;
     transform: translateY(40px) scale(1.3);
   }
 
   100% {
+
     filter: blur(0);
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -274,11 +306,13 @@
   55% {
     opacity: .8;
     transform: translate(-6px, 0);
+
   }
 
   100% {
     opacity: 0;
     transform: translate(0, 0);
+
   }
 }
 
@@ -291,20 +325,21 @@
   55% {
     opacity: .8;
     transform: translate(6px, 0);
+
   }
 
   100% {
     opacity: 0;
     transform: translate(0, 0);
+
   }
 }
 
-/* Sheen sweep across headline */
+/* Underline */
 
-/* Underline reveal */
 .rule {
-  height: 1px;
   width: 0;
+  height: 1px;
   margin: 2rem auto 0;
   background: linear-gradient(90deg, transparent, rgba(230, 200, 140, .9), transparent);
 }
@@ -312,6 +347,7 @@
 .slideActive .rule { 
   animation: ruleGrow 2s ease-out 0.4s forwards; 
 }
+
 @keyframes ruleGrow {
   to {
     width: 40%;
@@ -324,6 +360,7 @@
 }
 
 @keyframes shake {
+
 
   0%,
   100% {
@@ -348,44 +385,106 @@
 }
 
 /* Replay */
+
 .replay {
   position: relative;
   z-index: 25;
-  padding: .9rem 2rem;
-  background: transparent;
-  border: 1px solid rgba(230, 200, 140, .6);
-  color: rgba(230, 200, 140, .95);
-  font-family: 'Bebas Neue', serif;
-  letter-spacing: .4em;
+
+  padding: 0.9rem 2rem;
+  border: 1px solid rgba(230, 200, 140, 0.6);
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  color: rgba(230, 200, 140, 0.95);
+  font-family: "Bebas Neue", serif;
   font-size: 14px;
+  letter-spacing: 0.4em;
   cursor: pointer;
-  transition: background .25s ease, color .25s ease, letter-spacing .25s ease;
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    letter-spacing 0.25s ease;
 }
 
 .replay:hover {
-  background: rgba(230, 200, 140, .12);
+
+  background: rgba(230, 200, 140, 0.12);
   color: #fff;
-  letter-spacing: .55em;
+  letter-spacing: 0.55em;
 }
 
-/* Progress ticks */
+/* Progress */
+
 .progress {
   position: absolute;
   bottom: 12vh;
   left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-  gap: .6rem;
   z-index: 25;
+  display: flex;
+  gap: 0.6rem;
+  transform: translateX(-50%);
 }
 
 .tick {
   width: 22px;
   height: 2px;
-  background: rgba(255, 255, 255, .15);
+
+  background: rgba(255, 255, 255, 0.15);
 }
 
 .tickOn {
-  background: rgba(230, 200, 140, .9);
-  box-shadow: 0 0 10px rgba(230, 200, 140, .7);
+  background: rgba(230, 200, 140, 0.9);
+  box-shadow: 0 0 10px rgba(230, 200, 140, 0.7);
+}
+
+@media (max-width: 640px) {
+  .stage {
+    min-height: 100svh;
+    height: 100svh;
+  }
+
+  .bar {
+    height: 5vh;
+  }
+
+  .slides {
+    padding: 0 1rem;
+  }
+
+  .small {
+    margin-bottom: 1.4rem;
+    letter-spacing: 0.32em;
+  }
+
+  .small::before,
+  .small::after {
+    width: 1.5rem;
+    margin: 0 0.6rem;
+  }
+
+  .headline {
+    line-height: 1.05;
+    letter-spacing: 0.03em;
+  }
+
+  .word {
+    margin: 0 0.15em;
+  }
+
+  .slideActive .block {
+    animation-name: cinematicZoomMobile;
+  }
+
+  @keyframes cinematicZoomMobile {
+    from {
+      transform: scale(1);
+    }
+
+    to {
+      transform: scale(1.05);
+    }
+  }
+
+  .progress {
+    bottom: 8vh;
+  }
 }

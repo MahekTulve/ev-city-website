@@ -40,6 +40,77 @@ z-index: 20;
   margin-bottom: var(--spacing-30);
 }
 
+.sharedSequence {
+  position: relative;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: clip;
+  background: #000;
+  isolation: isolate;
+}
+
+/*
+  This track covers the full combined height.
+  The shader itself stays fixed visually while scrolling.
+*/
+.sharedShaderTrack {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.sharedShaderSticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #000;
+}
+
+.sharedShader {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sharedShaderOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.02) 0%,
+      rgba(0, 0, 0, 0.18) 45%,
+      rgba(0, 0, 0, 0.78) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 0%,
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.45) 100%
+    );
+}
+
+.sharedSequenceContent {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Prevent browser/component spacing between sections */
+.sharedSequenceContent > * {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 .subheading {
   font-family: var(--font-pp-mondwest);
   font-size: var(--text-body);
