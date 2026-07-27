@@ -226,15 +226,14 @@
     #b98f2c 75%,
     #80601d 100%
   );
-/*   background-clip: text;
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   filter: blur(24px);
   opacity: 0;
   transform: translateY(60px) scale(1.8);
-  text-shadow: 0 0 20px rgba(255, 201, 100, 0.466); */
-  text-shadow: 0 0 40px rgba(255, 200, 100, 0.25);
+  text-shadow: 0 0 20px rgba(255, 201, 100, 0.466);
 }
 
 .letter::before,
