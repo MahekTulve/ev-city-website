@@ -61,25 +61,25 @@
 .videoContainer {
     position: absolute;
     inset: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     z-index: 0;
     overflow: hidden;
     pointer-events: none;
     background: #000;
 }
 
+/* GPU Performance Optimized Video Class */
 .bgVideo {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    /* SOLID OPACITY TO REMOVE GHOSTING SHADOW */
     opacity: 1; 
-    filter: saturate(1.1) contrast(1.05);
-    will-change: transform;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
 }
 
 .bgOverlay {
@@ -88,6 +88,7 @@
     z-index: 1;
     background: radial-gradient(ellipse at center, rgba(13, 10, 4, 0.5) 0%, #000 85%);
     pointer-events: none;
+    transform: translate3d(0, 0, 0);
 }
 
 .layout {
@@ -130,7 +131,7 @@
     width: 100%;
     height: 480px;
     top: -35px;
-    overflow: visible; /* Node animation clipping stop karega */
+    overflow: visible;
 }
 
 .node {
@@ -138,9 +139,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    transform: translate(-50%, -50%);
     width: 140px;
     text-align: center;
+    transform: translate3d(-50%, -50%, 0);
 }
 
 .nodeTime {
@@ -162,21 +163,16 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    border: 2px solid transparent;
-    background-image:
-        radial-gradient(circle, #0d0a04 0%, #000 80%),
-        linear-gradient(135deg, #d4af37, #fcea93, #8a6103, #fff1c4);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
+    border: 2px solid #d4af37;
+    background: #0d0a04;
     color: #e1b44c;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transform-origin: center center;
-    will-change: transform;
     overflow: hidden;
     position: relative;
+    transform: translate3d(0,0,0);
 }
 
 .nodeLabel {
@@ -208,27 +204,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    z-index: 10; /* Center Circle sabse upar rahega */
+    z-index: 10;
 }
 
 .centerCircle {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    border: 2px solid transparent;
-    background-image:
-        radial-gradient(circle, #0d0a04 0%, #000 80%),
-        linear-gradient(135deg, #d4af37, #fcea93, #8a6103, #fff1c4);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
+    border: 2px solid #d4af37;
+    background: #0d0a04;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    transform-origin: center center;
-    will-change: transform;
     overflow: hidden;
     position: relative;
+    transform: translate3d(0,0,0);
 }
 
 .centerBrand {
@@ -295,4 +286,5 @@
     cursor: pointer;
     border: none;
     color: #d4af37;
+    transition: opacity 0.2s ease;
 }
