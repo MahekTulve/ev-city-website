@@ -14,28 +14,29 @@ const SLIDES: Slide[] = [
   { kind: "title", small: "Coming Soon", text: "EV HOMES" },
 ];
 
-const SLIDE_MS = 3400;
+const SLIDE_MS = 3000;
 
 export default function CinematicTrailer() {
   const [i, setI] = useState(0);
   const [runKey, setRunKey] = useState(0);
-  const [flash, setFlash] = useState(0);
 
   useEffect(() => {
-    if (i >= SLIDES.length) return;
-    setFlash((f) => f + 1);
-    const t = setTimeout(() => setI((v) => v + 1), SLIDE_MS);
+    const t = setTimeout(() => {
+      setI((prevI) => {
+        // Agar last slide par pohench gaye hain, toh wapas 0 se start karein
+        if (prevI >= SLIDES.length - 1) {
+          setRunKey((k) => k + 1); // Key update hone se animation restart hoga
+          return 0;
+        }
+        return prevI + 1;
+      });
+    }, SLIDE_MS);
+
     return () => clearTimeout(t);
   }, [i, runKey]);
 
-  const replay = () => {
-    setI(0);
-    setRunKey((k) => k + 1);
-  };
-
   return (
     <div className={styles.stage}>
-
       <div className={styles.grain} />
       <div className={`${styles.bar} ${styles.barTop}`} />
       <div className={`${styles.bar} ${styles.barBot}`} />
@@ -56,10 +57,6 @@ export default function CinematicTrailer() {
             </div>
           </div>
         ))}
-
-        {i >= SLIDES.length && (
-          <button className={styles.replay} onClick={replay}>Replay</button>
-        )}
       </div>
 
       <div className={styles.progress}>
@@ -82,8 +79,7 @@ function Headline({ text, variant }: { text: string; variant: "title" | "credit"
       {words.map((w, wi) => (
         <span key={wi} className={styles.word}>
           {w.split("").map((ch, ci) => {
-            /* 55ms se badhakar 110ms gap kar diya taaki slow reveal ho */
-            const delay = 200 + letterIndex * 110;
+            const delay = 100 + letterIndex * 70;
             letterIndex++;
             return (
               <span
