@@ -1,12 +1,13 @@
 .stage {
   position: relative;
-  width: 100%;
+  /* width: 100vw; */
   height: 100vh;
   overflow: hidden;
   background: transparent;
   color: #fff;
   font-family: "Cinzel", serif;
   isolation: isolate;
+
 }
 
 .bar {
@@ -17,7 +18,8 @@
   /* background: #000; */
   z-index: 40;
   pointer-events: none;
-  animation: barIn 1.4s cubic-bezier(0.7, 0.05, 0.2, 1) forwards;
+  animation: barIn 1.4s cubic-bezier(.7, .05, .2, 1) forwards;
+
 }
 
 .barTop {
@@ -43,11 +45,18 @@
   }
 }
 
+@keyframes barInBot {
+  to {
+    transform: translateY(0);
+  }
+}
+
 /* Film grain */
 
 .grain {
   position: absolute;
   inset: -50%;
+
   z-index: 10;
   pointer-events: none;
   opacity: 0.1;
@@ -105,6 +114,7 @@
 
 .slideActive {
   opacity: 1;
+
   visibility: visible;
   pointer-events: auto;
 }
@@ -117,8 +127,8 @@
 }
 
 .slideActive .block {
-  animation: cinematicZoom 2.6s
-    cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.7s forwards;
+  animation: cinematicZoom 3s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0s forwards;
+
 }
 
 @keyframes cinematicZoom {
@@ -126,12 +136,11 @@
     transform: scale(1);
   }
 
-  to {
-    transform: scale(1.12);
+  100% {
+    transform: scale(1.4);
+    /* Dheere se text 8% zoom ho jayega end tak */
   }
 }
-
-/* Small heading */
 
 .small {
   display: inline-block;
@@ -146,7 +155,8 @@
 }
 
 .slideActive .small {
-  animation: smallIn 0.8s ease-out 0.15s forwards;
+  animation: smallIn .8s ease-out .15s forwards;
+
 }
 
 @keyframes smallIn {
@@ -216,9 +226,14 @@
     #b98f2c 75%,
     #80601d 100%
   );
-  background-clip: text;
+/*   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: blur(24px);
+  opacity: 0;
+  transform: translateY(60px) scale(1.8);
+  text-shadow: 0 0 20px rgba(255, 201, 100, 0.466); */
   text-shadow: 0 0 40px rgba(255, 200, 100, 0.25);
 }
 
@@ -247,27 +262,35 @@
 }
 
 .slideActive .letter {
-  animation: slamIn 1.6s cubic-bezier(0.2, 0.7, 0.15, 1) forwards;
+
+  animation: slamIn 1.4s cubic-bezier(.2, .7, .15, 1) forwards;
 }
 
-.slideActive .letter::before {
-  animation: chromaR 0.9s cubic-bezier(0.2, 0.7, 0.15, 1) forwards;
-  animation-delay: var(--d, 0ms);
+/* 3. Glitch effect speed */
+.slideActive .letter::before { 
+  animation: chromaR 0.8s cubic-bezier(.2,.7,.15,1) forwards; 
+  animation-delay: var(--d, 0ms); 
 }
-
-.slideActive .letter::after {
-  animation: chromaB 0.9s cubic-bezier(0.2, 0.7, 0.15, 1) forwards;
-  animation-delay: var(--d, 0ms);
+.slideActive .letter::after { 
+  animation: chromaB 0.8s cubic-bezier(.2,.7,.15,1) forwards; 
+  animation-delay: var(--d, 0ms); 
 }
-
+/* @keyframes slamIn {
+  0%   { filter: blur(24px); opacity: 0; transform: translateY(60px) scale(1.8) rotateX(-40deg); }
+  55%  { filter: blur(2px);  opacity: 1; transform: translateY(-6px) scale(1.02) rotateX(3deg); }
+  75%  { filter: blur(0);    transform: translateY(2px) scale(.995); }
+  100% { filter: blur(0);    opacity: 1; transform: translateY(0) scale(1) rotateX(0); }
+} */
 @keyframes slamIn {
-  from {
+  0% {
+
     filter: blur(24px);
     opacity: 0;
     transform: translateY(40px) scale(1.3);
   }
 
-  to {
+  100% {
+
     filter: blur(0);
     opacity: 1;
     transform: translateY(0) scale(1);
@@ -277,34 +300,38 @@
 @keyframes chromaR {
   0% {
     opacity: 0;
-    transform: translateX(-14px);
+    transform: translate(-14px, 0);
   }
 
   55% {
-    opacity: 0.8;
-    transform: translateX(-6px);
+    opacity: .8;
+    transform: translate(-6px, 0);
+
   }
 
   100% {
     opacity: 0;
-    transform: translateX(0);
+    transform: translate(0, 0);
+
   }
 }
 
 @keyframes chromaB {
   0% {
     opacity: 0;
-    transform: translateX(14px);
+    transform: translate(14px, 0);
   }
 
   55% {
-    opacity: 0.8;
-    transform: translateX(6px);
+    opacity: .8;
+    transform: translate(6px, 0);
+
   }
 
   100% {
     opacity: 0;
-    transform: translateX(0);
+    transform: translate(0, 0);
+
   }
 }
 
@@ -314,16 +341,11 @@
   width: 0;
   height: 1px;
   margin: 2rem auto 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(230, 200, 140, 0.9),
-    transparent
-  );
+  background: linear-gradient(90deg, transparent, rgba(230, 200, 140, .9), transparent);
 }
 
-.slideActive .rule {
-  animation: ruleGrow 1s ease-out 0.8s forwards;
+.slideActive .rule { 
+  animation: ruleGrow 2s ease-out 0.4s forwards; 
 }
 
 @keyframes ruleGrow {
@@ -332,13 +354,14 @@
   }
 }
 
-/* Camera shake */
-
+/* Camera shake on active */
 .slideActive .headline {
-  animation: shake 0.35s ease-out;
+  animation: shake .35s ease-out;
 }
 
 @keyframes shake {
+
+
   0%,
   100% {
     transform: translate(0, 0);
@@ -366,6 +389,7 @@
 .replay {
   position: relative;
   z-index: 25;
+
   padding: 0.9rem 2rem;
   border: 1px solid rgba(230, 200, 140, 0.6);
   background: rgba(0, 0, 0, 0.2);
@@ -382,6 +406,7 @@
 }
 
 .replay:hover {
+
   background: rgba(230, 200, 140, 0.12);
   color: #fff;
   letter-spacing: 0.55em;
@@ -402,6 +427,7 @@
 .tick {
   width: 22px;
   height: 2px;
+
   background: rgba(255, 255, 255, 0.15);
 }
 
