@@ -411,8 +411,6 @@
   letter-spacing: 0.55em;
 }
 
-/* Progress */
-
 .progress {
   position: absolute;
   bottom: 12vh;
@@ -421,20 +419,46 @@
   display: flex;
   gap: 0.6rem;
   transform: translateX(-50%);
+  align-items: center;
 }
 
 .tick {
-  width: 22px;
-  height: 2px;
-
+  width: 3px;
+  height: 5px;
+  border-radius: 50px;
   background: rgba(255, 255, 255, 0.15);
+  
+  /* Active state se normal state par aane ke liye smooth transition */
+  transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .tickOn {
+  height: 25px;
+   width: 2px;
+  border-radius: 50px;
   background: rgba(230, 200, 140, 0.9);
-  box-shadow: 0 0 10px rgba(230, 200, 140, 0.7);
+  box-shadow: 0 0 12px rgba(230, 200, 140, 0.8);
+  
+  /* Center positioning & timing adjust */
+  transform-origin: center;
+  /* Duration ko 0.4s se badha kar 0.8s kar diya hai aur curve smooth kar diya hai */
+  animation: expandFromCenter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
+/* Center se slow aur fluidly grow karne ka keyframe */
+@keyframes expandFromCenter {
+  0% {
+    transform: scaleY(0.2);
+    box-shadow: 0 0 0px rgba(230, 200, 140, 0);
+  }
+  60% {
+    box-shadow: 0 0 14px rgba(230, 200, 140, 0.9);
+  }
+  100% {
+    transform: scaleY(1);
+    box-shadow: 0 0 10px rgba(230, 200, 140, 0.7);
+  }
+}
 @media (max-width: 640px) {
   .stage {
     min-height: 100svh;
