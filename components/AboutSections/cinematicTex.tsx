@@ -63,7 +63,7 @@ export default function CinematicTrailer() {
         {SLIDES.map((_, idx) => (
           <span
             key={idx}
-            className={`${styles.tick} ${idx <= Math.min(i, SLIDES.length - 1) ? styles.tickOn : ""}`}
+            className={`${styles.tick} ${idx === i ? styles.tickOn : ""}`}
           />
         ))}
       </div>
