@@ -16,7 +16,7 @@ export default function Home() {
 
       {/* <ScrollVideo src="/images/ev_city_scrub.mp4" scrollLength={5} /> */}
 
-      <StackFeatureSection />
+      {/* <StackFeatureSection /> */}
 
       <div className="min-h-screen flex flex-col items-center justify-center border-t transition-colors duration-500 border-black/5 dark:border-white/10">
         <FeaturesSection />

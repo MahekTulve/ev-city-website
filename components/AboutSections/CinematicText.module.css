@@ -459,6 +459,7 @@
     box-shadow: 0 0 10px rgba(230, 200, 140, 0.7);
   }
 }
+
 @media (max-width: 640px) {
   .stage {
     min-height: 100svh;
@@ -470,27 +471,38 @@
   }
 
   .slides {
-    padding: 0 1rem;
+    padding: 0 0.75rem;
+  }
+
+  /* Bigger title slides */
+  .title {
+    font-size: 15vw;
+  }
+
+  /* Bigger credit slides */
+  .credit {
+    font-size: clamp(2.4rem, 10.5vw, 4rem);
   }
 
   .small {
-    margin-bottom: 1.4rem;
-    letter-spacing: 0.32em;
+    margin-bottom: 1.2rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
   }
 
   .small::before,
   .small::after {
-    width: 1.5rem;
-    margin: 0 0.6rem;
+    width: 1.2rem;
+    margin: 0 0.45rem;
   }
 
   .headline {
-    line-height: 1.05;
-    letter-spacing: 0.03em;
+    line-height: 0.98;
+    letter-spacing: 0.015em;
   }
 
   .word {
-    margin: 0 0.15em;
+    margin: 0 0.1em;
   }
 
   .slideActive .block {
@@ -503,7 +515,7 @@
     }
 
     to {
-      transform: scale(1.05);
+      transform: scale(1.04);
     }
   }
 

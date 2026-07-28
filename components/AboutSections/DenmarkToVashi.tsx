@@ -204,7 +204,7 @@ function renderIcon(type: ElementType) {
     case "mixer": return <MixerIcon />;
     case "blueprint": return <BlueprintIcon />;
     case "hardhat": return <HardHatIcon />;
-    case "frame": return <BuildingFrameIcon />;
+    // case "frame": return <BuildingFrameIcon />;
   }
 }
 
@@ -402,6 +402,7 @@ export default function DenmarkToVashi() {
               progress={heroProgress}
               color="#d4af37"
               className={styles.particleTitle}
+              titleClassName={styles.glowingTitle}
             />
           </div>
 
@@ -445,7 +446,7 @@ export default function DenmarkToVashi() {
         <div className={styles.amenityContainer}>
 
           <div className={styles.amenityHeaderCenter}>
-            <span className={styles.eyebrow}>── Infrastructure Overview</span>
+            <span className={styles.eyebrow}>─ Infrastructure Overview ─</span>
             <h2 className={styles.editorialHeading}>
               Unmatched <em className={styles.italicGold}>Proximity</em>
             </h2>
@@ -474,7 +475,7 @@ export default function DenmarkToVashi() {
             opacity: 1,
             scaleX: 1, // Curtain wipe open (parda khulega)
           }}
-          viewport={{ once: true, amount: 0.15 }}
+          viewport={{ once: false, amount: 0.4 }}
           transition={{
             duration: 0.85,
             ease: [0.25, 1, 0.5, 1], // Smooth Video Reveal Motion

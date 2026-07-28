@@ -18,13 +18,12 @@ import FlashingIntroWords from "./FlashingIntroWords";
 import CinematicText from "../AboutSections/cinematicTex";
 import ExplainDenmark from "../AboutSections/ExplainDenmark";
 import AboutFiveMinute from "../AboutSections/AboutFiveMinute";
-import DenmarkToVashi from "../AboutSections/DenmarkToVashi"
+import DenmarkToVashi from "../AboutSections/DenmarkToVashi";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { OptimizedShader } from "./OptimizedShader";
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
-
 
 export default function ZoomParallaxDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -152,14 +151,35 @@ export default function ZoomParallaxDemo() {
     return () => lenis.destroy();
   }, []);
 
-  const images = [
-    { src: "/images/5min_city.png", alt: "City skyline" },
-    { src: "https://evhomes.tech/images/ninesquare1.png", alt: "9square" },
-    { src: "https://evhomes.tech/images/malibu.jpeg", alt: "23malibu" },
-    { src: "https://evhomes.tech/images/capitol_9.png", alt: "capitol9" },
-    { src: "https://evhomes.tech/images/9vtc_new.png", alt: "9vtc" },
-    { src: "https://evhomes.tech/images/9hq.png", alt: "9hq" },
-    { src: "https://evhomes.tech/images/marina1.png", alt: "10marina" },
+  const videos = [
+    {
+      src: "/images/vid2.mp4",
+      ariaLabel: "City skyline",
+    },
+    {
+      src: "/images/vid4.mp4",
+      ariaLabel: "EV 9 Square",
+    },
+    {
+      src: "/images/vid3.mp4",
+      ariaLabel: "23 Malibu West",
+    },
+    {
+      src: "/images/vid1.mp4",
+      ariaLabel: "Capitol 9",
+    },
+    {
+      src: "/images/vid5.mp4",
+      ariaLabel: "9 VTC",
+    },
+    {
+      src: "/images/vid6.mp4",
+      ariaLabel: "9 HQ",
+    },
+    {
+      src: "/images/vid7.mp4",
+      ariaLabel: "10 Marina",
+    },
   ];
 
   const containerVariants: Variants = {
@@ -193,7 +213,7 @@ export default function ZoomParallaxDemo() {
   const headingText = "THE 5 MINUTE CITY";
 
   return (
-    <main className="w-full" >
+    <main className="w-full">
       {/* Scroll-Aware Retriggerable Header Section */}
       {/* <CinematicText /> */}
       {/* <FlashingIntroWords
@@ -299,32 +319,32 @@ export default function ZoomParallaxDemo() {
           )}
         </AnimatePresence>
       </motion.div> */}
-<section className={styles.sharedSequence}>
-  {/* One shader used by both sections */}
- <div className={styles.sharedShaderTrack} aria-hidden="true">
-  <div className={styles.sharedShaderSticky}>
-    {/* Combined palette into a single lightweight WebGL instance */}
-    <OptimizedShader
-      className={styles.sharedShader}
-      colors={[
-        "#000000",
-        "#0a0401",
-        "#1F1611",
-        "#523828",
-        "#4e3e10",
-        "#251a04",
-      ]}
-      speed={0.25}
-    />
-    <div className={styles.sharedShaderOverlay} />
-  </div>
-</div>
+      <section className={styles.sharedSequence}>
+        {/* One shader used by both sections */}
+        <div className={styles.sharedShaderTrack} aria-hidden="true">
+          <div className={styles.sharedShaderSticky}>
+            {/* Combined palette into a single lightweight WebGL instance */}
+            <OptimizedShader
+              className={styles.sharedShader}
+              colors={[
+                "#000000",
+                "#0a0401",
+                "#1F1611",
+                "#523828",
+                "#4e3e10",
+                "#251a04",
+              ]}
+              speed={0.25}
+            />
+            <div className={styles.sharedShaderOverlay} />
+          </div>
+        </div>
 
-  <div className={styles.sharedSequenceContent}>
-    <CinematicText />
-    <ZoomParallax images={images} />
-  </div>
-</section>
+        <div className={styles.sharedSequenceContent}>
+          <CinematicText />
+          <ZoomParallax videos={videos} />
+        </div>
+      </section>
       <AboutFiveMinute />
       <div ref={containerRef} className="relative h-[600vh] w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
@@ -342,9 +362,8 @@ export default function ZoomParallaxDemo() {
       </div>
       <ExplainDenmark />
       <VashiDenmark />
-      <DenmarkToVashi/>
+      <DenmarkToVashi />
       {/* <RealEstateJourney /> */}
-
     </main>
   );
 }
