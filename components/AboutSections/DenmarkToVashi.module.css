@@ -471,7 +471,7 @@
 }
 
 .cardNumber::before {
-    content: "N\00B0 ";
+    /* content: "N\00B0 "; */
     opacity: 0.55;
 }
 
@@ -523,22 +523,81 @@
 /* ============================================================
    RESPONSIVE ADJUSTMENTS
    ============================================================ */
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS (MOBILE LEFT-RIGHT ZIG-ZAG CARDS)
+   ============================================================ */
 @media (max-width: 768px) {
     .hero {
         padding: 1.5rem 1rem;
     }
 
-    .rowLeft,
+    .subtitle {
+        font-size: 0.8rem; /* Smaller font size for mobile contrast */
+        line-height: 1.45;
+       
+    }
+
+    .amenityContainer {
+        padding-bottom: 200px;
+    }
+
+    .zigzagTimeline {
+        gap: 2rem;
+    }
+
+    /* Maintain Left & Right alignment on mobile */
+    .rowLeft {
+        justify-content: flex-start;
+    }
+
     .rowRight {
-        justify-content: center;
+        justify-content: flex-end;
     }
 
-    .amenityCardLuxury {
-        max-width: 100%;
-    }
-
+    /* Keep section titles bold and large on mobile */
     .editorialHeading {
-        font-size: 2.1rem;
+        font-size: 2.5rem; /* Larger prominent title */
+        line-height: 1.2;
+    }
+
+    .editorialSubheading {
+        font-size: 1rem; /* Smaller contrast subtitle */
+        line-height: 1.5;
+        margin-top: 0.5rem;
+    }
+
+    /* Compact small cards for mobile view */
+    .amenityCardLuxury {
+        max-width: 75%;
+        padding: 1.25rem 1.25rem;
+    }
+
+    .cardHeader {
+        margin-bottom: 0.85rem;
+    }
+
+    .iconBadge {
+        width: 36px;
+        height: 36px;
+    }
+
+    .iconBadge svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .cardNumber {
+        font-size: 0.85rem;
+    }
+
+    .cardTitle {
+        font-size: 1.15rem; /* Card heading */
+        margin-bottom: 0.4rem;
+    }
+
+    .cardDesc {
+        font-size: 0.82rem; /* Card subtitle / description */
+        line-height: 1.5;
     }
 }
 
@@ -589,4 +648,25 @@
     bottom: 0;
     height: 2rem;
     background: linear-gradient(180deg, transparent 0%, rgba(212, 175, 55, 0.12) 100%);
+}
+
+.glowingTitle {
+  margin: 0;
+  font-family: "Cinzel", serif;
+  font-weight: 500;
+  font-size: 6vw;
+  text-transform: uppercase;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+@media (max-width: 768px) {
+  .glowingTitle {
+    font-size: 9vw;
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
+  }
 }
