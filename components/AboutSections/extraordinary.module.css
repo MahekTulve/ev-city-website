@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Kalnia:wght@100..700&family=Varela+Round&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400..700&family=Kalnia:wght@100..700&family=Varela+Round&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
@@ -16,10 +15,11 @@
   overflow: hidden;
   will-change: transform, position;
 }
+
 .keepItFixed {
   position: fixed;
   top: 0;
-  z-index: 50; 
+  z-index: 50;
   transition: transform 1.2s cubic-bezier(0.25, 1, 0.3, 1);
 }
 
@@ -27,8 +27,9 @@
   position: absolute;
   top: 0;
   z-index: 50;
-  transition: none; 
+  transition: none;
 }
+
 .slideOutBelow {
   transform: translateY(100%);
   z-index: 30;
@@ -103,8 +104,8 @@
 
 .containerFinalStage {
   opacity: 1;
-  bottom: 50%;
-  right: 50%;
+  bottom: 45%;
+  right: 45%;
   transform: translate(50%, 50%);
   max-width: 1100px;
   width: 90%;
@@ -209,23 +210,26 @@
 
   /* RIGHT SIDE SYMMETRY: standard 0deg se right-side curve ke angles ko perfectly soft blend kiya hai */
   -webkit-mask-image:
-    conic-gradient(from 0deg at 67% 30%, 
-      black 0deg, 
-      transparent 40deg,          /* Top se aakar line smoothly yahan fade-out hui */
-      transparent 75deg,          /* --- 20% ABSOLUTE GAP: Yahan border poori tarah khatam hai --- */
-      black 135deg,               /* Right-center ke paas se line smoothly fade-in hona shuru hui */
-      black 360deg                /* Baki pure left aur top ka hissa solid rahega */
+    conic-gradient(from 0deg at 67% 30%,
+      black 0deg,
+      transparent 40deg,
+      /* Top se aakar line smoothly yahan fade-out hui */
+      transparent 75deg,
+      /* --- 20% ABSOLUTE GAP: Yahan border poori tarah khatam hai --- */
+      black 135deg,
+      /* Right-center ke paas se line smoothly fade-in hona shuru hui */
+      black 360deg
+      /* Baki pure left aur top ka hissa solid rahega */
     ),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
   mask-image:
-    conic-gradient(from 0deg at 67% 30%, 
-      black 0deg, 
-      transparent 40deg, 
-      transparent 75deg, 
-      black 135deg, 
-      black 360deg
-    ),
+    conic-gradient(from 0deg at 67% 30%,
+      black 0deg,
+      transparent 40deg,
+      transparent 75deg,
+      black 135deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
   -webkit-mask-composite: source-in;
@@ -331,7 +335,7 @@
 .thestart,
 .mainthe {
   display: flex;
-  font-size: 130px;
+  font-size: 8vw;
   font-weight: 300;
   margin: 0;
   letter-spacing: 1px;
@@ -340,13 +344,13 @@
 }
 
 .thestart {
-  font-size: 50px;
+  font-size: 4vw;
   font-weight: 450;
   margin-top: 20px;
 }
 
 .fivenumber {
-  font-size: 150px;
+  font-size: 9vw;
   font-family: "Cormorant Garamond", serif;
 
   /* 2. NAYA CODE: Yeh numbers ko bilkul ek barabar aur seedha (Lining style) karega */
@@ -357,20 +361,20 @@
 }
 
 .minttop {
-  margin-top: 50px;
+  margin-top: 7vh;
   margin-left: 10px;
   font-weight: 450;
 }
 
 .vashitop {
-  margin-top: 130px;
+  margin-top: 15vh;
   margin-left: 10px;
   font-weight: 500;
-  font-size: 150px;
+  font-size: 9.5vw;
 }
 
 .text05 {
-  font-size: 350px;
+  font-size: 9vw;
   font-family: "cormorant garamond", serif;
   color: #b88f421f;
   line-height: 20rem;
@@ -498,26 +502,24 @@
   pointer-events: none;
   z-index: 1;
 
-  -webkit-mask-image: 
-    conic-gradient(from 0deg at 33% 30%, 
-      black 0deg, 
-      black 220deg,               
-      transparent 280deg,         
-      transparent 310deg,          
-      black 350deg,               
-      black 360deg
-    ),
+  -webkit-mask-image:
+    conic-gradient(from 0deg at 33% 30%,
+      black 0deg,
+      black 220deg,
+      transparent 280deg,
+      transparent 310deg,
+      black 350deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
-  mask-image: 
-    conic-gradient(from 0deg at 33% 30%, 
-      black 0deg, 
-      black 220deg, 
-      transparent 280deg, 
-      transparent 310deg, 
-      black 350deg, 
-      black 360deg
-    ),
+  mask-image:
+    conic-gradient(from 0deg at 33% 30%,
+      black 0deg,
+      black 220deg,
+      transparent 280deg,
+      transparent 310deg,
+      black 350deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
   -webkit-mask-composite: source-in;
@@ -578,7 +580,7 @@
 .step6Heading,
 .step4Heading,
 .rightContentLarge .headingRight {
-  font-size: 250px;
+  font-size: 16vw;
   font-weight: 400;
   line-height: 14rem;
   position: absolute;
@@ -651,7 +653,7 @@
   display: flex;
   color: #bfae916c;
   /* Default halka color */
-  font-size: 110px;
+  font-size: 17vh;
   font-weight: 500;
   line-height: 7rem;
   transition: color 0.5s ease;
@@ -681,7 +683,7 @@
 .lettersSle,
 .letterA,
 .rightContentLarge .letterspace {
-  font-size: clamp(18px, 5.5vw, 75px);
+  font-size: clamp(18px, 4.7vw, 75px);
   line-height: 1.2;
   margin-top: 10px;
   font-family: "Kalnia", serif;
@@ -891,26 +893,24 @@
   pointer-events: none;
   z-index: 1;
 
-  -webkit-mask-image: 
-    conic-gradient(from 0deg at 50% 30%, 
-      black 0deg, 
-      black 220deg,                
-      transparent 280deg,          
-      transparent 310deg,          
-      black 350deg,             
-      black 360deg
-    ),
+  -webkit-mask-image:
+    conic-gradient(from 0deg at 50% 30%,
+      black 0deg,
+      black 220deg,
+      transparent 280deg,
+      transparent 310deg,
+      black 350deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
-  mask-image: 
-    conic-gradient(from 0deg at 50% 30%, 
-      black 0deg, 
-      black 220deg, 
-      transparent 280deg, 
-      transparent 310deg, 
-      black 350deg, 
-      black 360deg
-    ),
+  mask-image:
+    conic-gradient(from 0deg at 50% 30%,
+      black 0deg,
+      black 220deg,
+      transparent 280deg,
+      transparent 310deg,
+      black 350deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
   -webkit-mask-composite: source-in;
@@ -1042,23 +1042,21 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(from 0deg at 67% 30%, 
-      black 0deg, 
-      transparent 40deg,          
-      transparent 75deg,         
-      black 135deg,               
-      black 360deg                
-    ),
+    conic-gradient(from 0deg at 67% 30%,
+      black 0deg,
+      transparent 40deg,
+      transparent 75deg,
+      black 135deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
   mask-image:
-    conic-gradient(from 0deg at 67% 30%, 
-      black 0deg, 
-      transparent 40deg, 
-      transparent 75deg, 
-      black 135deg, 
-      black 360deg
-    ),
+    conic-gradient(from 0deg at 67% 30%,
+      black 0deg,
+      transparent 40deg,
+      transparent 75deg,
+      black 135deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
   -webkit-mask-composite: source-in;
@@ -1250,26 +1248,24 @@
   pointer-events: none;
   z-index: 1;
 
-  -webkit-mask-image: 
-    conic-gradient(from 0deg at 40% 30%, 
-      black 0deg, 
-      black 210deg,               
-      transparent 275deg,          
-      transparent 305deg,         
-      black 345deg,               
-      black 360deg
-    ),
+  -webkit-mask-image:
+    conic-gradient(from 0deg at 40% 30%,
+      black 0deg,
+      black 210deg,
+      transparent 275deg,
+      transparent 305deg,
+      black 345deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
-  mask-image: 
-    conic-gradient(from 0deg at 40% 30%, 
-      black 0deg, 
-      black 210deg, 
-      transparent 275deg, 
-      transparent 305deg, 
-      black 345deg, 
-      black 360deg
-    ),
+  mask-image:
+    conic-gradient(from 0deg at 40% 30%,
+      black 0deg,
+      black 210deg,
+      transparent 275deg,
+      transparent 305deg,
+      black 345deg,
+      black 360deg),
     linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
 
   -webkit-mask-composite: source-in;
@@ -1333,65 +1329,270 @@
 
 }
 
-@media (max-width: 992px) {
-
-  .stepFiveContainer,
-  .stepSixContainer {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: center;
+@media (max-width: 1100px) {
+  .containerReveal {
+    right: 1px;
   }
 
-  .step5LeftContent,
-  .step6RightContent {
-    align-items: center;
-    padding-left: 0;
-    padding-right: 0;
+  .containerFinalStage {
+    right: 48%;
+    width: 85%;
+    gap: 20px;
+
   }
 
-  .step5Description,
-  .step6Description {
-    max-width: 450px;
+  .imageWrapper {
+    aspect-ratio: 0.9 / 1.1;
   }
 
-  .step6LeftContainer {
-    align-items: center;
+  .bgcircle {
+    width: 250px;
+    height: 250px;
+    top: 40%;
+    left: -5%;
+  }
+
+  .dotgrid {
+    width: 90px;
+    height: 90px;
+    right: 10%;
+  }
+
+  .extraordinarySection {
+    padding: 0 5px 50px 0;
+  }
+
+  .step6Heading,
+  .step4Heading,
+  .rightContentLarge .headingRight {
+    line-height: 12rem;
+  }
+
+  .letterspaSecontext,
+  .letterspaAsec,
+  .rightContentLarge .letterspaSecon {
+    font-size: 20px;
+    letter-spacing: 0.1rem;
+    line-height: 0rem;
+  }
+
+  .rightContentLarge .description {
+    margin-top: 30px;
+  }
+
+  .rightContentLarge .diviDescrip {
+    top: 45%;
+    padding-left: 1vw;
+  }
+
+}
+
+@media (max-width: 900px) {
+  .rightContentLarge .diviDescrip {
+    top: 50%;
+  }
+
+  .rightContentLarge .description {
+    font-size: 17px;
+    margin-left: 20px;
+    line-height: 1.5rem;
+  }
+
+  .lettersIcon {
+    font-size: 10px;
+
+  }
+
+}
+
+@media (max-width: 780px) {
+  .mainthe {
+    font-size: 7.8vw;
+  }
+
+  .thestart {
+    font-size: 3.5vw;
+  }
+
+  .leftContent {
+    top: 10%;
+    left: 5%;
+  }
+
+  .fivenumber {
+    font-size: 8vw;
+    margin-top: 2vh;
+    margin-left: 5px;
+
+  }
+
+  .minttop {
+    margin-top: 5vh;
+  }
+
+  .vashitop {
+    margin-top: 10vh;
+    font-size: 9.5vw;
+  }
+
+  .circleV {
+    font-size: 12vw;
+
+  }
+
+  .imageWrapper {
+    aspect-ratio: 0.3 / 0.4;
+  }
+
+  .bgcircle {
+    width: 250px;
+    height: 250px;
+    top: 40%;
+    left: -5%;
+  }
+
+  .dotgrid {
+    width: 90px;
+    height: 90px;
+    right: 10%;
+  }
+
+  .extraordinarySection {
+    padding: 0 5px 50px 0;
+  }
+
+  .cornerHighlight::before {
+    border-top: none;
+    border-left: none;
+  }
+
+  .cornerHighlight::after {
+    border-bottom: none;
+    border-right: none;
+  }
+
+  .headingRight {
+    font-size: 40px;
+  }
+
+
+}
+
+@media (max-width: 690px) {
+  .mainthe {
+    font-size: 7.5vw;
+  }
+
+  .vashitop {
+    margin-top: 8vh;
+    font-size: 9vw;
+  }
+
+  .circleV {
+    font-size: 15vw;
+  }
+
+
+  .dotgrid {
+    width: 70px;
+    height: 70px;
+    right: 10%;
   }
 }
 
-/* ==========================================================================
-   6. RESPONSIVE / MEDIA QUERIES
-   ========================================================================== */
-@media (max-width: 992px) {
+@media (max-width: 570px) {
+  .mainthe {
+    font-size: 7vw;
+  }
 
-  .container,
-  .stepThreeContainer {
+  .thestart {
+    font-size: 3.5vw;
+  }
+
+  .vashitop {
+    margin-top: 8vh;
+    font-size: 8vw;
+  }
+
+  .circleV {
+    line-height: 5rem;
+
+  }
+
+  .bgcircle {
+    width: 180px;
+    height: 180px;
+    top: 55%;
+    left: -5%;
+  }
+
+  .containerReveal {
+    bottom: 15%;
+  }
+
+}
+
+@media (max-width: 440px) {
+  .mainthe {
+    font-size: 7.2vw;
+  }
+
+  .container {
     grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: center;
   }
 
-  .leftContent,
-  .rightContent,
-  .step3LeftContent {
-    align-items: center;
-    padding-left: 0;
-    padding-right: 0;
+  .imageWrapper {
+    max-width: 200px;
   }
 
-  .description,
-  .step3Description {
-    max-width: 450px;
+  .bgcircle {
+    width: 0px;
+    height: 0px;
+    border: none;
   }
 
-  .stepFourContainer {
-    grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: center;
+  .dotgridtwo {
+    width: 100px;
+    height: 70px;
+    top: 30%;
+    left: 7%;
   }
 
-  .step4RightContent {
-    align-items: center;
-    padding-left: 0;
+  .thestart {
+    font-size: 4vw;
   }
+
+  .minttop {
+    margin-top: 4vh;
+  }
+
+  .vashitop {
+    margin-top: 6.5vh;
+    font-size: 7.8vw;
+  }
+
+  .leftContent {
+    top: 2%;
+    left: 1px;
+  }
+
+  .extraordinarySection {
+    padding: 0px 0px 50px 0px;
+
+  }
+
+  .circleV {
+    font-size: 17vw;
+    line-height: 5rem;
+
+  }
+
+  .containerReveal {
+    bottom: 23%;
+  }
+
+  .containerFinalStage {
+    bottom: 70%;
+  }
+
 }
