@@ -288,3 +288,139 @@
     color: #d4af37;
     transition: opacity 0.2s ease;
 }
+
+@media (max-width: 768px) {
+
+  .page {
+    height: auto;
+    min-height: 100vh;
+    padding: 32px 20px 60px;
+    overflow: hidden;
+  }
+
+  .topLabel {
+    font-size: 10px;
+    letter-spacing: .08em;
+  }
+
+  .topLabel::before,
+  .topLabel::after {
+    width: 24px;
+    margin: 0 8px;
+  }
+
+  .title {
+    font-size: 38px;
+    line-height: 1.15;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    line-height: 1.5;
+    max-width: 320px;
+    margin: 10px auto 0;
+  }
+
+  .cardrow {
+    margin-bottom: 80px;
+  }
+
+  .layout {
+    align-items: center;
+  }
+
+  .arcSvg {
+    width: 100%;
+    top: -23%;
+  }
+
+  .nodes {
+    /* height: 360px; */
+    top: 40px;
+  }
+
+  .nodeTime {
+    font-size: 18px;
+  }
+
+  .nodeMin {
+    font-size: 6px;
+    margin-bottom: 0px;
+    letter-spacing: .15em;
+  }
+
+  .nodeCircle {
+    width: 48px;
+    height: 48px;
+  }
+
+  .nodeCircle svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nodeLabel {
+    margin-top: 8px;
+    font-size: 9px;
+    letter-spacing: .05em;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .nodeSub {
+    font-size: 8px;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .center {
+    top: 15%;
+  }
+
+  .centerCircle {
+    width: 110px;
+    height: 110px;
+  }
+
+  .centerBrand svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .centerName {
+    font-size: 15px;
+  }
+
+  .centerCity {
+    font-size: 8px;
+  }
+
+  .dragBar {
+    top: auto;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 10px;
+    padding: 6px 10px;
+    font-size: 10px;
+    width: max-content;
+  }
+
+  .handIcon {
+    padding: 8px;
+  }
+
+  .handIcon svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  .arrowBtn {
+    padding: 8px;
+  }
+
+  .arrowBtn svg {
+    width: 18px;
+    height: 18px;
+  }
+}
