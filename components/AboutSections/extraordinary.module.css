@@ -7,7 +7,7 @@
   height: 100vh;
   left: 0;
   background-color: #0b0a09;
-  padding: 0px 60px 50px 0px;
+  padding: 0px 60px 30px 0px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -126,10 +126,10 @@
    ========================================================================== */
 .stepThreeContainer {
   position: absolute;
-  left: 50%;
+  left: 55%;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  width: 100%;
+  width: 90%;
   max-width: 1100px;
   align-items: center;
   gap: 60px;
@@ -184,7 +184,7 @@
   overflow: visible;
   border-top-left-radius: 50%;
   border-top-right-radius: 50%;
-  height: 80%;
+  height: 85%;
   padding-left: 20px;
   position: relative;
   z-index: 1;
@@ -274,11 +274,10 @@
 
 .step3ImageExpanded {
   max-width: 500px;
-  aspect-ratio: 0.8 / 1.02;
+  aspect-ratio: 0.9 / 1.03;
   transform: scale(1);
 }
 
-/* Step 3 Typography Details */
 
 .step3Heading {
   background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
@@ -287,7 +286,7 @@
   -webkit-text-fill-color: transparent;
   line-height: 1.2;
   margin: 0 0 16px 0;
-  font-size: 250px;
+  font-size: 16vw;
   font-weight: 400;
   line-height: 14rem;
   position: absolute;
@@ -314,6 +313,8 @@
   flex-direction: column;
   align-items: flex-end;
   text-align: right;
+  max-width: 350px;
+
 }
 
 .step3Description {
@@ -1362,6 +1363,7 @@
     padding: 0 5px 50px 0;
   }
 
+  .step3Heading,
   .step6Heading,
   .step4Heading,
   .rightContentLarge .headingRight {
@@ -1376,22 +1378,52 @@
     line-height: 0rem;
   }
 
+  .letterspaAsec {
+    line-height: 2rem;
+  }
+
+  .step3Description,
   .rightContentLarge .description {
     margin-top: 30px;
   }
 
+  .stepThreeContainer {
+    gap: 30px;
+  }
+
+  .diviStep3Descrip,
   .rightContentLarge .diviDescrip {
-    top: 45%;
+    top: 40%;
     padding-left: 1vw;
   }
 
+
+
+  .step3TextScaleUp,
+  .rightContentLarge {
+    height: 100%;
+  }
+
+  .step3Divider,
+  .rightContentLarge .divider {
+    width: 60px;
+
+  }
 }
 
 @media (max-width: 900px) {
-  .rightContentLarge .diviDescrip {
-    top: 50%;
+
+  .step3Divider,
+  .rightContentLarge .divider {
+    width: 50px;
   }
 
+  .diviStep3Descrip,
+  .rightContentLarge .diviDescrip {
+    margin-top: 15px;
+  }
+
+  .step3Description,
   .rightContentLarge .description {
     font-size: 17px;
     margin-left: 20px;
@@ -1408,6 +1440,10 @@
 @media (max-width: 780px) {
   .mainthe {
     font-size: 7.8vw;
+  }
+
+  .rightContentLarge {
+    height: 85%;
   }
 
   .thestart {
@@ -1471,10 +1507,53 @@
     border-right: none;
   }
 
+  .step3Heading,
   .headingRight {
     font-size: 40px;
   }
 
+  .step3Heading,
+  .step6Heading,
+  .step4Heading,
+  .rightContentLarge .headingRight {
+    font-size: 15vw;
+    left: -2%;
+    top: -13%;
+
+  }
+
+  .diviStep3Descrip,
+  .rightContentLarge .diviDescrip {
+    top: 34%;
+  }
+
+  .lettersSle,
+  .letterA,
+  .rightContentLarge .letterspace {
+    font-size: clamp(20px, 4vw, 60px);
+  }
+
+  .step3Description,
+  .rightContentLarge .description {
+    font-size: 15px;
+    line-height: 1.3rem;
+  }
+
+  .letterspaSecontext,
+  .letterspaAsec,
+  .rightContentLarge .letterspaSecon {
+    font-size: 17px;
+  }
+
+  .step3Description,
+  .rightContentLarge .description {
+    margin-top: 15px;
+  }
+
+  .lettersIcon {
+    margin: 10px 0;
+    font-size: 8px;
+  }
 
 }
 
@@ -1498,7 +1577,70 @@
     height: 70px;
     right: 10%;
   }
+
 }
+
+@media (max-width: 650px) {
+
+  .stepThreeContainer,
+  .containerExitUp,
+  .containerFinalStage {
+    grid-template-columns: 1fr;
+
+  }
+
+  .containerFinalStage {
+    bottom: 48%;
+  }
+
+  .step3TextScaleUp,
+  .rightContentLarge {
+    height: auto;
+    max-width: 70%;
+    margin-left: 10vw;
+
+  }
+
+  .diviStep3Descrip,
+  .rightContentLarge .diviDescrip {
+    position: relative;
+    top: auto;
+    right: auto;
+    left: auto;
+    margin-top: 35%;
+  }
+
+  .step3ImageExpanded,
+  .imageLarge {
+    width: 230px;
+    aspect-ratio: 0.8 / 1.02;
+  }
+
+  .dotgridtwo {
+    top: 20%;
+    left: 7%;
+  }
+
+  .dotALettgrid,
+  .dotgrid {
+    top: -90px;
+    right: -20%;
+  }
+
+  .stepThreeReveal {
+    opacity: 1;
+    top: 55%;
+    transform: translate(-50%, -50%);
+    transition: all 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.3s;
+  }
+
+  .step3Heading {
+    font-size: 15vw;
+    top: -15%;
+    right: 2%;
+  }
+}
+
 
 @media (max-width: 570px) {
   .mainthe {
@@ -1530,6 +1672,42 @@
     bottom: 15%;
   }
 
+  .diviStep3Descrip,
+  .rightContentLarge .diviDescrip {
+    margin-top: 38%;
+  }
+
+  .step3Description,
+  .rightContentLarge .description {
+    margin-top: 5px;
+  }
+
+  .step3TextScaleUp,
+  .rightContentLarge {
+    max-width: 80%;
+  }
+
+  .step3Divider,
+  .rightContentLarge .divider {
+    width: 30px;
+  }
+
+  .step3Heading,
+  .step6Heading,
+  .step4Heading,
+  .rightContentLarge .headingRight {
+    left: 2%;
+  }
+
+  .step3TextScaleUp,
+  .rightContentLarge {
+    margin-left: 8vw;
+  }
+
+  .step3Description,
+  .rightContentLarge .description {
+    margin-left: 12px;
+  }
 }
 
 @media (max-width: 440px) {
@@ -1537,12 +1715,13 @@
     font-size: 7.2vw;
   }
 
+
   .container {
     grid-template-columns: 1fr;
   }
 
   .imageWrapper {
-    max-width: 200px;
+    max-width: 220px;
   }
 
   .bgcircle {
@@ -1577,7 +1756,7 @@
   }
 
   .extraordinarySection {
-    padding: 0px 0px 50px 0px;
+    padding: 0px 0px 10px 0px;
 
   }
 
@@ -1591,8 +1770,29 @@
     bottom: 23%;
   }
 
-  .containerFinalStage {
-    bottom: 70%;
+  .step3TextScaleUp {
+    max-width: 85%;
   }
 
+  .rightContentLarge {
+    max-width: 90%;
+  }
+
+}
+
+@media (max-width: 375px) {
+
+  .step3Heading,
+  .step6Heading,
+  .step4Heading,
+  .rightContentLarge .headingRight {
+    top: -18%;
+    left: 5%;
+  }
+
+  .diviStep3Descrip {
+      right: -20px;
+
+  }
+  
 }
