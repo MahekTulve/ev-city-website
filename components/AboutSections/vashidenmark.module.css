@@ -1,290 +1,535 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
 
 .page {
-    height: 110vh;
-    background: #000;
-    color: #f5e6b8;
-    font-family: "Georgia", "Times New Roman", serif;
-    padding: 32px 48px 48px;
-    position: relative;
-    overflow: hidden;
+  height: 110vh;
+  background: #000;
+  color: #f5e6b8;
+  font-family: "Georgia", "Times New Roman", serif;
+  padding: 32px 48px 48px;
+  position: relative;
+  overflow: hidden;
 }
 
 .topLabel {
-    text-align: center;
-    letter-spacing: 0.1em;
-    font-size: 12px;
-    color: #d9ae59;
-    font-family: "Helvetica", sans-serif;
-    margin-bottom: 8px;
+  text-align: center;
+  letter-spacing: 0.1em;
+  font-size: 12px;
+  color: #d9ae59;
+  font-family: "Helvetica", sans-serif;
+  margin-bottom: 8px;
 }
 
 .topLabel::before,
 .topLabel::after {
-    content: "";
-    display: inline-block;
-    vertical-align: middle;
-    width: 50px;
-    height: 2px;
-    margin: 0 12px;
-    background-color: #d9ae59;
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 50px;
+  height: 2px;
+  margin: 0 12px;
+  background-color: #d9ae59;
 }
 
 .title {
-    text-align: center;
-    font-size: 64px;
-    letter-spacing: 0.09em;
-    color: #ffffff;
-    font-weight: 400;
-    margin: 0;
-    line-height: 1.05;
+  text-align: center;
+  font-size: 64px;
+  letter-spacing: 0.09em;
+  color: #ffffff;
+  font-weight: 400;
+  margin: 0;
+  line-height: 1.05;
 }
 
 .title .big {
-    background-image: linear-gradient(10deg, transparent 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, transparent 100%);
-    font-family: 'Times New Roman', Times, serif;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(
+    10deg,
+    transparent 0%,
+    #b98f2c 35%,
+    #fcea93 50%,
+    #b98f2c 70%,
+    transparent 100%
+  );
+  font-family: "Times New Roman", Times, serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-    text-align: center;
-    color: #dcd7ca;
-    font-family: "cormorant garamond", serif;
-    font-size: 16px;
-    margin-top: 6px;
-    line-height: 1.4;
-    letter-spacing: 0.08rem;
+  text-align: center;
+  color: #dcd7ca;
+  font-family: "cormorant garamond", serif;
+  font-size: 16px;
+  margin-top: 6px;
+  line-height: 1.4;
+  letter-spacing: 0.08rem;
 }
 
 .videoContainer {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-    background: #000;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #000;
 }
 
 /* GPU Performance Optimized Video Class */
 .bgVideo {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 1; 
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
 }
 
 .bgOverlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: radial-gradient(ellipse at center, rgba(13, 10, 4, 0.5) 0%, #000 85%);
-    pointer-events: none;
-    transform: translate3d(0, 0, 0);
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(13, 10, 4, 0.5) 0%,
+    #000 85%
+  );
+  pointer-events: none;
+  transform: translate3d(0, 0, 0);
 }
 
 .layout {
-    position: relative;
-    z-index: 2;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
 }
 
 .cardrow {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    margin-bottom: 15vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 15vh;
 }
 
 .mapWrap {
-    position: relative;
-    min-height: 560px;
-    display: flex;
-    justify-content: center;
-    width: 100%;
+  position: relative;
+  min-height: 560px;
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
 
 .arcSvg {
-    position: absolute;
-    inset: 0;
-    display: block;
-    overflow: hidden;
-    width: 92vw;
-    height: 100%;
-    pointer-events: none;
-    top: -35%;
+  position: absolute;
+  inset: 0;
+  display: block;
+  overflow: hidden;
+  width: 92vw;
+  height: 100%;
+  pointer-events: none;
+  top: -35%;
 }
 
 .nodes {
-    position: relative;
-    width: 100%;
-    height: 480px;
-    top: -35px;
-    overflow: visible;
+  position: relative;
+  width: 100%;
+  height: 480px;
+  top: -35px;
+  overflow: visible;
 }
 
 .node {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 140px;
-    text-align: center;
-    transform: translate3d(-50%, -50%, 0);
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 140px;
+  text-align: center;
+  transform: translate3d(-50%, -50%, 0);
 }
 
 .nodeTime {
-    font-size: 28px;
-    color: #f5e6b8;
-    font-family: "Helvetica", sans-serif;
-    line-height: 1;
+  font-size: 28px;
+  color: #f5e6b8;
+  font-family: "Helvetica", sans-serif;
+  line-height: 1;
 }
 
 .nodeMin {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    color: #d4af37;
-    margin-bottom: 8px;
-    font-family: "Helvetica", sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: #d4af37;
+  margin-bottom: 8px;
+  font-family: "Helvetica", sans-serif;
 }
 
 .nodeCircle {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    border: 2px solid #d4af37;
-    background: #0d0a04;
-    color: #e1b44c;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    transform: translate3d(0,0,0);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 2px solid #d4af37;
+  background: #0d0a04;
+  color: #e1b44c;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  transform: translate3d(0, 0, 0);
 }
 
 .nodeLabel {
-    margin-top: 12px;
-    color: #e6c76a;
-    font-family: "Helvetica", sans-serif;
-    font-size: 12px;
-    letter-spacing: 0.15em;
-    text-align: center;
-    width: 100%;
-    white-space: nowrap;
+  margin-top: 12px;
+  color: #e6c76a;
+  font-family: "Helvetica", sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .nodeSub {
-    color: #b8ac8a;
-    font-family: "Helvetica-Light", "Helvetica", sans-serif;
-    font-size: 11px;
-    margin-top: 2px;
-    text-align: center;
-    width: 100%;
-    white-space: nowrap;
+  color: #b8ac8a;
+  font-family: "Helvetica-Light", "Helvetica", sans-serif;
+  font-size: 11px;
+  margin-top: 2px;
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .center {
-    position: absolute;
-    left: 50%;
-    top: 10%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 10;
+  position: absolute;
+  left: 50%;
+  top: 10%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
 }
 
 .centerCircle {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 2px solid #d4af37;
-    background: #0d0a04;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: relative;
-    transform: translate3d(0,0,0);
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid #d4af37;
+  background: #0d0a04;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  transform: translate3d(0, 0, 0);
 }
 
 .centerBrand {
-    color: #d0a645;
-    margin-bottom: 5px;
+  color: #d0a645;
+  margin-bottom: 5px;
 }
 
 .centerName {
-    font-size: 20px;
-    letter-spacing: 0.1em;
-    background-image: linear-gradient(10deg, transparent 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, transparent 100%);
-    font-family: 'Times New Roman', Times, serif;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  background-image: linear-gradient(
+    10deg,
+    transparent 0%,
+    #b98f2c 35%,
+    #fcea93 50%,
+    #b98f2c 70%,
+    transparent 100%
+  );
+  font-family: "Times New Roman", Times, serif;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .centerCity {
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: #cfc3a3;
-    font-family: 'Times New Roman', Times, serif;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: #cfc3a3;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .dragBar {
-    position: absolute;
-    top: 55%;
-    margin: 24px auto 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 15px;
-    padding: 3px 1px;
-    border: 1px solid rgba(212, 175, 55, 0.147);
-    border-radius: 999px;
-    width: fit-content;
-    color: #e6c76a;
-    font-family: "Helvetica", sans-serif;
-    font-size: 13px;
-    letter-spacing: 0.1em;
-    background: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 55%;
+  margin: 24px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 3px 1px;
+  border: 1px solid rgba(212, 175, 55, 0.147);
+  border-radius: 999px;
+  width: fit-content;
+  color: #e6c76a;
+  font-family: "Helvetica", sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .handIcon {
-    border-radius: 50%;
-    border: 2px solid transparent;
-    background-image:
-        radial-gradient(circle, #453b17 0%, #0c0900 80%),
-        linear-gradient(135deg, #d4af37, #fcea93, #8a6103, #fff1c4);
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background-image:
+    radial-gradient(circle, #453b17 0%, #0c0900 80%),
+    linear-gradient(135deg, #d4af37, #fcea93, #8a6103, #fff1c4);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
 }
 
 .arrowBtn {
-    display: flex;
-    padding: 10px;
-    border-radius: 50%;
-    background-color: #ffffff07;
-    cursor: pointer;
-    border: none;
-    color: #d4af37;
-    transition: opacity 0.2s ease;
+  display: flex;
+  padding: 10px;
+  border-radius: 50%;
+  background-color: #ffffff07;
+  cursor: pointer;
+  border: none;
+  color: #d4af37;
+  transition: opacity 0.2s ease;
+}
+
+/* TABLET VIEW: 481px to 768px (Shows 2 left, 1 center, 2 right) */
+@media (min-width: 601px) and (max-width: 1024px) {
+  .page {
+    height: auto;
+    min-height: 100vh;
+    padding: 32px 24px 50px;
+    overflow: hidden;
+  }
+
+  .topLabel {
+    font-size: 11px;
+    letter-spacing: 0.09em;
+  }
+
+  .title {
+    font-size: 44px;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 380px;
+    margin: 8px auto 0;
+  }
+
+  .cardrow {
+    margin-bottom: 50px;
+  }
+
+  .mapWrap {
+    min-height: 440px;
+  }
+
+  .arcSvg {
+    width: 100%;
+    height: 100%;
+    top: -30%;
+  }
+
+  .nodes {
+    height: 380px;
+    top: -10px;
+  }
+
+  .center {
+    top: 16%;
+  }
+
+  .centerCircle {
+    width: 130px;
+    height: 130px;
+  }
+
+  .centerName {
+    font-size: 18px;
+  }
+
+  .centerCity {
+    font-size: 9.5px;
+  }
+
+  .node {
+    width: 120px;
+  }
+
+  .nodeTime {
+    font-size: 22px;
+  }
+
+  .nodeMin {
+    font-size: 9px;
+    margin-bottom: 4px;
+  }
+
+  .nodeCircle {
+    width: 58px;
+    height: 58px;
+  }
+
+  .nodeCircle svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .nodeLabel {
+    margin-top: 8px;
+    font-size: 10.5px;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .nodeSub {
+    font-size: 9.5px;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .dragBar {
+    top: auto;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 12px;
+    padding: 5px 12px;
+    font-size: 11px;
+    width: max-content;
+  }
+}
+
+/* =========================================================
+   MOBILE VIEW: <= 600px (Shows 1 left, 1 center, 1 right)
+   ========================================================= */
+@media (max-width: 600px) {
+  .page {
+    height: auto;
+    min-height: 100vh;
+    padding: 24px 0px 40px;
+    overflow: hidden;
+  }
+
+  .topLabel {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+  }
+
+  .topLabel::before,
+  .topLabel::after {
+    width: 20px;
+    margin: 0 6px;
+  }
+
+  .title {
+    font-size: 32px;
+    line-height: 1.1;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    line-height: 1.4;
+    max-width: 290px;
+    margin: 6px auto 0;
+  }
+
+  .arcSvg {
+    width: 150%;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 100%;
+    top: -28%;
+  }
+
+  .center {
+    top: 22%;
+  }
+
+  .centerCircle {
+    width: 120px;
+    height: 120px;
+  }
+
+  .centerName {
+    font-size: 16px;
+  }
+
+  .centerCity {
+    font-size: 9px;
+  }
+
+  .node {
+    width: 110px;
+  }
+
+  .nodeTime {
+    font-size: 20px;
+  }
+
+  .nodeMin {
+    font-size: 8px;
+    margin-bottom: 2px;
+    letter-spacing: 0.15em;
+  }
+
+  .nodeCircle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .nodeCircle svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .nodeLabel {
+    margin-top: 6px;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .nodeSub {
+    font-size: 8.5px;
+    white-space: normal;
+    line-height: 1.2;
+  }
+
+  .dragBar {
+    top: auto;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 8px;
+    padding: 4px 10px;
+    font-size: 10px;
+    width: max-content;
+  }
+
+  .handIcon {
+    padding: 6px;
+  }
+
+  .arrowBtn {
+    padding: 6px;
+  }
 }

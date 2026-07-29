@@ -137,7 +137,7 @@
   }
 
   100% {
-    transform: scale(1.4);
+    transform: scale(1.2);
     /* Dheere se text 8% zoom ho jayega end tak */
   }
 }
@@ -197,11 +197,11 @@
 }
 
 .title {
-  font-size: clamp(2.2rem, 7vw, 6rem);
+  font-size: 6vw;
 }
 
 .credit {
-  font-size: clamp(1.6rem, 6vw, 5rem);
+  font-size: 5.5vw;
   font-weight: 700;
 }
 
