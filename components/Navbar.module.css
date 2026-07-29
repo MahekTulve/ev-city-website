@@ -32,12 +32,12 @@
   padding: 0 8px 0 20px;
   border-radius: 16px;
   border: 1px solid transparent;
-  
+
   /* Glass effect blur initially active */
   background: rgba(37, 36, 32, 0.6);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  
+
   transition:
     max-width 0.4s cubic-bezier(0.25, 1, 0.5, 1),
     background 0.4s ease,
@@ -208,6 +208,10 @@
     padding: 0 12px;
   }
 
+  .lnNavbarScrolled .lnNavbarInner {
+    border: none;
+  }
+
   .lnNavbarInner {
     height: 52px;
     padding: 0 12px;
@@ -228,7 +232,7 @@
   }
 
   .lnNavbarLogo {
-    font-size: 16px;
+    display: none;
   }
 }
 
@@ -296,7 +300,7 @@
   background: rgba(188, 156, 34, 0.18);
 }
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .mobileSidebar {
     width: min(280px, 82vw);
     padding: 18px 16px;
