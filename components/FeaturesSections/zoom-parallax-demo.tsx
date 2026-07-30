@@ -21,6 +21,7 @@ import AboutFiveMinute from "../AboutSections/AboutFiveMinute";
 import DenmarkToVashi from "../AboutSections/DenmarkToVashi";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { OptimizedShader } from "./OptimizedShader";
+import { LandingPage } from "../LandingPage";
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
@@ -345,7 +346,9 @@ export default function ZoomParallaxDemo() {
           <ZoomParallax videos={videos} />
         </div>
       </section>
-      <AboutFiveMinute />
+       <LandingPage />
+      {/* <AboutFiveMinute /> */}
+     
       <div ref={containerRef} className="relative h-[600vh] w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <VashiLetter
