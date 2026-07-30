@@ -240,7 +240,7 @@ export default function VashiLetter({ isEntering, isActive, isFinal, isStepThree
                             <span className={styles.letterA}>ACCESS</span>
 
                             <p className={styles.step5Description}>
-                                <br /> <span className={styles.letterspaAsec}>A city's true measure isn’t distance.<br />It’s how quickly life comes<span style={{ color: "#e7bd65", fontStyle: "italic" }}> to you.</span> </span>
+                                <br /> <span className={styles.letterspaAsec}>The rarest luxury<br /> isn't space. It's <span style={{ color: "#e7bd65", fontStyle: "italic" }}>time.</span></span>
                                 <FaSquareFull className={styles.lettersIcon} />
                                 A city where everything you need… feels effortlessly close.
 
