@@ -124,6 +124,9 @@
 /* ==========================================================================
    4. STEP 3: NEW CONTAINER LOGIC (BOTTOM SLIDE + MORPH EFFECT)
    ========================================================================== */
+.stepSixContainer,
+.stepFiveContainer,
+.stepFourContainer,
 .stepThreeContainer {
   position: absolute;
   left: 55%;
@@ -147,7 +150,6 @@
   /* transition: all 1.2s cubic-bezier(0.76, 0, 0.24, 1); */
 }
 
-/* Active hone par smoothly bottom se slip hokar perfect center me shot ho jayega */
 .stepThreeReveal {
   opacity: 1;
   top: 50%;
@@ -552,7 +554,7 @@
 }
 
 .diviDescripcon {
-  top: 45%;
+  top: 50%;
 
 }
 
@@ -776,18 +778,7 @@
   right: -12%;
 }
 
-.stepFourContainer {
-  position: absolute;
-  left: 50%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  /* Image Left, Text Right layout */
-  width: 100%;
-  max-width: 1100px;
-  align-items: center;
-  gap: 60px;
-  will-change: transform, opacity;
-}
+
 
 /* Shuruat me absolute center se 150px neeche invisible betha rahega */
 .stepFourHidden {
@@ -833,10 +824,11 @@
   transform: scale(0.7);
 }
 
-/* TRIGGER STATE: Expand hokar premium vertical size le legi */
+.step6ImageExpanded,
+.step5ImageExpanded,
 .step4ImageExpanded {
   max-width: 500px;
-  aspect-ratio: 0.8 / 1.02;
+  aspect-ratio: 0.9 / 1.03;
   transform: scale(1);
 }
 
@@ -955,17 +947,7 @@
 /* ==========================================================================
    8. STEP 5: H CONTAINER LOGIC (TEXT LEFT, IMAGE RIGHT)
    ========================================================================== */
-.stepFiveContainer {
-  position: absolute;
-  left: 50%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  max-width: 1100px;
-  align-items: center;
-  gap: 60px;
-  will-change: transform, opacity;
-}
+
 
 .stepFiveHidden {
   opacity: 0;
@@ -1098,11 +1080,7 @@
   transform: scale(0.9);
 }
 
-.step5ImageExpanded {
-  max-width: 500px;
-  aspect-ratio: 0.8 / 1.02;
-  transform: scale(1);
-}
+
 
 .step5Heading {
   background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
@@ -1111,7 +1089,7 @@
   -webkit-text-fill-color: transparent;
   line-height: 1.2;
   margin: 0 0 16px 0;
-  font-size: 250px;
+  font-size: 16vw;
   font-weight: 400;
   line-height: 14rem;
   position: absolute;
@@ -1143,20 +1121,6 @@
   margin-top: 50px;
 }
 
-/* ==========================================================================
-   9. STEP 6: I CONTAINER LOGIC (IMAGE LEFT, TEXT RIGHT)
-   ========================================================================== */
-.stepSixContainer {
-  position: absolute;
-  left: 50%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-  max-width: 1100px;
-  align-items: center;
-  gap: 60px;
-  will-change: transform, opacity;
-}
 
 .stepSixHidden {
   opacity: 0;
@@ -1195,11 +1159,7 @@
   transform: scale(0.7);
 }
 
-.step6ImageExpanded {
-  max-width: 500px;
-  aspect-ratio: 0.8 / 1.02;
-  transform: scale(1);
-}
+
 
 .step6RightContent {
   display: flex;
@@ -1335,6 +1295,9 @@
     right: 1px;
   }
 
+  .stepSixContainer,
+  .stepFiveContainer,
+  .stepFourContainer,
   .containerFinalStage {
     right: 48%;
     width: 85%;
@@ -1363,11 +1326,17 @@
     padding: 0 5px 50px 0;
   }
 
+  .step5Heading,
   .step3Heading,
   .step6Heading,
   .step4Heading,
   .rightContentLarge .headingRight {
     line-height: 12rem;
+  }
+
+  .step6Heading {
+    left: 7%;
+    top: -5%;
   }
 
   .letterspaSecontext,
@@ -1379,16 +1348,26 @@
   }
 
   .letterspaAsec {
-    line-height: 2rem;
+    line-height: 1.5rem;
   }
 
+  .step6Description,
+  .step5Description,
+  .step4Description,
   .step3Description,
   .rightContentLarge .description {
     margin-top: 30px;
   }
 
+  .stepSixContainer,
+  .stepFiveContainer,
+  .stepFourContainer,
   .stepThreeContainer {
     gap: 30px;
+  }
+
+  .diviDescripcon {
+    top: 37%;
   }
 
   .diviStep3Descrip,
@@ -1397,25 +1376,46 @@
     padding-left: 1vw;
   }
 
-
-
+  .step6TextScaleUp,
+  .step5TextScaleUp,
+  .step4TextScaleUp,
   .step3TextScaleUp,
   .rightContentLarge {
     height: 100%;
   }
 
+  .step6Divider,
+  .step5Divider,
+  .step4Divider,
   .step3Divider,
   .rightContentLarge .divider {
     width: 60px;
 
   }
+
+  .lettersSle {
+    font-size: 4.4vw;
+  }
+
+  .step5Heading,
+  .step4Heading {
+    top: -5%;
+    left: -1%;
+  }
 }
 
 @media (max-width: 900px) {
 
+  .step6Divider,
+  .step5Divider,
+  .step4Divider,
   .step3Divider,
   .rightContentLarge .divider {
     width: 50px;
+  }
+
+  .diviDescripcon {
+    margin-top: 30px;
   }
 
   .diviStep3Descrip,
@@ -1423,6 +1423,9 @@
     margin-top: 15px;
   }
 
+  .step6Description,
+  .step5Description,
+  .step4Description,
   .step3Description,
   .rightContentLarge .description {
     font-size: 17px;
@@ -1435,6 +1438,14 @@
 
   }
 
+  .diviDescripcon {
+    top: 36%;
+  }
+
+  .diviDescripcon {
+    padding-left: 1px;
+
+  }
 }
 
 @media (max-width: 780px) {
@@ -1494,7 +1505,7 @@
   }
 
   .extraordinarySection {
-    padding: 0 5px 50px 0;
+    padding: 0 5px 30px 0;
   }
 
   .cornerHighlight::before {
@@ -1512,6 +1523,7 @@
     font-size: 40px;
   }
 
+  .step5Heading,
   .step3Heading,
   .step6Heading,
   .step4Heading,
@@ -1522,6 +1534,11 @@
 
   }
 
+  .step6Heading {
+    left: 8%;
+  }
+
+  .diviDescripcon,
   .diviStep3Descrip,
   .rightContentLarge .diviDescrip {
     top: 34%;
@@ -1533,6 +1550,9 @@
     font-size: clamp(20px, 4vw, 60px);
   }
 
+  .step6Description,
+  .step5Description,
+  .step4Description,
   .step3Description,
   .rightContentLarge .description {
     font-size: 15px;
@@ -1555,6 +1575,11 @@
     font-size: 8px;
   }
 
+  .step6Description,
+  .step5Description,
+  .step4Description {
+    margin-top: 8px;
+  }
 }
 
 @media (max-width: 690px) {
@@ -1582,6 +1607,91 @@
 
 @media (max-width: 650px) {
 
+  .container {
+    left: 55%;
+    top: 60%;
+    bottom: auto !important;
+    right: auto;
+    transform: translate(-50%, -50%) scale(0.7);
+    transform-origin: center center;
+    width: 90%;
+    max-width: 360px;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    will-change: transform, opacity, top;
+  }
+
+  .containerHidden {
+    opacity: 0;
+    top: 65%;
+    transform: translate(-50%, -50%) scale(0.7);
+    transition: opacity 1.2s cubic-bezier(0.76, 0, 0.24, 1),
+      transform 1.2s cubic-bezier(0.76, 0, 0.24, 1),
+      top 1.2s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .containerReveal {
+    opacity: 1;
+    top: 60%;
+    transform: translate(-50%, -50%) scale(0.8);
+    transition: opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
+      transform 1.8s cubic-bezier(0.76, 0, 0.24, 1),
+      top 1.8s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .containerFinalStage {
+    opacity: 1;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
+      transform 1.8s cubic-bezier(0.76, 0, 0.24, 1),
+      top 1.8s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .containerExitUp {
+    opacity: 0;
+    top: -60%;
+    transform: translate(-50%, -50%) scale(1);
+    transition: opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
+      top 1.8s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  /* Image aur Text Wrapper Sizing */
+  .containerFinalStage .imageWrapper,
+  .containerFinalStage .imageLarge,
+  .containerReveal .imageWrapper {
+    width: 100%;
+    max-width: 250px;
+    margin: 0 auto;
+    transition: all 1.8s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .containerFinalStage .rightContent,
+  .containerFinalStage .rightContentLarge,
+  .containerReveal .rightContent {
+    width: 100%;
+    margin: 0 auto;
+    transition: all 1.8s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  .rightContentLarge {
+    background-image: radial-gradient(800px at 100% 0, #0b0a09 0%, #0b0a09 5%, #0b0a09 30%, #0b0a09 40%, #0b0a09 100%);
+  }
+
+  .rightContentLarge::before {
+    border: 1px solid transparent;
+  }
+
+  .rightContentLarge::after {
+    background: transparent;
+  }
+}
+
+@media (max-width: 650px) {
+
+  .stepSixContainer,
+  .stepFiveContainer,
+  .stepFourContainer,
   .stepThreeContainer,
   .containerExitUp,
   .containerFinalStage {
@@ -1589,10 +1699,11 @@
 
   }
 
-  .containerFinalStage {
-    bottom: 48%;
-  }
 
+
+  .step6TextScaleUp,
+  .step5TextScaleUp,
+  .step4TextScaleUp,
   .step3TextScaleUp,
   .rightContentLarge {
     height: auto;
@@ -1601,6 +1712,7 @@
 
   }
 
+  .diviDescripcon,
   .diviStep3Descrip,
   .rightContentLarge .diviDescrip {
     position: relative;
@@ -1610,6 +1722,14 @@
     margin-top: 35%;
   }
 
+  .rightContentLarge .diviDescrip {
+    margin-top: 50%;
+
+  }
+
+  .step6ImageExpanded,
+  .step5ImageExpanded,
+  .step4ImageExpanded,
   .step3ImageExpanded,
   .imageLarge {
     width: 230px;
@@ -1634,10 +1754,18 @@
     transition: all 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.3s;
   }
 
+  .step5Heading,
   .step3Heading {
     font-size: 15vw;
     top: -15%;
     right: 2%;
+  }
+
+  .bgcircle {
+    width: 220px;
+    height: 220px;
+    top: 35%;
+    left: -5%;
   }
 }
 
@@ -1664,7 +1792,7 @@
   .bgcircle {
     width: 180px;
     height: 180px;
-    top: 55%;
+    top: 30%;
     left: -5%;
   }
 
@@ -1672,39 +1800,66 @@
     bottom: 15%;
   }
 
+  .diviDescripcon,
   .diviStep3Descrip,
   .rightContentLarge .diviDescrip {
     margin-top: 38%;
   }
 
+  .step6Description,
+  .step5Description,
+  .step4Description,
   .step3Description,
   .rightContentLarge .description {
     margin-top: 5px;
   }
 
+  .step6TextScaleUp,
+  .step5TextScaleUp,
+  .step4TextScaleUp,
   .step3TextScaleUp,
   .rightContentLarge {
     max-width: 80%;
   }
 
+  .step5TextScaleUp {
+    padding-left: 0px;
+
+  }
+
+  .step6Divider,
+  .step5Divider,
+  .step4Divider,
   .step3Divider,
   .rightContentLarge .divider {
     width: 30px;
   }
 
   .step3Heading,
-  .step6Heading,
   .step4Heading,
   .rightContentLarge .headingRight {
     left: 2%;
   }
 
+  .step6Heading {
+    left: 5%;
+  }
+
+  .step6TextScaleUp,
+  .step4TextScaleUp,
   .step3TextScaleUp,
   .rightContentLarge {
     margin-left: 8vw;
   }
 
+  .step5TextScaleUp {
+    margin-left: 5vw;
 
+  }
+
+  .step6Description,
+  .step5Description,
+  .step4Description,
   .step3Description {
     margin-left: 0px;
   }
@@ -1717,6 +1872,7 @@
     line-height: 1.2rem;
   }
 
+  .diviDescripcon,
   .diviStep3Descrip {
     padding-right: 20px;
   }
@@ -1726,6 +1882,7 @@
   .mainthe {
     font-size: 7.2vw;
   }
+
 
   .step3TextScaleUp {
     padding-left: 0px;
@@ -1785,14 +1942,20 @@
     bottom: 23%;
   }
 
+  .step6TextScaleUp,
+  .step4TextScaleUp,
   .step3TextScaleUp {
     max-width: 85%;
   }
 
+  .step5TextScaleUp,
   .rightContentLarge {
     max-width: 90%;
   }
 
+  .diviDescripcon {
+    margin-top: 42%;
+  }
 }
 
 @media (max-width: 375px) {
@@ -1805,9 +1968,16 @@
     left: 5%;
   }
 
+  .step6Heading {
+    left: 10%;
+  }
+
   .diviStep3Descrip {
     right: -20px;
 
   }
 
+  .diviStep3Descrip {
+    margin-top: 40%;
+  }
 }
