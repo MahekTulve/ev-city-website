@@ -1704,9 +1704,21 @@
     margin-left: 8vw;
   }
 
-  .step3Description,
+
+  .step3Description {
+    margin-left: 0px;
+  }
+
   .rightContentLarge .description {
     margin-left: 12px;
+  }
+
+  .letterspaAsec {
+    line-height: 1.2rem;
+  }
+
+  .diviStep3Descrip {
+    padding-right: 20px;
   }
 }
 
@@ -1715,6 +1727,9 @@
     font-size: 7.2vw;
   }
 
+  .step3TextScaleUp {
+    padding-left: 0px;
+  }
 
   .container {
     grid-template-columns: 1fr;
@@ -1791,8 +1806,8 @@
   }
 
   .diviStep3Descrip {
-      right: -20px;
+    right: -20px;
 
   }
-  
+
 }
