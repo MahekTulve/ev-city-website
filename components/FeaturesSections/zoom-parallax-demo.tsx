@@ -22,6 +22,7 @@ import DenmarkToVashi from "../AboutSections/DenmarkToVashi";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { OptimizedShader } from "./OptimizedShader";
 import { LandingPage } from "../LandingPage";
+import ScrollVideoGallery  from "./CinematicPlacesGallery";
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
@@ -344,6 +345,9 @@ export default function ZoomParallaxDemo() {
         <div className={styles.sharedSequenceContent}>
           <CinematicText />
           <ZoomParallax videos={videos} />
+
+       <ScrollVideoGallery/>
+      
         </div>
       </section>
        <LandingPage />
