@@ -166,7 +166,7 @@ export default function LandingPage() {
           <span className={cx("lockup")}>
             <span className={cx("lockupEra")}>THe</span>
             <span className={cx("lockupResidence")}>5 Minute City</span>
-            <span className={cx("lockupScript")}>The City that Thinks For You </span>
+            <span className={cx("lockupScript")}>Time,Redefined </span>
           </span>
           <span className={`${cx("side")} ${cx("sideRight")}`}>Del Sol</span>
         </div>
