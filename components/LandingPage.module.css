@@ -149,14 +149,16 @@
   font-family: "Pinyon Script", cursive;
   font-size: clamp(2.4rem, 3.5vw, 3.5rem);
   line-height: 0.7;
-  margin-top: 0.35em;
+  margin-top: -10px;
   opacity: 0;
-  color: rgba(246, 241, 231, 0.85);
+  color: rgba(236, 199, 126, 0.458);
+  transform: rotate(-3deg);
 }
 
 .preloaderRule {
   width: 1px;
   height: clamp(4rem, 12vh, 7rem);
+
   margin-top: clamp(2rem, 6vh, 4rem);
   background: linear-gradient(to bottom, rgba(246, 241, 231, 0.65), rgba(246, 241, 231, 0));
   opacity: 0;
