@@ -22,7 +22,7 @@ import DenmarkToVashi from "../AboutSections/DenmarkToVashi";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { OptimizedShader } from "./OptimizedShader";
 import { LandingPage } from "../LandingPage";
-import ScrollVideoGallery  from "./CinematicPlacesGallery";
+import CinematicPlacesGallery  from "./CinematicPlacesGallery";
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
@@ -325,7 +325,7 @@ export default function ZoomParallaxDemo() {
         {/* One shader used by both sections */}
         <div className={styles.sharedShaderTrack} aria-hidden="true">
           <div className={styles.sharedShaderSticky}>
-            {/* Combined palette into a single lightweight WebGL instance */}
+          
             <OptimizedShader
               className={styles.sharedShader}
               colors={[
@@ -343,10 +343,10 @@ export default function ZoomParallaxDemo() {
         </div>
 
         <div className={styles.sharedSequenceContent}>
-          <CinematicText />
-          <ZoomParallax videos={videos} />
+         <CinematicText />
+         {/*   <ZoomParallax videos={videos} /> */}
 
-       <ScrollVideoGallery/>
+       <CinematicPlacesGallery/>
       
         </div>
       </section>
