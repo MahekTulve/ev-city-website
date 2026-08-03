@@ -89,13 +89,14 @@ const VIDEOS: VideoItem[] = [
   },
 ];
 
+/* Custom side positions mapped to correspond with mobile classes */
 const SIDE_POSITIONS = [
   { className: styles.topLeft, exitX: -34, exitY: -20 },
   { className: styles.bottomLeft, exitX: -34, exitY: 28 },
-  { className: styles.topCenter, exitX: 18, exitY: -36 },
+  { className: styles.topCenter, exitX: 0, exitY: -36 },
   { className: styles.topRight, exitX: 34, exitY: -20 },
-  { className: styles.rightBottom, exitX: 34, exitY: 30 },
-  { className: styles.bottomCenter, exitX: -16, exitY: 38 },
+  { className: styles.rightBottom, exitX: 34, exitY: 20 },
+  { className: styles.bottomCenter, exitX: 0, exitY: 38 },
 ];
 
 const EXPAND_START = 0.2;
@@ -129,17 +130,10 @@ function AutoPlayVideo({
 }: {
   item: VideoItem;
   className?: string;
-  /** The main/hero video loads eagerly; side videos load only when visible. */
   priority?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  /*
-   * Playing 7 videos at once is what makes the section stutter: every visible
-   * <video> keeps its own decoder running, even when the section is scrolled
-   * far off screen. An IntersectionObserver pauses the decoders that nobody
-   * can see and resumes them right before they come back into view.
-   */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -177,8 +171,6 @@ function AutoPlayVideo({
       muted
       loop
       playsInline
-      // Only the hero clip buffers ahead; the side clips fetch on demand so the
-      // network/decoder budget isn't spent on 7 parallel streams at load time.
       preload={priority ? "auto" : "none"}
       controls={false}
       disablePictureInPicture
@@ -208,9 +200,7 @@ function RevealLetter({
   const start = staggerStart + index * step;
   const end = Math.min(start + letterDuration, 1);
 
-  // Smooth Fade-In + Horizontal Slide-In from the Left/Right + Blur
   const opacity = useTransform(progress, [start, end], [0, 1]);
-  // Slide sideways (from -30px left to 0px)
   const x = useTransform(progress, [start, end], [-30, 0]); 
   const filter = useTransform(
     progress,
@@ -260,13 +250,6 @@ function SideVideoCard({
     [1, 1, 0.36, 0, 0],
   );
 
-  /*
-   * Removed: an animated `filter: blur()` on a playing <video>. Blur forces the
-   * browser to re-rasterize every decoded frame on the CPU, per scroll frame,
-   * for all 6 side cards - the single biggest source of the stutter. The cards
-   * already fade out here, so the visual difference is negligible.
-   */
-
   return (
     <motion.div
       className={`${styles.sideCard} ${className}`}
@@ -285,7 +268,6 @@ export default function CinematicPlacesGallery() {
     "(min-width: 701px) and (max-width: 1100px)",
   );
 
-  // Keep this progress only for the gallery/card movement.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start 40%", "end end"],
@@ -297,8 +279,6 @@ export default function CinematicPlacesGallery() {
     mass: 0.4,
   });
 
-  // Separate progress for the heading, so it can reveal earlier without
-  // changing the card expansion/movement timing above.
   const { scrollYProgress: titleScrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start 88%", "start 28%"],
@@ -313,28 +293,27 @@ export default function CinematicPlacesGallery() {
   const layout = useMemo<ResponsiveLayout>(() => {
     if (isMobile) {
       return {
+        // Aligned to match the reference layout screenshot on mobile
         start: {
-        top: "36%",     // Matches CSS initial top
-        left: "17.5%",  // Perfectly centered ( (100% - 65%) / 2 )
-        width: "65%",   // Reduced width (down from 90%)
-        height: "30%",  // Reduced height (down from 38%)
-      },
+          top: "32%",
+          left: "29%",
+          width: "42%",
+          height: "36%",
+        },
         exit: {
           top: "8%",
-          left: "16%",
-          width: "68%",
-          height: "52%",
-          cardBottomRadius: "108px",
-          sceneHeight: "70%",
-          sceneBottomRadius: "58px",
+          left: "12%",
+          width: "76%",
+          height: "58%",
+          cardBottomRadius: "80px",
+          sceneHeight: "72%",
+          sceneBottomRadius: "50px",
         },
       };
     }
 
     if (isTablet) {
       return {
-        // Keep the same visual proportions as the desktop/laptop layout.
-        // The previous 60% width made the middle video dominate tablet view.
         start: {
           top: "28%",
           left: "26.6%",
@@ -372,7 +351,6 @@ export default function CinematicPlacesGallery() {
     };
   }, [isMobile, isTablet]);
 
-  /* The dark gallery scene contracts to expose the next-section surface. */
   const sceneHeight = useTransform(
     smoothProgress,
     [0, EXIT_START, EXIT_END, 1],
@@ -449,10 +427,6 @@ export default function CinematicPlacesGallery() {
     ],
   );
 
-  /*
-   * During the exit, the TOP corners stay square and the strong circular
-   * treatment is applied to the opposite BOTTOM corners, as requested.
-   */
   const mainTopLeftRadius = useTransform(
     smoothProgress,
     [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
@@ -516,7 +490,6 @@ export default function CinematicPlacesGallery() {
     [1, 1, 0.42, 0.18, 0.18],
   );
 
-  // Early entrance: controlled only by the dedicated heading progress.
   const titleEntranceRotateX = useTransform(
     smoothTitleProgress,
     [0, 0.22, 1],
@@ -535,7 +508,6 @@ export default function CinematicPlacesGallery() {
     [0.78, 0.78, 1],
   );
 
-  // Exit remains attached to the gallery progress, preserving your old timing.
   const titleExitY = useTransform(
     smoothProgress,
     [0, 0.46, 0.61],
@@ -574,10 +546,6 @@ export default function CinematicPlacesGallery() {
   return (
     <section ref={sectionRef} className={styles.section}>
       <div className={styles.stickyContainer}>
-        {/*
-          Match --gallery-next-bg with the background of the section that
-          comes immediately after this component.
-        */}
         <div className={styles.exitSurface} aria-hidden="true" />
 
         <motion.div

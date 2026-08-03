@@ -560,14 +560,13 @@
     opacity: 0.48;
   }
 
-  /* Fixed: Scaled font using clamp() so it scales smoothly between 520px and 700px */
   .galleryTitle {
-    top: clamp(20px, 4.2svh, 42px);
+    top: clamp(15px, 3svh, 30px);
     left: 50%;
     width: calc(100% - 24px);
     box-sizing: border-box;
     padding: 0 0.06em 0.12em;
-    font-size: clamp(38px, 8.2vw, 58px);
+    font-size: clamp(32px, 7vw, 48px);
     line-height: 0.8;
     letter-spacing: -0.045em;
     white-space: nowrap;
@@ -585,43 +584,62 @@
   }
 
   .gallerySubtitle {
-    top: clamp(132px, 21vh, 172px);
-    font-size: clamp(20px, 5vw, 28px);
+    top: clamp(110px, 18vh, 150px);
+    font-size: clamp(18px, 4vw, 24px);
     line-height: 0.82;
   }
 
-  .topLeft {
-    top: 19%;
-    left: 4%;
-    width: 43%;
-    height: 14%;
+  /* 1. MAIN CENTER CARD (Portrait / Vertical in Center) */
+  .mainCardWrapper {
+    top: 32%;
+    left: 29%;
+    width: 42%;
+    height: 36%;
   }
 
+  /* 2. TOP CARD (Wide Landscape Card Above Main Card) */
   .topCenter {
-    top: 19%;
-    right: 4%;
-    left: auto;
-    width: 43%;
-    height: 14%;
+    top: 17%;
+    left: 29%;
+    right: auto;
+    width: 42%;
+    height: 13%;
+    display: block;
   }
 
-  .bottomLeft {
-    left: 4%;
-    bottom: 13%;
-    width: 43%;
-    height: 17%;
-  }
-
-  .topRight {
-    top: auto;
-    right: 4%;
-    bottom: 13%;
-    width: 43%;
-    height: 17%;
-  }
-
-  .rightBottom,
+  /* 3. BOTTOM CARD (Wide Landscape Card Below Main Card) */
   .bottomCenter {
+    top: 70%;
+    bottom: auto;
+    left: 29%;
+    width: 42%;
+    height: 13%;
+    display: block;
+  }
+
+  /* 4. LEFT CARD (Vertical Card on Left Side - Shifted slightly up) */
+  .topLeft {
+    top: 32%;
+    left: 5%;
+    width: 21%;
+    height: 25%;
+    display: block;
+  }
+
+  /* 5. RIGHT CARD (Vertical Card on Right Side - Shifted slightly down) */
+  .rightBottom {
+    top: 42%;
+    bottom: auto;
+    right: 5%;
+    left: auto;
+    width: 21%;
+    height: 25%;
+    display: block;
+  }
+
+  /* Hide unused remaining cards on small mobile layout */
+  .bottomLeft,
+  .topRight {
     display: none;
   }
 }
@@ -637,29 +655,51 @@
   }
 
   .galleryTitle {
-    top: clamp(18px, 4.5svh, 34px);
+    top: clamp(12px, 3.5svh, 28px);
     left: 50%;
     width: calc(100% - 18px);
-    font-size: 12vw;
+    font-size: 9vw;
     line-height: 0.72;
   }
 
   .gallerySubtitle {
-    top: clamp(122px, 19vh, 150px);
+    top: clamp(100px, 16vh, 130px);
   }
 
-  .topLeft,
+  /* Fine-tuning for narrow mobile screens */
+  .mainCardWrapper {
+    top: 31%;
+    left: 27%;
+    width: 46%;
+    height: 38%;
+  }
+
   .topCenter {
-    top: 20%;
+    top: 16%;
+    left: 27%;
+    width: 46%;
     height: 13%;
   }
 
-  /* --- Main Card Overrides for <= 480px --- */
-  .mainCardWrapper {
-    top: 36%;           /* Adjusted vertical position to stay balanced */
-    left: 17.5%;        /* Centered horizontally: (100% - 65%) / 2 */
-    width: 65%;         /* Decreased width from 90% */
-    height: 30%;        /* Decreased height from 38% */
+  .bottomCenter {
+    top: 71%;
+    left: 27%;
+    width: 46%;
+    height: 13%;
+  }
+
+  .topLeft {
+    top: 31%;
+    left: 3%;
+    width: 21%;
+    height: 27%;
+  }
+
+  .rightBottom {
+    top: 42%;
+    right: 3%;
+    width: 21%;
+    height: 27%;
   }
 }
 
