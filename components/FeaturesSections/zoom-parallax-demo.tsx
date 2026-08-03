@@ -22,7 +22,7 @@ import DenmarkToVashi from "../AboutSections/DenmarkToVashi";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { OptimizedShader } from "./OptimizedShader";
 import LandingPage from "../LandingPage";
-import CinematicPlacesGallery  from "./CinematicPlacesGallery";
+import CinematicPlacesGallery from "./CinematicPlacesGallery";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -326,7 +326,7 @@ export default function ZoomParallaxDemo() {
         {/* One shader used by both sections */}
         <div className={styles.sharedShaderTrack} aria-hidden="true">
           <div className={styles.sharedShaderSticky}>
-          
+
             <OptimizedShader
               className={styles.sharedShader}
               colors={[
@@ -344,17 +344,25 @@ export default function ZoomParallaxDemo() {
         </div>
 
         <div className={styles.sharedSequenceContent}>
-         <CinematicText />
-         {/*   <ZoomParallax videos={videos} /> */}
+          <div data-section>
+            <CinematicText />
+          </div>
 
-       <CinematicPlacesGallery/>
-      
+          {/*   <ZoomParallax videos={videos} /> */}
+          <div data-section>
+            <CinematicPlacesGallery />
+          </div>
+
+
         </div>
       </section>
-       <LandingPage />
+      <div data-section>
+        <LandingPage />
+      </div>
+
       {/* <AboutFiveMinute /> */}
-     
-      <div ref={containerRef} className="relative h-[600vh] w-full">
+
+      <div ref={containerRef} data-section className="relative h-[600vh] w-full ">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <VashiLetter
             isActive={true}
@@ -368,9 +376,16 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div>
-      <ExplainDenmark />
-      <VashiDenmark />
-      <DenmarkToVashi />
+      <div data-section>
+        <ExplainDenmark />
+      </div>
+      <div data-section>
+        <VashiDenmark />
+      </div>
+      <div data-section>
+        <DenmarkToVashi />
+      </div>
+
       {/* <RealEstateJourney /> */}
     </main>
   );

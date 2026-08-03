@@ -40,6 +40,7 @@
   border-top-right-radius: 50% 38%;
   z-index: 3;
 }
+
 .archInnerWrapper {
   position: absolute;
   left: 50%;
@@ -50,6 +51,7 @@
   overflow-y: auto;
   overflow-x: hidden;
 }
+
 .archMedia {
   position: absolute;
   left: 50%;
@@ -64,16 +66,14 @@
   position: absolute;
   inset: 2.2rem;
   border: 1px solid rgba(246, 241, 231, 0.18);
-  clip-path: polygon(
-    28px 0,
-    calc(100% - 28px) 0,
-    100% 28px,
-    100% calc(100% - 28px),
-    calc(100% - 28px) 100%,
-    28px 100%,
-    0 calc(100% - 28px),
-    0 28px
-  );
+  clip-path: polygon(28px 0,
+      calc(100% - 28px) 0,
+      100% 28px,
+      100% calc(100% - 28px),
+      calc(100% - 28px) 100%,
+      28px 100%,
+      0 calc(100% - 28px),
+      0 28px);
   opacity: 0;
 }
 
@@ -104,7 +104,7 @@
   position: relative;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  /* grid-template-columns: 1fr auto 1fr; */
   align-items: center;
   gap: clamp(1rem, 6vw, 6rem);
   padding: 0 clamp(1.5rem, 7vw, 8rem);
@@ -122,6 +122,7 @@
 .lockup {
   text-align: center;
   position: relative;
+  margin-top: 5%;
 }
 
 .lockupEra,
@@ -140,8 +141,13 @@
 }
 
 .lockupResidence {
-  font-size: clamp(3.4rem, 7.5vw, 7.5rem);
+  font-size: clamp(3.4rem, 8vw, 8vw);
   opacity: 0;
+}
+
+.fivenum {
+  font-size: clamp(3.4rem, 8.5vw, 8.5vw);
+
 }
 
 .lockupScript {
@@ -178,36 +184,7 @@
 
 /* ---------------- Shared chrome ---------------- */
 
-.badge {
-  position: fixed;
-  top: 2.2rem;
-  left: 2.6rem;
-  z-index: 20;
-  width: 7.5rem;
-  height: 7.5rem;
-}
 
-.badgeRing {
-  width: 100%;
-  height: 100%;
-  animation: spin 34s linear infinite;
-}
-
-.badgeRing text {
-  font-family: "Jost", sans-serif;
-  font-size: 8px;
-  font-weight: 700;
-  letter-spacing: 0.28em;
-  fill: var(--cream);
-}
-
-.badgeGlyph {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  translate: -50% -50%;
-  width: 2.1rem;
-}
 
 .nav {
   position: fixed;
@@ -251,58 +228,6 @@
   opacity: 0.55;
 }
 
-.rail {
-  text-transform: uppercase;
-  position: fixed;
-  left: 3.6rem;
-  top: 40%;
-  z-index: 20;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-  font-size: 0.62rem;
-  font-weight: 700;
-  letter-spacing: 0.2em;
-}
-
-.railCount {
-  font-family: "Bodoni Moda", serif;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-}
-
-.railLine {
-  width: 1px;
-  height: 14rem;
-  background: linear-gradient(to bottom, rgba(246, 241, 231, 0.55), rgba(246, 241, 231, 0.15));
-}
-
-.railLabel {
-  text-transform: uppercase;
-  writing-mode: vertical-rl;
-  letter-spacing: 0.35em;
-}
-
-.railArrow {
-  width: 1px;
-  height: 3rem;
-  background: rgba(246, 241, 231, 0.6);
-  position: relative;
-  animation: drift 2.4s ease-in-out infinite;
-}
-
-.railArrow::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: -3px;
-  width: 7px;
-  height: 7px;
-  border-right: 1px solid rgba(246, 241, 231, 0.7);
-  border-bottom: 1px solid rgba(246, 241, 231, 0.7);
-  rotate: 45deg;
-}
 
 /* ---------------- Combined Single Background Wrapper ---------------- */
 
@@ -429,7 +354,7 @@
 .scene {
   position: relative;
   min-height: 100vh;
-    background-image: url('/images/landingImg.webp');
+  background-image: url('/images/landingImg.webp');
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -562,28 +487,65 @@
   line-height: 1;
 }
 
-/* ---------------- Keyframes ---------------- */
-
-@keyframes spin {
-  to { rotate: 360deg; }
-}
 
 @keyframes pulse {
-  0% { scale: 0.85; opacity: 0.8; }
-  100% { scale: 1.6; opacity: 0; }
+  0% {
+    scale: 0.85;
+    opacity: 0.8;
+  }
+
+  100% {
+    scale: 1.6;
+    opacity: 0;
+  }
 }
 
 @keyframes drift {
-  0%, 100% { translate: 0 0; }
-  50% { translate: 0 6px; }
+
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 6px;
+  }
 }
 
 @media (max-width: 900px) {
-  .badge { width: 5rem; height: 5rem; top: 1.2rem; left: 1.2rem; }
-  .nav { top: 1.4rem; right: 1.2rem; }
-  .rail { display: none; }
-  .heroTagline { grid-template-columns: 1fr; gap: 0.75rem; text-align: center; }
-  .taglineWord:first-child, .taglineWord:last-child { text-align: center; }
-  .panel { right: 50%; translate: 50% -50%; }
-  .panelOpen { translate: 50% -50%; }
+  .badge {
+    width: 5rem;
+    height: 5rem;
+    top: 1.2rem;
+    left: 1.2rem;
+  }
+
+  .nav {
+    top: 1.4rem;
+    right: 1.2rem;
+  }
+
+  .rail {
+    display: none;
+  }
+
+  .heroTagline {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    text-align: center;
+  }
+
+  .taglineWord:first-child,
+  .taglineWord:last-child {
+    text-align: center;
+  }
+
+  .panel {
+    right: 50%;
+    translate: 50% -50%;
+  }
+
+  .panelOpen {
+    translate: 50% -50%;
+  }
 }
