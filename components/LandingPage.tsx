@@ -1,13 +1,13 @@
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import classes from "./LandingPage.module.css";
+import Style from "./LandingPage.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const styles = classes as Record<string, string>;
-const cx = (...names: Array<string | false | undefined>) =>
-  names.filter((name): name is string => Boolean(name)).map((name) => styles[name] ?? "").join(" ");
+// const styles = classes as Record<string, string>;
+// const cx = (...names: Array<string | false | undefined>) =>
+//   names.filter((name): name is string => Boolean(name)).map((name) => styles[name] ?? "").join(" ");
 
 const HOTSPOTS = [
   {
@@ -77,19 +77,19 @@ export default function LandingPage() {
       });
 
       // 1. Text reveal
-      tl.to(`.${styles.preloaderGlyph}`, { opacity: 1, duration: 0.5 })
-        .to(`.${styles.lockupEra}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
-        .to(`.${styles.sideLeft}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.3")
-        .to(`.${styles.sideRight}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.5")
-        .to(`.${styles.lockupResidence}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
-        .to(`.${styles.lockupScript}`, { opacity: 1, duration: 0.5 }, "-=0.2")
-        .to(`.${styles.watermark}`, { opacity: 1, duration: 0.6 }, "-=0.4")
-        .to(`.${styles.preloaderFrame}`, { opacity: 1, duration: 0.6 }, "-=0.4")
-        .to(`.${styles.preloaderRule}`, { opacity: 1, duration: 0.5 }, "-=0.3")
-        .to(`.${styles.preloaderFoot}`, { opacity: 1, duration: 0.5 }, "-=0.3");
+      tl.to(`.${Style.preloaderGlyph}`, { opacity: 1, duration: 0.5 })
+        .to(`.${Style.lockupEra}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
+        .to(`.${Style.sideLeft}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.3")
+        .to(`.${Style.sideRight}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.5")
+        .to(`.${Style.lockupResidence}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
+        .to(`.${Style.lockupScript}`, { opacity: 1, duration: 0.5 }, "-=0.2")
+        .to(`.${Style.watermark}`, { opacity: 1, duration: 0.6 }, "-=0.4")
+        .to(`.${Style.preloaderFrame}`, { opacity: 1, duration: 0.6 }, "-=0.4")
+        .to(`.${Style.preloaderRule}`, { opacity: 1, duration: 0.5 }, "-=0.3")
+        .to(`.${Style.preloaderFoot}`, { opacity: 1, duration: 0.5 }, "-=0.3");
 
       // 2. Lockup text fade out & Arch expansion showing BOTH SECTIONS inside
-      tl.to(`.${styles.lockup}`, { opacity: 0, scale: 1.08, duration: 0.8 }, "+=0.2")
+      tl.to(`.${Style.lockup}`, { opacity: 0, scale: 1.08, duration: 0.8 }, "+=0.2")
         .to(
           archRef.current,
           {
@@ -119,32 +119,32 @@ export default function LandingPage() {
 
   // DONO SECTIONS (Hero + Scene) ek hi wrapper me hain:
   const renderMainSections = () => (
-    <div className={cx("heroSceneWrapper")}>
+    <div className={Style.heroSceneWrapper}>
       {/* Section 2: Hero */}
-      <header className={cx("hero")}>
-        <div className={cx("heroInner")}>
+      <header className={Style.hero}>
+        <div className={Style.heroInner}>
           <h1>
-            <span className={cx("heroEra")}>THE</span>
-            <span className={cx("heroResidence")}>5 Minute</span>
-            <span className={cx("heroScript")}>City Vashi</span>
+            <span className={Style.heroEra}>THE</span>
+            <span className={Style.heroResidence}>5 Minute</span>
+            <span className={Style.heroScript}>City Vashi</span>
           </h1>
         </div>
 
-        <div className={cx("heroTagline")}>
-          <span className={cx("taglineWord")}>A place</span>
+        <div className={Style.heroTagline}>
+          <span className={Style.taglineWord}>A place</span>
           <button
             type="button"
-            className={cx("toggle")}
+            className={Style.toggle}
             onClick={() => setNight((value) => !value)}
             aria-pressed={night}
           >
-            <span className={night ? cx("toggleOff") : cx("toggleOn")}>By day</span>
-            <span className={cx("toggleTrack")}>
-              <span className={cx("toggleKnob")} style={{ left: night ? "100%" : "0%" }} />
+            <span className={night ? Style.toggleOff : Style.toggleOn}>By day</span>
+            <span className={Style.toggleTrack}>
+              <span className={Style.toggleKnob} style={{ left: night ? "100%" : "0%" }} />
             </span>
-            <span className={night ? cx("toggleOn") : cx("toggleOff")}>By night</span>
+            <span className={night ? Style.toggleOn : Style.toggleOff}>By night</span>
           </button>
-          <span className={cx("taglineWord")}>To return to</span>
+          <span className={Style.taglineWord}>To return to</span>
         </div>
       </header>
 
@@ -154,91 +154,69 @@ export default function LandingPage() {
   );
 
   return (
-    <div className={cx("root")}>
+    <div className={Style.root}>
       {/* ---------------- Section 1: Intro Section ---------------- */}
-      <section className={cx("introSection")} ref={introRef}>
-        <span className={cx("preloaderFrame")} />
-        <span className={cx("watermark")}>Vashi</span>
-        <Glyph className={cx("preloaderGlyph")} />
+      <section className={Style.introSection} ref={introRef}>
+        <span className={Style.preloaderFrame} />
+        <span className={Style.watermark}>Vashi</span>
+        <Glyph className={Style.preloaderGlyph} />
 
-        <div className={cx("preloaderRow")}>
-          <span className={`${cx("side")} ${cx("sideLeft")}`}>Costa</span>
-          <span className={cx("lockup")}>
-            <span className={cx("lockupEra")}>THe</span>
-            <span className={cx("lockupResidence")}>5 Minute City</span>
-            <span className={cx("lockupScript")}>Time,Redefined </span>
+        <div className={Style.preloaderRow}>
+          {/* <span className={`${Style.side} ${Style.sideLeft}`}>Costa</span> */}
+          <span className={Style.lockup}>
+            <span className={Style.lockupEra}>THe</span>
+            <span className={Style.lockupResidence}><span className={Style.fivenum}>5</span> Minute City</span>
+            <span className={Style.lockupScript}>Time,Redefined </span>
           </span>
-          <span className={`${cx("side")} ${cx("sideRight")}`}>Del Sol</span>
+          {/* <span className={`${Style.side} ${Style.sideRight}`}>Del Sol</span> */}
         </div>
 
-        <span className={cx("preloaderRule")} />
-        <p className={cx("preloaderFoot")}>
+        <span className={Style.preloaderRule} />
+        <p className={Style.preloaderFoot}>
           ev homes
           <br />
           A place to return to.
         </p>
 
         {/* Arch Mask Container - Containing BOTH SECTIONS inside */}
-        <div className={cx("arch")} ref={archRef}>
-          <div className={cx("archInnerWrapper")}>
+        <div className={Style.arch} ref={archRef}>
+          <div className={Style.archInnerWrapper}>
             {renderMainSections()}
           </div>
         </div>
       </section>
 
-      {/* ---------------- Shared Chrome ---------------- */}
-      <div className={cx("badge")}>
-        <svg className={cx("badgeRing")} viewBox="0 0 120 120" aria-hidden="true">
-          <defs>
-            <path id="badgeCircle" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" />
-          </defs>
-          <text>
-            <textPath href="#badgeCircle" startOffset="0%">
-             EV CITY · THE 5 MINUTE CITY . EV CITY · THE 5 MINUTE CITY .
-            </textPath>
-          </text>
-        </svg>
-        <Glyph className={cx("badgeGlyph")} />
-      </div>
-
-
-      <div className={cx("rail")} aria-hidden="true">
-        <span className={cx("railCount")}>00</span>
-        <span className={cx("railLine")} />
-        <span className={cx("railLabel")}>Scroll</span>
-        <span className={cx("railArrow")} />
-      </div>
 
       {/* ---------------- Actual Main Content (Post Animation) ---------------- */}
-      <section className={cx("scene")} id="apartments">
+      <section className={Style.scene} id="apartments">
         {HOTSPOTS.map((spot) => (
           <button
             key={spot.id}
             type="button"
-            className={`${cx("hotspot")} ${active === spot.id ? cx("hotspotActive") : ""}`}
+            className={`${Style.hotspot} ${active === spot.id ? Style.hotspotActive : ""}`}
             style={{ left: spot.x, top: spot.y }}
             onClick={() => setActive(active === spot.id ? null : spot.id)}
             aria-label={spot.title}
           >
-            <span className={cx("hotspotPulse")} />
+            <span className={Style.hotspotPulse} />
           </button>
         ))}
 
-        <button type="button" className={cx("sceneCta")}>
+        <button type="button" className={Style.sceneCta}>
           <span>View available opportunity</span>
         </button>
 
-        <aside className={`${cx("panel")} ${panel ? cx("panelOpen") : ""}`}>
+        <aside className={`${Style.panel} ${panel ? Style.panelOpen : ""}`}>
           <button
             type="button"
-            className={cx("panelClose")}
+            className={Style.panelClose}
             onClick={() => setActive(null)}
             aria-label="Close"
           >
             ✕
           </button>
-          <h2 className={cx("panelTitle")}>{panel?.title}</h2>
-          <p className={cx("panelBody")}>{panel?.body}</p>
+          <h2 className={Style.panelTitle}>{panel?.title}</h2>
+          <p className={Style.panelBody}>{panel?.body}</p>
         </aside>
       </section>
     </div>
