@@ -98,17 +98,13 @@ const SIDE_POSITIONS = [
   { className: styles.bottomCenter, exitX: -16, exitY: 38 },
 ];
 
-/*
- * Scroll timeline
- * 0.08 -> 0.63 : gallery expands into a full-screen video
- * 0.63 -> 0.72 : short full-screen hold
- * 0.72 -> 0.94 : Obsidian-style contraction/reveal phase
- * 0.94 -> 1.00 : hold the final composition before sticky releases
- */
-const EXPAND_START = 0.08;
+const EXPAND_START = 0.2;
 const EXPAND_END = 0.63;
 const EXIT_START = 0.72;
 const EXIT_END = 0.94;
+
+const TITLE_LINES = ["Explore", "Places"] as const;
+const TITLE_LETTER_COUNT = TITLE_LINES.join("").length;
 
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(false);
@@ -129,12 +125,21 @@ function useMediaQuery(query: string) {
 function AutoPlayVideo({
   item,
   className,
+  priority = false,
 }: {
   item: VideoItem;
   className?: string;
+  /** The main/hero video loads eagerly; side videos load only when visible. */
+  priority?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
+  /*
+   * Playing 7 videos at once is what makes the section stutter: every visible
+   * <video> keeps its own decoder running, even when the section is scrolled
+   * far off screen. An IntersectionObserver pauses the decoders that nobody
+   * can see and resumes them right before they come back into view.
+   */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
@@ -142,15 +147,24 @@ function AutoPlayVideo({
     video.muted = true;
     video.defaultMuted = true;
 
-    const playVideo = async () => {
-      try {
-        await video.play();
-      } catch {
-        // iOS/Safari can wait until the element is visibly rendered.
-      }
+    const play = () => {
+      void video.play().catch(() => undefined);
     };
 
-    void playVideo();
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          play();
+        } else if (!video.paused) {
+          video.pause();
+        }
+      },
+      { rootMargin: "200px 0px", threshold: 0.01 },
+    );
+
+    observer.observe(video);
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -160,18 +174,58 @@ function AutoPlayVideo({
       src={item.src}
       poster={item.poster}
       aria-label={item.ariaLabel}
-      autoPlay
       muted
       loop
       playsInline
-      preload="metadata"
+      // Only the hero clip buffers ahead; the side clips fetch on demand so the
+      // network/decoder budget isn't spent on 7 parallel streams at load time.
+      preload={priority ? "auto" : "none"}
       controls={false}
+      disablePictureInPicture
+      disableRemotePlayback
       tabIndex={-1}
-      onCanPlay={(event) => {
-        event.currentTarget.muted = true;
-        void event.currentTarget.play().catch(() => undefined);
-      }}
     />
+  );
+}
+
+function RevealLetter({
+  character,
+  index,
+  progress,
+}: {
+  character: string;
+  index: number;
+  progress: MotionValue<number>;
+}) {
+  const staggerStart = 0.06;
+  const staggerEnd = 0.78;
+  const letterDuration = 0.24;
+  const step =
+    TITLE_LETTER_COUNT > 1
+      ? (staggerEnd - staggerStart) / (TITLE_LETTER_COUNT - 1)
+      : 0;
+
+  const start = staggerStart + index * step;
+  const end = Math.min(start + letterDuration, 1);
+
+  // Smooth Fade-In + Horizontal Slide-In from the Left/Right + Blur
+  const opacity = useTransform(progress, [start, end], [0, 1]);
+  // Slide sideways (from -30px left to 0px)
+  const x = useTransform(progress, [start, end], [-30, 0]); 
+  const filter = useTransform(
+    progress,
+    [start, end],
+    ["blur(12px)", "blur(0px)"]
+  );
+
+  return (
+    <motion.span
+      className={styles.titleLetter}
+      style={{ opacity, x, filter }}
+      aria-hidden="true"
+    >
+      {character}
+    </motion.span>
   );
 }
 
@@ -206,16 +260,17 @@ function SideVideoCard({
     [1, 1, 0.36, 0, 0],
   );
 
-  const filter = useTransform(
-    progress,
-    [0, 0.5, EXPAND_END, 1],
-    ["blur(0px)", "blur(0px)", "blur(3px)", "blur(6px)"],
-  );
+  /*
+   * Removed: an animated `filter: blur()` on a playing <video>. Blur forces the
+   * browser to re-rasterize every decoded frame on the CPU, per scroll frame,
+   * for all 6 side cards - the single biggest source of the stutter. The cards
+   * already fade out here, so the visual difference is negligible.
+   */
 
   return (
     <motion.div
       className={`${styles.sideCard} ${className}`}
-      style={{ x, y, scale, opacity, filter }}
+      style={{ x, y, scale, opacity }}
     >
       <AutoPlayVideo item={item} />
     </motion.div>
@@ -230,6 +285,7 @@ export default function CinematicPlacesGallery() {
     "(min-width: 701px) and (max-width: 1100px)",
   );
 
+  // Keep this progress only for the gallery/card movement.
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start 40%", "end end"],
@@ -241,15 +297,28 @@ export default function CinematicPlacesGallery() {
     mass: 0.4,
   });
 
+  // Separate progress for the heading, so it can reveal earlier without
+  // changing the card expansion/movement timing above.
+  const { scrollYProgress: titleScrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 88%", "start 28%"],
+  });
+
+  const smoothTitleProgress = useSpring(titleScrollYProgress, {
+    stiffness: 105,
+    damping: 24,
+    mass: 0.35,
+  });
+
   const layout = useMemo<ResponsiveLayout>(() => {
     if (isMobile) {
       return {
         start: {
-          top: "30%",
-          left: "5%",
-          width: "90%",
-          height: "38%",
-        },
+        top: "36%",     // Matches CSS initial top
+        left: "17.5%",  // Perfectly centered ( (100% - 65%) / 2 )
+        width: "65%",   // Reduced width (down from 90%)
+        height: "30%",  // Reduced height (down from 38%)
+      },
         exit: {
           top: "8%",
           left: "16%",
@@ -264,20 +333,22 @@ export default function CinematicPlacesGallery() {
 
     if (isTablet) {
       return {
+        // Keep the same visual proportions as the desktop/laptop layout.
+        // The previous 60% width made the middle video dominate tablet view.
         start: {
-          top: "29%",
-          left: "20%",
-          width: "60%",
-          height: "40%",
+          top: "28%",
+          left: "26.6%",
+          width: "46.8%",
+          height: "34%",
         },
         exit: {
           top: "8%",
-          left: "33%",
-          width: "34%",
-          height: "54%",
-          cardBottomRadius: "145px",
-          sceneHeight: "69%",
-          sceneBottomRadius: "92px",
+          left: "34%",
+          width: "32%",
+          height: "58%",
+          cardBottomRadius: "130px",
+          sceneHeight: "72%",
+          sceneBottomRadius: "86px",
         },
       };
     }
@@ -445,40 +516,54 @@ export default function CinematicPlacesGallery() {
     [1, 1, 0.42, 0.18, 0.18],
   );
 
-  const titleRotateX = useTransform(
-    smoothProgress,
-    [0, 0.05, 0.16, 0.46, 0.61],
-    [82, 82, 0, 0, -45],
+  // Early entrance: controlled only by the dedicated heading progress.
+  const titleEntranceRotateX = useTransform(
+    smoothTitleProgress,
+    [0, 0.22, 1],
+    [76, 76, 0],
   );
 
-  const titleY = useTransform(
-    smoothProgress,
-    [0, 0.05, 0.16, 0.46, 0.61],
-    ["12vh", "12vh", "0vh", "0vh", "-18vh"],
+  const titleEntranceY = useTransform(
+    smoothTitleProgress,
+    [0, 0.22, 1],
+    ["9vh", "9vh", "0vh"],
   );
 
-  const titleScale = useTransform(
-    smoothProgress,
-    [0, 0.05, 0.16, 0.46, 0.61],
-    [0.72, 0.72, 1, 1, 1.08],
+  const titleEntranceScale = useTransform(
+    smoothTitleProgress,
+    [0, 0.22, 1],
+    [0.78, 0.78, 1],
   );
 
-  const titleOpacity = useTransform(
+  // Exit remains attached to the gallery progress, preserving your old timing.
+  const titleExitY = useTransform(
     smoothProgress,
-    [0, 0.05, 0.14, 0.48, 0.61],
-    [0, 0, 1, 1, 0],
+    [0, 0.46, 0.61],
+    ["0vh", "0vh", "-18vh"],
   );
 
-  const titleBlur = useTransform(
+  const titleExitRotateX = useTransform(
     smoothProgress,
-    [0, 0.06, 0.16, 0.48, 0.61],
-    [
-      "blur(18px)",
-      "blur(18px)",
-      "blur(0px)",
-      "blur(0px)",
-      "blur(12px)",
-    ],
+    [0, 0.46, 0.61],
+    [0, 0, -45],
+  );
+
+  const titleExitScale = useTransform(
+    smoothProgress,
+    [0, 0.46, 0.61],
+    [1, 1, 1.08],
+  );
+
+  const titleExitOpacity = useTransform(
+    smoothProgress,
+    [0, 0.48, 0.61],
+    [1, 1, 0],
+  );
+
+  const titleExitBlur = useTransform(
+    smoothProgress,
+    [0, 0.48, 0.61],
+    ["blur(0px)", "blur(0px)", "blur(12px)"],
   );
 
   const mainVideo = VIDEOS[1];
@@ -520,17 +605,47 @@ export default function CinematicPlacesGallery() {
             <motion.div
               className={styles.titleStage}
               style={{
-                y: titleY,
-                scale: titleScale,
-                rotateX: titleRotateX,
-                opacity: titleOpacity,
-                filter: titleBlur,
+                y: titleExitY,
+                scale: titleExitScale,
+                rotateX: titleExitRotateX,
+                opacity: titleExitOpacity,
+                filter: titleExitBlur,
               }}
             >
-              <h2 className={styles.galleryTitle} aria-label="Explore Places">
-                <span aria-hidden="true">Explore</span>
-                <span aria-hidden="true">Places</span>
-              </h2>
+              <motion.div
+                className={styles.titleEntrance}
+                style={{
+                  y: titleEntranceY,
+                  scale: titleEntranceScale,
+                  rotateX: titleEntranceRotateX,
+                }}
+              >
+                <h2 className={styles.galleryTitle} aria-label="Explore Places">
+                  {TITLE_LINES.map((line, lineIndex) => {
+                    const lineOffset = TITLE_LINES.slice(0, lineIndex).reduce(
+                      (total, currentLine) => total + currentLine.length,
+                      0,
+                    );
+
+                    return (
+                      <span
+                        key={line}
+                        className={styles.titleLine}
+                        aria-hidden="true"
+                      >
+                        {Array.from(line).map((character, characterIndex) => (
+                          <RevealLetter
+                            key={`${line}-${characterIndex}`}
+                            character={character}
+                            index={lineOffset + characterIndex}
+                            progress={smoothTitleProgress}
+                          />
+                        ))}
+                      </span>
+                    );
+                  })}
+                </h2>
+              </motion.div>
             </motion.div>
 
             <div className={styles.gallery}>
@@ -570,6 +685,7 @@ export default function CinematicPlacesGallery() {
                   <AutoPlayVideo
                     item={mainVideo}
                     className={styles.mainVideo}
+                    priority
                   />
                 </motion.div>
 
