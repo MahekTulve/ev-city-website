@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 .root {
   --wine: #050502;
   --wine-deep: #060405;
@@ -94,6 +94,7 @@
   font-family: "Pinyon Script", cursive;
   font-size: clamp(20rem, 50vw, 46rem);
   line-height: 0.8;
+  letter-spacing: 0.5rem;
   color: rgba(246, 241, 231, 0.045);
   white-space: nowrap;
   pointer-events: none;
@@ -128,11 +129,11 @@
 .lockupEra,
 .lockupResidence {
   display: block;
-  font-family: "Bodoni Moda", serif;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 0.86;
   letter-spacing: 0.01em;
   text-transform: uppercase;
+   font-family: "Cinzel", serif;
 }
 
 .lockupEra {
@@ -141,12 +142,12 @@
 }
 
 .lockupResidence {
-  font-size: clamp(3.4rem, 8vw, 8vw);
+  font-size: clamp(3.4rem, 8.5vw, 8.5vw);
   opacity: 0;
 }
 
 .fivenum {
-  font-size: clamp(3.4rem, 8.5vw, 8.5vw);
+  font-size: clamp(3.4rem, 9vw, 9vw);
 
 }
 
