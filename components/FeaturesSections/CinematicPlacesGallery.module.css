@@ -658,7 +658,7 @@
     top: clamp(12px, 3.5svh, 28px);
     left: 50%;
     width: calc(100% - 18px);
-    font-size: 9vw;
+    font-size: 11vw;
     line-height: 0.72;
   }
 
@@ -675,30 +675,30 @@
   }
 
   .topCenter {
-    top: 16%;
+    top: 17%;
     left: 27%;
-    width: 46%;
-    height: 13%;
+    width: 55%;
+    height: 14%;
   }
 
   .bottomCenter {
-    top: 71%;
+    top: 69%;
     left: 27%;
-    width: 46%;
-    height: 13%;
+    width: 55%;
+    height: 18%;
   }
 
   .topLeft {
     top: 31%;
     left: 3%;
-    width: 21%;
+    width: 24%;
     height: 27%;
   }
 
   .rightBottom {
-    top: 42%;
+    top: 40%;
     right: 3%;
-    width: 21%;
+    width: 24%;
     height: 27%;
   }
 }
