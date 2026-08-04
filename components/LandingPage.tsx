@@ -1,13 +1,10 @@
 import { useState, useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import Style from "./LandingPage.module.css";
+import styles from "./LandingPage.module.css";
+import WayVashi from "./wayVashi";
 
 gsap.registerPlugin(ScrollTrigger);
-
-// const styles = classes as Record<string, string>;
-// const cx = (...names: Array<string | false | undefined>) =>
-//   names.filter((name): name is string => Boolean(name)).map((name) => styles[name] ?? "").join(" ");
 
 const HOTSPOTS = [
   {
@@ -57,15 +54,18 @@ function Glyph({ className }: { className?: string | undefined }) {
   );
 }
 
+
+
 export default function LandingPage() {
   const [night, setNight] = useState(false);
   const [active, setActive] = useState<string | null>(null);
+  const [tone, setTone] = useState<"light" | "dark">("light");
 
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
   useLayoutEffect(() => {
-    let ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: introRef.current,
@@ -77,19 +77,19 @@ export default function LandingPage() {
       });
 
       // 1. Text reveal
-      tl.to(`.${Style.preloaderGlyph}`, { opacity: 1, duration: 0.5 })
-        .to(`.${Style.lockupEra}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
-        .to(`.${Style.sideLeft}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.3")
-        .to(`.${Style.sideRight}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.5")
-        .to(`.${Style.lockupResidence}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
-        .to(`.${Style.lockupScript}`, { opacity: 1, duration: 0.5 }, "-=0.2")
-        .to(`.${Style.watermark}`, { opacity: 1, duration: 0.6 }, "-=0.4")
-        .to(`.${Style.preloaderFrame}`, { opacity: 1, duration: 0.6 }, "-=0.4")
-        .to(`.${Style.preloaderRule}`, { opacity: 1, duration: 0.5 }, "-=0.3")
-        .to(`.${Style.preloaderFoot}`, { opacity: 1, duration: 0.5 }, "-=0.3");
+      tl.to(`.${styles.preloaderGlyph}`, { opacity: 1, duration: 0.5 })
+        .to(`.${styles.lockupEra}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
+        .to(`.${styles.sideLeft}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.3")
+        .to(`.${styles.sideRight}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.5")
+        .to(`.${styles.lockupResidence}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
+        .to(`.${styles.lockupScript}`, { opacity: 1, duration: 0.5 }, "-=0.2")
+        .to(`.${styles.watermark}`, { opacity: 1, duration: 0.6 }, "-=0.4")
+        .to(`.${styles.preloaderFrame}`, { opacity: 1, duration: 0.6 }, "-=0.4")
+        .to(`.${styles.preloaderRule}`, { opacity: 1, duration: 0.5 }, "-=0.3")
+        .to(`.${styles.preloaderFoot}`, { opacity: 1, duration: 0.5 }, "-=0.3");
 
-      // 2. Lockup text fade out & Arch expansion showing BOTH SECTIONS inside
-      tl.to(`.${Style.lockup}`, { opacity: 0, scale: 1.08, duration: 0.8 }, "+=0.2")
+      // 2. Lockup fades, arch expands revealing the hero inside
+      tl.to(`.${styles.lockup}`, { opacity: 0, scale: 1.08, duration: 0.8 }, "+=0.2")
         .to(
           archRef.current,
           {
@@ -100,7 +100,7 @@ export default function LandingPage() {
             duration: 0.8,
             ease: "power1.inOut",
           },
-          "-=0.4"
+          "-=0.4",
         )
         .to(archRef.current, {
           width: "100vw",
@@ -117,108 +117,110 @@ export default function LandingPage() {
 
   const panel = HOTSPOTS.find((spot) => spot.id === active);
 
-  // DONO SECTIONS (Hero + Scene) ek hi wrapper me hain:
   const renderMainSections = () => (
-    <div className={Style.heroSceneWrapper}>
-      {/* Section 2: Hero */}
-      <header className={Style.hero}>
-        <div className={Style.heroInner}>
+    <div className={styles.heroSceneWrapper} style={{ backgroundImage: "url('/images/landingImg.webp')" }}>
+      <header className={styles.hero}>
+        <div className={styles.heroInner}>
           <h1>
-            <span className={Style.heroEra}>THE</span>
-            <span className={Style.heroResidence}>5 Minute</span>
-            <span className={Style.heroScript}>City Vashi</span>
+            <span className={styles.heroEra}>THE</span>
+            <span className={styles.heroResidence}>5 Minute</span>
+            <span className={styles.heroScript}>City Vashi</span>
           </h1>
         </div>
 
-        <div className={Style.heroTagline}>
-          <span className={Style.taglineWord}>A place</span>
+        <div className={styles.heroTagline}>
+          <span className={styles.taglineWord}>A place</span>
           <button
             type="button"
-            className={Style.toggle}
+            className={styles.toggle}
             onClick={() => setNight((value) => !value)}
             aria-pressed={night}
           >
-            <span className={night ? Style.toggleOff : Style.toggleOn}>By day</span>
-            <span className={Style.toggleTrack}>
-              <span className={Style.toggleKnob} style={{ left: night ? "100%" : "0%" }} />
+            <span className={night ? styles.toggleOff : styles.toggleOn}>By day</span>
+            <span className={styles.toggleTrack}>
+              <span className={styles.toggleKnob} style={{ left: night ? "100%" : "0%" }} />
             </span>
-            <span className={night ? Style.toggleOn : Style.toggleOff}>By night</span>
+            <span className={night ? styles.toggleOn : styles.toggleOff}>By night</span>
           </button>
-          <span className={Style.taglineWord}>To return to</span>
+          <span className={styles.taglineWord}>To return to</span>
         </div>
       </header>
-
-      {/* Section 3: Scene */}
-
     </div>
   );
 
   return (
-    <div className={Style.root}>
-      {/* ---------------- Section 1: Intro Section ---------------- */}
-      <section className={Style.introSection} ref={introRef}>
-        <span className={Style.preloaderFrame} />
-        <span className={Style.watermark}>Vashi</span>
-        <Glyph className={Style.preloaderGlyph} />
+    <div
+      className={styles.root}
+      style={{ ["--scene-img" as string]: "url('/images/landingImg.webp')" }}
+    >
 
-        <div className={Style.preloaderRow}>
-          {/* <span className={`${Style.side} ${Style.sideLeft}`}>Costa</span> */}
-          <span className={Style.lockup}>
-            <span className={Style.lockupEra}>THe</span>
-            <span className={Style.lockupResidence}><span className={Style.fivenum}>5</span> Minute City</span>
-            <span className={Style.lockupScript}>Time,Redefined </span>
+      {/* ---------------- Section 1: Intro ---------------- */}
+      <section className={styles.introSection} ref={introRef}>
+        <span className={styles.preloaderFrame} />
+        <span className={styles.watermark}>Vashi</span>
+        <Glyph className={styles.preloaderGlyph} />
+
+        <div className={styles.preloaderRow}>
+          <span className={styles.lockup}>
+            <span className={styles.lockupEra}>THe</span>
+            <span className={styles.lockupResidence}>
+              <span className={styles.fivenum}>5</span> Minute City
+            </span>
+            <span className={styles.lockupScript}>Time, Redefined</span>
           </span>
-          {/* <span className={`${Style.side} ${Style.sideRight}`}>Del Sol</span> */}
         </div>
 
-        <span className={Style.preloaderRule} />
-        <p className={Style.preloaderFoot}>
+        <span className={styles.preloaderRule} />
+        <p className={styles.preloaderFoot}>
           ev homes
           <br />
           A place to return to.
         </p>
 
-        {/* Arch Mask Container - Containing BOTH SECTIONS inside */}
-        <div className={Style.arch} ref={archRef}>
-          <div className={Style.archInnerWrapper}>
-            {renderMainSections()}
-          </div>
+        <div className={styles.arch} ref={archRef}>
+          <div className={styles.archInnerWrapper}>{renderMainSections()}</div>
         </div>
       </section>
 
-
-      {/* ---------------- Actual Main Content (Post Animation) ---------------- */}
-      <section className={Style.scene} id="apartments">
+      {/* ---------------- Section 2: Scene with hotspots ---------------- */}
+      {/* <section
+        className={styles.scene}
+        id="apartments"
+        style={{ backgroundImage: "url('/images/landingImg.webp')" }}
+      >
         {HOTSPOTS.map((spot) => (
           <button
             key={spot.id}
             type="button"
-            className={`${Style.hotspot} ${active === spot.id ? Style.hotspotActive : ""}`}
+            className={`${styles.hotspot} ${active === spot.id ? styles.hotspotActive : ""}`}
             style={{ left: spot.x, top: spot.y }}
             onClick={() => setActive(active === spot.id ? null : spot.id)}
             aria-label={spot.title}
           >
-            <span className={Style.hotspotPulse} />
+            <span className={styles.hotspotPulse} />
           </button>
         ))}
 
-        <button type="button" className={Style.sceneCta}>
-          <span>View available opportunity</span>
+        <button type="button" className={styles.sceneCta}>
+          <span>View available apartments</span>
         </button>
 
-        <aside className={`${Style.panel} ${panel ? Style.panelOpen : ""}`}>
+        <aside className={`${styles.panel} ${panel ? styles.panelOpen : ""}`}>
           <button
             type="button"
-            className={Style.panelClose}
+            className={styles.panelClose}
             onClick={() => setActive(null)}
             aria-label="Close"
           >
             ✕
           </button>
-          <h2 className={Style.panelTitle}>{panel?.title}</h2>
-          <p className={Style.panelBody}>{panel?.body}</p>
+          <h2 className={styles.panelTitle}>{panel?.title}</h2>
+          <p className={styles.panelBody}>{panel?.body}</p>
         </aside>
-      </section>
+      </section> */}
+
+      {/* ---------------- Sections 3+: the new scroll story ---------------- */}
+      {/* <WayVashi onTone={setTone} /> */}
     </div>
   );
 }
