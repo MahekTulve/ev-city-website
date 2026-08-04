@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
 .root {
   --wine: #050502;
   --wine-deep: #060405;
@@ -133,7 +134,7 @@
   line-height: 0.86;
   letter-spacing: 0.01em;
   text-transform: uppercase;
-   font-family: "Cinzel", serif;
+  font-family: "Cinzel", serif;
 }
 
 .lockupEra {
@@ -235,7 +236,7 @@
 .heroSceneWrapper {
   position: relative;
   width: 100%;
-  background-image: url('/images/landingImg.webp');
+  background-image: "/images/landingImg.webp";
   background-size: cover;
   background-position: center top;
   background-repeat: no-repeat;
@@ -355,7 +356,7 @@
 .scene {
   position: relative;
   min-height: 100vh;
-  background-image: url('/images/landingImg.webp');
+  background-image: "/images/landingImg.webp";
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -548,5 +549,84 @@
 
   .panelOpen {
     translate: 50% -50%;
+  }
+}
+
+/* ---------------- Persistent chrome ---------------- */
+
+.badge {
+  position: fixed;
+  top: 2.2rem;
+  left: 2.2rem;
+  width: 6.5rem;
+  height: 6.5rem;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  color: currentColor;
+}
+
+.badgeRing {
+  position: absolute;
+  inset: 0;
+  animation: spin 26s linear infinite;
+}
+
+.badgeGlyph {
+  width: 2rem;
+}
+
+.rail {
+  position: fixed;
+  left: 3.2rem;
+  top: 50%;
+  translate: 0 -50%;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4rem;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+}
+
+.railLine {
+  width: 1px;
+  height: 5rem;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.railScroll {
+  writing-mode: vertical-rl;
+  text-transform: uppercase;
+}
+
+.chromeLight {
+  color: #f6f1e7;
+}
+
+.chromeDark,
+.chromeDark a,
+.chromeDark span,
+.chromeDark svg,
+.chromeDark text {
+  color: #0d1b26;
+  fill: #0d1b26;
+  border-color: #0d1b26;
+}
+
+.chromeDark a::after,
+.chromeDark i,
+.chromeDark hr,
+.chromeDark .railLine {
+  background: #0d1b26;
+  opacity: 0.5;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
   }
 }

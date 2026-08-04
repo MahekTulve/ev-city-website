@@ -23,6 +23,7 @@ import { MeshGradient } from "@paper-design/shaders-react";
 import { OptimizedShader } from "./OptimizedShader";
 import LandingPage from "../LandingPage";
 import CinematicPlacesGallery from "./CinematicPlacesGallery";
+import WayVashi from "../wayVashi";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -30,6 +31,7 @@ const FINISH_HOLD = 300; // ms pause after last word before heading appears
 
 export default function ZoomParallaxDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [tone, setTone] = useState<"light" | "dark">("light");
 
   // States for tracking the animation timeline
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -359,7 +361,7 @@ export default function ZoomParallaxDemo() {
       <div data-section>
         <LandingPage />
       </div>
-
+      <WayVashi onTone={setTone} />
       {/* <AboutFiveMinute /> */}
 
       <div ref={containerRef} data-section className="relative h-[600vh] w-full ">
