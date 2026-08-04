@@ -31,7 +31,14 @@ const FINISH_HOLD = 300; // ms pause after last word before heading appears
 
 export default function ZoomParallaxDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
+
   const [tone, setTone] = useState<"light" | "dark">("light");
+
+  const cinematicTextRef = useRef<HTMLDivElement>(null);
+
+  const [isCinematicVisible, setIsCinematicVisible] = useState(false);
+  const [sparkleBurstKey, setSparkleBurstKey] = useState(0);
+
 
   // States for tracking the animation timeline
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -44,6 +51,63 @@ export default function ZoomParallaxDemo() {
   const introText =
     "EV HOMES PRESENTS THE FUTURE OF CONNECTED LIVING WHERE EVERYTHING YOU NEED IS JUST FIVE MINUTES AWAY";
   const introWords = introText.split(" ");
+
+  /*
+   * Keep the sparkle burst synchronized with CinematicText without editing
+   * cinematicTex.tsx. Its active slide already updates aria-hidden, so this
+   * observer restarts the particles whenever that active slide changes.
+   */
+  useEffect(() => {
+    const cinematicSection = cinematicTextRef.current;
+
+    if (!cinematicSection) return;
+
+    let activeSlideSignature = "";
+
+    const triggerForActiveSlide = (force = false) => {
+      const activeSlide = cinematicSection.querySelector<HTMLElement>(
+        '[aria-hidden="false"]',
+      );
+
+      const signature = activeSlide?.textContent?.trim() ?? "";
+
+      if (signature && (force || signature !== activeSlideSignature)) {
+        activeSlideSignature = signature;
+        setSparkleBurstKey((current) => current + 1);
+      }
+    };
+
+    const slideObserver = new MutationObserver(() => {
+      triggerForActiveSlide();
+    });
+
+    slideObserver.observe(cinematicSection, {
+      subtree: true,
+      attributes: true,
+      attributeFilter: ["aria-hidden"],
+    });
+
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        const visible = entry.isIntersecting;
+        setIsCinematicVisible(visible);
+
+        // Give an immediate burst when the user reaches the text section.
+        if (visible) {
+          triggerForActiveSlide(true);
+        }
+      },
+      { threshold: 0.15 },
+    );
+
+    visibilityObserver.observe(cinematicSection);
+    triggerForActiveSlide();
+
+    return () => {
+      slideObserver.disconnect();
+      visibilityObserver.disconnect();
+    };
+  }, []);
 
   // Handle the flashing word intro
   useEffect(() => {
@@ -332,21 +396,44 @@ export default function ZoomParallaxDemo() {
             <OptimizedShader
               className={styles.sharedShader}
               colors={[
-                "#000000",
-                "#0a0401",
-                "#1F1611",
-                "#523828",
-                "#4e3e10",
-                "#251a04",
+                // "#000000",
+                // "#01040a",
+                // "#1F1611",
+                // "#523828",
+                // "#4e3e10",
+                // "#251a04",
+
+                // option 1
+                 "#010101",
+                "#050608",
+                "#10131b",
+                "#1b2232",
+                "#12161e",
+                "#020202",
+
+                //option 2
+                //  "#020202",
+                // "#100b1f",
+                // "#1a1622",
+                // "#1c1a2b",
+                // "#181620",
+                // "#0f0a13",
+
               ]}
-              speed={0.25}
+              speed={0.6}
+              showParticles={isCinematicVisible}
+              particleColor="#e6c98d"
+              particleCount={48}
+              particleLayout="text"
+              continuous={true}
+              burstKey={sparkleBurstKey}
             />
             <div className={styles.sharedShaderOverlay} />
           </div>
         </div>
 
         <div className={styles.sharedSequenceContent}>
-          <div data-section>
+          <div ref={cinematicTextRef} data-section>
             <CinematicText />
           </div>
 
