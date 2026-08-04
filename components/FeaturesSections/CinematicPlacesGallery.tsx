@@ -303,9 +303,9 @@ export default function CinematicPlacesGallery() {
         exit: {
           top: "8%",
           left: "12%",
-          width: "76%",
+          width: "70%",
           height: "58%",
-          cardBottomRadius: "80px",
+          cardBottomRadius: "300px",
           sceneHeight: "72%",
           sceneBottomRadius: "50px",
         },
