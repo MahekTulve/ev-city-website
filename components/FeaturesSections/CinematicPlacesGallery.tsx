@@ -14,6 +14,7 @@ import styles from "./CinematicPlacesGallery.module.css";
 type VideoItem = {
   id: number;
   src: string;
+  mobileSrc?: string;
   poster?: string;
   ariaLabel: string;
 };
@@ -51,12 +52,13 @@ const VIDEOS: VideoItem[] = [
     poster: "/images/ocean-room-poster.jpg",
     ariaLabel: "Ocean-facing luxury interior",
   },
-  {
-    id: 2,
-    src: "/images/vid4.mp4",
-    poster: "/images/concrete-stairs-poster.jpg",
-    ariaLabel: "Modern concrete staircase",
-  },
+{
+  id: 2,
+  src: "/videos/city-desktop.mp4",
+  mobileSrc: "/videos/city-mob.mp4",
+  poster: "/images/concrete-stairs-poster.jpg",
+  ariaLabel: "Modern city view",
+},
   {
     id: 3,
     src: "/images/vid3.mp4",
@@ -133,6 +135,10 @@ function AutoPlayVideo({
   priority?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const isSmallMobile = useMediaQuery("(max-width: 480px)");
+
+  const videoSrc =
+    isSmallMobile && item.mobileSrc ? item.mobileSrc : item.src;
 
   useEffect(() => {
     const video = videoRef.current;
@@ -140,6 +146,9 @@ function AutoPlayVideo({
 
     video.muted = true;
     video.defaultMuted = true;
+
+    // Reload when switching between mobile and desktop video
+    video.load();
 
     const play = () => {
       void video.play().catch(() => undefined);
@@ -153,19 +162,23 @@ function AutoPlayVideo({
           video.pause();
         }
       },
-      { rootMargin: "200px 0px", threshold: 0.01 },
+      {
+        rootMargin: "200px 0px",
+        threshold: 0.01,
+      },
     );
 
     observer.observe(video);
 
     return () => observer.disconnect();
-  }, []);
+  }, [videoSrc]);
 
   return (
     <video
       ref={videoRef}
+      key={videoSrc}
       className={className}
-      src={item.src}
+      src={videoSrc}
       poster={item.poster}
       aria-label={item.ariaLabel}
       muted
