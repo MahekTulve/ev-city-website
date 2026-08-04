@@ -6,16 +6,30 @@ import StackFeatureSection from "@/components/scrollvideo/StackFeatureSection";
 export default function Home() {
   return (
     <main>
-      <div data-section>
+           <div data-section className="h-screen w-full overflow-hidden">
         <video
-          src="/images/ev_city_vid.mp4"
           autoPlay
           muted
           loop
           playsInline
-          className="w-full h-screen object-cover"
-        />
+          preload="auto"
+          className="h-full w-full object-cover"
+        >
+          {/* Mobile video */}
+          <source
+            src="/videos/intro-mob.mp4"
+            type="video/mp4"
+            media="(max-width: 480px)"
+          />
+
+          {/* Tablet and desktop video */}
+          <source
+            src="/videos/intro-desktop.mp4"
+            type="video/mp4"
+          />
+        </video>
       </div>
+
 
       <Badge />
       {/* <ScrollVideo src="/images/ev_city_scrub.mp4" scrollLength={5} /> */}
