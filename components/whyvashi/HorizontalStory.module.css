@@ -1,0 +1,529 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  background-color: #f5efeb;
+  color: #14213a;
+  font-family: var(--concept-sans, "Jost", "Helvetica Neue", Arial, sans-serif);
+  --concept-serif: "Playfair Display", Didot, Georgia, serif;
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.panel {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ---------- persistent chrome ---------- */
+
+.logo {
+  position: fixed;
+  top: 2rem;
+  left: 3rem;
+  z-index: 6;
+  width: 4.25rem;
+  height: 4.25rem;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.nav {
+  position: fixed;
+  top: 2rem;
+  right: 3rem;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  text-align: right;
+}
+
+.navPrimary {
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid currentColor;
+  font-family: var(--concept-serif);
+  font-size: 1rem;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+.rail {
+  position: fixed;
+  left: 3.25rem;
+  top: 50%;
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  transform: translateY(-50%);
+}
+
+.railNumber {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  opacity: 0.7;
+}
+
+.railLabel {
+  writing-mode: vertical-rl;
+  font-size: 0.625rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.railLine {
+  width: 1px;
+  height: 4.5rem;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+/* ---------- panel 2: New Golden Mile ---------- */
+
+.golden {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 0 0 8rem;
+}
+
+.goldenType {
+  position: relative;
+  z-index: 2;
+  font-family: var(--concept-serif);
+  font-weight: 400;
+  font-size: clamp(2.25rem, 6vw, 8rem);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.goldenType span {
+  display: block;
+}
+
+.goldenType span:nth-child(2) {
+  margin-left: 2.5rem;
+}
+
+.goldenType span:nth-child(3) {
+  margin-left: 5rem;
+}
+
+.spain {
+  position: absolute;
+  left: 8rem;
+  bottom: 30%;
+  font-size: 0.6875rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+.goldenImage {
+  position: absolute;
+  right: 30vw;
+  top: 0;
+  z-index: 3;
+  width: 26vw;
+  height: 90%;
+  object-fit: cover;
+}
+
+.caption {
+  position: absolute;
+  right: 3vw;
+  bottom: 4rem;
+  z-index: 4;
+  max-width: 18rem;
+}
+
+.captionTitle {
+  font-family: var(--concept-serif);
+  font-size: 0.95rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.captionBody {
+  margin-top: 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.8;
+  opacity: 0.7;
+}
+
+.cta {
+  position: absolute;
+  right: 6vw;
+  top: 50%;
+  z-index: 4;
+  font-size: 0.625rem;
+  line-height: 1.9;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  transform: translateY(-50%);
+}
+
+/* ---------- panel 3: route / timeline ---------- */
+
+.coast {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5rem 4rem 3rem;
+}
+
+.coastFlower {
+  position: absolute;
+  top: -20%;
+  right: -8%;
+  z-index: 0;
+  width: clamp(320px, 34vw, 620px);
+  object-fit: contain;
+  pointer-events: none;
+  transform: rotate(182deg);
+}
+
+.timeline {
+  position: relative;
+  z-index: 2;
+  width: min(80rem, 100%);
+}
+
+.routeStage {
+  --route-height: 90px;
+  --stop-gap: 2px;
+  position: relative;
+  width: 100%;
+  height: clamp(400px, 52vh, 500px);
+}
+
+.timelineSvg {
+  position: absolute;
+  left: 0;
+  /* Adjust bottom offset (e.g., -20px or lower clamp) to bring the line further down */
+  bottom: -80px;
+  width: 100%;
+  height: var(--route-height);
+  display: block;
+  overflow: visible;
+}
+
+.timelineEndDot {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+.timelinePath {
+  will-change: stroke-dashoffset;
+}
+
+.timelineDot {
+  transform-box: fill-box;
+  transform-origin: center;
+  will-change: transform, opacity;
+}
+
+/* One complete unit: building -> location name -> time. */
+.stopItem {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  /* Increased base clamp width */
+  width: clamp(33rem, 14vw, 14rem);
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transform-origin: bottom center;
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+.stopArtwork {
+  display: flex;
+  width: 100%;
+  /* Increased height from 8.5rem - 10.5rem to 11rem - 14rem */
+  height: clamp(19rem, 16vw, 22rem);
+  margin-bottom: 0.65rem;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible;
+}
+
+.stopImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 12px 15px rgb(20 33 58 / 14%));
+}
+
+.stopName {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  font-size: 0.56rem;
+  line-height: 1.35;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.stopTime {
+  display: block;
+  margin-top: 0.28rem;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track,
+  .timelinePath,
+  .timelineDot,
+  .stopItem,
+  .stopArtwork {
+    will-change: auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .rail,
+  .nav,
+  .logo {
+    display: none;
+  }
+
+  /* ---------- tablet: golden panel ---------- */
+  .golden {
+    align-items: center;
+    padding: 0 2rem;
+  }
+
+  .goldenType {
+    z-index: 4;
+    font-size: clamp(3.25rem, 8vw, 5rem);
+    line-height: 0.9;
+  }
+
+  .goldenType span:nth-child(2) {
+    margin-left: 1.25rem;
+  }
+
+  .goldenType span:nth-child(3) {
+    margin-left: 2.5rem;
+  }
+
+  .goldenImage {
+    top: 10vh;
+    right: 1.5rem;
+    width: min(48vw, 25rem);
+    height: 78vh;
+    opacity: 0.88;
+  }
+
+  .spain {
+    left: 2rem;
+    bottom: 17%;
+  }
+
+  .cta,
+  .caption {
+    display: none;
+  }
+
+  /* ---------- tablet: route panel ---------- */
+  .coast {
+    justify-content: center;
+    padding: 3.5rem 1rem 2rem;
+  }
+
+  .coastFlower {
+    top: -10%;
+    right: -10%;
+    width: clamp(260px, 46vw, 430px);
+    opacity: 0.72;
+  }
+
+  .timeline {
+    width: 100%;
+  }
+
+  .routeStage {
+    --route-height: 72px;
+    --stop-gap: 7px;
+    width: 72%;
+    height: clamp(280px, 43vh, 370px);
+    margin-inline: auto;
+  }
+
+  /* Keep the SVG dots and the building groups on the same baseline. */
+  .timelineSvg {
+    bottom: 0;
+  }
+
+  .stopItem {
+    width: clamp(4rem, 9.5vw, 5.4rem);
+  }
+
+  .stopArtwork {
+    width: 100%;
+    height: clamp(5.5rem, 13vw, 7.25rem);
+    margin-bottom: 0.42rem;
+  }
+
+  .stopImage {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  .stopName {
+    max-width: 100%;
+    font-size: clamp(0.38rem, 0.8vw, 0.48rem);
+    line-height: 1.25;
+    letter-spacing: 0.06em;
+  }
+
+  .stopTime {
+    margin-top: 0.18rem;
+    font-size: clamp(0.34rem, 0.7vw, 0.42rem);
+    letter-spacing: 0.04em;
+  }
+}
+
+@media (max-width: 520px) {
+  /* ---------- mobile: golden panel ---------- */
+  .golden {
+    align-items: flex-start;
+    justify-content: center;
+    padding: 12vh 1rem 0;
+  }
+
+  .goldenType {
+    width: 100%;
+    font-size: clamp(2.6rem, 13vw, 4rem);
+    line-height: 0.88;
+  }
+
+  .goldenType span:nth-child(2) {
+    margin-left: 0.75rem;
+  }
+
+  .goldenType span:nth-child(3) {
+    margin-left: 1.5rem;
+  }
+
+  .goldenImage {
+    top: 37%;
+    right: -10vw;
+    width: 82vw;
+    height: 58vh;
+    opacity: 0.78;
+  }
+
+  .spain {
+    left: 1.25rem;
+    bottom: 5rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.38em;
+  }
+
+  /* ---------- mobile: route panel ---------- */
+  .coast {
+    justify-content: center;
+    padding: 2.5rem 0.25rem 1rem;
+  }
+
+  .coastFlower {
+    top: -4%;
+    right: -24%;
+    width: 76vw;
+    opacity: 0.55;
+  }
+
+  .timeline {
+    width: 100%;
+  }
+
+  .routeStage {
+    --route-height: 58px;
+    --stop-gap: 5px;
+    width: 72%;
+    height: clamp(235px, 39vh, 300px);
+    margin-inline: auto;
+  }
+
+  .timelineSvg {
+    bottom: 0;
+  }
+
+  .stopItem {
+    width: clamp(2.5rem, 11.5vw, 3.2rem);
+  }
+
+  .stopArtwork {
+    width: 100%;
+    height: clamp(4.5rem, 18vw, 5.6rem);
+    margin-bottom: 0.3rem;
+  }
+
+  .stopImage {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+    object-position: center bottom;
+  }
+
+  .stopName {
+    max-width: 100%;
+    font-size: clamp(0.31rem, 1.4vw, 0.39rem);
+    line-height: 1.2;
+    letter-spacing: 0.025em;
+  }
+
+  .stopTime {
+    margin-top: 0.12rem;
+    font-size: clamp(0.29rem, 1.25vw, 0.36rem);
+    letter-spacing: 0.02em;
+  }
+}

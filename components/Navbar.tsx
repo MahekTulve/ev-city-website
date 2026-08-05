@@ -154,6 +154,9 @@ export const Navbar: React.FC = () => {
               <Link href="/about" className={styles.lnNavbarLink}>
                 About
               </Link>
+               <Link href="/vashi" className={styles.lnNavbarLink}>
+                Why Vashi?
+              </Link>
               <Link href="/features" className={styles.lnNavbarLink}>
                 Projects
               </Link>
