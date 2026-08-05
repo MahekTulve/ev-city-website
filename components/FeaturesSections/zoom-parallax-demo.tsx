@@ -24,6 +24,7 @@ import { OptimizedShader } from "./OptimizedShader";
 import LandingPage from "../LandingPage";
 import CinematicPlacesGallery from "./CinematicPlacesGallery";
 import WayVashi from "../wayVashi";
+import HorizontalStory from "../whyvashi/HorizontalStory";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -404,7 +405,7 @@ export default function ZoomParallaxDemo() {
                 // "#251a04",
 
                 // option 1
-                 "#010101",
+                "#010101",
                 "#050608",
                 "#10131b",
                 "#1b2232",
@@ -441,14 +442,15 @@ export default function ZoomParallaxDemo() {
           <div data-section>
             <CinematicPlacesGallery />
           </div>
-
+          <div data-section>
+            <LandingPage />
+          </div>
 
         </div>
       </section>
-      <div data-section>
-        <LandingPage />
-      </div>
+
       <WayVashi onTone={setTone} />
+      <HorizontalStory />
       {/* <AboutFiveMinute /> */}
 
       <div ref={containerRef} data-section className="relative h-[600vh] w-full ">
