@@ -346,22 +346,22 @@ export default function CinematicPlacesGallery() {
     }
 
     return {
-      start: {
-        top: "28%",
-        left: "26.6%",
-        width: "46.8%",
-        height: "34%",
-      },
-      exit: {
-        top: "8%",
-        left: "38%",
-        width: "24%",
-        height: "80%",
-        cardBottomRadius: "190px",
-        sceneHeight: "92%",
-        sceneBottomRadius: "130px",
-      },
-    };
+  start: {
+    top: "28%",
+    left: "26.6%",
+    width: "46.8%",
+    height: "34%",
+  },
+  exit: {
+    top: "8%",
+    left: "29%",   // adjusted to keep it centered
+    width: "42%",  // increased from 32%
+    height: "80%",
+    cardBottomRadius: "220px",
+    sceneHeight: "92%",
+    sceneBottomRadius: "86px",
+  },
+};
   }, [isMobile, isTablet]);
 
   const sceneHeight = useTransform(

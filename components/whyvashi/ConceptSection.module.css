@@ -1,0 +1,205 @@
+.section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #f5efeb;
+  color: #14213a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8rem 1.5rem;
+}
+
+/* ---------- Flower videos ---------- */
+
+.flower {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  object-fit: contain;
+  will-change: transform;
+}
+
+.flowerTopLeft {
+  top: -10%;
+  left: -10%;
+  width: clamp(420px, 42vw, 780px);
+  transform: rotate(-4deg);
+  animation: sway 11s ease-in-out infinite;
+  transform-origin: top left;
+}
+
+.flowerBottomRight {
+  right: -6%;
+  bottom: -12%;
+  width: clamp(360px, 36vw, 680px);
+  transform: rotate(184deg);
+  animation: swayAlt 13s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@keyframes sway {
+  0%,
+  100% {
+    transform: rotate(-4deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(-1.5deg) translate3d(6px, 10px, 0);
+  }
+}
+
+@keyframes swayAlt {
+  0%,
+  100% {
+    transform: rotate(184deg) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: rotate(181deg) translate3d(8px, 10px, 0);
+  }
+}
+
+/* ---------- Side rails ---------- */
+
+.rail {
+  position: absolute;
+  left: 3.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.railNumber {
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  color: #14213a;
+  opacity: 0.7;
+}
+
+.railLabel {
+  writing-mode: vertical-rl;
+  font-size: 0.625rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.railLine {
+  width: 1px;
+  height: 4.5rem;
+  background: currentColor;
+  opacity: 0.35;
+}
+
+.nav {
+  position: absolute;
+  top: 2rem;
+  right: 3rem;
+  z-index: 3;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.navPrimary {
+  font-family: var(--concept-serif, "Playfair Display", "Didot", Georgia, serif);
+  font-size: 1rem;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 0.35rem;
+}
+
+.navLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.625rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* ---------- Content ---------- */
+
+.content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 60rem;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.eyebrow {
+  font-size: 0.625rem;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  opacity: 0.65;
+  margin-bottom: 2.25rem;
+}
+
+.headline {
+  font-family: var(--concept-serif, "Playfair Display", "Didot", Georgia, serif);
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: clamp(1.5rem, 3.1vw, 2.7rem);
+  line-height: 1.16;
+  letter-spacing: 0.005em;
+  margin: 0 auto;
+  max-width: 44ch;
+}
+
+.body {
+  margin: 2.5rem auto 0;
+  max-width: 26rem;
+  font-size: 0.8125rem;
+  line-height: 1.85;
+  opacity: 0.7;
+}
+
+.ornament {
+  margin: 3rem auto 0;
+  width: 4rem;
+  height: 3rem;
+  opacity: 0.9;
+}
+
+@media (max-width: 900px) {
+  .rail,
+  .nav {
+    display: none;
+  }
+  .section {
+    padding: 6rem 1.25rem;
+  }
+  .flowerTopLeft {
+    width: 62vw;
+    top: -6%;
+    left: -18%;
+  }
+  .flowerBottomRight {
+    width: 58vw;
+    right: -20%;
+    bottom: -6%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flowerTopLeft,
+  .flowerBottomRight {
+    animation: none;
+  }
+}
+
+.section {
+  font-family: var(--concept-sans, "Jost", "Helvetica Neue", Arial, sans-serif);
+  --concept-serif: "Playfair Display", Didot, Georgia, serif;
+}
