@@ -118,7 +118,11 @@ export default function LandingPage() {
   const panel = HOTSPOTS.find((spot) => spot.id === active);
 
   const renderMainSections = () => (
-    <div className={styles.heroSceneWrapper} style={{ backgroundImage: "url('/images/landingImg.webp')" }}>
+    <div className={styles.heroSceneWrapper} style={{
+      backgroundImage: night
+        ? "url('/images/vashiCitybbbb.jpg')"
+        : "url('/images/vashicityDayOne.png')"
+    }}>
       <header className={styles.hero}>
         <div className={styles.heroInner}>
           <h1>

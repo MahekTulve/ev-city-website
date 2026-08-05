@@ -1,5 +1,6 @@
 import { ProcessTimeline } from "@/components/5min-citySections/ProcessTimeline";
 import "@/components/5min-citySections/process.css";
+import VashiIsLit from "@/components/ev-city/VashiIsLit";
 
 export const metadata = {
   title: "EV 5 Minute City",
@@ -10,6 +11,7 @@ export const metadata = {
 export default function CityPage() {
   return (
     <main>
+       <VashiIsLit/>
       <ProcessTimeline />
     </main>
   );

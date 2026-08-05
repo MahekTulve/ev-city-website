@@ -8,7 +8,7 @@
   --wine-deep: #060405;
   --cream: #f6f1e7;
   min-height: 100vh;
-  background: var(--wine-deep);
+  /* background: var(--wine-deep); */
   color: var(--cream);
   font-family: "Jost", sans-serif;
   overflow-x: hidden;
@@ -20,7 +20,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  background: var(--wine);
+  /* background: var(--wine); */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -143,7 +143,7 @@
 }
 
 .lockupResidence {
-  font-size: clamp(3.4rem, 8.5vw, 8.5vw);
+  font-size: clamp(3.4rem, 9.5vw, 9.5vw);
   opacity: 0;
 }
 
@@ -236,9 +236,8 @@
 .heroSceneWrapper {
   position: relative;
   width: 100%;
-  background-image: "/images/landingImg.webp";
   background-size: cover;
-  background-position: center top;
+  background-position: center bottom;
   background-repeat: no-repeat;
 }
 
