@@ -130,7 +130,7 @@ export default function WayVashi({ onTone }: { onTone?: (tone: "light" | "dark")
       <section
         className={styles.archStage}
         ref={stageRef}
-        style={{ backgroundImage: "url('/images/landingImg.webp')" }}
+        style={{ backgroundImage: "url('/images/VashiCity2.jpg')" }}
       >
         <div className={styles.dome} ref={domeRef}>
           <svg className={styles.curvedText} viewBox="0 0 1200 340" aria-hidden="true">

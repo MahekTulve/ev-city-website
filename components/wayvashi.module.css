@@ -5,6 +5,7 @@
   position: relative;
   color: var(--ink);
   font-family: "Jost", sans-serif;
+  
 }
 
 /* -------- Arch (dome) reveal over the scene -------- */
@@ -15,7 +16,7 @@
   width: 100%;
   overflow: hidden;
   background-size: cover;
-  background-position: center;
+  background-position: center top;
 }
 
 .dome {
