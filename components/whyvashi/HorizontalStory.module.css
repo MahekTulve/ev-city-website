@@ -217,7 +217,7 @@
 .timeline {
   position: relative;
   z-index: 2;
-  width: min(94rem, calc(100vw - 12rem));
+  width: min(98rem, calc(100vw - 12rem));
   margin-inline: auto;
 }
 
@@ -549,4 +549,10 @@
 .malibuImage {
   transform: scale(1.35);
 }
+}
+
+/* Keep the responsive SVG and its clip-path in the same compositing layer. */
+.timelineSvg,
+.timelinePath {
+  shape-rendering: geometricPrecision;
 }

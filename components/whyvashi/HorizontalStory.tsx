@@ -1,21 +1,30 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
 
 const PANELS = 3;
-const SCROLL_LENGTH_VH = 420;
-const HORIZONTAL_END = 0.72;
-const TIMELINE_START = 0.75;
+const SCROLL_LENGTH_VH = 400;
 
-const PATH_WIDTH = 1480;
-const PATH_HEIGHT = 100;
+// 0.00 -> 0.60 : Move horizontally from panel 1 to panel 3.
+// 0.55 -> 0.85 : Reveal the route line and buildings.
+// 0.85 -> 1.00 : Hold panel 3 before the sticky section releases.
+const HORIZONTAL_END = 0.6;
+const TIMELINE_START = 0.55;
+const TIMELINE_END = 0.85;
 
 /*
-  The route now uses evenly distributed points so every building,
-  label and dot lines up like the reference design.
-*/
+ * Keep the SVG in one fixed coordinate system.
+ * The browser scales this viewBox to every screen size, so do not change
+ * PATH_WIDTH to 1944 for larger screens. The line and dots remain connected
+ * because both use the same SVG coordinates.
+ */
+const PATH_WIDTH = 1480;
+const PATH_HEIGHT = 100;
+const PATH_SIDE_PADDING = 36;
+const PATH_END_X = PATH_WIDTH - PATH_SIDE_PADDING;
+
 const PATH_D = [
   "M36 70",
   "C120 72 205 46 285 52",
@@ -23,7 +32,7 @@ const PATH_D = [
   "C625 60 690 45 775 54",
   "C875 64 915 82 1020 74",
   "C1110 67 1170 45 1265 52",
-  "C1340 57 1395 58 1444 58",
+  `C1340 57 1395 58 ${PATH_END_X} 58`,
 ].join(" ");
 
 const STOPS = [
@@ -73,10 +82,10 @@ const STOPS = [
     name: "PARKSIDE VISTA",
     time: "45 min",
     image: "/images/parkside-vista.png",
-    x: 1444,
+    x: PATH_END_X,
     y: 58,
   },
-];
+] as const;
 
 const clamp = (value: number, min = 0, max = 1) =>
   Math.min(max, Math.max(min, value));
@@ -87,6 +96,11 @@ const mapProgress = (value: number, start: number, end: number) =>
 export default function HorizontalStory() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+
+  // A unique SVG clip-path ID prevents collisions if this component is
+  // rendered more than once on the same page.
+  const generatedId = useId();
+  const routeClipId = `route-clip-${generatedId.replace(/:/g, "")}`;
 
   useEffect(() => {
     let targetProgress = 0;
@@ -151,8 +165,24 @@ export default function HorizontalStory() {
   }, []);
 
   const horizontalProgress = mapProgress(progress, 0, HORIZONTAL_END);
-  const timelineProgress = mapProgress(progress, TIMELINE_START, 1);
+  const timelineProgress = mapProgress(
+    progress,
+    TIMELINE_START,
+    TIMELINE_END
+  );
+
   const shift = horizontalProgress * (PANELS - 1) * 100;
+
+  /*
+   * Reveal the path with an SVG clip rectangle instead of stroke-dasharray.
+   * stroke-dasharray/pathLength can render differently after a non-uniform
+   * responsive SVG scale. The clip rectangle uses the exact same viewBox as
+   * the line and dots, so the route always reaches the final dot.
+   */
+  const routeRevealWidth =
+    timelineProgress >= 0.999
+      ? PATH_WIDTH
+      : Math.min(PATH_WIDTH, PATH_WIDTH * timelineProgress + 2);
 
   return (
     <div
@@ -161,14 +191,6 @@ export default function HorizontalStory() {
       style={{ height: `${SCROLL_LENGTH_VH}vh` }}
     >
       <div className={styles.sticky}>
-        {/* <div className={styles.rail}>
-          <span className={styles.railNumber}>
-            {String(Math.round(progress * 15)).padStart(2, "0")}
-          </span>
-          <span className={styles.railLabel}>Scroll</span>
-          <span className={styles.railLine} />
-        </div> */}
-
         <div
           className={styles.track}
           style={{ transform: `translate3d(-${shift}vw, 0, 0)` }}
@@ -226,28 +248,39 @@ export default function HorizontalStory() {
                   preserveAspectRatio="none"
                   aria-hidden="true"
                 >
+                  <defs>
+                    <clipPath
+                      id={routeClipId}
+                      clipPathUnits="userSpaceOnUse"
+                    >
+                      <rect
+                        x="0"
+                        y="-10"
+                        width={routeRevealWidth}
+                        height={PATH_HEIGHT + 20}
+                      />
+                    </clipPath>
+                  </defs>
+
                   <path
                     className={styles.timelinePath}
                     d={PATH_D}
-                    pathLength={1}
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="1.4"
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     vectorEffect="non-scaling-stroke"
-                    style={{
-                      strokeDasharray: 1,
-                      strokeDashoffset: 1 - timelineProgress,
-                    }}
+                    clipPath={`url(#${routeClipId})`}
                   />
 
                   {STOPS.map((stop, index) => {
-                    const revealPoint = (index / (STOPS.length - 1)) * 0.94;
+                    const revealPoint =
+                      (index / (STOPS.length - 1)) * 0.94;
                     const dotProgress = mapProgress(
                       timelineProgress,
                       revealPoint,
-                      Math.min(1, revealPoint + 0.055),
+                      Math.min(1, revealPoint + 0.055)
                     );
 
                     return (
@@ -256,7 +289,9 @@ export default function HorizontalStory() {
                         key={stop.name}
                         cx={stop.x}
                         cy={stop.y}
-                        r={index === 0 || index === STOPS.length - 1 ? 4 : 3.4}
+                        r={
+                          index === 0 || index === STOPS.length - 1 ? 4 : 3.4
+                        }
                         fill="currentColor"
                         style={{
                           opacity: dotProgress,
@@ -268,15 +303,17 @@ export default function HorizontalStory() {
                 </svg>
 
                 {STOPS.map((stop, index) => {
-                  const revealPoint = (index / (STOPS.length - 1)) * 0.9;
+                  const revealPoint =
+                    (index / (STOPS.length - 1)) * 0.9;
                   const stopProgress = mapProgress(
                     timelineProgress,
                     revealPoint,
-                    Math.min(1, revealPoint + 0.065),
+                    Math.min(1, revealPoint + 0.065)
                   );
 
                   const xPercentage = (stop.x / PATH_WIDTH) * 100;
-                  const dotBottomRatio = (PATH_HEIGHT - stop.y) / PATH_HEIGHT;
+                  const dotBottomRatio =
+                    (PATH_HEIGHT - stop.y) / PATH_HEIGHT;
 
                   return (
                     <div
@@ -286,9 +323,7 @@ export default function HorizontalStory() {
                         left: `${xPercentage}%`,
                         bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,
                         opacity: stopProgress,
-                        transform: `translateX(-50%) translateY(${
-                          (1 - stopProgress) * 20
-                        }px) scale(${0.9 + stopProgress * 0.1})`,
+                        transform: `translateX(-50%) translateY(${(1 - stopProgress) * 20}px) scale(${0.9 + stopProgress * 0.1})`,
                       }}
                     >
                       <span className={styles.stopArtwork}>
