@@ -215,12 +215,19 @@ const [isNight, setIsNight] = useState(false);
 
   useEffect(() => {
     const lenis = new Lenis();
-    function raf(time: number) {
+    let frameId = 0;
+
+    const raf = (time: number) => {
       lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-    return () => lenis.destroy();
+      frameId = window.requestAnimationFrame(raf);
+    };
+
+    frameId = window.requestAnimationFrame(raf);
+
+    return () => {
+      window.cancelAnimationFrame(frameId);
+      lenis.destroy();
+    };
   }, []);
 
   const videos = [
@@ -392,7 +399,7 @@ const [isNight, setIsNight] = useState(false);
         </AnimatePresence>
       </motion.div> */}
       <section className={styles.sharedSequence}>
-        {/* One shader used by both sections */}
+       
         <div className={styles.sharedShaderTrack} aria-hidden="true">
           <div className={styles.sharedShaderSticky}>
 
