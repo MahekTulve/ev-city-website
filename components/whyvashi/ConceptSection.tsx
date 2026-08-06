@@ -22,7 +22,7 @@ export default function ConceptSection({
         preload="auto"
         aria-hidden="true"
       />
-      <video
+      {/* <video
         className={`${styles["flower"]} ${styles["flowerBottomRight"]}`}
         src=""
         autoPlay
@@ -31,7 +31,7 @@ export default function ConceptSection({
         playsInline
         preload="auto"
         aria-hidden="true"
-      />
+      /> */}
 
       {!hideChrome && (
         <>
