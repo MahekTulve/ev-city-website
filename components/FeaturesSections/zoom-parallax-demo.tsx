@@ -33,8 +33,7 @@ const FINISH_HOLD = 300; // ms pause after last word before heading appears
 export default function ZoomParallaxDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const [tone, setTone] = useState<"light" | "dark">("light");
-
+const [isNight, setIsNight] = useState(false);
   const cinematicTextRef = useRef<HTMLDivElement>(null);
 
   const [isCinematicVisible, setIsCinematicVisible] = useState(false);
@@ -58,6 +57,9 @@ export default function ZoomParallaxDemo() {
    * cinematicTex.tsx. Its active slide already updates aria-hidden, so this
    * observer restarts the particles whenever that active slide changes.
    */
+  const toggleNightMode = () => {
+    setIsNight((prev) => !prev);
+  };
   useEffect(() => {
     const cinematicSection = cinematicTextRef.current;
 
@@ -443,13 +445,13 @@ export default function ZoomParallaxDemo() {
             <CinematicPlacesGallery />
           </div>
           <div data-section>
-            <LandingPage />
+            <LandingPage  isNight={isNight} onToggleNight={toggleNightMode} />
           </div>
 
         </div>
       </section>
 
-      <WayVashi onTone={setTone} />
+      <WayVashi isNight={isNight} />
       <HorizontalStory />
       {/* <AboutFiveMinute /> */}
 

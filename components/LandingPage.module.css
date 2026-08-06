@@ -76,6 +76,7 @@
       0 calc(100% - 28px),
       0 28px);
   opacity: 0;
+  
 }
 
 .preloaderGlyph {
@@ -233,13 +234,7 @@
 
 /* ---------------- Combined Single Background Wrapper ---------------- */
 
-.heroSceneWrapper {
-  position: relative;
-  width: 100%;
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-}
+
 
 /* ---------------- Hero Section ---------------- */
 
@@ -327,10 +322,12 @@
 
 .toggleOn {
   opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
 .toggleOff {
   opacity: 0.45;
+  transition: opacity 0.3s ease;
 }
 
 .toggleTrack {
@@ -347,9 +344,39 @@
   height: 5px;
   border-radius: 50%;
   background: var(--cream);
-  transition: left 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Container solid base color to prevent flickering */
+.heroSceneWrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--wine-deep); /* Base fallback color */
+  overflow: hidden;
+}
+
+/* Background overlay layers logic */
+.bgLayer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  transition: opacity 0.8s ease-in-out;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.dayBg {
+  background-image: url('/images/vashicityDayOne.png');
+}
+
+.nightBg {
+  background-image: url('/images/vashiCitybbbb.jpg');
+}
 /* ---------------- Scene section ---------------- */
 
 .scene {

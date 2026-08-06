@@ -49,14 +49,15 @@ function Rosette({ className }: { className?: string }) {
     </svg>
   );
 }
-
-export default function WayVashi({ onTone }: { onTone?: (tone: "light" | "dark") => void }) {
+interface WayVashiProps {
+  isNight: boolean;
+}
+export default function WayVashi({ isNight }: WayVashiProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const domeRef = useRef<HTMLDivElement>(null);
   const [slide, setSlide] = useState(0);
-
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       // 1. Arch / dome rises out of the scene and swallows the viewport
@@ -108,7 +109,7 @@ export default function WayVashi({ onTone }: { onTone?: (tone: "light" | "dark")
         start: "top bottom+=90%",
         endTrigger: quoteRef.current,
         end: "top 40%",
-        onToggle: (self) => onTone?.(self.isActive ? "dark" : "light"),
+
       });
 
       // 4. Quote lines slide up from their mask
@@ -122,7 +123,7 @@ export default function WayVashi({ onTone }: { onTone?: (tone: "light" | "dark")
     }, rootRef);
 
     return () => ctx.revert();
-  }, [onTone]);
+  }, []);
 
   return (
     <div className={styles.next} ref={rootRef}>
@@ -130,8 +131,16 @@ export default function WayVashi({ onTone }: { onTone?: (tone: "light" | "dark")
       <section
         className={styles.archStage}
         ref={stageRef}
-        style={{ backgroundImage: "url('/images/VashiCity2.jpg')" }}
+
       >
+        <div
+          className={`${styles.archBgLayer} ${styles.dayStageBg}`}
+          style={{ opacity: isNight ? 0 : 1 }}
+        />
+        <div
+          className={`${styles.archBgLayer} ${styles.nightStageBg}`}
+          style={{ opacity: isNight ? 1 : 0 }}
+        />
         <div className={styles.dome} ref={domeRef}>
           <svg className={styles.curvedText} viewBox="0 0 1200 340" aria-hidden="true">
             <path id="archCurve" d="M 40 340 A 560 320 0 0 1 1160 340" fill="none" />
