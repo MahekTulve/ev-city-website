@@ -2,6 +2,7 @@
 
 import {
   motion,
+  useMotionValueEvent,
   useScroll,
   useSpring,
   useTransform,
@@ -21,10 +22,13 @@ type VideoItem = {
 
 type SideVideoCardProps = {
   item: VideoItem;
+  src: string;
   className: string;
   progress: MotionValue<number>;
   exitX: number;
   exitY: number;
+  shouldPlay: boolean;
+  startDelay: number;
 };
 
 type ResponsiveLayout = {
@@ -48,20 +52,20 @@ type ResponsiveLayout = {
 const VIDEOS: VideoItem[] = [
   {
     id: 1,
-    src: "/images/vid2.mp4",
+    src: "/images/square-1.mp4",
     poster: "/images/ocean-room-poster.jpg",
     ariaLabel: "Ocean-facing luxury interior",
   },
-{
-  id: 2,
-  src: "/videos/city-desktop.mp4",
-  mobileSrc: "/videos/city-mob.mp4",
-  poster: "/images/concrete-stairs-poster.jpg",
-  ariaLabel: "Modern city view",
-},
+  {
+    id: 2,
+    src: "/videos/city-desktop.mp4",
+    mobileSrc: "/videos/city-mob.mp4",
+    poster: "/images/concrete-stairs-poster.jpg",
+    ariaLabel: "Modern city view",
+  },
   {
     id: 3,
-    src: "/images/vid3.mp4",
+    src: "/images/rectangle-1.mp4",
     poster: "/images/winter-room-poster.jpg",
     ariaLabel: "Winter landscape interior",
   },
@@ -73,25 +77,24 @@ const VIDEOS: VideoItem[] = [
   },
   {
     id: 5,
-    src: "/images/vid5.mp4",
-    poster: "/images/vintage-room-poster.jpg",
+    src: "/images/16x9.mp4",
+    poster: "/images/vintage-rd oom-poster.jpg",
     ariaLabel: "Vintage plant-filled interior",
   },
   {
     id: 6,
-    src: "/images/vid6.mp4",
+    src: "/images/square-2.mp4",
     poster: "/images/bright-living-room-poster.jpg",
     ariaLabel: "Bright modern living room",
   },
   {
     id: 7,
-    src: "/images/vid7.mp4",
+    src: "/images/rectangle-2.mp4",
     poster: "/images/zen-room-poster.jpg",
     ariaLabel: "Minimal Zen-inspired interior",
   },
 ];
 
-/* Custom side positions mapped to correspond with mobile classes */
 const SIDE_POSITIONS = [
   { className: styles.topLeft, exitX: -34, exitY: -20 },
   { className: styles.bottomLeft, exitX: -34, exitY: 28 },
@@ -99,12 +102,13 @@ const SIDE_POSITIONS = [
   { className: styles.topRight, exitX: 34, exitY: -20 },
   { className: styles.rightBottom, exitX: 34, exitY: 20 },
   { className: styles.bottomCenter, exitX: 0, exitY: 38 },
-];
+] as const;
 
 const EXPAND_START = 0.2;
 const EXPAND_END = 0.63;
 const EXIT_START = 0.72;
 const EXIT_END = 0.94;
+const SIDE_VIDEO_PAUSE_POINT = 0.69;
 
 const TITLE_LINES = ["Explore", "Places"] as const;
 const TITLE_LETTER_COUNT = TITLE_LINES.join("").length;
@@ -125,70 +129,124 @@ function useMediaQuery(query: string) {
   return matches;
 }
 
+function usePageVisible() {
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    const update = () => setIsVisible(document.visibilityState === "visible");
+    update();
+    document.addEventListener("visibilitychange", update);
+    return () => document.removeEventListener("visibilitychange", update);
+  }, []);
+
+  return isVisible;
+}
+
 function AutoPlayVideo({
   item,
+  src,
   className,
+  shouldPlay,
   priority = false,
+  startDelay = 0,
 }: {
   item: VideoItem;
+  src: string;
   className?: string;
+  shouldPlay: boolean;
   priority?: boolean;
+  startDelay?: number;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const isSmallMobile = useMediaQuery("(max-width: 480px)");
+  const [hasFrame, setHasFrame] = useState(false);
 
-  const videoSrc =
-    isSmallMobile && item.mobileSrc ? item.mobileSrc : item.src;
+  useEffect(() => {
+    setHasFrame(false);
+  }, [src]);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    let playTimer: number | undefined;
+    let cancelled = false;
+
     video.muted = true;
     video.defaultMuted = true;
 
-    // Reload when switching between mobile and desktop video
-    video.load();
+    const pauseVideo = () => {
+      if (playTimer !== undefined) {
+        window.clearTimeout(playTimer);
+        playTimer = undefined;
+      }
 
-    const play = () => {
-      void video.play().catch(() => undefined);
+      if (!video.paused) video.pause();
     };
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          play();
-        } else if (!video.paused) {
-          video.pause();
+    const playVideo = () => {
+      pauseVideo();
+
+      if (!shouldPlay || document.visibilityState !== "visible") return;
+
+      playTimer = window.setTimeout(() => {
+        if (cancelled || !shouldPlay || document.visibilityState !== "visible") {
+          return;
         }
-      },
-      {
-        rootMargin: "200px 0px",
-        threshold: 0.01,
-      },
-    );
 
-    observer.observe(video);
+        void video.play().catch(() => {
+          // Autoplay can briefly fail while the source is still buffering.
+          // onCanPlay below retries it without repeatedly calling video.load().
+        });
+      }, startDelay);
+    };
 
-    return () => observer.disconnect();
-  }, [videoSrc]);
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") playVideo();
+      else pauseVideo();
+    };
+
+    const handleCanPlay = () => {
+      setHasFrame(true);
+      if (shouldPlay && document.visibilityState === "visible" && video.paused) {
+        void video.play().catch(() => undefined);
+      }
+    };
+
+    video.addEventListener("canplay", handleCanPlay);
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    playVideo();
+
+    return () => {
+      cancelled = true;
+      pauseVideo();
+      video.removeEventListener("canplay", handleCanPlay);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [shouldPlay, src, startDelay]);
 
   return (
     <video
       ref={videoRef}
-      key={videoSrc}
-      className={className}
-      src={videoSrc}
+      key={src}
+      className={[
+        styles.videoElement,
+        hasFrame ? styles.videoReady : "",
+        className ?? "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      src={src}
       poster={item.poster}
       aria-label={item.ariaLabel}
       muted
       loop
       playsInline
-      preload={priority ? "auto" : "none"}
+      preload={priority ? "auto" : "metadata"}
       controls={false}
       disablePictureInPicture
       disableRemotePlayback
       tabIndex={-1}
+      onLoadedData={() => setHasFrame(true)}
     />
   );
 }
@@ -214,11 +272,11 @@ function RevealLetter({
   const end = Math.min(start + letterDuration, 1);
 
   const opacity = useTransform(progress, [start, end], [0, 1]);
-  const x = useTransform(progress, [start, end], [-30, 0]); 
+  const x = useTransform(progress, [start, end], [-30, 0]);
   const filter = useTransform(
     progress,
     [start, end],
-    ["blur(12px)", "blur(0px)"]
+    ["blur(12px)", "blur(0px)"],
   );
 
   return (
@@ -234,10 +292,13 @@ function RevealLetter({
 
 function SideVideoCard({
   item,
+  src,
   className,
   progress,
   exitX,
   exitY,
+  shouldPlay,
+  startDelay,
 }: SideVideoCardProps) {
   const x = useTransform(
     progress,
@@ -259,7 +320,7 @@ function SideVideoCard({
 
   const opacity = useTransform(
     progress,
-    [0, 0.48, EXPAND_END, 0.69, 1],
+    [0, 0.48, EXPAND_END, SIDE_VIDEO_PAUSE_POINT, 1],
     [1, 1, 0.36, 0, 0],
   );
 
@@ -268,7 +329,12 @@ function SideVideoCard({
       className={`${styles.sideCard} ${className}`}
       style={{ x, y, scale, opacity }}
     >
-      <AutoPlayVideo item={item} />
+      <AutoPlayVideo
+        item={item}
+        src={src}
+        shouldPlay={shouldPlay}
+        startDelay={startDelay}
+      />
     </motion.div>
   );
 }
@@ -277,9 +343,32 @@ export default function CinematicPlacesGallery() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   const isMobile = useMediaQuery("(max-width: 700px)");
+  const isSmallMobile = useMediaQuery("(max-width: 480px)");
   const isTablet = useMediaQuery(
     "(min-width: 701px) and (max-width: 1100px)",
   );
+  const isPageVisible = usePageVisible();
+
+  const [isNearViewport, setIsNearViewport] = useState(false);
+  const [sidePlaybackEnabled, setSidePlaybackEnabled] = useState(true);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsNearViewport(entry.isIntersecting),
+      {
+        // Begin buffering before the user reaches the section, rather than
+        // starting seven files on the same frame when it becomes sticky.
+        rootMargin: "900px 0px",
+        threshold: 0,
+      },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -290,6 +379,13 @@ export default function CinematicPlacesGallery() {
     stiffness: 90,
     damping: 27,
     mass: 0.4,
+  });
+
+  useMotionValueEvent(smoothProgress, "change", (latest) => {
+    const nextValue = latest < SIDE_VIDEO_PAUSE_POINT;
+    setSidePlaybackEnabled((current) =>
+      current === nextValue ? current : nextValue,
+    );
   });
 
   const { scrollYProgress: titleScrollYProgress } = useScroll({
@@ -306,7 +402,6 @@ export default function CinematicPlacesGallery() {
   const layout = useMemo<ResponsiveLayout>(() => {
     if (isMobile) {
       return {
-        // Aligned to match the reference layout screenshot on mobile
         start: {
           top: "32%",
           left: "29%",
@@ -346,22 +441,22 @@ export default function CinematicPlacesGallery() {
     }
 
     return {
-  start: {
-    top: "28%",
-    left: "26.6%",
-    width: "46.8%",
-    height: "34%",
-  },
-  exit: {
-    top: "8%",
-    left: "29%",   // adjusted to keep it centered
-    width: "42%",  // increased from 32%
-    height: "80%",
-    cardBottomRadius: "220px",
-    sceneHeight: "92%",
-    sceneBottomRadius: "86px",
-  },
-};
+      start: {
+        top: "28%",
+        left: "26.6%",
+        width: "46.8%",
+        height: "34%",
+      },
+      exit: {
+        top: "8%",
+        left: "29%",
+        width: "42%",
+        height: "80%",
+        cardBottomRadius: "220px",
+        sceneHeight: "92%",
+        sceneBottomRadius: "86px",
+      },
+    };
   }, [isMobile, isTablet]);
 
   const sceneHeight = useTransform(
@@ -552,9 +647,23 @@ export default function CinematicPlacesGallery() {
   );
 
   const mainVideo = VIDEOS[1];
-  const sideVideos = VIDEOS.filter(
-    (video) => video.id !== mainVideo.id,
-  ).slice(0, 6);
+  const sideVideos = VIDEOS.filter((video) => video.id !== mainVideo.id).slice(
+    0,
+    6,
+  );
+
+  const mainVideoSrc =
+    isSmallMobile && mainVideo.mobileSrc ? mainVideo.mobileSrc : mainVideo.src;
+
+  const shouldPlayMain = isNearViewport && isPageVisible;
+  const shouldPlaySides =
+    isNearViewport && isPageVisible && sidePlaybackEnabled;
+
+  const visibleSideEntries = sideVideos
+    .map((item, index) => ({ item, index, position: SIDE_POSITIONS[index] }))
+    // These two cards are display:none in your mobile CSS. Do not mount and
+    // decode their MP4s when they cannot be seen.
+    .filter(({ index }) => !isMobile || (index !== 1 && index !== 3));
 
   return (
     <section ref={sectionRef} className={styles.section}>
@@ -630,20 +739,19 @@ export default function CinematicPlacesGallery() {
             </motion.div>
 
             <div className={styles.gallery}>
-              {sideVideos.map((item, index) => {
-                const position = SIDE_POSITIONS[index];
-
-                return (
-                  <SideVideoCard
-                    key={item.id}
-                    item={item}
-                    className={position.className}
-                    progress={smoothProgress}
-                    exitX={position.exitX}
-                    exitY={position.exitY}
-                  />
-                );
-              })}
+              {visibleSideEntries.map(({ item, index, position }) => (
+                <SideVideoCard
+                  key={item.id}
+                  item={item}
+                  src={item.src}
+                  className={position.className}
+                  progress={smoothProgress}
+                  exitX={position.exitX}
+                  exitY={position.exitY}
+                  shouldPlay={shouldPlaySides}
+                  startDelay={index * 90}
+                />
+              ))}
 
               <motion.div
                 className={styles.mainCard}
@@ -665,7 +773,9 @@ export default function CinematicPlacesGallery() {
                 >
                   <AutoPlayVideo
                     item={mainVideo}
+                    src={mainVideoSrc}
                     className={styles.mainVideo}
+                    shouldPlay={shouldPlayMain}
                     priority
                   />
                 </motion.div>

@@ -1,9 +1,8 @@
 .section {
   --gallery-next-bg: #f3eee4;
 
-  /* Skip layout/paint entirely while the section is off screen. */
-  content-visibility: auto;
-  contain-intrinsic-size: 240vh;
+  /* Video playback is managed in React. Avoid content-visibility here because
+     it can delay first-frame painting for sticky video descendants. */
   --gallery-scene-bg: #0b0d0b;
 
   position: relative;
@@ -279,6 +278,7 @@
   transform-origin: center;
   will-change: transform, opacity;
   transform: translateZ(0);
+  contain: layout paint style;
 }
 
 .sideCard::after {
@@ -391,6 +391,7 @@
   transform-origin: center center;
   will-change: transform;
   transform: translateZ(0);
+  contain: layout paint style;
 }
 
 .mainVideoWrapper {
@@ -714,4 +715,34 @@
   .sceneClip {
     will-change: auto;
   }
+}
+
+/* =========================================
+   VIDEO PLAYBACK PERFORMANCE
+========================================= */
+
+.videoElement {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0;
+  background: #0b0d0b;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  transition: opacity 180ms linear;
+}
+
+.videoReady {
+  opacity: 1;
+}
+
+/* The shared class above owns sizing; retain these selectors only for
+   component-specific behavior without repeating expensive declarations. */
+.sideCard video,
+.mainVideo {
+  object-fit: cover;
 }
