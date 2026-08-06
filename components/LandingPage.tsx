@@ -1,34 +1,9 @@
-import { useState, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./LandingPage.module.css";
-import WayVashi from "./wayVashi";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const HOTSPOTS = [
-  {
-    id: "sanctuary",
-    x: "27%",
-    y: "26%",
-    title: "Your private sanctuary",
-    body: "Instead of corridors, walking paths connect the apartments — making Era Residence feel closer to a group of private homes than a standard apartment building.",
-  },
-  {
-    id: "gardens",
-    x: "57%",
-    y: "34%",
-    title: "Gardens that breathe",
-    body: "Bougainvillea, cypress and olive shape every terrace, so each home opens onto planting rather than a neighbour's window.",
-  },
-  {
-    id: "service",
-    x: "76%",
-    y: "55%",
-    title: "Service, quietly",
-    body: "Poolside attendance, concierge and housekeeping run in the background — present when you want it, invisible when you don't.",
-  },
-] as const;
 
 function Glyph({ className }: { className?: string | undefined }) {
   return (
@@ -54,13 +29,12 @@ function Glyph({ className }: { className?: string | undefined }) {
   );
 }
 
+interface LandingPageProps {
+  isNight: boolean;
+  onToggleNight: () => void;
+}
 
-
-export default function LandingPage() {
-  const [night, setNight] = useState(false);
-  const [active, setActive] = useState<string | null>(null);
-  const [tone, setTone] = useState<"light" | "dark">("light");
-
+export default function LandingPage({ isNight, onToggleNight }: LandingPageProps) {
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
@@ -76,7 +50,6 @@ export default function LandingPage() {
         },
       });
 
-      // 1. Text reveal
       tl.to(`.${styles.preloaderGlyph}`, { opacity: 1, duration: 0.5 })
         .to(`.${styles.lockupEra}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
         .to(`.${styles.sideLeft}`, { opacity: 1, x: 0, duration: 0.5 }, "-=0.3")
@@ -88,7 +61,6 @@ export default function LandingPage() {
         .to(`.${styles.preloaderRule}`, { opacity: 1, duration: 0.5 }, "-=0.3")
         .to(`.${styles.preloaderFoot}`, { opacity: 1, duration: 0.5 }, "-=0.3");
 
-      // 2. Lockup fades, arch expands revealing the hero inside
       tl.to(`.${styles.lockup}`, { opacity: 0, scale: 1.08, duration: 0.8 }, "+=0.2")
         .to(
           archRef.current,
@@ -115,14 +87,18 @@ export default function LandingPage() {
     return () => ctx.revert();
   }, []);
 
-  const panel = HOTSPOTS.find((spot) => spot.id === active);
-
   const renderMainSections = () => (
-    <div className={styles.heroSceneWrapper} style={{
-      backgroundImage: night
-        ? "url('/images/vashiCitybbbb.jpg')"
-        : "url('/images/vashicityDayOne.png')"
-    }}>
+    <div className={styles.heroSceneWrapper}>
+      {/* Background Image Layers for Smooth Cross-fading */}
+      <div
+        className={`${styles.bgLayer} ${styles.dayBg}`}
+        style={{ opacity: isNight ? 0 : 1 }}
+      />
+      <div
+        className={`${styles.bgLayer} ${styles.nightBg}`}
+        style={{ opacity: isNight ? 1 : 0 }}
+      />
+
       <header className={styles.hero}>
         <div className={styles.heroInner}>
           <h1>
@@ -134,18 +110,24 @@ export default function LandingPage() {
 
         <div className={styles.heroTagline}>
           <span className={styles.taglineWord}>A place</span>
+
+          {/* Custom Switch Toggle */}
           <button
             type="button"
             className={styles.toggle}
-            onClick={() => setNight((value) => !value)}
-            aria-pressed={night}
+            onClick={onToggleNight}
+            aria-pressed={isNight}
           >
-            <span className={night ? styles.toggleOff : styles.toggleOn}>By day</span>
+            <span className={isNight ? styles.toggleOff : styles.toggleOn}>By day</span>
             <span className={styles.toggleTrack}>
-              <span className={styles.toggleKnob} style={{ left: night ? "100%" : "0%" }} />
+              <span
+                className={styles.toggleKnob}
+                style={{ left: isNight ? "calc(100% - 5px)" : "0%" }}
+              />
             </span>
-            <span className={night ? styles.toggleOn : styles.toggleOff}>By night</span>
+            <span className={isNight ? styles.toggleOn : styles.toggleOff}>By night</span>
           </button>
+
           <span className={styles.taglineWord}>To return to</span>
         </div>
       </header>
@@ -153,11 +135,7 @@ export default function LandingPage() {
   );
 
   return (
-    <div
-      className={styles.root}
-      style={{ ["--scene-img" as string]: "url('/images/landingImg.webp')" }}
-    >
-
+    <div className={styles.root}>
       {/* ---------------- Section 1: Intro ---------------- */}
       <section className={styles.introSection} ref={introRef}>
         <span className={styles.preloaderFrame} />
@@ -185,46 +163,6 @@ export default function LandingPage() {
           <div className={styles.archInnerWrapper}>{renderMainSections()}</div>
         </div>
       </section>
-
-      {/* ---------------- Section 2: Scene with hotspots ---------------- */}
-      {/* <section
-        className={styles.scene}
-        id="apartments"
-        style={{ backgroundImage: "url('/images/landingImg.webp')" }}
-      >
-        {HOTSPOTS.map((spot) => (
-          <button
-            key={spot.id}
-            type="button"
-            className={`${styles.hotspot} ${active === spot.id ? styles.hotspotActive : ""}`}
-            style={{ left: spot.x, top: spot.y }}
-            onClick={() => setActive(active === spot.id ? null : spot.id)}
-            aria-label={spot.title}
-          >
-            <span className={styles.hotspotPulse} />
-          </button>
-        ))}
-
-        <button type="button" className={styles.sceneCta}>
-          <span>View available apartments</span>
-        </button>
-
-        <aside className={`${styles.panel} ${panel ? styles.panelOpen : ""}`}>
-          <button
-            type="button"
-            className={styles.panelClose}
-            onClick={() => setActive(null)}
-            aria-label="Close"
-          >
-            ✕
-          </button>
-          <h2 className={styles.panelTitle}>{panel?.title}</h2>
-          <p className={styles.panelBody}>{panel?.body}</p>
-        </aside>
-      </section> */}
-
-      {/* ---------------- Sections 3+: the new scroll story ---------------- */}
-      {/* <WayVashi onTone={setTone} /> */}
     </div>
   );
 }
