@@ -42,8 +42,6 @@
   overflow: hidden;
   isolation: isolate;
   background: transparent;
-  transform: translateZ(0);
-  will-change: transform;
 }
 
 .sceneCanvas {
@@ -179,8 +177,12 @@
   text-align: center;
   white-space: nowrap;
   
-  color: transparent;
-
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 5px #faf3e375);
+  background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
 }
@@ -730,9 +732,6 @@
   user-select: none;
   opacity: 0;
   background: #0b0d0b;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  transform: translateZ(0);
   transition: opacity 180ms linear;
 }
 

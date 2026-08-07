@@ -1,0 +1,814 @@
+.wrapper {
+  --ink: #0a0512;
+  --orange: #ff7a18;
+  --pink: #ff2e93;
+  --violet: #8b5cf6;
+  --blue: #4361ff;
+  position: relative;
+  color: #fff;
+  font-family: "Inter", system-ui, sans-serif;
+  overflow: hidden;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(10, 5, 18, 0.97) 0%,
+      rgba(10, 5, 18, 0.75) 35%,
+      rgba(10, 5, 18, 0.3) 60%,
+      rgba(10, 5, 18, 0.85) 100%
+    ),
+    radial-gradient(
+      70% 90% at 62% 55%,
+      rgba(139, 92, 246, 0.35),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 70% at 20% 80%,
+      rgba(255, 122, 24, 0.18),
+      transparent 70%
+    ),
+    url("https://images.unsplash.com/photo-1514565131-fce0801e5785?auto=format&fit=crop&w=2400&q=80");
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    cover;
+  background-position: center, center, center, center;
+  background-repeat: no-repeat;
+}
+
+.hero {
+  position: relative;
+  flex: none;
+  min-height: min(720px, 86vh);
+  display: flex;
+  align-items: center;
+  padding: 4rem 3rem;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  pointer-events: none;
+}
+
+.hero > *:not(.bg) {
+  z-index: 1;
+}
+
+.rail,
+.content {
+  position: relative;
+}
+
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: rgba(255, 255, 255, 0.55);
+  margin-right: 2.5rem;
+  align-self: stretch;
+  padding: 2rem 0;
+}
+
+.railLine {
+  width: 1px;
+  flex: 1;
+  min-height: 90px;
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+
+.railDot {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 12px var(--orange);
+}
+
+.content {
+ width: min(900px, 100%);
+  max-width: 900px;
+}
+
+.eyebrow {
+  font-size: 0.95rem;
+  letter-spacing: 0.45em;
+  font-weight: 400;
+  margin: 0 0 0.75rem;
+}
+
+.lit {
+  position: relative;
+  display: inline-block;
+  font-size: 12rem;
+  line-height: 0.9;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 0;
+  background-image: transparent;
+  /* linear-gradient(90deg, #ff7a18, #ff2e93 55%, #8b5cf6),
+    url("https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=1600&q=80"); */
+  background-size: cover, cover;
+  background-position:
+    center,
+    center bottom;
+  background-blend-mode: hard-light;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subline {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  margin-top: 1.25rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.3em;
+}
+
+.sep {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--orange);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 3rem;
+}
+
+.playBtn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.playBtn:hover {
+  background: #fff;
+  color: var(--ink);
+}
+
+.discover {
+  font-size: 0.8rem;
+  letter-spacing: 0.25em;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--orange);
+}
+
+.ringBlock {
+  position: absolute;
+  right: 4.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 240px;
+}
+
+.ring {
+  position: absolute;
+  right: -80px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background: linear-gradient(
+      140deg,
+      var(--orange),
+      var(--pink),
+      transparent 70%
+    )
+    border-box;
+  -webkit-mask:
+    linear-gradient(#000 0 0) padding-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.ringText {
+  position: relative;
+  font-size: 0.8rem;
+  line-height: 1.9;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.ringIcon {
+  color: var(--orange);
+  margin-bottom: 0.75rem;
+  display: block;
+}
+
+.scroll {
+  position: absolute;
+  right: 3rem;
+  bottom: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  line-height: 1.6;
+}
+
+.mouse {
+  width: 20px;
+  height: 32px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  position: relative;
+}
+
+.mouse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  width: 2px;
+  height: 6px;
+  background: #fff;
+  transform: translateX(-50%);
+  animation: wheel 1.6s infinite;
+}
+
+@keyframes wheel {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -4px);
+  }
+  40% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 8px);
+  }
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin: 2.5rem 0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bottomSpace {
+  height: 3rem;
+}
+
+.card {
+  background: linear-gradient(160deg, #150c24, #0c0716);
+  padding: 2.5rem 2.25rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  transition: 0.3s ease;
+}
+
+.card:hover {
+  background: linear-gradient(160deg, #1d1030, #0c0716);
+}
+
+.letter {
+  font-size: 7rem;
+  font-weight: 800;
+  line-height: 0.8;
+}
+
+.cardIcon {
+  flex: none;
+  opacity: 0.9;
+}
+
+.iconHolder {
+  flex: none;
+  width: 76px;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(
+    circle at center,
+    rgba(201, 146, 67, 0.07),
+    transparent 68%
+  );
+  transition:
+    transform 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.cardIcon {
+  width: 60px;
+  height: 60px;
+  color: #c99243;
+  filter: drop-shadow(0 0 5px rgba(201, 146, 67, 0.18));
+  transition: transform 0.4s ease;
+}
+
+.lit {
+  --lit-gold: #c99243;
+  --lit-glow: rgba(210, 154, 70, 0.45);
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  gap: clamp(1.2rem, 2.5vw, 3rem);
+  filter: drop-shadow(0 0 4px rgba(201, 146, 67, 0.18))
+    drop-shadow(0 0 16px rgba(201, 146, 67, 0.08));
+}
+
+/* One column = letter/punctuation on top + matching word below. */
+.litGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  flex-shrink: 0;
+}
+
+.heroLetterRow {
+  display: flex;
+  align-items: flex-end;
+  width: max-content;
+}
+
+.heroWord {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(0.42rem, 0.6vw, 0.62rem);
+  margin-top: clamp(0.35rem, 0.8vw, 0.7rem);
+  font-size: clamp(0.62rem, 0.82vw, 0.86rem);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: clamp(0.14em, 0.22vw, 0.25em);
+  color: rgba(255, 255, 255, 0.88);
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(8px);
+  filter: blur(3px);
+}
+
+/* Restore the small orange marker before LARGEST / INTEGRATED / TOWNSHIP. */
+.heroWord::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--orange);
+  box-shadow: 0 0 10px rgba(255, 122, 24, 0.65);
+}
+
+/* Align each label with the visible left stroke of its original SVG letter. */
+.litGroup:nth-child(1) .heroWord {
+  margin-left: clamp(0.95rem, 2.15vw, 1.8rem);
+}
+
+.litGroup:nth-child(2) .heroWord {
+  margin-left: clamp(0.8rem, 1.8vw, 1.5rem);
+}
+
+.litGroup:nth-child(3) .heroWord {
+  margin-left: clamp(0.55rem, 1.3vw, 1.05rem);
+}
+
+.animate .heroWord {
+  animation: revealHeroWord 520ms cubic-bezier(0.22, 1, 0.36, 1)
+    var(--word-delay, 0ms) forwards;
+}
+
+@keyframes revealHeroWord {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.card:hover .cardIcon {
+  transform: scale(1.06);
+}
+
+.cardBody h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.card:nth-child(1) .cardBody h3 {
+  color: var(--orange);
+}
+.card:nth-child(2) .cardBody h3 {
+  color: var(--pink);
+}
+.card:nth-child(3) .cardBody h3 {
+  color: var(--blue);
+}
+
+.cardBody p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.75);
+  max-width: 220px;
+}
+
+.explore {
+  margin-top: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.explore:hover {
+  color: #fff;
+}
+
+.letter {
+  font-size: 7rem;
+  font-weight: 700;
+  line-height: 0.8;
+
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke: 1px #c99243;
+
+  opacity: 0.85;
+}
+
+.cardBody h3 {
+  margin: 0 0 0.6rem;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+
+  color: #d4a04f;
+}
+
+@media (max-width: 1024px) {
+  .ringBlock,
+  .scroll,
+  .rail {
+    display: none;
+  }
+  .hero {
+    padding: 3rem 1.5rem;
+  }
+  .cards {
+    grid-template-columns: 1fr;
+    margin: 2rem 1rem 0;
+  }
+}
+
+@media (max-width: 1024px) {
+  .lit {
+    gap: clamp(1rem, 3vw, 2rem);
+  }
+
+  .litLetter {
+    font-size: clamp(6.5rem, 20vw, 10rem);
+  }
+
+  .litDotWrap {
+    width: clamp(0.82rem, 1.8vw, 1.1rem);
+    height: clamp(0.82rem, 1.8vw, 1.1rem);
+    margin-bottom: 0.72rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .lit {
+    gap: 0.8rem;
+  }
+
+  .litLetter {
+    font-size: clamp(5.2rem, 25vw, 7rem);
+    -webkit-text-stroke-width: 1px;
+  }
+
+  .litDotWrap {
+    width: clamp(0.7rem, 3vw, 0.9rem);
+    height: clamp(0.7rem, 3vw, 0.9rem);
+    margin-left: 0.08rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .heroWord {
+    margin-top: 0.3rem;
+    gap: 0.3rem;
+    font-size: clamp(0.46rem, 2.1vw, 0.62rem);
+    letter-spacing: 0.12em;
+  }
+
+  .heroWord::before {
+    width: 4px;
+    height: 4px;
+  }
+
+  .litGroup:nth-child(1) .heroWord {
+    margin-left: clamp(0.55rem, 3.8vw, 0.85rem);
+  }
+
+  .litGroup:nth-child(2) .heroWord {
+    margin-left: clamp(0.48rem, 3.2vw, 0.75rem);
+  }
+
+  .litGroup:nth-child(3) .heroWord {
+    margin-left: clamp(0.34rem, 2.4vw, 0.56rem);
+  }
+
+  .iconHolder {
+    width: 64px;
+    height: 64px;
+  }
+
+  .cardIcon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+
+/* =========================================================
+   TRUE DRAW / WRITE ANIMATION
+   Sequence:
+   big L + small L draw together -> L content
+   big I + small I draw together -> I content
+   big T + small T draw together -> T content
+
+   IMPORTANT:
+   - cards/containers are visible from the beginning
+   - no rotate / skew / slant / translate on letters
+   ========================================================= */
+
+.drawLetter {
+  display: block;
+  overflow: visible;
+  flex: none;
+}
+
+.heroDrawLetter {
+  height: clamp(7.5rem, 14vw, 13.5rem);
+  width: auto; /* Allows SVG to maintain intrinsic 180/210 ratio */
+  max-width: clamp(6.4rem, 12vw, 11.57rem);
+}
+
+.cardDrawLetter {
+  width: 6.2rem;
+  height: 7.2rem;
+  flex: none;
+}
+
+.drawLetterPath {
+  fill: transparent;
+  stroke: #c99243;
+  stroke-width: 1.45;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  filter:
+    drop-shadow(0 0 2px rgba(201, 146, 67, 0.42))
+    drop-shadow(0 0 7px rgba(201, 146, 67, 0.12));
+}
+
+.animate .drawLetterPath {
+  animation: traceLetter 2200ms cubic-bezier(0.55, 0, 0.2, 1)
+    var(--draw-delay, 0ms) forwards;
+}
+
+@keyframes traceLetter {
+  0% {
+    stroke-dashoffset: 1;
+    opacity: 0.15;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  82% {
+    stroke-dashoffset: 0;
+    filter:
+      drop-shadow(0 0 5px rgba(229, 179, 96, 0.55))
+      drop-shadow(0 0 14px rgba(201, 146, 67, 0.22));
+  }
+
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 2px rgba(201, 146, 67, 0.4))
+      drop-shadow(0 0 7px rgba(201, 146, 67, 0.12));
+  }
+}
+
+/* The punctuation is a real SVG circle and traces during its letter phase. */
+.litDotWrap {
+  width: clamp(0.9rem, 1.35vw, 1.3rem);
+  height: clamp(0.9rem, 1.35vw, 1.3rem);
+  margin-left: clamp(0.1rem, 0.35vw, 0.35rem);
+  margin-bottom: clamp(0.75rem, 1.45vw, 1.35rem);
+  display: grid;
+  place-items: center;
+  flex: none;
+}
+
+.drawDot {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.drawDotPath {
+  fill: transparent;
+  stroke: #c99243;
+  stroke-width: 1.35;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 4px rgba(201, 146, 67, 0.32));
+}
+
+.animate .drawDotPath {
+  animation: traceDot 900ms cubic-bezier(0.55, 0, 0.2, 1)
+    var(--draw-delay, 0ms) forwards;
+}
+
+@keyframes traceDot {
+  from {
+    stroke-dashoffset: 1;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+/* Keep the card shells visible BEFORE any letter starts drawing. */
+.card {
+  opacity: 1;
+  transform: none;
+}
+
+/* Only the content inside each already-visible card starts hidden. */
+.iconHolder,
+.cardBody {
+  opacity: 0;
+  transform: translateY(12px);
+  filter: blur(4px);
+}
+
+.animate .card:nth-child(1) .iconHolder,
+.animate .card:nth-child(1) .cardBody {
+  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 2250ms
+    forwards;
+}
+
+.animate .card:nth-child(2) .iconHolder,
+.animate .card:nth-child(2) .cardBody {
+  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 4800ms
+    forwards;
+}
+
+.animate .card:nth-child(3) .iconHolder,
+.animate .card:nth-child(3) .cardBody {
+  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 7350ms
+    forwards;
+}
+
+.cardBody {
+  animation-delay: inherit;
+}
+
+@keyframes revealCardContent {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+    filter: blur(4px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* VASHI IS stays visible while the L.I.T sequence draws. */
+.eyebrow {
+  opacity: 1;
+  transform: none;
+}
+
+/* CTA arrives only after the complete L.I.T writing sequence. */
+.actions {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.animate .actions {
+  animation: revealActions 650ms cubic-bezier(0.22, 1, 0.36, 1) 8050ms forwards;
+}
+
+@keyframes revealActions {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .heroDrawLetter {
+    height: clamp(6.5rem, 20vw, 10rem);
+    width: clamp(5.4rem, 16vw, 8rem);
+  }
+
+  .cardDrawLetter {
+    width: 5.4rem;
+    height: 6.2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .heroDrawLetter {
+    height: clamp(5.2rem, 25vw, 7rem);
+    width: clamp(4.2rem, 19vw, 5.8rem);
+  }
+
+  .litDotWrap {
+    width: clamp(0.7rem, 3vw, 0.9rem);
+    height: clamp(0.7rem, 3vw, 0.9rem);
+    margin-left: 0.08rem;
+    margin-bottom: 0.45rem;
+  }
+
+  .cardDrawLetter {
+    width: 4.5rem;
+    height: 5.3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawLetterPath,
+  .drawDotPath {
+    stroke-dashoffset: 0;
+    animation: none !important;
+  }
+
+  .iconHolder,
+  .cardBody,
+  .heroWord,
+  .actions {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    animation: none !important;
+  }
+}
