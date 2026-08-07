@@ -2,7 +2,11 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./wayvashi.module.css"; // Direct import as styles
+
 import DayNightButton from "./DayNightButton";
+
+import Lit from "./Lit/Lit";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -257,6 +261,8 @@ export default function WayVashi({ isNight: initialIsNight = true, setIsNight }:
           not a complex
         </p>
       </section>
+
+      <Lit />
 
       {/* ---------- Quote over image ---------- */}
       <section ref={quoteRef} className={styles.quoteSection} style={{ backgroundImage: "url('/images/city.png')" }}>
