@@ -33,7 +33,7 @@ const FINISH_HOLD = 300; // ms pause after last word before heading appears
 export default function ZoomParallaxDemo() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-const [isNight, setIsNight] = useState(false);
+  const [isNight, setIsNight] = useState(true);
   const cinematicTextRef = useRef<HTMLDivElement>(null);
 
   const [isCinematicVisible, setIsCinematicVisible] = useState(false);
@@ -399,7 +399,7 @@ const [isNight, setIsNight] = useState(false);
         </AnimatePresence>
       </motion.div> */}
       <section className={styles.sharedSequence}>
-       
+
         <div className={styles.sharedShaderTrack} aria-hidden="true">
           <div className={styles.sharedShaderSticky}>
 
@@ -451,15 +451,19 @@ const [isNight, setIsNight] = useState(false);
           <div data-section>
             <CinematicPlacesGallery />
           </div>
-          <div data-section>
-            <LandingPage  isNight={isNight} onToggleNight={toggleNightMode} />
+          <div data-section className="-mb-[2px] relative z-10">
+            <LandingPage isNight={isNight} />
           </div>
 
         </div>
       </section>
+      <div data-section className="-mt-[2px] relative z-20">
+        <WayVashi isNight={isNight} setIsNight={toggleNightMode} />
+      </div>
+      <div data-section>
+        <HorizontalStory />
+      </div>
 
-      <WayVashi isNight={isNight} />
-      <HorizontalStory />
       {/* <AboutFiveMinute /> */}
 
       <div ref={containerRef} data-section className="relative h-[600vh] w-full ">

@@ -2,7 +2,11 @@ import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./wayvashi.module.css"; // Direct import as styles
+
+import DayNightButton from "./DayNightButton";
+
 import Lit from "./Lit/Lit";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -51,14 +55,18 @@ function Rosette({ className }: { className?: string }) {
   );
 }
 interface WayVashiProps {
-  isNight: boolean;
+  isNight?: boolean;
+  setIsNight?: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export default function WayVashi({ isNight }: WayVashiProps) {
+export default function WayVashi({ isNight: initialIsNight = true, setIsNight }: WayVashiProps) {
+
   const rootRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const domeRef = useRef<HTMLDivElement>(null);
   const [slide, setSlide] = useState(0);
+  const [night, setNight] = useState<boolean>(initialIsNight);
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       // 1. Arch / dome rises out of the scene and swallows the viewport
@@ -126,6 +134,13 @@ export default function WayVashi({ isNight }: WayVashiProps) {
     return () => ctx.revert();
   }, []);
 
+  const handleToggle = () => {
+    const nextState = !night;
+    setNight(nextState);
+    if (setIsNight) {
+      setIsNight(nextState);
+    }
+  };
   return (
     <div className={styles.next} ref={rootRef}>
       {/* ---------- Arch reveal ---------- */}
@@ -136,12 +151,20 @@ export default function WayVashi({ isNight }: WayVashiProps) {
       >
         <div
           className={`${styles.archBgLayer} ${styles.dayStageBg}`}
-          style={{ opacity: isNight ? 0 : 1 }}
+          style={{ opacity: night ? 0 : 1 }}
         />
         <div
           className={`${styles.archBgLayer} ${styles.nightStageBg}`}
-          style={{ opacity: isNight ? 1 : 0 }}
+          style={{ opacity: night ? 1 : 0 }}
         />
+
+        <div className={styles.dayNightButtonContainer}>
+          <div className={styles.heroTagline}>
+            <span className={styles.taglineWord}>A PLACE</span>
+            <DayNightButton isNight={night} onToggle={handleToggle} />
+            <span className={styles.taglineWord}>TO RETURN TO</span>
+          </div>
+        </div>
         <div className={styles.dome} ref={domeRef}>
           <svg className={styles.curvedText} viewBox="0 0 1200 340" aria-hidden="true">
             <path id="archCurve" d="M 40 340 A 560 320 0 0 1 1160 340" fill="none" />
@@ -171,6 +194,7 @@ export default function WayVashi({ isNight }: WayVashiProps) {
       </section>
 
       {/* ---------- Headline ---------- */}
+      
       <section className={styles.titleSection}>
         <p className={styles.eyebrow}>
           A place to live — to

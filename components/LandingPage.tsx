@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./LandingPage.module.css";
+import { motion, Variants } from "framer-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,10 +32,9 @@ function Glyph({ className }: { className?: string | undefined }) {
 
 interface LandingPageProps {
   isNight: boolean;
-  onToggleNight: () => void;
 }
 
-export default function LandingPage({ isNight, onToggleNight }: LandingPageProps) {
+export default function LandingPage({ isNight }: LandingPageProps) {
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
@@ -86,7 +86,33 @@ export default function LandingPage({ isNight, onToggleNight }: LandingPageProps
 
     return () => ctx.revert();
   }, []);
+  const titleText = "THE CITY";
+  const titleText2 = "MOMENTS";
+  const containerVariants: Variants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        delayChildren: 1,
+        staggerChildren: 0.08,
+      },
+    },
+  };
 
+  const letterVariants: Variants = {
+    hidden: {
+      opacity: 0,
+      y: 40
+    },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
   const renderMainSections = () => (
     <div className={styles.heroSceneWrapper}>
       <div
@@ -100,48 +126,124 @@ export default function LandingPage({ isNight, onToggleNight }: LandingPageProps
 
       <header className={styles.hero}>
         <div className={styles.heroInner}>
-          <p className={styles.subHeaderGold}>THE FUTURE OF</p>
-          <h1 className={styles.heroEra}>
-            THE CITY
-          </h1>
-          <div className={styles.glowingBorderLine}></div>
-          <span className={styles.subHeaderGoldBottom}>ISN’T MEASURED IN KMS</span>
-          <div className={styles.rightContentBlock}>
-            <span className={styles.subHeaderGoldRight}>IT’S MEASURED IN</span>
-            <h2 className={styles.secondaryTitleLarge}>MOMENTS</h2>
-            <div className={styles.glowintwo}></div>
+          <motion.p
+            className={styles.subHeaderGold}
+            initial={{ opacity: 0, x: -200 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{
+              duration: 0.8,
+              delay: 1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            THE FUTURE OF
+          </motion.p>
+          <motion.h1
+            className={styles.heroEra}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }}
+          >
+            {titleText.split("").map((char, index) => (
+              <motion.span
+                key={`${char}-${index}`}
+                variants={letterVariants}
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
+          </motion.h1>
+          <motion.div
+            className={styles.glowingBorderLine}
+            initial={{ scaleX: 0, opacity: 0 }}
+            whileInView={{ scaleX: 1, opacity: 1 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{
+              duration: 1,
+              delay: 1,
+              ease: [0.22, 1, 0.36, 1]
+            }}
+            style={{ transformOrigin: "center" }}
+          />
 
-            <div className={styles.momentsSubtitleRow}>
+          <motion.span
+            className={styles.subHeaderGoldBottom}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{
+              duration: 0.8,
+              delay: 1,
+              ease: [0.22, 1, 0.36, 1],
+            }}
+          >
+            ISN’T MEASURED IN KMS
+          </motion.span>
+          <div className={styles.rightContentBlock}>
+            <motion.span
+              className={styles.subHeaderGoldRight}
+              initial={{ opacity: 0, x: 200 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{
+                duration: 0.8,
+                delay: 1,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              IT’S MEASURED IN
+            </motion.span>
+            <motion.h2
+              className={styles.secondaryTitleLarge}
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false, amount: 0.3 }}
+            >
+              {titleText2.split("").map((char, index) => (
+                <motion.span
+                  key={`${char}-${index}`}
+                  variants={letterVariants}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </motion.span>
+              ))}
+            </motion.h2>
+            <motion.div
+              className={styles.glowintwo}
+              initial={{ scaleX: 0, opacity: 0 }}
+              whileInView={{ scaleX: 1, opacity: 1 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{
+                duration: 1,
+                delay: 1,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+              style={{ transformOrigin: "center" }}
+            />
+
+            <motion.div
+              className={styles.momentsSubtitleRow}
+              initial={{ opacity: 0, y: 30 }}       
+              whileInView={{ opacity: 1, y: 0 }}  
+              viewport={{ once: false, amount: 0.3 }} 
+              transition={{
+                duration: 0.8,
+                delay: 1,                          
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
               <span>moments saved,</span>
               <span className={styles.dotSeparator}>|</span>
               <span>moments shared,</span>
               <span className={styles.dotSeparator}>|</span>
               <span>moments remembered.</span>
-            </div>
+            </motion.div>
           </div>
         </div>
 
-        <div className={styles.heroTagline}>
-          <span className={styles.taglineWord}>A PLACE</span>
-
-          <button
-            type="button"
-            className={styles.toggle}
-            onClick={onToggleNight}
-            aria-pressed={isNight}
-          >
-            <span className={isNight ? styles.toggleOff : styles.toggleOn}>BY DAY</span>
-            <span className={styles.toggleTrack}>
-              <span
-                className={styles.toggleKnob}
-                style={{ left: isNight ? "calc(100% - 5px)" : "0%" }}
-              />
-            </span>
-            <span className={isNight ? styles.toggleOn : styles.toggleOff}>BY NIGHT</span>
-          </button>
-
-          <span className={styles.taglineWord}>TO RETURN TO</span>
-        </div>
       </header>
     </div>
   );
