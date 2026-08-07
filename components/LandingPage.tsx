@@ -89,7 +89,6 @@ export default function LandingPage({ isNight, onToggleNight }: LandingPageProps
 
   const renderMainSections = () => (
     <div className={styles.heroSceneWrapper}>
-      {/* Background Image Layers for Smooth Cross-fading */}
       <div
         className={`${styles.bgLayer} ${styles.dayBg}`}
         style={{ opacity: isNight ? 0 : 1 }}
@@ -101,34 +100,47 @@ export default function LandingPage({ isNight, onToggleNight }: LandingPageProps
 
       <header className={styles.hero}>
         <div className={styles.heroInner}>
-          <h1>
-            <span className={styles.heroEra}>THE</span>
-            <span className={styles.heroResidence}>5 Minute</span>
-            <span className={styles.heroScript}>City Vashi</span>
+          <p className={styles.subHeaderGold}>THE FUTURE OF</p>
+          <h1 className={styles.heroEra}>
+            THE CITY
           </h1>
+          <div className={styles.glowingBorderLine}></div>
+          <span className={styles.subHeaderGoldBottom}>ISN’T MEASURED IN KMS</span>
+          <div className={styles.rightContentBlock}>
+            <span className={styles.subHeaderGoldRight}>IT’S MEASURED IN</span>
+            <h2 className={styles.secondaryTitleLarge}>MOMENTS</h2>
+            <div className={styles.glowintwo}></div>
+
+            <div className={styles.momentsSubtitleRow}>
+              <span>moments saved,</span>
+              <span className={styles.dotSeparator}>|</span>
+              <span>moments shared,</span>
+              <span className={styles.dotSeparator}>|</span>
+              <span>moments remembered.</span>
+            </div>
+          </div>
         </div>
 
         <div className={styles.heroTagline}>
-          <span className={styles.taglineWord}>A place</span>
+          <span className={styles.taglineWord}>A PLACE</span>
 
-          {/* Custom Switch Toggle */}
           <button
             type="button"
             className={styles.toggle}
             onClick={onToggleNight}
             aria-pressed={isNight}
           >
-            <span className={isNight ? styles.toggleOff : styles.toggleOn}>By day</span>
+            <span className={isNight ? styles.toggleOff : styles.toggleOn}>BY DAY</span>
             <span className={styles.toggleTrack}>
               <span
                 className={styles.toggleKnob}
                 style={{ left: isNight ? "calc(100% - 5px)" : "0%" }}
               />
             </span>
-            <span className={isNight ? styles.toggleOn : styles.toggleOff}>By night</span>
+            <span className={isNight ? styles.toggleOn : styles.toggleOff}>BY NIGHT</span>
           </button>
 
-          <span className={styles.taglineWord}>To return to</span>
+          <span className={styles.taglineWord}>TO RETURN TO</span>
         </div>
       </header>
     </div>

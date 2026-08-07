@@ -76,7 +76,7 @@
       0 calc(100% - 28px),
       0 28px);
   opacity: 0;
-  
+
 }
 
 .preloaderGlyph {
@@ -243,18 +243,34 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
   overflow: hidden;
 }
 
 .heroInner {
   position: relative;
   z-index: 2;
-  text-align: center;
-  padding: 8rem 1.5rem 0;
+  text-align: left;
+  padding: 8rem 5rem 1rem 12rem;
 }
 
-.heroEra,
+.heroEra {
+  font-family: "Cinzel", serif;
+  font-size: clamp(4rem, 7vw, 7.5rem);
+  font-weight: 500;
+  line-height: 0.9;
+  letter-spacing: 0.05em;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 5px #faf3e375);
+  background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin: 0.8rem 0;
+  text-transform: uppercase;
+}
+
+
+
 .heroResidence {
   display: block;
   font-family: "Bodoni Moda", serif;
@@ -263,12 +279,142 @@
   line-height: 0.82;
 }
 
-.heroEra {
-  font-size: clamp(3.6rem, 10vw, 11rem);
+.subHeaderGold {
+  font-family: "Cinzel", serif;
+  font-size: clamp(0.9rem, 1.4vw, 1.3rem);
+  letter-spacing: 0.4em;
+  color: #d3ad56;
+  text-transform: uppercase;
+}
+
+.glowintwo,
+.glowingBorderLine {
+  position: relative;
+  width: 50%;
+  height: 2px;
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0) 0%,
+      #ffd9006a 50%,
+      rgba(0, 0, 0, 0) 100%);
+  margin: 0.8rem 0;
+}
+
+.glowintwo {
+  width: 70%;
+  left: 10%;
+}
+
+.glowintwo:before,
+.glowingBorderLine:before {
+  content: "";
+  filter: blur(2px);
+  z-index: 1;
+  background: radial-gradient(circle, #f0c96e 0%, #f0c96e66 30%, #0000 90%);
+  width: 200px;
+  height: 3px;
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.subHeaderGoldBottom {
+  font-family: "Cinzel", serif;
+  font-size: clamp(0.85rem, 1.3vw, 1.2rem);
+  letter-spacing: 0.45em;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 5px #faf3e375);
+  background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  text-transform: uppercase;
+  word-spacing: 0.5rem;
 }
 
 .heroResidence {
   font-size: clamp(3.6rem, 13.5vw, 15rem);
+}
+
+.rightContentBlock {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 30vw;
+  margin-top: 2rem;
+  border-left: 2px solid transparent;
+  border-image: linear-gradient(to bottom,
+      rgba(248, 206, 69, 0) 0%,
+      rgba(248, 206, 69, 0.386) 30%,
+      rgba(203, 178, 121, 0.577) 50%,
+      rgba(248, 206, 69, 0.386) 70%,
+      rgba(248, 206, 69, 0) 100%) 1;
+}
+
+.subHeaderGoldRight {
+  font-family: "Cinzel", serif;
+  font-size: clamp(0.85rem, 1.2vw, 1.1rem);
+  letter-spacing: 0.35em;
+  font-size: clamp(0.85rem, 1.3vw, 1.2rem);
+
+  text-transform: uppercase;
+  padding-left: 2rem;
+}
+
+.secondaryTitleLarge {
+  font-family: "Cinzel", serif;
+  font-size: clamp(4rem, 7vw, 7.5rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: 0.05em;
+  -webkit-text-fill-color: transparent;
+  background-image: linear-gradient(10deg, #0000 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, #0000 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 2px 5px #f6cc6c75);
+  margin: 0.3rem 0;
+  text-transform: uppercase;
+  padding-left: 1.5rem;
+
+}
+
+.momentsSubtitleRow {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  font-family: "Pinyon Script", cursive;
+  font-size: clamp(1.2rem, 2.2vw, 2.2rem);
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 5px #faf3e375);
+  background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+
+}
+
+.dotSeparator {
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  opacity: 0.4;
+  color: #cbb279;
+}
+
+.dotSeparator {
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  opacity: 0.4;
+  color: #cbb279;
+}
+
+
+.taglineWord {
+  font-family: "Cinzel", serif;
+  font-size: clamp(0.75rem, 1vw, 1rem);
+  letter-spacing: 0.3em;
+  color: #f6f1e7;
 }
 
 .heroScript {
@@ -352,7 +498,8 @@
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: var(--wine-deep); /* Base fallback color */
+  background-color: var(--wine-deep);
+  /* Base fallback color */
   overflow: hidden;
 }
 
@@ -377,6 +524,7 @@
 .nightBg {
   background-image: url('/images/vashiCitybbbb.jpg');
 }
+
 /* ---------------- Scene section ---------------- */
 
 .scene {
