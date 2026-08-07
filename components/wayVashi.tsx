@@ -238,7 +238,7 @@ export default function WayVashi({ isNight }: WayVashiProps) {
       </section>
 
       {/* ---------- Quote over image ---------- */}
-      {/* <section ref={quoteRef} className={styles.quoteSection} style={{ backgroundImage: "url('/images/city.png')" }}>
+      <section ref={quoteRef} className={styles.quoteSection} style={{ backgroundImage: "url('/images/city.png')" }}>
         <blockquote className={styles.quote}>
           <span className={styles.quoteMark}>“</span>
           {QUOTE_LINES.map((line) => (
@@ -247,7 +247,7 @@ export default function WayVashi({ isNight }: WayVashiProps) {
             </span>
           ))}
         </blockquote>
-      </section> */}
+      </section>
     </div>
   );
 }
