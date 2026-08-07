@@ -414,8 +414,8 @@ const [isNight, setIsNight] = useState(false);
                 // "#251a04",
 
                 // option 1
-                "#010101",
-                "#050608",
+                "#03050f",
+                "#0e1420",
                 "#10131b",
                 "#1b2232",
                 "#12161e",
@@ -430,9 +430,9 @@ const [isNight, setIsNight] = useState(false);
                 // "#0f0a13",
 
               ]}
-              speed={0.6}
+              speed={0.7}
               showParticles={isCinematicVisible}
-              particleColor="#e6c98d"
+              particleColor="#e6c88d"
               particleCount={48}
               particleLayout="text"
               continuous={true}

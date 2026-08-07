@@ -195,7 +195,7 @@ function AutoPlayVideo({
 
         void video.play().catch(() => {
           // Autoplay can briefly fail while the source is still buffering.
-          // onCanPlay below retries it without repeatedly calling video.load().
+          // If this fails, the next visibility/play-state change will retry it.
         });
       }, startDelay);
     };
@@ -206,10 +206,10 @@ function AutoPlayVideo({
     };
 
     const handleCanPlay = () => {
+      // Only reveal the first decodable frame here.
+      // Do NOT call play() from canplay: doing so bypasses startDelay and
+      // makes all desktop decoders start together.
       setHasFrame(true);
-      if (shouldPlay && document.visibilityState === "visible" && video.paused) {
-        void video.play().catch(() => undefined);
-      }
     };
 
     video.addEventListener("canplay", handleCanPlay);
@@ -241,7 +241,7 @@ function AutoPlayVideo({
       muted
       loop
       playsInline
-      preload={priority ? "auto" : "metadata"}
+      preload={priority || shouldPlay ? "auto" : "metadata"}
       controls={false}
       disablePictureInPicture
       disableRemotePlayback
@@ -361,7 +361,7 @@ export default function CinematicPlacesGallery() {
       {
         // Begin buffering before the user reaches the section, rather than
         // starting seven files on the same frame when it becomes sticky.
-        rootMargin: "900px 0px",
+        rootMargin: "250px 0px",
         threshold: 0,
       },
     );
@@ -749,7 +749,7 @@ export default function CinematicPlacesGallery() {
                   exitX={position.exitX}
                   exitY={position.exitY}
                   shouldPlay={shouldPlaySides}
-                  startDelay={index * 90}
+                  startDelay={index * 180}
                 />
               ))}
 
