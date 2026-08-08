@@ -204,7 +204,6 @@ const cards = [
   },
 ];
 
-
 const LETTER_PATHS: Record<string, string> = {
   L: "M34 24V184H154V154H68V24Z",
   I: "M28 24H152V52H106V156H152V184H28V156H74V52H28Z",
@@ -280,7 +279,7 @@ export default function Lit() {
           setAnimate(false);
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.2 },
     );
 
     observer.observe(section);
@@ -386,11 +385,6 @@ export default function Lit() {
               <div className={s.cardBody}>
                 <h3>{title}</h3>
                 <p>{copy}</p>
-
-                <a className={s.explore} href="#">
-                  EXPLORE
-                  <span aria-hidden="true">→</span>
-                </a>
               </div>
             </article>
           );
