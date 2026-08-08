@@ -607,8 +607,8 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  stroke-dasharray: 2;
+  stroke-dashoffset: 2;
   filter:
     drop-shadow(0 0 2px rgba(201, 146, 67, 0.42))
     drop-shadow(0 0 7px rgba(201, 146, 67, 0.12));
@@ -621,7 +621,7 @@
 
 @keyframes traceLetter {
   0% {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: 2;
     opacity: 0.15;
   }
 
@@ -669,8 +669,8 @@
   stroke-width: 1.35;
   stroke-linecap: round;
   vector-effect: non-scaling-stroke;
-  stroke-dasharray: 1;
-  stroke-dashoffset: 1;
+  stroke-dasharray: 2;
+  stroke-dashoffset: 2;
   opacity: 0;
   filter: drop-shadow(0 0 4px rgba(201, 146, 67, 0.32));
 }
@@ -682,7 +682,7 @@
 
 @keyframes traceDot {
   from {
-    stroke-dashoffset: 1;
+    stroke-dashoffset: 2;
     opacity: 0;
   }
   to {
