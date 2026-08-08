@@ -6,7 +6,7 @@ import StackFeatureSection from "@/components/scrollvideo/StackFeatureSection";
 export default function Home() {
   return (
     <main>
-           <div data-section className="h-screen w-full overflow-hidden">
+      <div data-section className="h-screen w-full overflow-hidden" id="vidiosection">
         <video
           autoPlay
           muted

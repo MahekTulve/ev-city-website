@@ -92,13 +92,20 @@ export default function Badge() {
   }, []);
 
   const currentIndex = parseInt(activeSection, 10);
-  
+
   const isLastSection = totalSections > 0 && currentIndex >= totalSections - 1;
   const nextSection = isLastSection ? "END" : String(currentIndex + 1).padStart(2, "0");
-
+  const handleBadgeClick = () => {
+    const targetSection = document.getElementById("vidiosection");
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
   return (
     <>
-      <div className={Style.badge}>
+      <div className={Style.badge}
+        onClick={handleBadgeClick}
+      >
         <svg
           ref={ringRef}
           className={Style.badgeRing}

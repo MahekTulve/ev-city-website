@@ -310,35 +310,37 @@
   will-change: transform, opacity;
 }
 
-.glowintwo,
-.glowingBorderLine {
+.glowingBorderLine,
+.glowintwo {
   position: relative;
   width: 50%;
   height: 2px;
   background: linear-gradient(90deg,
-      rgba(0, 0, 0, 0) 0%,
-      #ffd9006a 50%,
-      rgba(0, 0, 0, 0) 100%);
-  margin: 0.8rem 0;
+      transparent 0%,
+      #ffcc00 50%,
+      transparent 100%);
+  margin: 1rem 0;
+  display: block;
 }
 
 .glowintwo {
   width: 70%;
-  left: 10%;
+  /* left: 10%; Ki zaroorat nahi hai agar center mein rakhna hai, margin auto use kar sakte hain */
 }
 
-.glowintwo:before,
-.glowingBorderLine:before {
+.glowingBorderLine::before,
+.glowintwo::before {
   content: "";
-  filter: blur(2px);
-  z-index: 1;
-  background: radial-gradient(circle, #f0c96e 0%, #f0c96e66 30%, #0000 90%);
-  width: 200px;
-  height: 3px;
   position: absolute;
-  bottom: -1px;
+  top: 50%;
   left: 50%;
-  transform: translate(-50%);
+  transform: translate(-50%, -50%);
+  width: 20%;
+  height: 5px;
+  background: radial-gradient(circle, #ffcc00 0%, rgba(255, 204, 0, 0.4) 50%, transparent 100%);
+  filter: blur(3px);
+  z-index: 1;
+  pointer-events: none;
 }
 
 .subHeaderGoldBottom {
@@ -369,13 +371,7 @@
   text-align: left;
   margin-left: 30vw;
   margin-top: 2rem;
-  border-left: 2px solid transparent;
-  border-image: linear-gradient(to bottom,
-      rgba(248, 206, 69, 0) 0%,
-      rgba(248, 206, 69, 0.386) 30%,
-      rgba(203, 178, 121, 0.577) 50%,
-      rgba(248, 206, 69, 0.386) 70%,
-      rgba(248, 206, 69, 0) 100%) 1;
+
 }
 
 .subHeaderGoldRight {
@@ -424,15 +420,110 @@
   align-items: center;
   font-family: "Pinyon Script", cursive;
   font-size: clamp(1.2rem, 2.2vw, 2.2rem);
+  margin-top: 0.5rem;
+  padding-left: 1.5rem;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+
+.nightTheme .subHeaderGold,
+.nightTheme .subHeaderGoldRight {
+  background-image: linear-gradient(10deg, #b98f2c 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, #b98f2c 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.nightTheme .heroEra span,
+.nightTheme .subHeaderGoldBottom {
+  background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.nightTheme .secondaryTitleLarge span {
+  background-image: linear-gradient(10deg, #0000 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, #0000 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.nightTheme .momentsSubtitleRow {
+  color: #f6f1e7;
+}
+
+.dayTheme .subHeaderGold {
+  background-image: linear-gradient(10deg, #f1f7ff 0%, #ffffff 50%, #e3ebf8 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 1px 1px #79adfb);
+}
+
+.dayTheme .subHeaderGoldRight {
+  background-image: linear-gradient(10deg, #eff6ff 0%, #ffffff 50%, #ffffff 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 1px 1px #aacafa);
+
+}
+
+.dayTheme .heroEra span {
+  background-image: linear-gradient(#e1ee98 0%, #fcfdff 50%, #e1ee98 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 1px 1px #aacafa);
+
+}
+
+.dayTheme .subHeaderGoldBottom {
+  background-image: linear-gradient(10deg, #01204e 0%, #01204e 50%, #01204e 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 1px 1px #01204e);
+
+}
+
+.dayTheme .secondaryTitleLarge span {
+  background-image: linear-gradient(10deg, #f4f2f200 0%, #023c7e 35%, #fdfcfa 50%, #023c7e 70%, #bbc9e100 100%);
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.dayTheme .momentsSubtitleRow {
+  color: #01204e;
+  filter: drop-shadow(0 1px 1px #01204e);
+
+}
+
+.dayTheme .glowingBorderLine,
+.dayTheme .glowintwo {
+  background: linear-gradient(90deg,
+      transparent 0%,
+      #fffcef 50%,
+      transparent 100%);
+}
+
+.dayTheme .glowingBorderLine::before,
+.dayTheme .glowintwo::before {
+  background: radial-gradient(circle, #f3efe1 0%, rgba(240, 232, 201, 0.4) 50%, transparent 100%);
+}
+
+.heroEra span {
+  display: inline-block;
+  position: relative;
+  will-change: transform, opacity;
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 2px 5px #faf3e375);
   background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
   -webkit-background-clip: text;
   background-clip: text;
-  margin-top: 0.5rem;
-  padding-left: 1.5rem;
-  display: flex;
-  will-change: transform, opacity;
 }
 
 .dotSeparator {
