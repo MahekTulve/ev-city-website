@@ -2,7 +2,7 @@
   position: fixed;
   top: 1.5rem;
   left: 1rem;
-  z-index: 20;
+  z-index: 999;
   width: 7rem;
   height: 7rem;
   color: #fff;
@@ -42,7 +42,7 @@
   position: fixed;
   left: 1rem;
   top: 35%;
-  z-index: 20;
+  z-index: 999;
   display: flex;
   flex-direction: column;
   align-items: center;
