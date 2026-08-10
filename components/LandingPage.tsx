@@ -90,7 +90,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
           trigger: introRef.current,
           start: "top top",
           end: "+=100%",
-          scrub: 1,
+          scrub: 0.5,
           pin: true,
         },
       });
@@ -174,13 +174,14 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const renderMainSections = () => (
     <div className={styles.heroSceneWrapper}>
       <div
-        className={`${styles.bgLayer} ${styles.dayBg}`}
-        style={{ opacity: isNight ? 0 : 1 }}
-      />
-      <div
         className={`${styles.bgLayer} ${styles.nightBg}`}
         style={{ opacity: isNight ? 1 : 0 }}
       />
+      <div
+        className={`${styles.bgLayer} ${styles.dayBg}`}
+        style={{ opacity: isNight ? 0 : 1 }}
+      />
+
 
       <header className={styles.hero}>
         <motion.div
