@@ -129,12 +129,12 @@ const PlaceToLive = () => {
                     aria-hidden="true"
                 />
             </div>
-            <div className={styles.bottompart}>
+            {/* <div className={styles.bottompart}>
                 <img
                     src="/images/why-vashi-bottom.png"
                     alt="Architecture 3"
                 />
-            </div>
+            </div> */}
         </div>
     );
 };
