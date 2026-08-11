@@ -25,7 +25,9 @@ import LandingPage from "../LandingPage";
 import CinematicPlacesGallery from "./CinematicPlacesGallery";
 import WayVashi from "../wayVashi";
 import HorizontalStory from "../whyvashi/HorizontalStory";
-import PlaceToLive from "../PlaceToLive";
+import PlaceToLive from "../PlaceToLeave/PlaceToLive";
+import NextPhoto from "../PlaceToLeave/NextPhoto";
+import NextDesign from "../PlaceToLeave/NextDesign";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -482,6 +484,8 @@ export default function ZoomParallaxDemo() {
         </div>
       </div>
       <PlaceToLive />
+      <NextPhoto />
+      <NextDesign />
       <div data-section>
         <ExplainDenmark />
       </div>
