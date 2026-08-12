@@ -118,7 +118,7 @@ export default function VashiLetter({
 
   return (
     <section className={sectionClass}>
-      <div
+      {/* <div
         className={styles.cloudVeil}
         aria-hidden="true"
         style={{
@@ -173,7 +173,7 @@ export default function VashiLetter({
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {showCircle && (
         <div className={styles.circle}>

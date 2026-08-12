@@ -460,15 +460,10 @@ export default function ZoomParallaxDemo() {
 
         </div>
       </section>
+
       <div data-section className="-mt-[2px] relative z-20">
         <WayVashi isNight={isNight} setIsNight={toggleNightMode} />
       </div>
-      <div data-section>
-        <HorizontalStory />
-      </div>
-
-      {/* <AboutFiveMinute /> */}
-
       <div ref={containerRef} data-section className="relative h-[600vh] w-full ">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <VashiLetter
@@ -483,6 +478,26 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div>
+      <div data-section>
+        <HorizontalStory />
+      </div>
+
+      {/* <AboutFiveMinute /> */}
+
+      {/* <div ref={containerRef} data-section className="relative h-[600vh] w-full ">
+        <div className="sticky top-0 h-screen w-full overflow-hidden">
+          <VashiLetter
+            isActive={true}
+            isEntering={states.isEntering}
+            isFinal={states.isFinal}
+            isStepThree={states.isStepThree}
+            isStepFour={states.isStepFour}
+            isStepFive={states.isStepFive}
+            isStepSix={states.isStepSix}
+            isVideoActive={states.isVideoActive}
+          />
+        </div>
+      </div> */}
       <PlaceToLive />
       <NextPhoto />
       <NextDesign />
