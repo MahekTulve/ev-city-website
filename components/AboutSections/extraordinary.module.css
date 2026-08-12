@@ -1,19 +1,248 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Kalnia:wght@100..700&family=Varela+Round&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400..700&family=Kalnia:wght@100..700&family=Varela+Round&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Kalnia:wght@100..700&family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Dancing+Script:wght@400..700&family=Kalnia:wght@100..700&family=Varela+Round&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
 
 .extraordinarySection {
+  /* Shared seam colour - must be identical in HorizontalStory.module.css */
+  --cloud-seam: #f3f3ec;
+
+  position: relative;
+  isolation: isolate;
+
   width: 100%;
   height: 100vh;
   left: 0;
-  background-color: #0b0a09;
-  padding: 0px 60px 30px 0px;
+
+  background-color: #264683;
+
+  padding: 0 60px 30px 0;
+
   box-sizing: border-box;
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   overflow: hidden;
+
   will-change: transform, position;
+}
+
+.cloudTransition {
+  position: absolute;
+  z-index: 30;
+
+  left: -15vw;
+  top: -70vh;
+
+  width: 130vw;
+  height: 100vh;
+
+  overflow: hidden;
+  pointer-events: none;
+
+  opacity: 1;
+  transition: opacity 0.8s ease;
+
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.18) 10%,
+    rgba(0, 0, 0, 0.72) 24%,
+    #000 38%,
+    #000 62%,
+    rgba(0, 0, 0, 0.72) 76%,
+    rgba(0, 0, 0, 0.18) 90%,
+    transparent 100%
+  );
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(0, 0, 0, 0.18) 10%,
+    rgba(0, 0, 0, 0.72) 24%,
+    #000 38%,
+    #000 62%,
+    rgba(0, 0, 0, 0.72) 76%,
+    rgba(0, 0, 0, 0.18) 90%,
+    transparent 100%
+  );
+}
+
+.cloudVeil {
+  position: absolute;
+  z-index: 29;
+
+  left: -2vw;
+  right: -2vw;
+  top: -1px;
+
+  height: 30vh;
+
+  pointer-events: none;
+
+  opacity: 1;
+  transition: opacity 0.8s ease;
+
+  background: linear-gradient(
+    to bottom,
+    var(--cloud-seam) 0%,
+    var(--cloud-seam) 10%,
+    rgba(243, 243, 236, 0.233) 24%,
+    rgba(243, 243, 236, 0.034) 48%,
+    rgba(243, 243, 236, 0.068) 72%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+.cloudCore {
+  position: absolute;
+  z-index: 0;
+
+  left: 0;
+  right: 0;
+  top: 50%;
+
+  height: 18vh;
+
+  transform: translateY(-50%);
+
+  background: linear-gradient(
+    to bottom,
+    rgba(243, 243, 236, 0) 0%,
+    rgba(243, 243, 236, 0.58) 18%,
+    rgba(243, 243, 236, 0.94) 38%,
+    var(--cloud-seam) 50%,
+    rgba(243, 243, 236, 0.94) 62%,
+    rgba(243, 243, 236, 0.58) 82%,
+    rgba(243, 243, 236, 0) 100%
+  );
+
+  filter: blur(2px);
+}
+
+.cloudMarquee {
+  position: absolute;
+  z-index: 1;
+
+  top: 0;
+  left: 0;
+
+  display: flex;
+  width: max-content;
+  height: 100%;
+
+  align-items: center;
+
+  animation: vashiCloudMove 46s linear infinite;
+
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.cloudGroup {
+  display: flex;
+  flex: none;
+
+  height: 100%;
+
+  align-items: center;
+  gap: 0;
+}
+
+.cloudGroup + .cloudGroup {
+  margin-left: 0;
+}
+
+.cloudItem {
+  position: relative;
+
+  flex: 0 0 48vw;
+  width: 48vw;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  overflow: visible;
+}
+
+.cloudItem + .cloudItem {
+  margin-left: -14vw;
+}
+
+.cloudImage {
+  display: block;
+
+  width: 165%;
+  height: auto;
+  max-width: none;
+
+  object-fit: contain;
+  object-position: center;
+
+  opacity: 0.98;
+
+  pointer-events: none;
+  user-select: none;
+
+  filter:
+    blur(0.25px)
+    contrast(0.9)
+    brightness(1.08);
+
+  transform: translate3d(0, 0, 0) scale(1.08);
+  transform-origin: center;
+}
+
+.cloudImageA {
+  transform: translate3d(-3%, -4%, 0) scale(1.12);
+}
+
+.cloudImageB {
+  transform: translate3d(3%, 6%, 0) scale(1.18);
+}
+
+.cloudImageC {
+  transform: translate3d(-2%, 2%, 0) scale(1.22);
+}
+
+.cloudImageD {
+  transform: translate3d(4%, -2%, 0) scale(1.16);
+}
+
+.cloudImageFlipped.cloudImageA {
+  transform: translate3d(-3%, -4%, 0) scale(1.12) scaleY(-1);
+}
+
+.cloudImageFlipped.cloudImageB {
+  transform: translate3d(3%, 6%, 0) scale(1.18) scaleY(-1);
+}
+
+.cloudImageFlipped.cloudImageC {
+  transform: translate3d(-2%, 2%, 0) scale(1.22) scaleY(-1);
+}
+
+.cloudImageFlipped.cloudImageD {
+  transform: translate3d(4%, -2%, 0) scale(1.16) scaleY(-1);
+}
+
+@keyframes vashiCloudMove {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cloudMarquee {
+    animation: none;
+  }
 }
 
 .keepItFixed {
@@ -42,12 +271,12 @@
 
 .maincontainer {
   position: relative;
+  z-index: 5;
   width: 100%;
   max-width: 1400px;
   height: 100%;
   margin: 0 auto;
   margin-left: 7%;
-
 }
 
 .leftContent {
@@ -76,7 +305,6 @@
   transform: scale(0.75);
 }
 
-
 .container {
   position: absolute;
   bottom: 0;
@@ -89,7 +317,6 @@
   gap: 10px;
   will-change: transform, opacity, width, max-width, bottom, right;
   transition: all 2s cubic-bezier(0.76, 0, 0.24, 1);
-
 }
 
 .containerHidden {
@@ -110,7 +337,6 @@
   max-width: 1100px;
   width: 90%;
   gap: 60px;
-
 }
 
 .containerExitUp {
@@ -175,13 +401,14 @@
 }
 
 .step3TextScaleUp {
-  background-image: radial-gradient(circle 800px at top left,
-      #fff0d4 0%,
-      #ffae0028 5%,
-      #df981e0f 30%,
-      #30200515 40%,
-      /* #0b0a09 70%, */
-      #0b0a09 100%);
+  background-image: radial-gradient(
+    circle 800px at top left,
+    #fff0d4 0%,
+    #ffae0028 5%,
+    #df981e0f 30%,
+    #30200515 40%,
+    /* #0b0a09 70%, */ #0b0a09 100%
+  );
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -190,7 +417,6 @@
   padding-left: 20px;
   position: relative;
   z-index: 1;
-
 }
 
 .step3TextScaleUp::before {
@@ -212,27 +438,38 @@
 
   /* RIGHT SIDE SYMMETRY: standard 0deg se right-side curve ke angles ko perfectly soft blend kiya hai */
   -webkit-mask-image:
-    conic-gradient(from 0deg at 67% 30%,
+    conic-gradient(
+      from 0deg at 67% 30%,
       black 0deg,
       transparent 40deg,
-      /* Top se aakar line smoothly yahan fade-out hui */
-      transparent 75deg,
-      /* --- 20% ABSOLUTE GAP: Yahan border poori tarah khatam hai --- */
-      black 135deg,
-      /* Right-center ke paas se line smoothly fade-in hona shuru hui */
-      black 360deg
-      /* Baki pure left aur top ka hissa solid rahega */
+      /* Top se aakar line smoothly yahan fade-out hui */ transparent 75deg,
+      /* --- 20% ABSOLUTE GAP: Yahan border poori tarah khatam hai --- */ black
+        135deg,
+      /* Right-center ke paas se line smoothly fade-in hona shuru hui */ black
+        360deg /* Baki pure left aur top ka hissa solid rahega */
     ),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   mask-image:
-    conic-gradient(from 0deg at 67% 30%,
+    conic-gradient(
+      from 0deg at 67% 30%,
       black 0deg,
       transparent 40deg,
       transparent 75deg,
       black 135deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -263,7 +500,8 @@
   width: 100%;
   overflow: hidden;
   will-change: max-width, aspect-ratio, transform;
-  transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
+  transition:
+    max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
     aspect-ratio 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
     transform 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s;
 }
@@ -280,9 +518,13 @@
   transform: scale(1);
 }
 
-
 .step3Heading {
-  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  background-image: linear-gradient(
+    180deg,
+    #e7bd65 0%,
+    #f2e18b 50%,
+    #b98d3d 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -295,7 +537,6 @@
   right: -10%;
   font-family: "Kalnia", serif;
   z-index: 20;
-
 }
 
 .step3Divider {
@@ -316,7 +557,6 @@
   align-items: flex-end;
   text-align: right;
   max-width: 350px;
-
 }
 
 .step3Description {
@@ -327,7 +567,7 @@
   text-align: right;
   font-weight: 300;
   color: #fff5e2;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   margin-left: 20px;
   font-size: clamp(16px, 1.5vw, 18px);
   line-height: 1.5;
@@ -382,7 +622,6 @@
   color: #b88f421f;
   line-height: 20rem;
   margin-top: 200px;
-
 }
 
 .centerContainer {
@@ -397,9 +636,10 @@
   aspect-ratio: 0.8 / 1.02;
   max-width: 300px;
   overflow: hidden;
-  transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1), aspect-ratio 2s ease;
+  transition:
+    max-width 2s cubic-bezier(0.76, 0, 0.24, 1),
+    aspect-ratio 2s ease;
   z-index: 10;
-
 }
 
 .cornerHighlight {
@@ -445,7 +685,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-
 }
 
 .bgcircle {
@@ -473,12 +712,14 @@
 }
 
 .rightContentLarge {
-  background-image: radial-gradient(circle 800px at top right,
-      #fff0d4 0%,
-      #ffae0028 5%,
-      #df981e0f 30%,
-      #30200515 40%,
-      #0b0a09 100%);
+  background-image: radial-gradient(
+    circle 800px at top right,
+    #fff0d4 0%,
+    #ffae0028 5%,
+    #df981e0f 30%,
+    #30200515 40%,
+    #0b0a09 100%
+  );
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -506,24 +747,38 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(from 0deg at 33% 30%,
+    conic-gradient(
+      from 0deg at 33% 30%,
       black 0deg,
       black 220deg,
       transparent 280deg,
       transparent 310deg,
       black 350deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   mask-image:
-    conic-gradient(from 0deg at 33% 30%,
+    conic-gradient(
+      from 0deg at 33% 30%,
       black 0deg,
       black 220deg,
       transparent 280deg,
       transparent 310deg,
       black 350deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -550,12 +805,10 @@
   position: absolute;
   padding-left: 15px;
   top: 80%;
-
 }
 
 .diviDescripcon {
   top: 50%;
-
 }
 
 .rightContentLarge .diviDescrip {
@@ -566,18 +819,15 @@
   flex-direction: column;
 }
 
-
-
 .headingRight {
   font-size: 60px;
   font-weight: 300;
   color: #e7bd65;
   line-height: 1.2;
   margin: 0 0 16px 0;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   text-decoration: "italic";
   transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1);
-
 }
 
 .step6Heading,
@@ -587,7 +837,12 @@
   font-weight: 400;
   line-height: 14rem;
   position: absolute;
-  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  background-image: linear-gradient(
+    180deg,
+    #e7bd65 0%,
+    #f2e18b 50%,
+    #b98d3d 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -596,25 +851,20 @@
   z-index: 20;
 }
 
-
 .step6Heading {
   left: 3%;
 }
-
-
 
 .divider {
   width: 40px;
   height: 1.5px;
   background-color: #e7bd65;
   margin-bottom: 15px;
-
 }
 
 .rightContentLarge .divider {
   width: 70px;
   margin-bottom: 24px;
-
 }
 
 .description {
@@ -622,9 +872,9 @@
   font-weight: 300;
   color: #fff5e2;
   max-width: 280px;
-  font-family: 'Playfair Display', serif;
-  transition: margin-top 2s cubic-bezier(0.76, 0, 0.24, 1)
-    /* font-style: italic; */
+  font-family: "Playfair Display", serif;
+  transition: margin-top 2s cubic-bezier(0.76, 0, 0.24, 1);
+  /* font-style: italic; */
 }
 
 .rightContentLarge .description {
@@ -650,7 +900,6 @@
   z-index: 10;
 }
 
-
 /* Purani class ko aise hi rehne dein */
 .circleV {
   display: flex;
@@ -664,13 +913,17 @@
 }
 
 .activeLetter {
-  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  background-image: linear-gradient(
+    180deg,
+    #e7bd65 0%,
+    #f2e18b 50%,
+    #b98d3d 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   text-shadow: 0 0 10px rgba(191, 174, 145, 0.3);
 }
-
 
 .letterspace {
   color: #e7bd65;
@@ -678,7 +931,8 @@
   font-size: clamp(18px, 1.8vw, 23px);
   font-family: "Kalnia", serif;
   line-height: 1rem;
-  transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
+  transition:
+    font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
     margin-top 2s cubic-bezier(0.76, 0, 0.24, 1),
     padding-bottom 2s cubic-bezier(0.76, 0, 0.24, 1);
 }
@@ -691,7 +945,12 @@
   margin-top: 10px;
   font-family: "Kalnia", serif;
   position: absolute;
-  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  background-image: linear-gradient(
+    180deg,
+    #e7bd65 0%,
+    #f2e18b 50%,
+    #b98d3d 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -707,7 +966,8 @@
 .letterspaSecon {
   font-size: 17px;
   line-height: 0rem;
-  transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
+  transition:
+    font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
     line-height 2s cubic-bezier(0.76, 0, 0.24, 1);
 }
 
@@ -722,8 +982,6 @@
 .letterspaAsec {
   font-size: 25px;
   line-height: 2rem;
-
-
 }
 
 .activeIcon {
@@ -731,9 +989,9 @@
   margin: 10px 0px;
   color: #f7c66c;
   transform: rotate(45deg);
-  transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
+  transition:
+    font-size 2s cubic-bezier(0.76, 0, 0.24, 1),
     margin 2s cubic-bezier(0.76, 0, 0.24, 1);
-
 }
 
 .lettersIcon {
@@ -741,7 +999,6 @@
   margin: 15px 0px;
   color: #f7c66c;
   transform: rotate(45deg);
-
 }
 
 .stepThreeExitUp {
@@ -762,7 +1019,7 @@
   height: 110px;
   background-image: radial-gradient(circle, #f5d7501e 2.2px, transparent 2.2px);
   background-size: 12px 12px;
-  opacity: .5;
+  opacity: 0.5;
 }
 
 .dotgridtwo {
@@ -777,8 +1034,6 @@
   height: 150px;
   right: -12%;
 }
-
-
 
 /* Shuruat me absolute center se 150px neeche invisible betha rahega */
 .stepFourHidden {
@@ -811,10 +1066,10 @@
   width: 100%;
   overflow: hidden;
   will-change: max-width, aspect-ratio, transform;
-  transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
+  transition:
+    max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
     aspect-ratio 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
     transform 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s;
-
 }
 
 /* Shuruat me image choti aur perfectly Square (1/1) shape me dabi rahegi */
@@ -835,7 +1090,8 @@
 .section3ShiftLeft {
   opacity: 0;
   transform: translate(calc(-50% - 400px), -50%) scale(0.92);
-  transition: transform 2.8s cubic-bezier(0.16, 1, 0.3, 1),
+  transition:
+    transform 2.8s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 2.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -854,12 +1110,14 @@
 }
 
 .step4TextScaleUp {
-  background-image: radial-gradient(circle 800px at top right,
-      #fff0d4 0%,
-      #ffae0028 5%,
-      #df981e0f 30%,
-      #30200515 40%,
-      #0b0a09 100%);
+  background-image: radial-gradient(
+    circle 800px at top right,
+    #fff0d4 0%,
+    #ffae0028 5%,
+    #df981e0f 30%,
+    #30200515 40%,
+    #0b0a09 100%
+  );
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -887,24 +1145,38 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(from 0deg at 50% 30%,
+    conic-gradient(
+      from 0deg at 50% 30%,
       black 0deg,
       black 220deg,
       transparent 280deg,
       transparent 310deg,
       black 350deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   mask-image:
-    conic-gradient(from 0deg at 50% 30%,
+    conic-gradient(
+      from 0deg at 50% 30%,
       black 0deg,
       black 220deg,
       transparent 280deg,
       transparent 310deg,
       black 350deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -924,8 +1196,6 @@
   transform: translate(-50%);
 }
 
-
-
 .step4Divider {
   height: 1px;
   background-color: #e7bd65;
@@ -936,7 +1206,7 @@
 .step4Description {
   color: #fff5e2;
   max-width: 280px;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   margin-left: 15px;
   font-size: clamp(16px, 1.5vw, 18px);
   max-width: 300px;
@@ -947,7 +1217,6 @@
 /* ==========================================================================
    8. STEP 5: H CONTAINER LOGIC (TEXT LEFT, IMAGE RIGHT)
    ========================================================================== */
-
 
 .stepFiveHidden {
   opacity: 0;
@@ -989,13 +1258,14 @@
 }
 
 .step5TextScaleUp {
-  background-image: radial-gradient(circle 800px at top left,
-      #fff0d4 0%,
-      #ffae0028 5%,
-      #df981e0f 30%,
-      #30200515 40%,
-      /* #0b0a09 70%, */
-      #0b0a09 100%);
+  background-image: radial-gradient(
+    circle 800px at top left,
+    #fff0d4 0%,
+    #ffae0028 5%,
+    #df981e0f 30%,
+    #30200515 40%,
+    /* #0b0a09 70%, */ #0b0a09 100%
+  );
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -1004,7 +1274,6 @@
   padding-left: 20px;
   position: relative;
   z-index: 1;
-
 }
 
 .step5TextScaleUp::before {
@@ -1025,22 +1294,36 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(from 0deg at 67% 30%,
+    conic-gradient(
+      from 0deg at 67% 30%,
       black 0deg,
       transparent 40deg,
       transparent 75deg,
       black 135deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   mask-image:
-    conic-gradient(from 0deg at 67% 30%,
+    conic-gradient(
+      from 0deg at 67% 30%,
       black 0deg,
       transparent 40deg,
       transparent 75deg,
       black 135deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -1071,7 +1354,10 @@
   width: 100%;
   overflow: hidden;
   will-change: max-width, aspect-ratio, transform;
-  transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s, aspect-ratio 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s, transform 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s;
+  transition:
+    max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
+    aspect-ratio 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
+    transform 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s;
 }
 
 .step5ImageSquare {
@@ -1080,10 +1366,13 @@
   transform: scale(0.9);
 }
 
-
-
 .step5Heading {
-  background-image: linear-gradient(180deg, #e7bd65 0%, #f2e18b 50%, #b98d3d 100%);
+  background-image: linear-gradient(
+    180deg,
+    #e7bd65 0%,
+    #f2e18b 50%,
+    #b98d3d 100%
+  );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1096,7 +1385,6 @@
   right: -10%;
   font-family: "Kalnia", serif;
   z-index: 20;
-
 }
 
 .step5Divider {
@@ -1114,13 +1402,12 @@
   text-align: right;
   font-weight: 300;
   color: #fff5e2;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   margin-left: 20px;
   font-size: clamp(16px, 1.5vw, 18px);
   line-height: 1.5;
   margin-top: 50px;
 }
-
 
 .stepSixHidden {
   opacity: 0;
@@ -1150,7 +1437,10 @@
   width: 100%;
   overflow: hidden;
   will-change: max-width, aspect-ratio, transform;
-  transition: max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s, aspect-ratio 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s, transform 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s;
+  transition:
+    max-width 2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
+    aspect-ratio 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s,
+    transform 2.2s cubic-bezier(0.76, 0, 0.24, 1) 0.4s;
 }
 
 .step6ImageSquare {
@@ -1158,8 +1448,6 @@
   aspect-ratio: 1 / 1;
   transform: scale(0.7);
 }
-
-
 
 .step6RightContent {
   display: flex;
@@ -1176,12 +1464,14 @@
 }
 
 .step6TextScaleUp {
-  background-image: radial-gradient(circle 800px at top right,
-      #fff0d4 0%,
-      #ffae0028 5%,
-      #df981e0f 30%,
-      #30200515 40%,
-      #0b0a09 100%);
+  background-image: radial-gradient(
+    circle 800px at top right,
+    #fff0d4 0%,
+    #ffae0028 5%,
+    #df981e0f 30%,
+    #30200515 40%,
+    #0b0a09 100%
+  );
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -1210,24 +1500,38 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(from 0deg at 40% 30%,
+    conic-gradient(
+      from 0deg at 40% 30%,
       black 0deg,
       black 210deg,
       transparent 275deg,
       transparent 305deg,
       black 345deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   mask-image:
-    conic-gradient(from 0deg at 40% 30%,
+    conic-gradient(
+      from 0deg at 40% 30%,
       black 0deg,
       black 210deg,
       transparent 275deg,
       transparent 305deg,
       black 345deg,
-      black 360deg),
-    linear-gradient(to bottom, black 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+      black 360deg
+    ),
+    linear-gradient(
+      to bottom,
+      black 0%,
+      rgba(0, 0, 0, 0.4) 60%,
+      transparent 100%
+    );
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -1247,7 +1551,6 @@
   transform: translate(-50%);
 }
 
-
 .step6Divider {
   width: 70px;
   height: 1px;
@@ -1258,7 +1561,7 @@
 .step6Description {
   color: #fff5e2;
   max-width: 280px;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   margin-left: 20px;
   font-size: clamp(16px, 1.5vw, 18px);
   max-width: 300px;
@@ -1279,15 +1582,12 @@
     max-width: 1500px;
     width: 90%;
     gap: 60px;
-
   }
 
   .maincontainer {
     margin-left: 12%;
     max-width: 1400px;
-
   }
-
 }
 
 @media (max-width: 1100px) {
@@ -1302,7 +1602,6 @@
     right: 48%;
     width: 85%;
     gap: 20px;
-
   }
 
   .imageWrapper {
@@ -1390,7 +1689,6 @@
   .step3Divider,
   .rightContentLarge .divider {
     width: 60px;
-
   }
 
   .lettersSle {
@@ -1405,7 +1703,6 @@
 }
 
 @media (max-width: 900px) {
-
   .step6Divider,
   .step5Divider,
   .step4Divider,
@@ -1435,7 +1732,6 @@
 
   .lettersIcon {
     font-size: 10px;
-
   }
 
   .diviDescripcon {
@@ -1444,7 +1740,6 @@
 
   .diviDescripcon {
     padding-left: 1px;
-
   }
 }
 
@@ -1470,7 +1765,6 @@
     font-size: 8vw;
     margin-top: 2vh;
     margin-left: 5px;
-
   }
 
   .minttop {
@@ -1484,7 +1778,6 @@
 
   .circleV {
     font-size: 12vw;
-
   }
 
   .imageWrapper {
@@ -1531,7 +1824,6 @@
     font-size: 15vw;
     left: -2%;
     top: -13%;
-
   }
 
   .step6Heading {
@@ -1596,17 +1888,14 @@
     font-size: 15vw;
   }
 
-
   .dotgrid {
     width: 70px;
     height: 70px;
     right: 10%;
   }
-
 }
 
 @media (max-width: 650px) {
-
   .container {
     left: 55%;
     top: 60%;
@@ -1625,7 +1914,8 @@
     opacity: 0;
     top: 65%;
     transform: translate(-50%, -50%) scale(0.7);
-    transition: opacity 1.2s cubic-bezier(0.76, 0, 0.24, 1),
+    transition:
+      opacity 1.2s cubic-bezier(0.76, 0, 0.24, 1),
       transform 1.2s cubic-bezier(0.76, 0, 0.24, 1),
       top 1.2s cubic-bezier(0.76, 0, 0.24, 1);
   }
@@ -1634,7 +1924,8 @@
     opacity: 1;
     top: 60%;
     transform: translate(-50%, -50%) scale(0.8);
-    transition: opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
+    transition:
+      opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
       transform 1.8s cubic-bezier(0.76, 0, 0.24, 1),
       top 1.8s cubic-bezier(0.76, 0, 0.24, 1);
   }
@@ -1643,7 +1934,8 @@
     opacity: 1;
     top: 50%;
     transform: translate(-50%, -50%) scale(1);
-    transition: opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
+    transition:
+      opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
       transform 1.8s cubic-bezier(0.76, 0, 0.24, 1),
       top 1.8s cubic-bezier(0.76, 0, 0.24, 1);
   }
@@ -1652,7 +1944,8 @@
     opacity: 0;
     top: -60%;
     transform: translate(-50%, -50%) scale(1);
-    transition: opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
+    transition:
+      opacity 1.8s cubic-bezier(0.76, 0, 0.24, 1),
       top 1.8s cubic-bezier(0.76, 0, 0.24, 1);
   }
 
@@ -1675,7 +1968,14 @@
   }
 
   .rightContentLarge {
-    background-image: radial-gradient(800px at 100% 0, #0b0a09 0%, #0b0a09 5%, #0b0a09 30%, #0b0a09 40%, #0b0a09 100%);
+    background-image: radial-gradient(
+      800px at 100% 0,
+      #0b0a09 0%,
+      #0b0a09 5%,
+      #0b0a09 30%,
+      #0b0a09 40%,
+      #0b0a09 100%
+    );
   }
 
   .rightContentLarge::before {
@@ -1688,7 +1988,6 @@
 }
 
 @media (max-width: 650px) {
-
   .stepSixContainer,
   .stepFiveContainer,
   .stepFourContainer,
@@ -1696,10 +1995,7 @@
   .containerExitUp,
   .containerFinalStage {
     grid-template-columns: 1fr;
-
   }
-
-
 
   .step6TextScaleUp,
   .step5TextScaleUp,
@@ -1709,7 +2005,6 @@
     height: auto;
     max-width: 70%;
     margin-left: 10vw;
-
   }
 
   .diviDescripcon,
@@ -1724,7 +2019,6 @@
 
   .rightContentLarge .diviDescrip {
     margin-top: 50%;
-
   }
 
   .step6ImageExpanded,
@@ -1769,7 +2063,6 @@
   }
 }
 
-
 @media (max-width: 570px) {
   .mainthe {
     font-size: 7vw;
@@ -1786,7 +2079,6 @@
 
   .circleV {
     line-height: 5rem;
-
   }
 
   .bgcircle {
@@ -1824,7 +2116,6 @@
 
   .step5TextScaleUp {
     padding-left: 0px;
-
   }
 
   .step6Divider,
@@ -1854,7 +2145,6 @@
 
   .step5TextScaleUp {
     margin-left: 5vw;
-
   }
 
   .step6Description,
@@ -1882,7 +2172,6 @@
   .mainthe {
     font-size: 7.2vw;
   }
-
 
   .step3TextScaleUp {
     padding-left: 0px;
@@ -1929,13 +2218,11 @@
 
   .extraordinarySection {
     padding: 0px 0px 10px 0px;
-
   }
 
   .circleV {
     font-size: 17vw;
     line-height: 5rem;
-
   }
 
   .containerReveal {
@@ -1959,7 +2246,6 @@
 }
 
 @media (max-width: 375px) {
-
   .step3Heading,
   .step6Heading,
   .step4Heading,
@@ -1974,10 +2260,97 @@
 
   .diviStep3Descrip {
     right: -20px;
-
   }
 
   .diviStep3Descrip {
     margin-top: 40%;
   }
 }
+
+@media (max-width: 1200px) {
+  .cloudTransition {
+    left: -18vw;
+    top: -44vh;
+
+    width: 136vw;
+    height: 88vh;
+  }
+
+  .cloudItem {
+    flex-basis: 56vw;
+    width: 56vw;
+  }
+
+  .cloudItem + .cloudItem {
+    margin-left: -16vw;
+  }
+}
+
+@media (max-width: 900px) {
+  .cloudTransition {
+    left: -26vw;
+    top: -38vh;
+
+    width: 152vw;
+    height: 76vh;
+  }
+
+  .cloudItem {
+    flex-basis: 68vw;
+    width: 68vw;
+  }
+
+  .cloudItem + .cloudItem {
+    margin-left: -20vw;
+  }
+
+  .cloudMarquee {
+    animation-duration: 40s;
+  }
+
+  .cloudVeil {
+    height: 26vh;
+  }
+}
+
+@media (max-width: 520px) {
+  .cloudTransition {
+    left: -38vw;
+    top: -33vh;
+
+    width: 176vw;
+    height: 66vh;
+  }
+
+  .cloudItem {
+    flex-basis: 88vw;
+    width: 88vw;
+  }
+
+  .cloudItem + .cloudItem {
+    margin-left: -28vw;
+  }
+
+  .cloudImage {
+    width: 175%;
+  }
+
+  .cloudMarquee {
+    animation-duration: 34s;
+  }
+
+  .cloudVeil {
+    height: 22vh;
+  }
+
+  .cloudCore {
+    height: 15vh;
+  }
+}
+
+/* @media (max-width: 1600px) {
+
+.cloudVeil {
+  height: 60vh;
+}
+} */

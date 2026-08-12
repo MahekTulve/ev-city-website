@@ -7,19 +7,13 @@ import styles from "./HorizontalStory.module.css";
 const PANELS = 3;
 const SCROLL_LENGTH_VH = 400;
 
-// 0.00 -> 0.60 : Move horizontally from panel 1 to panel 3.
-// 0.55 -> 0.85 : Reveal the route line and buildings.
-// 0.85 -> 1.00 : Hold panel 3 before the sticky section releases.
 const HORIZONTAL_END = 0.6;
 const TIMELINE_START = 0.55;
 const TIMELINE_END = 0.85;
 
-/*
- * Keep the SVG in one fixed coordinate system.
- * The browser scales this viewBox to every screen size, so do not change
- * PATH_WIDTH to 1944 for larger screens. The line and dots remain connected
- * because both use the same SVG coordinates.
- */
+// The cloud bridge fades in as the sticky section hands over to VashiLetter.
+const CLOUD_START = 0.82;
+
 const PATH_WIDTH = 1480;
 const PATH_HEIGHT = 100;
 const PATH_SIDE_PADDING = 36;
@@ -97,8 +91,6 @@ export default function HorizontalStory() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
 
-  // A unique SVG clip-path ID prevents collisions if this component is
-  // rendered more than once on the same page.
   const generatedId = useId();
   const routeClipId = `route-clip-${generatedId.replace(/:/g, "")}`;
 
@@ -110,26 +102,39 @@ export default function HorizontalStory() {
 
     const measureProgress = () => {
       const wrapper = wrapperRef.current;
-      if (!wrapper) return 0;
+
+      if (!wrapper) {
+        return 0;
+      }
 
       const rect = wrapper.getBoundingClientRect();
-      const scrollableDistance = wrapper.offsetHeight - window.innerHeight;
 
-      if (scrollableDistance <= 0) return 0;
+      const scrollableDistance =
+        wrapper.offsetHeight - window.innerHeight;
+
+      if (scrollableDistance <= 0) {
+        return 0;
+      }
+
       return clamp(-rect.top / scrollableDistance);
     };
 
     const animateToTarget = () => {
-      displayedProgress += (targetProgress - displayedProgress) * 0.12;
+      displayedProgress +=
+        (targetProgress - displayedProgress) * 0.12;
 
-      if (Math.abs(targetProgress - displayedProgress) < 0.0001) {
+      if (
+        Math.abs(targetProgress - displayedProgress) <
+        0.0001
+      ) {
         displayedProgress = targetProgress;
       }
 
       setProgress(displayedProgress);
 
       if (displayedProgress !== targetProgress) {
-        animationFrame = window.requestAnimationFrame(animateToTarget);
+        animationFrame =
+          window.requestAnimationFrame(animateToTarget);
       } else {
         animationFrame = 0;
       }
@@ -146,17 +151,29 @@ export default function HorizontalStory() {
       }
 
       if (!animationFrame) {
-        animationFrame = window.requestAnimationFrame(animateToTarget);
+        animationFrame =
+          window.requestAnimationFrame(animateToTarget);
       }
     };
 
     updateTarget();
-    window.addEventListener("scroll", updateTarget, { passive: true });
+
+    window.addEventListener("scroll", updateTarget, {
+      passive: true,
+    });
+
     window.addEventListener("resize", updateTarget);
 
     return () => {
-      window.removeEventListener("scroll", updateTarget);
-      window.removeEventListener("resize", updateTarget);
+      window.removeEventListener(
+        "scroll",
+        updateTarget
+      );
+
+      window.removeEventListener(
+        "resize",
+        updateTarget
+      );
 
       if (animationFrame) {
         window.cancelAnimationFrame(animationFrame);
@@ -164,49 +181,66 @@ export default function HorizontalStory() {
     };
   }, []);
 
-  const horizontalProgress = mapProgress(progress, 0, HORIZONTAL_END);
+  const horizontalProgress = mapProgress(
+    progress,
+    0,
+    HORIZONTAL_END
+  );
+
   const timelineProgress = mapProgress(
     progress,
     TIMELINE_START,
     TIMELINE_END
   );
 
-  const shift = horizontalProgress * (PANELS - 1) * 100;
+  const cloudProgress = mapProgress(
+    progress,
+    CLOUD_START,
+    1
+  );
 
-  /*
-   * Reveal the path with an SVG clip rectangle instead of stroke-dasharray.
-   * stroke-dasharray/pathLength can render differently after a non-uniform
-   * responsive SVG scale. The clip rectangle uses the exact same viewBox as
-   * the line and dots, so the route always reaches the final dot.
-   */
+  const shift =
+    horizontalProgress * (PANELS - 1) * 100;
+
   const routeRevealWidth =
     timelineProgress >= 0.999
       ? PATH_WIDTH
-      : Math.min(PATH_WIDTH, PATH_WIDTH * timelineProgress + 2);
+      : Math.min(
+          PATH_WIDTH,
+          PATH_WIDTH * timelineProgress + 2
+        );
 
   return (
     <div
       ref={wrapperRef}
       className={styles.wrapper}
-      style={{ height: `${SCROLL_LENGTH_VH}vh` }}
+      style={{
+        height: `${SCROLL_LENGTH_VH}vh`,
+      }}
     >
       <div className={styles.sticky}>
         <div
           className={styles.track}
-          style={{ transform: `translate3d(-${shift}vw, 0, 0)` }}
+          style={{
+            transform: `translate3d(-${shift}vw, 0, 0)`,
+          }}
         >
           <div className={styles.panel}>
             <ConceptSection hideChrome />
           </div>
 
-          <div className={`${styles.panel} ${styles.golden}`}>
+          <div
+            className={`${styles.panel} ${styles.golden}`}
+          >
             <h2 className={styles.goldenType}>
               <span>THE 5</span>
               <span>MINUTE</span>
               <span>CITY</span>
             </h2>
 
-            <span className={styles.spain}>Vashi</span>
+            <span className={styles.spain}>
+              Vashi
+            </span>
 
             <img
               className={styles.goldenImage}
@@ -221,14 +255,19 @@ export default function HorizontalStory() {
               <p className={styles.captionTitle}>
                 Between Mumbai and Navi Mumbai
               </p>
+
               <p className={styles.captionBody}>
-                Surrounded by beaches, golf courses, wellness clubs and
-                established neighbourhoods on Marbella&apos;s THE 5 Minute City.
+                Surrounded by beaches, golf courses,
+                wellness clubs and established
+                neighbourhoods on Marbella&apos;s THE 5
+                Minute City.
               </p>
             </div>
           </div>
 
-          <div className={`${styles.panel} ${styles.coast}`}>
+          <div
+            className={`${styles.panel} ${styles.coast}`}
+          >
             <video
               className={styles.coastFlower}
               src="/videos/flower2.webm"
@@ -274,82 +313,198 @@ export default function HorizontalStory() {
                     clipPath={`url(#${routeClipId})`}
                   />
 
-                  {STOPS.map((stop, index) => {
-                    const revealPoint =
-                      (index / (STOPS.length - 1)) * 0.94;
-                    const dotProgress = mapProgress(
-                      timelineProgress,
-                      revealPoint,
-                      Math.min(1, revealPoint + 0.055)
-                    );
+                  {STOPS.map(
+                    (stop, index) => {
+                      const revealPoint =
+                        (index /
+                          (STOPS.length - 1)) *
+                        0.94;
 
-                    return (
-                      <circle
-                        className={styles.timelineDot}
-                        key={stop.name}
-                        cx={stop.x}
-                        cy={stop.y}
-                        r={
-                          index === 0 || index === STOPS.length - 1 ? 4 : 3.4
-                        }
-                        fill="currentColor"
-                        style={{
-                          opacity: dotProgress,
-                          transform: `scale(${0.25 + dotProgress * 0.75})`,
-                        }}
-                      />
-                    );
-                  })}
+                      const dotProgress =
+                        mapProgress(
+                          timelineProgress,
+                          revealPoint,
+                          Math.min(
+                            1,
+                            revealPoint + 0.055
+                          )
+                        );
+
+                      return (
+                        <circle
+                          className={
+                            styles.timelineDot
+                          }
+                          key={stop.name}
+                          cx={stop.x}
+                          cy={stop.y}
+                          r={
+                            index === 0 ||
+                            index ===
+                              STOPS.length - 1
+                              ? 4
+                              : 3.4
+                          }
+                          fill="currentColor"
+                          style={{
+                            opacity:
+                              dotProgress,
+                            transform: `scale(${
+                              0.25 +
+                              dotProgress * 0.75
+                            })`,
+                          }}
+                        />
+                      );
+                    }
+                  )}
                 </svg>
 
-                {STOPS.map((stop, index) => {
-                  const revealPoint =
-                    (index / (STOPS.length - 1)) * 0.9;
-                  const stopProgress = mapProgress(
-                    timelineProgress,
-                    revealPoint,
-                    Math.min(1, revealPoint + 0.065)
-                  );
+                {STOPS.map(
+                  (stop, index) => {
+                    const revealPoint =
+                      (index /
+                        (STOPS.length - 1)) *
+                      0.9;
 
-                  const xPercentage = (stop.x / PATH_WIDTH) * 100;
-                  const dotBottomRatio =
-                    (PATH_HEIGHT - stop.y) / PATH_HEIGHT;
+                    const stopProgress =
+                      mapProgress(
+                        timelineProgress,
+                        revealPoint,
+                        Math.min(
+                          1,
+                          revealPoint + 0.065
+                        )
+                      );
 
-                  return (
-                    <div
-                      className={styles.stopItem}
-                      key={stop.name}
-                      style={{
-                        left: `${xPercentage}%`,
-                        bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,
-                        opacity: stopProgress,
-                        transform: `translateX(-50%) translateY(${(1 - stopProgress) * 20}px) scale(${0.9 + stopProgress * 0.1})`,
-                      }}
-                    >
-                      <span className={styles.stopArtwork}>
-                        <img
-                          className={`${styles.stopImage} ${
-                            stop.name === "9 VTC"
-                              ? styles.vtcImage
-                              : stop.name === "23 MALIBU WEST"
-                                ? styles.malibuImage
-                                : ""
-                          }`}
-                          src={stop.image}
-                          alt={`${stop.name} building`}
-                          loading="lazy"
-                        />
-                      </span>
+                    const xPercentage =
+                      (stop.x / PATH_WIDTH) *
+                      100;
 
-                      <span className={styles.stopName}>{stop.name}</span>
-                      <span className={styles.stopTime}>{stop.time}</span>
-                    </div>
-                  );
-                })}
+                    const dotBottomRatio =
+                      (PATH_HEIGHT - stop.y) /
+                      PATH_HEIGHT;
+
+                    return (
+                      <div
+                        className={
+                          styles.stopItem
+                        }
+                        key={stop.name}
+                        style={{
+                          left: `${xPercentage}%`,
+                          bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,
+                          opacity:
+                            stopProgress,
+                          transform: `translateX(-50%) translateY(${
+                            (1 -
+                              stopProgress) *
+                            20
+                          }px) scale(${
+                            0.9 +
+                            stopProgress * 0.1
+                          })`,
+                        }}
+                      >
+                        <span
+                          className={
+                            styles.stopArtwork
+                          }
+                        >
+                          <img
+                            className={`${
+                              styles.stopImage
+                            } ${
+                              stop.name ===
+                              "9 VTC"
+                                ? styles.vtcImage
+                                : stop.name ===
+                                    "23 MALIBU WEST"
+                                  ? styles.malibuImage
+                                  : ""
+                            }`}
+                            src={stop.image}
+                            alt={`${stop.name} building`}
+                            loading="lazy"
+                          />
+                        </span>
+
+                        <span
+                          className={
+                            styles.stopName
+                          }
+                        >
+                          {stop.name}
+                        </span>
+
+                        <span
+                          className={
+                            styles.stopTime
+                          }
+                        >
+                          {stop.time}
+                        </span>
+                      </div>
+                    );
+                  }
+                )}
               </div>
             </div>
           </div>
         </div>
+
+     <div
+  className={styles.cloudVeil}
+  aria-hidden="true"
+  style={{ opacity: cloudProgress }}
+/>
+
+<div
+  className={styles.clouds}
+  aria-hidden="true"
+  style={{ opacity: cloudProgress }}
+>
+  <div className={styles.cloudCore} />
+
+  <div className={styles.cloudTrack}>
+    {[0, 1].map((groupIndex) => (
+      <div
+        className={styles.cloudGroup}
+        key={groupIndex}
+      >
+        {[0, 1, 2, 3].map((itemIndex) => {
+          const flipped = itemIndex % 2 === 1;
+
+          return (
+            <div
+              className={styles.cloudItem}
+              key={itemIndex}
+            >
+              <img
+                src="/images/cloud_1.avif"
+                alt=""
+                className={`${styles.cloudImage} ${
+                  flipped
+                    ? styles.cloudImageFlipped
+                    : ""
+                } ${
+                  itemIndex === 1
+                    ? styles.cloudImageB
+                    : itemIndex === 2
+                      ? styles.cloudImageC
+                      : itemIndex === 3
+                        ? styles.cloudImageD
+                        : styles.cloudImageA
+                }`}
+                draggable={false}
+              />
+            </div>
+          );
+        })}
+      </div>
+    ))}
+  </div>
+</div>
       </div>
     </div>
   );
