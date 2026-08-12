@@ -3,7 +3,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
 
 .extraordinarySection {
-  /* Shared seam colour - must be identical in HorizontalStory.module.css */
   --cloud-seam: #f3f3ec;
 
   position: relative;
@@ -13,7 +12,7 @@
   height: 100vh;
   left: 0;
 
-  background-color: #050502;
+  background-color: #f3f3ec;
 
   padding: 0 60px 30px 0;
 
@@ -44,29 +43,25 @@
   opacity: 1;
   transition: opacity 0.8s ease;
 
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.18) 10%,
-    rgba(0, 0, 0, 0.72) 24%,
-    #000 38%,
-    #000 62%,
-    rgba(0, 0, 0, 0.72) 76%,
-    rgba(0, 0, 0, 0.18) 90%,
-    transparent 100%
-  );
+  -webkit-mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.18) 10%,
+      rgba(0, 0, 0, 0.72) 24%,
+      #000 38%,
+      #000 62%,
+      rgba(0, 0, 0, 0.72) 76%,
+      rgba(0, 0, 0, 0.18) 90%,
+      transparent 100%);
 
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    rgba(0, 0, 0, 0.18) 10%,
-    rgba(0, 0, 0, 0.72) 24%,
-    #000 38%,
-    #000 62%,
-    rgba(0, 0, 0, 0.72) 76%,
-    rgba(0, 0, 0, 0.18) 90%,
-    transparent 100%
-  );
+  mask-image: linear-gradient(to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.18) 10%,
+      rgba(0, 0, 0, 0.72) 24%,
+      #000 38%,
+      #000 62%,
+      rgba(0, 0, 0, 0.72) 76%,
+      rgba(0, 0, 0, 0.18) 90%,
+      transparent 100%);
 }
 
 .cloudVeil {
@@ -84,15 +79,13 @@
   opacity: 1;
   transition: opacity 0.8s ease;
 
-  background: linear-gradient(
-    to bottom,
-    var(--cloud-seam) 0%,
-    var(--cloud-seam) 10%,
-    rgba(243, 243, 236, 0.233) 24%,
-    rgba(243, 243, 236, 0.034) 48%,
-    rgba(243, 243, 236, 0.068) 72%,
-    rgba(0, 0, 0, 0) 100%
-  );
+  background: linear-gradient(to bottom,
+      var(--cloud-seam) 0%,
+      var(--cloud-seam) 10%,
+      rgba(243, 243, 236, 0.233) 24%,
+      rgba(243, 243, 236, 0.034) 48%,
+      rgba(243, 243, 236, 0.068) 72%,
+      rgba(0, 0, 0, 0) 100%);
 }
 
 .cloudCore {
@@ -107,16 +100,14 @@
 
   transform: translateY(-50%);
 
-  background: linear-gradient(
-    to bottom,
-    rgba(243, 243, 236, 0) 0%,
-    rgba(243, 243, 236, 0.58) 18%,
-    rgba(243, 243, 236, 0.94) 38%,
-    var(--cloud-seam) 50%,
-    rgba(243, 243, 236, 0.94) 62%,
-    rgba(243, 243, 236, 0.58) 82%,
-    rgba(243, 243, 236, 0) 100%
-  );
+  background: linear-gradient(to bottom,
+      rgba(243, 243, 236, 0) 0%,
+      rgba(243, 243, 236, 0.58) 18%,
+      rgba(243, 243, 236, 0.94) 38%,
+      var(--cloud-seam) 50%,
+      rgba(243, 243, 236, 0.94) 62%,
+      rgba(243, 243, 236, 0.58) 82%,
+      rgba(243, 243, 236, 0) 100%);
 
   filter: blur(2px);
 }
@@ -151,7 +142,7 @@
   gap: 0;
 }
 
-.cloudGroup + .cloudGroup {
+.cloudGroup+.cloudGroup {
   margin-left: 0;
 }
 
@@ -169,7 +160,7 @@
   overflow: visible;
 }
 
-.cloudItem + .cloudItem {
+.cloudItem+.cloudItem {
   margin-left: -14vw;
 }
 
@@ -189,9 +180,7 @@
   user-select: none;
 
   filter:
-    blur(0.25px)
-    contrast(0.9)
-    brightness(1.08);
+    blur(0.25px) contrast(0.9) brightness(1.08);
 
   transform: translate3d(0, 0, 0) scale(1.08);
   transform-origin: center;
@@ -401,14 +390,12 @@
 }
 
 .step3TextScaleUp {
-  background-image: radial-gradient(
-    circle 800px at top left,
-    #fff0d4 0%,
-    #ffae0028 5%,
-    #df981e0f 30%,
-    #30200515 40%,
-    /* #0b0a09 70%, */ #0b0a09 100%
-  );
+  background-image: radial-gradient(circle 800px at top left,
+      #d2edfc65 0%,
+      #2f3b56 5%,
+      #222938e2 30%,
+      #1a1e2b 40%,
+      #0b0a09 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -438,38 +425,33 @@
 
   /* RIGHT SIDE SYMMETRY: standard 0deg se right-side curve ke angles ko perfectly soft blend kiya hai */
   -webkit-mask-image:
-    conic-gradient(
-      from 0deg at 67% 30%,
+    conic-gradient(from 0deg at 67% 30%,
       black 0deg,
       transparent 40deg,
-      /* Top se aakar line smoothly yahan fade-out hui */ transparent 75deg,
-      /* --- 20% ABSOLUTE GAP: Yahan border poori tarah khatam hai --- */ black
-        135deg,
-      /* Right-center ke paas se line smoothly fade-in hona shuru hui */ black
-        360deg /* Baki pure left aur top ka hissa solid rahega */
+      /* Top se aakar line smoothly yahan fade-out hui */
+      transparent 75deg,
+      /* --- 20% ABSOLUTE GAP: Yahan border poori tarah khatam hai --- */
+      black 135deg,
+      /* Right-center ke paas se line smoothly fade-in hona shuru hui */
+      black 360deg
+      /* Baki pure left aur top ka hissa solid rahega */
     ),
-    linear-gradient(
-      to bottom,
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   mask-image:
-    conic-gradient(
-      from 0deg at 67% 30%,
+    conic-gradient(from 0deg at 67% 30%,
       black 0deg,
       transparent 40deg,
       transparent 75deg,
       black 135deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -519,12 +501,10 @@
 }
 
 .step3Heading {
-  background-image: linear-gradient(
-    180deg,
-    #e7bd65 0%,
-    #f2e18b 50%,
-    #b98d3d 100%
-  );
+  background-image: linear-gradient(180deg,
+      #e7bd65 0%,
+      #f2e18b 50%,
+      #b98d3d 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -712,14 +692,12 @@
 }
 
 .rightContentLarge {
-  background-image: radial-gradient(
-    circle 800px at top right,
-    #fff0d4 0%,
-    #ffae0028 5%,
-    #df981e0f 30%,
-    #30200515 40%,
-    #0b0a09 100%
-  );
+  background-image: radial-gradient(circle 800px at top right,
+      #d2edfc65 0%,
+      #2f3b56 5%,
+      #222938e2 30%,
+      #1a1e2b 40%,
+      #0b0a09 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -747,38 +725,30 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(
-      from 0deg at 33% 30%,
+    conic-gradient(from 0deg at 33% 30%,
       black 0deg,
       black 220deg,
       transparent 280deg,
       transparent 310deg,
       black 350deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   mask-image:
-    conic-gradient(
-      from 0deg at 33% 30%,
+    conic-gradient(from 0deg at 33% 30%,
       black 0deg,
       black 220deg,
       transparent 280deg,
       transparent 310deg,
       black 350deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -837,12 +807,10 @@
   font-weight: 400;
   line-height: 14rem;
   position: absolute;
-  background-image: linear-gradient(
-    180deg,
-    #e7bd65 0%,
-    #f2e18b 50%,
-    #b98d3d 100%
-  );
+  background-image: linear-gradient(180deg,
+      #e7bd65 0%,
+      #f2e18b 50%,
+      #b98d3d 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -913,12 +881,10 @@
 }
 
 .activeLetter {
-  background-image: linear-gradient(
-    180deg,
-    #e7bd65 0%,
-    #f2e18b 50%,
-    #b98d3d 100%
-  );
+  background-image: linear-gradient(180deg,
+      #e7bd65 0%,
+      #f2e18b 50%,
+      #b98d3d 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -945,12 +911,10 @@
   margin-top: 10px;
   font-family: "Kalnia", serif;
   position: absolute;
-  background-image: linear-gradient(
-    180deg,
-    #e7bd65 0%,
-    #f2e18b 50%,
-    #b98d3d 100%
-  );
+  background-image: linear-gradient(180deg,
+      #e7bd65 0%,
+      #f2e18b 50%,
+      #b98d3d 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1110,14 +1074,12 @@
 }
 
 .step4TextScaleUp {
-  background-image: radial-gradient(
-    circle 800px at top right,
-    #fff0d4 0%,
-    #ffae0028 5%,
-    #df981e0f 30%,
-    #30200515 40%,
-    #0b0a09 100%
-  );
+  background-image: radial-gradient(circle 800px at top right,
+      #d2edfc65 0%,
+      #2f3b56 5%,
+      #222938e2 30%,
+      #1a1e2b 40%,
+      #0b0a09 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -1145,38 +1107,30 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(
-      from 0deg at 50% 30%,
+    conic-gradient(from 0deg at 50% 30%,
       black 0deg,
       black 220deg,
       transparent 280deg,
       transparent 310deg,
       black 350deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   mask-image:
-    conic-gradient(
-      from 0deg at 50% 30%,
+    conic-gradient(from 0deg at 50% 30%,
       black 0deg,
       black 220deg,
       transparent 280deg,
       transparent 310deg,
       black 350deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -1258,14 +1212,12 @@
 }
 
 .step5TextScaleUp {
-  background-image: radial-gradient(
-    circle 800px at top left,
-    #fff0d4 0%,
-    #ffae0028 5%,
-    #df981e0f 30%,
-    #30200515 40%,
-    /* #0b0a09 70%, */ #0b0a09 100%
-  );
+  background-image: radial-gradient(circle 800px at top left,
+      #d2edfc65 0%,
+      #2f3b56 5%,
+      #222938e2 30%,
+      #1a1e2b 40%,
+      #0b0a09 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -1294,36 +1246,28 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(
-      from 0deg at 67% 30%,
+    conic-gradient(from 0deg at 67% 30%,
       black 0deg,
       transparent 40deg,
       transparent 75deg,
       black 135deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   mask-image:
-    conic-gradient(
-      from 0deg at 67% 30%,
+    conic-gradient(from 0deg at 67% 30%,
       black 0deg,
       transparent 40deg,
       transparent 75deg,
       black 135deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -1367,12 +1311,10 @@
 }
 
 .step5Heading {
-  background-image: linear-gradient(
-    180deg,
-    #e7bd65 0%,
-    #f2e18b 50%,
-    #b98d3d 100%
-  );
+  background-image: linear-gradient(180deg,
+      #e7bd65 0%,
+      #f2e18b 50%,
+      #b98d3d 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1464,14 +1406,12 @@
 }
 
 .step6TextScaleUp {
-  background-image: radial-gradient(
-    circle 800px at top right,
-    #fff0d4 0%,
-    #ffae0028 5%,
-    #df981e0f 30%,
-    #30200515 40%,
-    #0b0a09 100%
-  );
+  background-image: radial-gradient(circle 800px at top right,
+      #d2edfc65 0%,
+      #2f3b56 5%,
+      #222938e2 30%,
+      #1a1e2b 40%,
+      #0b0a09 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -1500,38 +1440,30 @@
   z-index: 1;
 
   -webkit-mask-image:
-    conic-gradient(
-      from 0deg at 40% 30%,
+    conic-gradient(from 0deg at 40% 30%,
       black 0deg,
       black 210deg,
       transparent 275deg,
       transparent 305deg,
       black 345deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   mask-image:
-    conic-gradient(
-      from 0deg at 40% 30%,
+    conic-gradient(from 0deg at 40% 30%,
       black 0deg,
       black 210deg,
       transparent 275deg,
       transparent 305deg,
       black 345deg,
-      black 360deg
-    ),
-    linear-gradient(
-      to bottom,
+      black 360deg),
+    linear-gradient(to bottom,
       black 0%,
       rgba(0, 0, 0, 0.4) 60%,
-      transparent 100%
-    );
+      transparent 100%);
 
   -webkit-mask-composite: source-in;
   mask-composite: intersect;
@@ -1703,6 +1635,7 @@
 }
 
 @media (max-width: 900px) {
+
   .step6Divider,
   .step5Divider,
   .step4Divider,
@@ -1968,14 +1901,12 @@
   }
 
   .rightContentLarge {
-    background-image: radial-gradient(
-      800px at 100% 0,
-      #0b0a09 0%,
-      #0b0a09 5%,
-      #0b0a09 30%,
-      #0b0a09 40%,
-      #0b0a09 100%
-    );
+    background-image: radial-gradient(800px at 100% 0,
+        #0b0a09 0%,
+        #0b0a09 5%,
+        #0b0a09 30%,
+        #0b0a09 40%,
+        #0b0a09 100%);
   }
 
   .rightContentLarge::before {
@@ -1988,6 +1919,7 @@
 }
 
 @media (max-width: 650px) {
+
   .stepSixContainer,
   .stepFiveContainer,
   .stepFourContainer,
@@ -2246,6 +2178,7 @@
 }
 
 @media (max-width: 375px) {
+
   .step3Heading,
   .step6Heading,
   .step4Heading,
@@ -2281,7 +2214,7 @@
     width: 56vw;
   }
 
-  .cloudItem + .cloudItem {
+  .cloudItem+.cloudItem {
     margin-left: -16vw;
   }
 }
@@ -2300,7 +2233,7 @@
     width: 68vw;
   }
 
-  .cloudItem + .cloudItem {
+  .cloudItem+.cloudItem {
     margin-left: -20vw;
   }
 
@@ -2327,7 +2260,7 @@
     width: 88vw;
   }
 
-  .cloudItem + .cloudItem {
+  .cloudItem+.cloudItem {
     margin-left: -28vw;
   }
 

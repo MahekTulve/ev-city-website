@@ -211,7 +211,7 @@ export default function VashiLetter({
       )}
 
       <div className={styles.maincontainer}>
-        <div className={leftContentClass}>
+        {/* <div className={leftContentClass}>
           <motion.p
             variants={containerVariants}
             initial="hidden"
@@ -250,7 +250,7 @@ export default function VashiLetter({
               VASHI
             </motion.span>
           </motion.p>
-        </div>
+        </div> */}
 
         <div className={containerClass}>
           <div className={styles.centerContainer}>

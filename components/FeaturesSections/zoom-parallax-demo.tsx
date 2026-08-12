@@ -149,21 +149,16 @@ export default function ZoomParallaxDemo() {
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end end"],
+    offset: ["start start", "end end"],
   });
 
-  const isEntering = useTransform(scrollYProgress, [0, 0.15], [false, true]);
-  const isFinal = useTransform(scrollYProgress, [0.15, 0.3], [false, true]);
-  const isStepThree = useTransform(scrollYProgress, [0.3, 0.45], [false, true]);
-  const isStepFour = useTransform(scrollYProgress, [0.45, 0.6], [false, true]);
-  const isStepFive = useTransform(scrollYProgress, [0.6, 0.75], [false, true]);
-  const isStepSix = useTransform(scrollYProgress, [0.75, 0.9], [false, true]);
-  const isVideoActive = useTransform(
-    scrollYProgress,
-    [0.9, 1.0],
-    [false, true],
-  );
-
+  const isEntering = useTransform(scrollYProgress, [0, 1], [true, true]);
+  const isFinal = useTransform(scrollYProgress, [0.05, 0.25], [false, true]);       // V (Direct start)
+  const isStepThree = useTransform(scrollYProgress, [0.25, 0.4], [false, true]);   // A
+  const isStepFour = useTransform(scrollYProgress, [0.4, 0.55], [false, true]);    // S
+  const isStepFive = useTransform(scrollYProgress, [0.55, 0.7], [false, true]);    // H
+  const isStepSix = useTransform(scrollYProgress, [0.7, 0.9], [false, true]);     // I (Stops here)
+  const isVideoActive = useTransform(scrollYProgress, [0.9, 1.0], [false, true]);
   const [states, setStates] = useState({
     isEntering: false,
     isFinal: false,
@@ -291,7 +286,33 @@ export default function ZoomParallaxDemo() {
       },
     },
   };
+  // --- Idle Auto-Scroll Logic ---
+  useEffect(() => {
+    let idleTimer: NodeJS.Timeout;
 
+    const handleScrollActivity = () => {
+      // Jab user scroll karega, idle timer reset ho jayega
+      clearTimeout(idleTimer);
+
+      // Agar "I" (isStepSix) tak nahi pahunche hain, tabhi auto-scroll active karein
+      if (!states.isStepSix) {
+        idleTimer = setTimeout(() => {
+          // 2 seconds tak agar user ne scroll nahi kiya, toh thoda sa scroll programmatically aage badhao
+          window.scrollBy({
+            top: window.innerHeight * 0.5, // Har baar half screen aage scroll hoga
+            behavior: "smooth",
+          });
+        }, 2000); // 2 seconds ka idle time (aap ise apne hisaab se kam/zyada kar sakte hain)
+      }
+    };
+
+    window.addEventListener("scroll", handleScrollActivity);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollActivity);
+      clearTimeout(idleTimer);
+    };
+  }, [states.isStepSix]);
   const headingText = "THE 5 MINUTE CITY";
 
   return (
@@ -464,7 +485,8 @@ export default function ZoomParallaxDemo() {
       <div data-section className="-mt-[2px] relative z-20">
         <WayVashi isNight={isNight} setIsNight={toggleNightMode} />
       </div>
-      <div ref={containerRef} data-section className="relative h-[600vh] w-full ">
+      {/* Pinned VashiLetter Section - Yeh tab tak pin rahega jab tak "I" (isStepSix) nahi aata */}
+      <div ref={containerRef} data-section className="relative h-[800vh] w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <VashiLetter
             isActive={true}
@@ -477,6 +499,11 @@ export default function ZoomParallaxDemo() {
             isVideoActive={states.isVideoActive}
           />
         </div>
+      </div>
+
+      {/* Yeh new section tab tak screen par nahi aayega jab tak upar wala "I" step khatam nahi hota */}
+      <div data-section>
+        <HorizontalStory />
       </div>
       <div data-section>
         <HorizontalStory />
