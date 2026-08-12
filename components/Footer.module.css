@@ -1,0 +1,553 @@
+.footer {
+  display: flex;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: #141414;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 30px 20px 18px;
+  box-sizing: border-box;
+}
+
+.footerText {
+  font-family: "Junge";
+}
+
+.footerVideoBackground {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+.footerVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* NEW: Desktop/Mobile Video Visibility Setup */
+.desktopVideo {
+  display: block;
+}
+
+.mobileVideo {
+  display: none;
+}
+
+.videoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #301f0065 0%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+.top {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  column-gap: 80px;
+  row-gap: 24px;
+  align-items: flex-start;
+
+  padding-top: 6px;
+  padding-bottom: 8px;
+
+  border-bottom: 1px solid rgba(255, 253, 250, 0.3);
+}
+
+.contactCol,
+.linksCol,
+.mapCol,
+.qrCol {
+  text-align: center;
+}
+
+.brand,
+.linksCol,
+.contactCol,
+.mapCol,
+.qrCol {
+  width: 100%;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.brand img {
+  width: 100px;
+  max-width: 100%;
+  margin: 0 auto 10px;
+  display: block;
+}
+
+.brand p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #fbf8f6;
+  margin: 0 0 12px;
+  max-width: 320px;
+  display: flex;
+  text-align: center;
+}
+
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.socials a {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(250, 246, 241, 0.679);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fffefc;
+  text-decoration: none;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.socials a:hover {
+  background: #f5e6d8;
+  color: #4a1942;
+  transform: translateY(-2px);
+}
+
+.colTitle {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: "Junge";
+  color: #fff;
+  margin: 0 0 20px;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  font-family: "Junge";
+  align-items: center;
+  gap: 12px;
+}
+
+.linkList a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 15px;
+  transition: all 0.3s ease;
+}
+
+.linkList a:hover {
+  color: #d4b08a;
+  padding-left: 4px;
+}
+
+.contactItem {
+  display: flex;
+  gap: 10px;
+  font-size: 16px; 
+  color: #ffffff;
+  margin-bottom: 16px;
+  line-height: 1.6;
+  flex-direction: column;
+  font-family: "Junge";
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.contactItem a {
+  font-size: 17px; 
+}
+
+.contactItem strong {
+  color: #ffffff;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.newsletter {
+  display: flex;
+  margin-top: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.newsletter input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+}
+
+.newsletter input::placeholder {
+  color: rgba(255, 255, 255, 0.74);
+}
+
+.newsletter button {
+  background: #c89b6a;
+  color: #4a1942;
+  border: none;
+  padding: 0 18px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.newsletter button:hover {
+  background: #b58858;
+}
+
+.footerMap {
+  position: relative;
+  width: 60%;
+  height: 100px;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(11, 119, 152, 0.4);
+  box-shadow: 0 0 12px rgba(11, 119, 152, 0.25);
+  transition: all 0.3s ease;
+  margin: 0 auto 16px;
+}
+
+.footerMap iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.footerMap:hover {
+  transform: scale(1.02);
+  box-shadow: 0 0 20px rgba(11, 119, 152, 0.6);
+}
+
+.mapOverlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fdfdfc;
+  font-size: 0.9rem;
+  letter-spacing: 1px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.footerMap:hover .mapOverlay {
+  opacity: 1;
+}
+
+.addressContainer {
+  text-align: center;
+}
+
+.addressContainer p {
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.addressHeading {
+  font-size: 13px;
+  font-weight: 600;
+  color: #c89b6a;
+  margin: 0 0 6px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.qrContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.qrImage {
+  width: 110px;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.qrText {
+  font-size: 12px;
+  color: #ffffff;
+  margin: 0 0 4px 0;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.qrNumber {
+  font-size: 15px;
+  font-weight: bold;
+  color: #ffffff;
+  letter-spacing: 0.5px;
+  text-align: center;
+}
+
+.bottom {
+  padding: 16px 0 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: #f8f5f3;
+}
+
+.bottom nav {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.bottom nav a {
+  color: #f8f5f3;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.bottom nav a:hover {
+  color: #d4b08a;
+}
+
+@media (max-width: 1600px) {
+  .container {
+    max-width: 1400px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .top {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 900px) {
+  .footer {
+    padding: 20px 20px 30px;
+    height: auto;
+  }
+
+  .top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+
+  .brand {
+    grid-column: 1 / -1;
+    max-width: 100%;
+    margin-right: 0;
+  }
+
+  .brand p {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  /* NEW: Toggle desktop/mobile videos on small screens */
+  .desktopVideo {
+    display: none;
+  }
+
+  .mobileVideo {
+    display: block;
+  }
+
+  .top {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px 18px;
+    align-items: flex-start;
+  }
+
+  .brand {
+    text-align: center;
+  }
+
+  .brand {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .brand img {
+    display: block;
+    margin: 0 auto 10px;
+  }
+
+  .socials {
+    justify-content: center;
+  }
+
+  .mapCol,
+  .qrCol {
+    grid-column: auto;
+    margin-top: 10px;
+  }
+
+  .mapCol,
+  .qrCol {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .footerMap {
+    width: 100%;
+    max-width: 170px;
+    height: 120px;
+    margin-bottom: 10px;
+  }
+
+  .qrImage {
+    width: 90px;
+    margin-bottom: 10px;
+  }
+
+  .qrText {
+    font-size: 11px;
+    line-height: 1.4;
+  }
+
+  .qrNumber {
+    font-size: 13px;
+  }
+
+  .addressContainer p {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .colTitle {
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+
+  .linkList {
+    gap: 2px;
+  }
+
+  .linkList a {
+    font-size: 13px;
+  }
+
+  .contactItem {
+    font-size: 14px; 
+    margin-bottom: 10px;
+  }
+
+  .contactItem a {
+    font-size: 15px;
+  }
+  
+  .brand p {
+    font-size: 12px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+
+  .newsletter {
+    display: none;
+  }
+
+  .footerMap {
+    height: 140px;
+  }
+
+  .bottom {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    padding-top: 14px;
+  }
+
+  .bottom nav {
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .brand img {
+    width: 140px;
+  }
+
+  .contactCol,
+  .linksCol,
+  .mapCol,
+  .qrCol {
+    margin-top: 5px;
+  }
+
+  .addressContainer {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .footer {
+    padding-inline: 12px;
+  }
+
+  .brand img {
+    width: 120px;
+  }
+
+  .socials a {
+    width: 34px;
+    height: 34px;
+    font-size: 12px;
+  }
+
+  .bottom {
+    font-size: 12px;
+  }
+
+  .bottom nav {
+    gap: 12px;
+  }
+}
