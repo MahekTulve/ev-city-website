@@ -28,6 +28,7 @@ import HorizontalStory from "../whyvashi/HorizontalStory";
 import PlaceToLive from "../PlaceToLeave/PlaceToLive";
 import NextPhoto from "../PlaceToLeave/NextPhoto";
 import NextDesign from "../PlaceToLeave/NextDesign";
+import Clouds from "../whyvashi/clouds";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -480,6 +481,10 @@ export default function ZoomParallaxDemo() {
       </div>
       <div data-section>
         <HorizontalStory />
+      </div>
+
+      <div data-section>
+        <Clouds />
       </div>
 
       {/* <AboutFiveMinute /> */}

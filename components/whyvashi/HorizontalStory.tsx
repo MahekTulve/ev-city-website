@@ -109,8 +109,7 @@ export default function HorizontalStory() {
 
       const rect = wrapper.getBoundingClientRect();
 
-      const scrollableDistance =
-        wrapper.offsetHeight - window.innerHeight;
+      const scrollableDistance = wrapper.offsetHeight - window.innerHeight;
 
       if (scrollableDistance <= 0) {
         return 0;
@@ -120,21 +119,16 @@ export default function HorizontalStory() {
     };
 
     const animateToTarget = () => {
-      displayedProgress +=
-        (targetProgress - displayedProgress) * 0.12;
+      displayedProgress += (targetProgress - displayedProgress) * 0.12;
 
-      if (
-        Math.abs(targetProgress - displayedProgress) <
-        0.0001
-      ) {
+      if (Math.abs(targetProgress - displayedProgress) < 0.0001) {
         displayedProgress = targetProgress;
       }
 
       setProgress(displayedProgress);
 
       if (displayedProgress !== targetProgress) {
-        animationFrame =
-          window.requestAnimationFrame(animateToTarget);
+        animationFrame = window.requestAnimationFrame(animateToTarget);
       } else {
         animationFrame = 0;
       }
@@ -151,8 +145,7 @@ export default function HorizontalStory() {
       }
 
       if (!animationFrame) {
-        animationFrame =
-          window.requestAnimationFrame(animateToTarget);
+        animationFrame = window.requestAnimationFrame(animateToTarget);
       }
     };
 
@@ -165,15 +158,9 @@ export default function HorizontalStory() {
     window.addEventListener("resize", updateTarget);
 
     return () => {
-      window.removeEventListener(
-        "scroll",
-        updateTarget
-      );
+      window.removeEventListener("scroll", updateTarget);
 
-      window.removeEventListener(
-        "resize",
-        updateTarget
-      );
+      window.removeEventListener("resize", updateTarget);
 
       if (animationFrame) {
         window.cancelAnimationFrame(animationFrame);
@@ -181,34 +168,18 @@ export default function HorizontalStory() {
     };
   }, []);
 
-  const horizontalProgress = mapProgress(
-    progress,
-    0,
-    HORIZONTAL_END
-  );
+  const horizontalProgress = mapProgress(progress, 0, HORIZONTAL_END);
 
-  const timelineProgress = mapProgress(
-    progress,
-    TIMELINE_START,
-    TIMELINE_END
-  );
+  const timelineProgress = mapProgress(progress, TIMELINE_START, TIMELINE_END);
 
-  const cloudProgress = mapProgress(
-    progress,
-    CLOUD_START,
-    1
-  );
+  const cloudProgress = mapProgress(progress, CLOUD_START, 1);
 
-  const shift =
-    horizontalProgress * (PANELS - 1) * 100;
+  const shift = horizontalProgress * (PANELS - 1) * 100;
 
   const routeRevealWidth =
     timelineProgress >= 0.999
       ? PATH_WIDTH
-      : Math.min(
-          PATH_WIDTH,
-          PATH_WIDTH * timelineProgress + 2
-        );
+      : Math.min(PATH_WIDTH, PATH_WIDTH * timelineProgress + 2);
 
   return (
     <div
@@ -229,18 +200,14 @@ export default function HorizontalStory() {
             <ConceptSection hideChrome />
           </div>
 
-          <div
-            className={`${styles.panel} ${styles.golden}`}
-          >
+          <div className={`${styles.panel} ${styles.golden}`}>
             <h2 className={styles.goldenType}>
               <span>THE 5</span>
               <span>MINUTE</span>
               <span>CITY</span>
             </h2>
 
-            <span className={styles.spain}>
-              Vashi
-            </span>
+            <span className={styles.spain}>Vashi</span>
 
             <img
               className={styles.goldenImage}
@@ -257,17 +224,13 @@ export default function HorizontalStory() {
               </p>
 
               <p className={styles.captionBody}>
-                Surrounded by beaches, golf courses,
-                wellness clubs and established
-                neighbourhoods on Marbella&apos;s THE 5
-                Minute City.
+                Surrounded by beaches, golf courses, wellness clubs and
+                established neighbourhoods on Marbella&apos;s THE 5 Minute City.
               </p>
             </div>
           </div>
 
-          <div
-            className={`${styles.panel} ${styles.coast}`}
-          >
+          <div className={`${styles.panel} ${styles.coast}`}>
             <video
               className={styles.coastFlower}
               src="/videos/flower2.webm"
@@ -288,10 +251,7 @@ export default function HorizontalStory() {
                   aria-hidden="true"
                 >
                   <defs>
-                    <clipPath
-                      id={routeClipId}
-                      clipPathUnits="userSpaceOnUse"
-                    >
+                    <clipPath id={routeClipId} clipPathUnits="userSpaceOnUse">
                       <rect
                         x="0"
                         y="-10"
@@ -313,198 +273,146 @@ export default function HorizontalStory() {
                     clipPath={`url(#${routeClipId})`}
                   />
 
-                  {STOPS.map(
-                    (stop, index) => {
-                      const revealPoint =
-                        (index /
-                          (STOPS.length - 1)) *
-                        0.94;
+                  {STOPS.map((stop, index) => {
+                    const revealPoint = (index / (STOPS.length - 1)) * 0.94;
 
-                      const dotProgress =
-                        mapProgress(
-                          timelineProgress,
-                          revealPoint,
-                          Math.min(
-                            1,
-                            revealPoint + 0.055
-                          )
-                        );
-
-                      return (
-                        <circle
-                          className={
-                            styles.timelineDot
-                          }
-                          key={stop.name}
-                          cx={stop.x}
-                          cy={stop.y}
-                          r={
-                            index === 0 ||
-                            index ===
-                              STOPS.length - 1
-                              ? 4
-                              : 3.4
-                          }
-                          fill="currentColor"
-                          style={{
-                            opacity:
-                              dotProgress,
-                            transform: `scale(${
-                              0.25 +
-                              dotProgress * 0.75
-                            })`,
-                          }}
-                        />
-                      );
-                    }
-                  )}
-                </svg>
-
-                {STOPS.map(
-                  (stop, index) => {
-                    const revealPoint =
-                      (index /
-                        (STOPS.length - 1)) *
-                      0.9;
-
-                    const stopProgress =
-                      mapProgress(
-                        timelineProgress,
-                        revealPoint,
-                        Math.min(
-                          1,
-                          revealPoint + 0.065
-                        )
-                      );
-
-                    const xPercentage =
-                      (stop.x / PATH_WIDTH) *
-                      100;
-
-                    const dotBottomRatio =
-                      (PATH_HEIGHT - stop.y) /
-                      PATH_HEIGHT;
+                    const dotProgress = mapProgress(
+                      timelineProgress,
+                      revealPoint,
+                      Math.min(1, revealPoint + 0.055),
+                    );
 
                     return (
-                      <div
-                        className={
-                          styles.stopItem
-                        }
+                      <circle
+                        className={styles.timelineDot}
                         key={stop.name}
+                        cx={stop.x}
+                        cy={stop.y}
+                        r={index === 0 || index === STOPS.length - 1 ? 4 : 3.4}
+                        fill="currentColor"
                         style={{
-                          left: `${xPercentage}%`,
-                          bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,
-                          opacity:
-                            stopProgress,
-                          transform: `translateX(-50%) translateY(${
-                            (1 -
-                              stopProgress) *
-                            20
-                          }px) scale(${
-                            0.9 +
-                            stopProgress * 0.1
-                          })`,
+                          opacity: dotProgress,
+                          transform: `scale(${0.25 + dotProgress * 0.75})`,
                         }}
-                      >
-                        <span
-                          className={
-                            styles.stopArtwork
-                          }
-                        >
-                          <img
-                            className={`${
-                              styles.stopImage
-                            } ${
-                              stop.name ===
-                              "9 VTC"
-                                ? styles.vtcImage
-                                : stop.name ===
-                                    "23 MALIBU WEST"
-                                  ? styles.malibuImage
-                                  : ""
-                            }`}
-                            src={stop.image}
-                            alt={`${stop.name} building`}
-                            loading="lazy"
-                          />
-                        </span>
-
-                        <span
-                          className={
-                            styles.stopName
-                          }
-                        >
-                          {stop.name}
-                        </span>
-
-                        <span
-                          className={
-                            styles.stopTime
-                          }
-                        >
-                          {stop.time}
-                        </span>
-                      </div>
+                      />
                     );
-                  }
-                )}
+                  })}
+                </svg>
+
+                {STOPS.map((stop, index) => {
+                  const revealPoint = (index / (STOPS.length - 1)) * 0.9;
+
+                  const stopProgress = mapProgress(
+                    timelineProgress,
+                    revealPoint,
+                    Math.min(1, revealPoint + 0.065),
+                  );
+
+                  const xPercentage = (stop.x / PATH_WIDTH) * 100;
+
+                  const dotBottomRatio = (PATH_HEIGHT - stop.y) / PATH_HEIGHT;
+
+                  return (
+                    <div
+                      className={styles.stopItem}
+                      key={stop.name}
+                      style={{
+                        left: `${xPercentage}%`,
+                        bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,
+                        opacity: stopProgress,
+                        transform: `translateX(-50%) translateY(${
+                          (1 - stopProgress) * 20
+                        }px) scale(${0.9 + stopProgress * 0.1})`,
+                      }}
+                    >
+                      <span className={styles.stopArtwork}>
+                        <img
+                          className={`${styles.stopImage} ${
+                            stop.name === "9 VTC"
+                              ? styles.vtcImage
+                              : stop.name === "23 MALIBU WEST"
+                                ? styles.malibuImage
+                                : ""
+                          }`}
+                          src={stop.image}
+                          alt={`${stop.name} building`}
+                          loading="lazy"
+                        />
+                      </span>
+
+                      <span className={styles.stopName}>{stop.name}</span>
+
+                      <span className={styles.stopTime}>{stop.time}</span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
         </div>
 
-     <div
-  className={styles.cloudVeil}
-  aria-hidden="true"
-  style={{ opacity: cloudProgress }}
-/>
+        <div
+          className={styles.cloudVeil}
+          aria-hidden="true"
+          style={{ opacity: cloudProgress }}
+        />
 
-<div
-  className={styles.clouds}
-  aria-hidden="true"
-  style={{ opacity: cloudProgress }}
->
-  <div className={styles.cloudCore} />
+        <div
+          className={styles.clouds}
+          aria-hidden="true"
+          style={{ opacity: cloudProgress }}
+        >
+          <div className={styles.cloudCore} />
 
-  <div className={styles.cloudTrack}>
-    {[0, 1].map((groupIndex) => (
-      <div
-        className={styles.cloudGroup}
-        key={groupIndex}
-      >
-        {[0, 1, 2, 3].map((itemIndex) => {
-          const flipped = itemIndex % 2 === 1;
+          <div className={styles.cloudTrack}>
+            {[0, 1].map((groupIndex) => (
+              <div className={styles.cloudGroup} key={groupIndex}>
+                {[0, 1, 2, 3].map((itemIndex) => {
+                  const flipped = itemIndex % 2 === 1;
 
-          return (
-            <div
-              className={styles.cloudItem}
-              key={itemIndex}
-            >
-              <img
-                src="/images/cloud_1.avif"
-                alt=""
-                className={`${styles.cloudImage} ${
-                  flipped
-                    ? styles.cloudImageFlipped
-                    : ""
-                } ${
-                  itemIndex === 1
-                    ? styles.cloudImageB
-                    : itemIndex === 2
-                      ? styles.cloudImageC
-                      : itemIndex === 3
-                        ? styles.cloudImageD
-                        : styles.cloudImageA
-                }`}
-                draggable={false}
-              />
-            </div>
-          );
-        })}
+                  return (
+                    <div className={styles.cloudItem} key={itemIndex}>
+                      <img
+                        src="/images/cloud_5.avif"
+                        alt=""
+                        className={`${styles.cloudImage} ${
+                          flipped ? styles.cloudImageFlipped : ""
+                        } ${
+                          itemIndex === 1
+                            ? styles.cloudImageB
+                            : itemIndex === 2
+                              ? styles.cloudImageC
+                              : itemIndex === 3
+                                ? styles.cloudImageD
+                                : styles.cloudImageA
+                        }`}
+                        draggable={false}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
-    ))}
-  </div>
-</div>
+
+      <div className={styles.sectionSeamBridge} aria-hidden="true">
+        <div className={styles.sectionSeamMist} />
+
+        <div
+          className={`${styles.sectionSeamTexture} ${styles.sectionSeamBack}`}
+        />
+
+        <div
+          className={`${styles.sectionSeamTexture} ${styles.sectionSeamMiddle}`}
+        />
+
+        <div
+          className={`${styles.sectionSeamTexture} ${styles.sectionSeamFront}`}
+        />
+
+        <div className={styles.sectionSeamCore} />
       </div>
     </div>
   );
