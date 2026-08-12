@@ -1,0 +1,160 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
+.wrapper {
+    background-color: #f5f3ee;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    background-color: #f5f3ee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', serif;
+}
+
+/* --- Left Section (Container) --- */
+.leftSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    z-index: 2;
+}
+
+.logoBadge {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: #1a1a1a;
+    font-weight: 600;
+}
+
+.starIcon {
+    font-size: 16px;
+    transform: rotate(90deg);
+}
+
+.verticalLineGroup {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.line {
+    width: 1px;
+    height: 120px;
+    background-color: #1a1a1a;
+}
+
+.number {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #1a1a1a;
+}
+
+/* --- Center Image Gallery --- */
+.imageGallery {
+    display: flex;
+    gap: 30px;
+    z-index: 2;
+}
+
+.imageCardOne,
+.imageCard {
+    width: 370px;
+    height: 450px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    will-change: width, height;
+}
+
+.imageCardOne {
+    margin-top: 150px;
+}
+
+.imageCard {
+    margin-bottom: 150px;
+}
+
+.imageCardOne img,
+.imageCard img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom right;
+}
+
+.imageCardOne img {
+    object-position: bottom left;
+}
+
+/* --- Flowers & Video --- */
+.flower {
+    position: absolute;
+    z-index: 10;
+    pointer-events: none;
+    object-fit: contain;
+    will-change: transform, opacity;
+}
+
+.flowerTopLeft {
+    top: -15%;
+    left: -10%;
+    width: clamp(420px, 48vw, 850px);
+    transform: rotate(-4deg);
+    transform-origin: top left;
+}
+
+.flowerTopRight {
+    bottom: 4%;
+    right: -55%;
+    width: clamp(420px, 48vw, 850px);
+    transform: rotate(90deg);
+    transform-origin: top left;
+}
+
+.overlayTextContainer {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    pointer-events: none;
+    text-align: center;
+}
+
+.animatedTitle {
+    font-size: clamp(3rem, 11vw, 11rem);
+    letter-spacing: 8px;
+    color: #ffffff;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    display: flex;
+    overflow: hidden;
+}
+
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(50px);
+    animation: revealLetter 0.9s forwards cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes revealLetter {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
