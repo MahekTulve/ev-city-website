@@ -7,7 +7,6 @@ import DayNightButton from "./DayNightButton";
 
 import Lit from "./Lit/Lit";
 
-
 gsap.registerPlugin(ScrollTrigger);
 
 const SLIDES = [
@@ -33,7 +32,12 @@ const QUOTE_LINES = [
 
 function Rosette({ className }: { className?: string }) {
   return (
-    <svg className={className} viewBox="0 0 48 48" fill="none" aria-hidden="true">
+    <svg
+      className={className}
+      viewBox="0 0 48 48"
+      fill="none"
+      aria-hidden="true"
+    >
       <path
         d="M24 3c2.2 6.4 4.4 9.2 8.2 11.4-3.8.6-6.6 1.8-8.2 3.6-1.6-1.8-4.4-3-8.2-3.6C19.6 12.2 21.8 9.4 24 3Z"
         fill="currentColor"
@@ -58,8 +62,10 @@ interface WayVashiProps {
   isNight?: boolean;
   setIsNight?: React.Dispatch<React.SetStateAction<boolean>>;
 }
-export default function WayVashi({ isNight: initialIsNight = true, setIsNight }: WayVashiProps) {
-
+export default function WayVashi({
+  isNight: initialIsNight = true,
+  setIsNight,
+}: WayVashiProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const quoteRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
@@ -109,7 +115,10 @@ export default function WayVashi({ isNight: initialIsNight = true, setIsNight }:
         opacity: 0,
         duration: 1,
         ease: "power2.out",
-        scrollTrigger: { trigger: `.${styles.sliderSection}`, start: "top 80%" },
+        scrollTrigger: {
+          trigger: `.${styles.sliderSection}`,
+          start: "top 80%",
+        },
       });
 
       // 3b. Chrome flips to ink while the sky sections own the screen
@@ -118,7 +127,6 @@ export default function WayVashi({ isNight: initialIsNight = true, setIsNight }:
         start: "top bottom+=90%",
         endTrigger: quoteRef.current,
         end: "top 40%",
-
       });
 
       // 4. Quote lines slide up from their mask
@@ -144,11 +152,7 @@ export default function WayVashi({ isNight: initialIsNight = true, setIsNight }:
   return (
     <div className={styles.next} ref={rootRef}>
       {/* ---------- Arch reveal ---------- */}
-      <section
-        className={styles.archStage}
-        ref={stageRef}
-
-      >
+      <section className={styles.archStage} ref={stageRef}>
         <div
           className={`${styles.archBgLayer} ${styles.dayStageBg}`}
           style={{ opacity: night ? 0 : 1 }}
@@ -166,8 +170,16 @@ export default function WayVashi({ isNight: initialIsNight = true, setIsNight }:
           </div>
         </div>
         <div className={styles.dome} ref={domeRef}>
-          <svg className={styles.curvedText} viewBox="0 0 1200 340" aria-hidden="true">
-            <path id="archCurve" d="M 40 340 A 560 320 0 0 1 1160 340" fill="none" />
+          <svg
+            className={styles.curvedText}
+            viewBox="0 0 1200 340"
+            aria-hidden="true"
+          >
+            <path
+              id="archCurve"
+              d="M 40 340 A 560 320 0 0 1 1160 340"
+              fill="none"
+            />
             <text textAnchor="middle">
               <textPath href="#archCurve" startOffset="50%">
                 Three reasons to choose Era
@@ -176,96 +188,86 @@ export default function WayVashi({ isNight: initialIsNight = true, setIsNight }:
           </svg>
 
           <div className={styles.domeInner}>
-            <span className={styles.domeMark}>
-              Costa
-              <Rosette />
-              Del Sol
-            </span>
-            <span className={styles.domeRule} />
-            <p className={styles.eyebrow}>
-              A place to live — to
+            <h2 className={styles.bigTitle}>
+              {TITLE.split("").map((char, index) => (
+                <span key={`${char}-${index}`}>
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+            </h2>
+            <div className={styles.sliderFrame}>
+              {SLIDES.map((item, index) => (
+                <img
+                  key={item.alt}
+                  src={item.src}
+                  alt={item.alt}
+                  loading="lazy"
+                  width={1280}
+                  height={864}
+                  className={`${styles.slide} ${index === slide ? styles.slideActive : ""}`}
+                />
+              ))}
+            </div>
+            <div className={styles.sliderNav}>
+              <button
+                type="button"
+                aria-label="Previous image"
+                onClick={() =>
+                  setSlide((value) =>
+                    value === 0 ? SLIDES.length - 1 : value - 1,
+                  )
+                }
+              >
+                ‹
+              </button>
+              <span>1</span>
+              <span className={styles.sliderTrack}>
+                <span
+                  className={styles.sliderProgress}
+                  style={{ width: `${((slide + 1) / SLIDES.length) * 100}%` }}
+                />
+              </span>
+              <span>{SLIDES.length}</span>
+              <button
+                type="button"
+                aria-label="Next image"
+                onClick={() => setSlide((value) => (value + 1) % SLIDES.length)}
+              >
+                ›
+              </button>
+            </div>
+
+            {/* <p className={styles.sliderCopy}>
+              Nestled between pristine beaches, world-class golf courses and
+              exclusive wellness clubs, Era Residence offers a rare balance of
+              seclusion and seamless access to the finest Mediterranean
+              lifestyle.
+            </p> */}
+
+            {/* <p className={styles.sliderNote}>
+              Designed as a community,
               <br />
-              return year after year
-            </p>
+              not a complex
+            </p> */}
           </div>
         </div>
 
         <h2 className="sr-only">Three reasons to choose Era</h2>
       </section>
 
-      {/* ---------- Headline ---------- */}
       
-      <section className={styles.titleSection}>
-        <p className={styles.eyebrow}>
-          A place to live — to
-          <br />
-          return year after year
-        </p>
-        <h2 className={styles.bigTitle}>
-          {TITLE.split("").map((char, index) => (
-            <span key={`${char}-${index}`}>{char === " " ? "\u00A0" : char}</span>
-          ))}
-        </h2>
-      </section>
-
-      {/* ---------- Slider ---------- */}
-      <section className={styles.sliderSection}>
-        <div className={styles.sliderFrame}>
-          {SLIDES.map((item, index) => (
-            <img
-              key={item.alt}
-              src={item.src}
-              alt={item.alt}
-              loading="lazy"
-              width={1280}
-              height={864}
-              className={`${styles.slide} ${index === slide ? styles.slideActive : ""}`}
-            />
-          ))}
-        </div>
-
-        <div className={styles.sliderNav}>
-          <button
-            type="button"
-            aria-label="Previous image"
-            onClick={() => setSlide((value) => (value === 0 ? SLIDES.length - 1 : value - 1))}
-          >
-            ‹
-          </button>
-          <span>1</span>
-          <span className={styles.sliderTrack}>
-            <span
-              className={styles.sliderProgress}
-              style={{ width: `${((slide + 1) / SLIDES.length) * 100}%` }}
-            />
-          </span>
-          <span>{SLIDES.length}</span>
-          <button
-            type="button"
-            aria-label="Next image"
-            onClick={() => setSlide((value) => (value + 1) % SLIDES.length)}
-          >
-            ›
-          </button>
-        </div>
-
-        <p className={styles.sliderCopy}>
-          Nestled between pristine beaches, world-class golf courses and exclusive wellness clubs,
-          Era Residence offers a rare balance of seclusion and seamless access to the finest
-          Mediterranean lifestyle.
-        </p>
-
-        <p className={styles.sliderNote}>
-          Designed as a community,
-          <br />
-          not a complex
-        </p>
-      </section>
+        {/* <section className={styles.sliderSection}>
+      
+        </section> */}
 
       <Lit />
 
       {/* ---------- Quote over image ---------- */}
-      <section ref={quoteRef} className={styles.quoteSection} style={{ backgroundImage: "url('/images/city.png')" }}>
+      <section
+        ref={quoteRef}
+        className={styles.quoteSection}
+        style={{ backgroundImage: "url('/images/city.png')" }}
+      >
         <blockquote className={styles.quote}>
           <span className={styles.quoteMark}>“</span>
           {QUOTE_LINES.map((line) => (

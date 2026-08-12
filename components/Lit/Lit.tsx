@@ -364,32 +364,38 @@ export default function Lit() {
         </div>
       </div>
 
-      <div className={s.cards}>
-        {cards.map(({ letter, title, copy, Icon }, index) => {
-          const drawDelays = [150, 2700, 5250];
-          const drawDelay = drawDelays[index];
+    <div className={s.cards}>
+  {cards.map(({ letter, title, copy, Icon }, index) => {
+    // Starts when the matching BIG letter has nearly finished drawing.
+    const cardRevealDelays = [2250, 4800, 7350];
 
-          return (
-            <article key={letter} className={s.card}>
-              {/* Small card letter draws at exactly the same time as the big one. */}
-              <DrawLetter
-                letter={letter as "L" | "I" | "T"}
-                variant="card"
-                delay={drawDelay}
-              />
+    return (
+      <article
+        key={letter}
+        className={s.card}
+        style={
+          {
+            "--card-delay": `${cardRevealDelays[index]}ms`,
+          } as CSSProperties
+        }
+      >
+        {/* Small letter is NO LONGER drawn */}
+        <span className={s.cardLetter} aria-hidden="true">
+          {letter}
+        </span>
 
-              <div className={s.iconHolder}>
-                <Icon />
-              </div>
+        <div className={s.iconHolder}>
+          <Icon />
+        </div>
 
-              <div className={s.cardBody}>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </div>
-            </article>
-          );
-        })}
-      </div>
+        <div className={s.cardBody}>
+          <h3>{title}</h3>
+          <p>{copy}</p>
+        </div>
+      </article>
+    );
+  })}
+</div>
 
       <div className={s.bottomSpace} />
     </section>
