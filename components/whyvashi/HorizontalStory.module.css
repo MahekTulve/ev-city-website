@@ -466,10 +466,9 @@
 
 .routeStage {
   --route-height: 100px;
-  --stop-gap: 30px;
+  --stop-gap: 90px;
 
   position: relative;
-
   width: 100%;
 
   height: clamp(
@@ -477,6 +476,8 @@
     60vh,
     650px
   );
+
+  transform: translateY(-80px);
 }
 
 .timelineSvg {
@@ -977,31 +978,48 @@
 }
 
 @media (min-width: 1600px) {
+  .sticky::after {
+    content: none;
+  }
+
   .cloudVeil {
-    bottom: -5px;
-    height: calc(34vh + 8px);
+    left: -3vw;
+    right: -3vw;
+    bottom: -4px;
+    height: 38vh;
   }
 
   .clouds {
-    bottom: calc(-60vh - 4px);
-    height: calc(90vh + 8px);
+    left: -16vw;
+    bottom: -50vh;
+    width: 132vw;
+    height: 100vh;
   }
 
-  .sticky::after {
-    content: "";
-    position: absolute;
+  .sectionSeamBridge {
+    left: -10vw;
+    bottom: -21vh;
+    width: 120vw;
+    height: 42vh;
+  }
 
-    left: 0;
-    right: 0;
-    bottom: 0;
+  .sectionSeamBack {
+    background-size: 38vw auto;
+    opacity: 0.56;
+  }
 
-    height: 6px;
+  .sectionSeamMiddle {
+    background-size: 32vw auto;
+    opacity: 0.82;
+  }
 
-    background: var(--cloud-seam);
+  .sectionSeamFront {
+    background-size: 27vw auto;
+    opacity: 1;
+  }
 
-    z-index: 5;
-
-    pointer-events: none;
+  .sectionSeamCore {
+    height: 10vh;
   }
 }
 
