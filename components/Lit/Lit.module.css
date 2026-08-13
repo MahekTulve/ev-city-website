@@ -186,9 +186,7 @@
       transparent 70%
     )
     border-box;
-  -webkit-mask:
-    linear-gradient(#000 0 0) padding-box,
-    linear-gradient(#000 0 0);
+
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   pointer-events: none;
@@ -677,6 +675,7 @@
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
+  paint-order: fill stroke markers;
   stroke-dasharray: 2;
   stroke-dashoffset: 2;
   filter:
@@ -685,8 +684,11 @@
 }
 
 .animate .drawLetterPath {
-  animation: traceLetter 2200ms cubic-bezier(0.55, 0, 0.2, 1)
-    var(--draw-delay, 0ms) forwards;
+  animation:
+    traceLetter 2200ms cubic-bezier(0.55, 0, 0.2, 1)
+      var(--draw-delay, 0ms) forwards,
+    fillLetter 520ms cubic-bezier(0.22, 1, 0.36, 1)
+      calc(var(--draw-delay, 0ms) + 2200ms) forwards;
 }
 
 .animate .cardLetter {
@@ -823,6 +825,22 @@
   }
 }
 
+@keyframes fillLetter {
+  0% {
+    fill: rgba(246, 224, 188, 0);
+    stroke: #c99243;
+  }
+
+  100% {
+    fill: #f6e0bc;
+    stroke: #c99243;
+    stroke-width: 1.65;
+    filter:
+      drop-shadow(0 0 4px rgba(246, 224, 188, 0.48))
+      drop-shadow(0 0 14px rgba(201, 146, 67, 0.16));
+  }
+}
+
 /* The punctuation is a real SVG circle and traces during its letter phase. */
 .litDotWrap {
   width: clamp(0.9rem, 1.35vw, 1.3rem);
@@ -854,18 +872,41 @@
 }
 
 .animate .drawDotPath {
-  animation: traceDot 900ms cubic-bezier(0.55, 0, 0.2, 1)
-    var(--draw-delay, 0ms) forwards;
+  animation:
+    traceDot 500ms cubic-bezier(0.55, 0, 0.2, 1)
+      var(--draw-delay, 0ms) forwards,
+    fillDot 300ms cubic-bezier(0.22, 1, 0.36, 1)
+      calc(var(--draw-delay, 0ms) + 500ms) forwards;
 }
 
 @keyframes traceDot {
   from {
     stroke-dashoffset: 2;
     opacity: 0;
+    fill: transparent;
   }
+
   to {
     stroke-dashoffset: 0;
     opacity: 1;
+    fill: transparent;
+  }
+}
+
+@keyframes fillDot {
+  from {
+    fill: rgba(246, 224, 188, 0);
+    stroke: #c99243;
+  }
+
+  to {
+    fill: #f6e0bc;
+    stroke: #c99243;
+    stroke-width: 1.5;
+    opacity: 1;
+    filter:
+      drop-shadow(0 0 4px rgba(246, 224, 188, 0.42))
+      drop-shadow(0 0 9px rgba(201, 146, 67, 0.16));
   }
 }
 
@@ -885,19 +926,19 @@
 
 .animate .card:nth-child(1) .iconHolder,
 .animate .card:nth-child(1) .cardBody {
-  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 2250ms
+  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 700ms
     forwards;
 }
 
 .animate .card:nth-child(2) .iconHolder,
 .animate .card:nth-child(2) .cardBody {
-  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 4800ms
+  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 4220ms
     forwards;
 }
 
 .animate .card:nth-child(3) .iconHolder,
 .animate .card:nth-child(3) .cardBody {
-  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 7350ms
+  animation: revealCardContent 650ms cubic-bezier(0.22, 1, 0.36, 1) 7740ms
     forwards;
 }
 
@@ -932,7 +973,7 @@
 }
 
 .animate .actions {
-  animation: revealActions 650ms cubic-bezier(0.22, 1, 0.36, 1) 8050ms forwards;
+  animation: revealActions 650ms cubic-bezier(0.22, 1, 0.36, 1) 10450ms forwards;
 }
 
 @keyframes revealActions {
@@ -982,6 +1023,17 @@
   .drawDotPath {
     stroke-dashoffset: 0;
     animation: none !important;
+  }
+
+  .drawLetterPath {
+    fill: #f6e0bc;
+    stroke: #c99243;
+  }
+
+  .drawDotPath {
+    fill: #f6e0bc;
+    stroke: #c99243;
+    opacity: 1;
   }
 
   .iconHolder,

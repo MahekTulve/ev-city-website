@@ -1,5 +1,4 @@
 import {
-  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -22,6 +21,7 @@ type SlideRecord = {
   alt: string;
   title: string;
   subtitle: string;
+  subtitleHighlight: string;
   features: {
     icon: FeatureIconType;
     line1: string;
@@ -34,8 +34,8 @@ const RECORDS: SlideRecord[] = [
     src: "/images/city.png",
     alt: "Vashi waterfront skyline at sunset",
     title: "BUILT TO COMPOUND",
-    subtitle:
-      "The best addresses don’t chase growth. They become where growth happens.",
+    subtitle: "The best addresses don’t chase growth.",
+    subtitleHighlight: "They become where growth happens.",
     features: [
       {
         icon: "connectivity",
@@ -59,7 +59,8 @@ const RECORDS: SlideRecord[] = [
     alt: "Vashi city during the day",
     title: "THE BUSINESS CAPITAL",
     subtitle:
-      "Established commercial districts, premium residential demand, retail, hospitality and a growing corporate ecosystem give Vashi something newer destinations are still building: *a functioning urban economy.",
+      "Established commercial districts, premium residential demand, retail, hospitality and a growing corporate ecosystem give Vashi something newer destinations are still building:",
+    subtitleHighlight: "a functioning urban economy.",
     features: [
       {
         icon: "connectivity",
@@ -83,7 +84,9 @@ const RECORDS: SlideRecord[] = [
     alt: "Vashi skyline illuminated at night",
     title: "THE ONE-HOUR ADVANTAGE",
     subtitle:
-      "Rail, road, metro expansion, major highways and proximity to the airport are turning Vashi into a *high-connectivity business address*, not just a residential node.",
+      "Rail, road, metro expansion, major highways and proximity to the airport are turning Vashi into",
+    subtitleHighlight:
+      "a high-connectivity business address, not just a residential node.",
     features: [
       {
         icon: "connectivity",
@@ -102,62 +105,6 @@ const RECORDS: SlideRecord[] = [
       },
     ],
   },
-  // {
-  //   src: "/images/city.png",
-  //   alt: "Vashi waterfront skyline at sunset",
-  //   title: "THE GATEWAY CITY",
-  //   subtitle:
-  //     "Connected to Mumbai, Navi Mumbai, and beyond, Vashi sits at the intersection of business, mobility, and opportunity — making distance feel increasingly irrelevant.",
-  //   features: [
-  //     {
-  //       icon: "connectivity",
-  //       line1: "Vashi has the",
-  //       line2: "connectivity.",
-  //     },
-  //     {
-  //       icon: "ecosystem",
-  //       line1: "Vashi has the",
-  //       line2: "ecosystem.",
-  //     },
-  //     {
-  //       icon: "momentum",
-  //       line1: "Now, it has the",
-  //       line2: "momentum.",
-  //     },
-  //   ],
-  // },
-  //  {
-  //   src: "/images/vashicityDay.png",
-  //   alt: "Vashi city during the day",
-  //   title: "THE ECONOMIC SHIFT",
-  //   subtitle:
-  //     "As Mumbai’s growth moves outward, the next wave belongs to places that already have the infrastructure, connectivity, and commercial DNA to lead. *Vashi has been ahead of that curve.",
-  //   features: [
-  //     {
-  //       icon: "connectivity",
-  //       line1: "Move with",
-  //       line2: "ease.",
-  //     },
-  //     {
-  //       icon: "ecosystem",
-  //       line1: "Live inside the",
-  //       line2: "network.",
-  //     },
-  //     {
-  //       icon: "momentum",
-  //       line1: "Stay close to",
-  //       line2: "opportunity.",
-  //     },
-  //   ],
-  // },
-];
-
-const QUOTE_LINES = [
-  "Instead of corridors, walking paths",
-  "connect the apartments — making",
-  "Era Residence feel closer to a group",
-  "of private homes than a standard",
-  "apartment building.",
 ];
 
 function FeatureIcon({ type }: { type: FeatureIconType }) {
@@ -191,6 +138,30 @@ function FeatureIcon({ type }: { type: FeatureIconType }) {
   );
 }
 
+function RecordSubtitle({
+  subtitle,
+  subtitleHighlight,
+}: {
+  subtitle: string;
+  subtitleHighlight: string;
+}) {
+  return (
+    <div className={styles.subtitleBlock}>
+      <p className={styles.recordSubtitle}>{subtitle}</p>
+
+      <div className={styles.subtitleHighlightRow}>
+        <span className={styles.subtitleRule} />
+
+        <span className={styles.subtitleHighlight}>
+          {subtitleHighlight}
+        </span>
+
+        <span className={styles.subtitleRule} />
+      </div>
+    </div>
+  );
+}
+
 interface WayVashiProps {
   isNight?: boolean;
   setIsNight?: Dispatch<SetStateAction<boolean>>;
@@ -201,7 +172,6 @@ export default function WayVashi({
   setIsNight,
 }: WayVashiProps) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const quoteRef = useRef<HTMLElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
   const domeRef = useRef<HTMLDivElement>(null);
 
@@ -210,128 +180,81 @@ export default function WayVashi({
 
   const activeRecord = RECORDS[slide];
 
-  useEffect(() => {
-    const timer = window.setInterval(() => {
-      setSlide((value) => (value + 1) % RECORDS.length);
-    }, 6500);
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const intro = `.${styles.domeIntro}`;
+      const curvedText = `.${styles.curvedText}`;
+      const domeInner = `.${styles.domeInner}`;
 
-    return () => window.clearInterval(timer);
-  }, []);
+      gsap.set(intro, {
+        autoAlpha: 1,
+        y: 0,
+      });
 
- useLayoutEffect(() => {
-  const ctx = gsap.context(() => {
-    const intro = `.${styles.domeIntro}`;
-    const curvedText = `.${styles.curvedText}`;
-    const domeInner = `.${styles.domeInner}`;
+      gsap.set(curvedText, {
+        autoAlpha: 1,
+      });
 
-    gsap.set(intro, {
-      autoAlpha: 1,
-      y: 0,
-    });
+      gsap.set(domeInner, {
+        autoAlpha: 0,
+        y: 90,
+      });
 
-    gsap.set(curvedText, {
-      autoAlpha: 1,
-    });
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: stageRef.current,
+          start: "top top",
+          end: "+=180%",
+          scrub: 1,
+          pin: true,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+        },
+      });
 
-    gsap.set(domeInner, {
-      autoAlpha: 0,
-      y: 90,
-    });
+      tl.fromTo(
+        domeRef.current,
+        {
+          height: "0vh",
+        },
+        {
+          height: "128vh",
+          duration: 1.2,
+          ease: "none",
+        },
+      );
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: stageRef.current,
-        start: "top top",
+      tl.to({}, { duration: 0.2 });
 
-        // More scroll distance because animation now has
-        // clearly separated stages.
-        end: "+=180%",
-
-        scrub: 1,
-        pin: true,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-      },
-    });
-
-    // -----------------------------------------
-    // 1. DOME COMES UP
-    // Intro remains completely visible
-    // -----------------------------------------
-    tl.fromTo(
-      domeRef.current,
-      {
-        height: "0vh",
-      },
-      {
-        height: "128vh",
-        duration: 1.2,
-        ease: "none",
-      },
-    );
-
-    // -----------------------------------------
-    // 2. HOLD INTRO FOR A LITTLE SCROLL
-    // -----------------------------------------
-    tl.to({}, { duration: 0.2 });
-
-    // -----------------------------------------
-    // 3. INTRO COMPLETELY GOES AWAY
-    // -----------------------------------------
-    tl.to(
-      intro,
-      {
+      tl.to(intro, {
         autoAlpha: 0,
         y: -35,
         duration: 0.4,
         ease: "power2.inOut",
-      },
-    );
+      });
 
-    tl.to(
-      curvedText,
-      {
-        autoAlpha: 0,
-        duration: 0.15,
-        ease: "power1.out",
-      },
-      "<",
-    );
+      tl.to(
+        curvedText,
+        {
+          autoAlpha: 0,
+          duration: 0.15,
+          ease: "power1.out",
+        },
+        "<",
+      );
 
-    // -----------------------------------------
-    // 4. SMALL EMPTY MOMENT
-    // Nothing overlaps here
-    // -----------------------------------------
-    tl.to({}, { duration: 0.16 });
+      tl.to({}, { duration: 0.16 });
 
-    // -----------------------------------------
-    // 5. NOW RECORD CONTENT COMES UP
-    // Only after intro is 100% invisible
-    // -----------------------------------------
-    tl.to(domeInner, {
-      autoAlpha: 1,
-      y: 0,
-      duration: 0.7,
-      ease: "power3.out",
-    });
+      tl.to(domeInner, {
+        autoAlpha: 1,
+        y: 0,
+        duration: 0.7,
+        ease: "power3.out",
+      });
+    }, rootRef);
 
-    // -----------------------------------------
-    // QUOTE ANIMATION
-    // -----------------------------------------
-    gsap.to(`.${styles.quoteLine} span`, {
-      translate: "0 0",
-      duration: 0.9,
-      ease: "power3.out",
-      stagger: 0.12,
-      scrollTrigger: {
-        trigger: `.${styles.quote}`,
-        start: "top 85%",
-      },
-    });
-  }, rootRef);
-
-  return () => ctx.revert();
-}, []);
+    return () => ctx.revert();
+  }, []);
 
   const handleToggle = () => {
     const nextState = !night;
@@ -356,6 +279,7 @@ export default function WayVashi({
           className={`${styles.archBgLayer} ${styles.dayStageBg}`}
           style={{ opacity: night ? 0 : 1 }}
         />
+
         <div
           className={`${styles.archBgLayer} ${styles.nightStageBg}`}
           style={{ opacity: night ? 1 : 0 }}
@@ -364,42 +288,63 @@ export default function WayVashi({
         <div className={styles.dayNightButtonContainer}>
           <div className={styles.heroTagline}>
             <span className={styles.taglineWord}>A PLACE</span>
-            <DayNightButton isNight={night} onToggle={handleToggle} />
-            <span className={styles.taglineWord}>TO RETURN TO</span>
+
+            <DayNightButton
+              isNight={night}
+              onToggle={handleToggle}
+            />
+
+            <span className={styles.taglineWord}>
+              TO RETURN TO
+            </span>
           </div>
         </div>
 
-       <div className={styles.dome} ref={domeRef}>
-  <svg
-    className={styles.curvedText}
-    viewBox="0 0 1200 340"
-    aria-hidden="true"
-  >
-    <path
-      id="archCurve"
-      d="M 40 340 A 560 320 0 0 1 1160 340"
-      fill="none"
-    />
-    <text textAnchor="middle">
-      <textPath href="#archCurve" startOffset="50%">
-        {/* Three reasons to choose Vashi */}
-      </textPath>
-    </text>
-  </svg>
+        <div className={styles.dome} ref={domeRef}>
+          <svg
+            className={styles.curvedText}
+            viewBox="0 0 1200 340"
+            aria-hidden="true"
+          >
+            <path
+              id="archCurve"
+              d="M 40 340 A 560 320 0 0 1 1160 340"
+              fill="none"
+            />
 
-  {/* Intro header visible in the blank space before scrolling */}
-  <div className={styles.domeIntro}>
-    <h1 className={styles.introTitle}>WHAT MAKES VASHI THE NEXT BIG ADDRESS</h1>
-    <p className={styles.introSubtitle}>
-      Not just a location. A city built ahead of its time
-    </p>
-  </div>
+            <text textAnchor="middle">
+              <textPath
+                href="#archCurve"
+                startOffset="50%"
+              />
+            </text>
+          </svg>
+
+          <div className={styles.domeIntro}>
+            <h1 className={styles.introTitle}>
+              WHAT MAKES VASHI THE NEXT BIG ADDRESS
+            </h1>
+
+            <p className={styles.introSubtitle}>
+              Not just a location. A city built ahead of its time
+            </p>
+          </div>
 
           <div className={styles.domeInner}>
-            <div className={styles.recordCopy} key={`copy-${slide}`}>
-              <h2 className={styles.bigTitle}>{activeRecord.title}</h2>
-              <p className={styles.recordSubtitle}>“{activeRecord.subtitle}”</p>
-              <span className={styles.titleRule} />
+            <div
+              className={styles.recordCopy}
+              key={`copy-${slide}`}
+            >
+              <h2 className={styles.bigTitle}>
+                {activeRecord.title}
+              </h2>
+
+              <RecordSubtitle
+                subtitle={activeRecord.subtitle}
+                subtitleHighlight={
+                  activeRecord.subtitleHighlight
+                }
+              />
             </div>
 
             <div className={styles.sliderFrame}>
@@ -412,13 +357,18 @@ export default function WayVashi({
                   width={1280}
                   height={720}
                   className={`${styles.slide} ${
-                    index === slide ? styles.slideActive : ""
+                    index === slide
+                      ? styles.slideActive
+                      : ""
                   }`}
                 />
               ))}
             </div>
 
-            <div className={styles.featureRow} key={`features-${slide}`}>
+            <div
+              className={styles.featureRow}
+              key={`features-${slide}`}
+            >
               {activeRecord.features.map((feature) => (
                 <div
                   className={styles.featureItem}
@@ -427,6 +377,7 @@ export default function WayVashi({
                   <span className={styles.featureIcon}>
                     <FeatureIcon type={feature.icon} />
                   </span>
+
                   <p className={styles.featureText}>
                     <span>{feature.line1}</span>
                     <strong>{feature.line2}</strong>
@@ -452,7 +403,9 @@ export default function WayVashi({
                 <span
                   className={styles.sliderProgress}
                   style={{
-                    width: `${((slide + 1) / RECORDS.length) * 100}%`,
+                    width: `${
+                      ((slide + 1) / RECORDS.length) * 100
+                    }%`,
                   }}
                 />
               </span>
@@ -461,32 +414,23 @@ export default function WayVashi({
                 {String(RECORDS.length).padStart(2, "0")}
               </span>
 
-              <button type="button" aria-label="Next record" onClick={goNext}>
+              <button
+                type="button"
+                aria-label="Next record"
+                onClick={goNext}
+              >
                 ›
               </button>
             </div>
           </div>
         </div>
 
-        <h2 className="sr-only">Three reasons to choose Vashi</h2>
+        <h2 className="sr-only">
+          Three reasons to choose Vashi
+        </h2>
       </section>
 
       <Lit />
-
-      {/* <section
-        ref={quoteRef}
-        className={styles.quoteSection}
-        style={{ backgroundImage: "url('/images/city.png')" }}
-      >
-        <blockquote className={styles.quote}>
-          <span className={styles.quoteMark}>“</span>
-          {QUOTE_LINES.map((line) => (
-            <span key={line} className={styles.quoteLine}>
-              <span>{line}</span>
-            </span>
-          ))}
-        </blockquote>
-      </section> */}
     </div>
   );
 }
