@@ -287,33 +287,35 @@ export default function ZoomParallaxDemo() {
       },
     },
   };
-  // --- Idle Auto-Scroll Logic ---
-  // useEffect(() => {
-  //   let idleTimer: NodeJS.Timeout;
+  useEffect(() => {
+    let idleTimer: NodeJS.Timeout;
 
-  //   const handleScrollActivity = () => {
-  //     // Jab user scroll karega, idle timer reset ho jayega
-  //     clearTimeout(idleTimer);
+    const handleScrollActivity = () => {
+      clearTimeout(idleTimer);
 
-  //     // Agar "I" (isStepSix) tak nahi pahunche hain, tabhi auto-scroll active karein
-  //     if (!states.isStepSix) {
-  //       idleTimer = setTimeout(() => {
-  //         // 2 seconds tak agar user ne scroll nahi kiya, toh thoda sa scroll programmatically aage badhao
-  //         window.scrollBy({
-  //           top: window.innerHeight * 0.5, // Har baar half screen aage scroll hoga
-  //           behavior: "smooth",
-  //         });
-  //       }, 2000); // 2 seconds ka idle time (aap ise apne hisaab se kam/zyada kar sakte hain)
-  //     }
-  //   };
+      const container = containerRef.current;
+      if (!container) return;
 
-  //   window.addEventListener("scroll", handleScrollActivity);
+      const rect = container.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      const isInContainer = rect.top <= 0 && rect.bottom >= windowHeight;
+      if (isInContainer && !states.isStepSix) {
+        idleTimer = setTimeout(() => {
+          window.scrollBy({
+            top: windowHeight * 0.5, 
+            behavior: "smooth",
+          });
+        }, 2000); 
+      }
+    };
 
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScrollActivity);
-  //     clearTimeout(idleTimer);
-  //   };
-  // }, [states.isStepSix]);
+    window.addEventListener("scroll", handleScrollActivity);
+
+    return () => {
+      window.removeEventListener("scroll", handleScrollActivity);
+      clearTimeout(idleTimer);
+    };
+  }, [states.isStepSix]);
   const headingText = "THE 5 MINUTE CITY";
 
   return (

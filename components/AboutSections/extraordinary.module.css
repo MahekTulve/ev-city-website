@@ -12,7 +12,9 @@
   height: 100vh;
   left: 0;
 
-  background-color: #f3f3ec;
+
+  background: #f3f3ec;
+  ;
 
   padding: 0 60px 30px 0;
 
@@ -318,6 +320,51 @@
   transform: translateY(0);
 }
 
+/*
+ * V-letter block: koi scale-up nahi. Section me aate hi real size,
+ * bas halka sa fade-in aur wo bhi VASHI circle ke baad (delay).
+ */
+.containerEntryRest {
+  opacity: 1;
+}
+
+/* V heading circle ke saath turant */
+.containerEntryRest .headingRight {
+  animation: vLetterFirstFadeIn 0.6s ease both;
+}
+
+/* Image aur description thoda baad me */
+.containerEntryRest .imageWrapper,
+.containerEntryRest .diviDescrip,
+.containerEntryRest .dotgrid,
+.containerEntryRest .dotgridtwo {
+  animation: vLetterRestFadeIn 0.9s ease 0.55s backwards;
+}
+
+.circle {
+  animation: vLetterFirstFadeIn 0.6s ease both;
+}
+
+@keyframes vLetterFirstFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes vLetterRestFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
 .containerFinalStage {
   opacity: 1;
   bottom: 45%;
@@ -391,11 +438,11 @@
 
 .step3TextScaleUp {
   background-image: radial-gradient(circle 800px at top left,
-      #d2edfc65 0%,
-      #2f3b56 5%,
-      #222938e2 30%,
-      #1a1e2b 40%,
-      #0b0a09 100%);
+      #d7ebf5ea 0%,
+      #526694 5%,
+      #2a3144 40%,
+      #222838 50%,
+      #080d17 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -517,6 +564,8 @@
   right: -10%;
   font-family: "Kalnia", serif;
   z-index: 20;
+  filter: drop-shadow(4px 1px 5px #30274ad1);
+
 }
 
 .step3Divider {
@@ -693,11 +742,11 @@
 
 .rightContentLarge {
   background-image: radial-gradient(circle 800px at top right,
-      #d2edfc65 0%,
-      #2f3b56 5%,
-      #222938e2 30%,
-      #1a1e2b 40%,
-      #0b0a09 100%);
+      #d7ebf5ea 0%,
+      #526694 5%,
+      #2a3144 40%,
+      #222838 50%,
+      #080d17 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -798,6 +847,7 @@
   font-family: "Playfair Display", serif;
   text-decoration: "italic";
   transition: font-size 2s cubic-bezier(0.76, 0, 0.24, 1);
+  position: relative;
 }
 
 .step6Heading,
@@ -807,6 +857,9 @@
   font-weight: 400;
   line-height: 14rem;
   position: absolute;
+  left: -5%;
+  font-family: "Kalnia", serif;
+  z-index: 20;
   background-image: linear-gradient(180deg,
       #e7bd65 0%,
       #f2e18b 50%,
@@ -814,9 +867,8 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  left: -5%;
-  font-family: "Kalnia", serif;
-  z-index: 20;
+
+  filter: drop-shadow(-4px 1px 5px #30274ad1);
 }
 
 .step6Heading {
@@ -1075,11 +1127,11 @@
 
 .step4TextScaleUp {
   background-image: radial-gradient(circle 800px at top right,
-      #d2edfc65 0%,
-      #2f3b56 5%,
-      #222938e2 30%,
-      #1a1e2b 40%,
-      #0b0a09 100%);
+      #d7ebf5ea 0%,
+      #526694 5%,
+      #2a3144 40%,
+      #222838 50%,
+      #080d17 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -1213,11 +1265,11 @@
 
 .step5TextScaleUp {
   background-image: radial-gradient(circle 800px at top left,
-      #d2edfc65 0%,
-      #2f3b56 5%,
-      #222938e2 30%,
-      #1a1e2b 40%,
-      #0b0a09 100%);
+      #d7ebf5ea 0%,
+      #526694 5%,
+      #2a3144 40%,
+      #222838 50%,
+      #080d17 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -1327,6 +1379,8 @@
   right: -10%;
   font-family: "Kalnia", serif;
   z-index: 20;
+    filter: drop-shadow(4px 1px 5px #30274ad1);
+
 }
 
 .step5Divider {
@@ -1407,11 +1461,11 @@
 
 .step6TextScaleUp {
   background-image: radial-gradient(circle 800px at top right,
-      #d2edfc65 0%,
-      #2f3b56 5%,
-      #222938e2 30%,
-      #1a1e2b 40%,
-      #0b0a09 100%);
+      #d7ebf5ea 0%,
+      #526694 5%,
+      #2a3144 40%,
+      #222838 50%,
+      #080d17 100%);
 
   overflow: visible;
   border-top-left-radius: 50%;
@@ -2281,9 +2335,3 @@
   }
 }
 
-/* @media (max-width: 1600px) {
-
-.cloudVeil {
-  height: 60vh;
-}
-} */

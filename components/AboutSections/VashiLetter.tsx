@@ -37,14 +37,10 @@ export default function VashiLetter({
         : styles.textCentered
   }`;
 
-  const containerClass = `${styles.container} ${
-    isStepThree
-      ? styles.containerExitUp
-      : isFinal
-        ? styles.containerFinalStage
-        : isEntering
-          ? styles.containerReveal
-          : styles.containerHidden
+  // V-letter block ab shuru se hi apni real (final) size me rehta hai.
+  // Scroll par sirf fade-in / exit hota hai, koi scale-up nahi.
+  const containerClass = `${styles.container} ${styles.containerFinalStage} ${
+    isStepThree ? styles.containerExitUp : styles.containerEntryRest
   }`;
 
   const stepThreeClass = `${styles.stepThreeContainer} ${
@@ -75,12 +71,8 @@ export default function VashiLetter({
     isStepSix ? styles.stepSixReveal : styles.stepSixHidden
   } ${isVideoActive ? styles.section3ShiftLeft : ""}`;
 
-  const showCircle =
-    isFinal ||
-    isStepThree ||
-    isStepFour ||
-    isStepFive ||
-    isStepSix;
+  // VASHI circle section me aate hi dikhta hai (V pehle se active).
+  const showCircle = true;
 
   const showTransitionClouds =
     !isFinal &&
@@ -189,7 +181,8 @@ export default function VashiLetter({
                 isActiveLetter = letter === "S";
               } else if (isStepThree) {
                 isActiveLetter = letter === "A";
-              } else if (isFinal) {
+              } else {
+                // Default (section me enter karte hi): V active
                 isActiveLetter = letter === "V";
               }
 
@@ -260,25 +253,16 @@ export default function VashiLetter({
             />
 
             <div
-              className={`${styles.bgcircle} ${
-                isFinal
-                  ? styles.bgcircleremove
-                  : ""
-              }`}
+              className={`${styles.bgcircle} ${styles.bgcircleremove}`}
             />
 
             <div
-              className={`${styles.cornerHighlight} ${
-                isFinal
-                  ? styles.bgcircleremove
-                  : ""
-              }`}
+              className={`${styles.cornerHighlight} ${styles.bgcircleremove}`}
             />
 
+            {/* Image hamesha final (large) size me */}
             <div
-              className={`${styles.imageWrapper} ${
-                isFinal ? styles.imageLarge : ""
-              }`}
+              className={`${styles.imageWrapper} ${styles.imageLarge}`}
             >
               <img
                 src="/images/VletterImag.png"
@@ -289,11 +273,7 @@ export default function VashiLetter({
           </div>
 
           <div
-            className={`${styles.rightContent} ${
-              isFinal
-                ? styles.rightContentLarge
-                : ""
-            }`}
+            className={`${styles.rightContent} ${styles.rightContentLarge}`}
           >
             <h4 className={styles.headingRight}>
               V
@@ -330,11 +310,7 @@ export default function VashiLetter({
                 <br />
 
                 <FaSquareFull
-                  className={`${styles.activeIcon} ${
-                    isFinal
-                      ? styles.lettersIcon
-                      : ""
-                  }`}
+                  className={`${styles.activeIcon} ${styles.lettersIcon}`}
                 />
 
                 A city that gives you back the
