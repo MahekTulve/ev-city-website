@@ -288,32 +288,32 @@ export default function ZoomParallaxDemo() {
     },
   };
   // --- Idle Auto-Scroll Logic ---
-  useEffect(() => {
-    let idleTimer: NodeJS.Timeout;
+  // useEffect(() => {
+  //   let idleTimer: NodeJS.Timeout;
 
-    const handleScrollActivity = () => {
-      // Jab user scroll karega, idle timer reset ho jayega
-      clearTimeout(idleTimer);
+  //   const handleScrollActivity = () => {
+  //     // Jab user scroll karega, idle timer reset ho jayega
+  //     clearTimeout(idleTimer);
 
-      // Agar "I" (isStepSix) tak nahi pahunche hain, tabhi auto-scroll active karein
-      if (!states.isStepSix) {
-        idleTimer = setTimeout(() => {
-          // 2 seconds tak agar user ne scroll nahi kiya, toh thoda sa scroll programmatically aage badhao
-          window.scrollBy({
-            top: window.innerHeight * 0.5, // Har baar half screen aage scroll hoga
-            behavior: "smooth",
-          });
-        }, 2000); // 2 seconds ka idle time (aap ise apne hisaab se kam/zyada kar sakte hain)
-      }
-    };
+  //     // Agar "I" (isStepSix) tak nahi pahunche hain, tabhi auto-scroll active karein
+  //     if (!states.isStepSix) {
+  //       idleTimer = setTimeout(() => {
+  //         // 2 seconds tak agar user ne scroll nahi kiya, toh thoda sa scroll programmatically aage badhao
+  //         window.scrollBy({
+  //           top: window.innerHeight * 0.5, // Har baar half screen aage scroll hoga
+  //           behavior: "smooth",
+  //         });
+  //       }, 2000); // 2 seconds ka idle time (aap ise apne hisaab se kam/zyada kar sakte hain)
+  //     }
+  //   };
 
-    window.addEventListener("scroll", handleScrollActivity);
+  //   window.addEventListener("scroll", handleScrollActivity);
 
-    return () => {
-      window.removeEventListener("scroll", handleScrollActivity);
-      clearTimeout(idleTimer);
-    };
-  }, [states.isStepSix]);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScrollActivity);
+  //     clearTimeout(idleTimer);
+  //   };
+  // }, [states.isStepSix]);
   const headingText = "THE 5 MINUTE CITY";
 
   return (
