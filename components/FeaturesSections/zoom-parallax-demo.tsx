@@ -506,9 +506,6 @@ export default function ZoomParallaxDemo() {
       <div data-section>
         <HorizontalStory />
       </div>
-      <div data-section>
-        <HorizontalStory />
-      </div>
 
       <div data-section>
         <Clouds />
