@@ -311,11 +311,11 @@ export default function Lit() {
             <span className={s.litGroup}>
               <span className={s.heroLetterRow}>
                 <DrawLetter letter="L" variant="hero" delay={150} />
-                <DrawDot delay={150} />
+                <DrawDot delay={2870} />
               </span>
               <span
                 className={s.heroWord}
-                style={{ "--word-delay": "2250ms" } as CSSProperties}
+                style={{ "--word-delay": "700ms" } as CSSProperties}
               >
                 LARGEST
               </span>
@@ -323,12 +323,12 @@ export default function Lit() {
 
             <span className={s.litGroup}>
               <span className={s.heroLetterRow}>
-                <DrawLetter letter="I" variant="hero" delay={2700} />
-                <DrawDot delay={2700} />
+                <DrawLetter letter="I" variant="hero" delay={3670} />
+                <DrawDot delay={6390} />
               </span>
               <span
                 className={s.heroWord}
-                style={{ "--word-delay": "4800ms" } as CSSProperties}
+                style={{ "--word-delay": "4220ms" } as CSSProperties}
               >
                 INTEGRATED
               </span>
@@ -336,11 +336,11 @@ export default function Lit() {
 
             <span className={s.litGroup}>
               <span className={s.heroLetterRow}>
-                <DrawLetter letter="T" variant="hero" delay={5250} />
+                <DrawLetter letter="T" variant="hero" delay={7190} />
               </span>
               <span
                 className={s.heroWord}
-                style={{ "--word-delay": "7350ms" } as CSSProperties}
+                style={{ "--word-delay": "7740ms" } as CSSProperties}
               >
                 TOWNSHIP
               </span>
@@ -367,7 +367,7 @@ export default function Lit() {
     <div className={s.cards}>
   {cards.map(({ letter, title, copy, Icon }, index) => {
     // Starts when the matching BIG letter has nearly finished drawing.
-    const cardRevealDelays = [2250, 4800, 7350];
+    const cardRevealDelays = [700, 4220, 7740];
 
     return (
       <article
