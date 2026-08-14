@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useLayoutEffect,
   useRef,
   useState,
@@ -105,6 +106,58 @@ const RECORDS: SlideRecord[] = [
       },
     ],
   },
+    {
+    src: "/images/building-malibu.png",
+    alt: "Vashi skyline illuminated at night",
+    title: "THE GATEWAY CITY",
+    subtitle:
+      "Connected to Mumbai, Navi Mumbai, and beyond, Vashi sits at the intersection of business, mobility,",
+    subtitleHighlight:
+      "and opportunity — making distance feel increasingly irrelevant.",
+    features: [
+      {
+        icon: "connectivity",
+        line1: "Minutes from",
+        line2: "everything.",
+      },
+      {
+        icon: "ecosystem",
+        line1: "Surrounded by",
+        line2: "possibility.",
+      },
+      {
+        icon: "momentum",
+        line1: "Positioned for",
+        line2: "growth.",
+      },
+    ],
+  },
+    {
+    src: "/images/5min_city.png",
+    alt: "Vashi skyline illuminated at night",
+    title: "THE ECONOMIC SHIFT",
+    subtitle:
+      "As Mumbai’s growth moves outward, the next wave belongs to places that already have the infrastructure, connectivity, and commercial DNA to lead.",
+    subtitleHighlight:
+      "Vashi has been ahead of that curve.",
+    features: [
+      {
+        icon: "connectivity",
+        line1: "Minutes from",
+        line2: "everything.",
+      },
+      {
+        icon: "ecosystem",
+        line1: "Surrounded by",
+        line2: "possibility.",
+      },
+      {
+        icon: "momentum",
+        line1: "Positioned for",
+        line2: "growth.",
+      },
+    ],
+  },
 ];
 
 function FeatureIcon({ type }: { type: FeatureIconType }) {
@@ -177,6 +230,11 @@ export default function WayVashi({
 
   const [slide, setSlide] = useState(0);
   const [night, setNight] = useState<boolean>(initialIsNight);
+
+  // Enabled on every fresh page load.
+  // Any manual arrow click disables autoplay until the next refresh.
+  const [autoPlayEnabled, setAutoPlayEnabled] = useState(true);
+  const [isStageVisible, setIsStageVisible] = useState(false);
 
   const activeRecord = RECORDS[slide];
 
@@ -256,19 +314,60 @@ export default function WayVashi({
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    const stage = stageRef.current;
+
+    if (!stage) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsStageVisible(entry.isIntersecting);
+      },
+      {
+        threshold: 0.25,
+      },
+    );
+
+    observer.observe(stage);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!autoPlayEnabled || !isStageVisible) return;
+
+    const autoSlideTimer = window.setInterval(() => {
+      setSlide((value) => (value + 1) % RECORDS.length);
+    }, 3000);
+
+    return () => {
+      window.clearInterval(autoSlideTimer);
+    };
+  }, [autoPlayEnabled, isStageVisible]);
+
   const handleToggle = () => {
     const nextState = !night;
     setNight(nextState);
     setIsNight?.(nextState);
   };
 
+  const stopAutoPlay = () => {
+    setAutoPlayEnabled(false);
+  };
+
   const goPrevious = () => {
+    stopAutoPlay();
+
     setSlide((value) =>
       value === 0 ? RECORDS.length - 1 : value - 1,
     );
   };
 
   const goNext = () => {
+    stopAutoPlay();
+
     setSlide((value) => (value + 1) % RECORDS.length);
   };
 
@@ -301,6 +400,7 @@ export default function WayVashi({
         </div>
 
         <div className={styles.dome} ref={domeRef}>
+          <div className={styles.domeOverlay} aria-hidden="true" />
           <svg
             className={styles.curvedText}
             viewBox="0 0 1200 340"
@@ -321,8 +421,30 @@ export default function WayVashi({
           </svg>
 
           <div className={styles.domeIntro}>
+            <div className={styles.introCrown} aria-hidden="true">
+              <span className={styles.introCrownLine} />
+              <span className={styles.introCrownMark}>
+                <span />
+                <span />
+                <span />
+                <span />
+                <span />
+              </span>
+              <span className={styles.introCrownLine} />
+            </div>
+
+            <p className={styles.introEyebrow}>WHAT MAKES</p>
+
             <h1 className={styles.introTitle}>
-              WHAT MAKES VASHI THE NEXT BIG ADDRESS
+              <span className={styles.introVashi}>VASHI</span>
+
+              <span className={styles.introNextRow}>
+                <span className={styles.introRule} aria-hidden="true" />
+                <span className={styles.introNext}>THE NEXT</span>
+                <span className={styles.introRule} aria-hidden="true" />
+              </span>
+
+              <span className={styles.introAddress}>BIG ADDRESS</span>
             </h1>
 
             <p className={styles.introSubtitle}>
@@ -365,7 +487,7 @@ export default function WayVashi({
               ))}
             </div>
 
-            <div
+            {/* <div
               className={styles.featureRow}
               key={`features-${slide}`}
             >
@@ -384,7 +506,7 @@ export default function WayVashi({
                   </p>
                 </div>
               ))}
-            </div>
+            </div> */}
 
             <div className={styles.sliderNav}>
               <button
