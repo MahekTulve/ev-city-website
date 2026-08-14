@@ -19,38 +19,45 @@ function LargestIcon() {
         strokeWidth="1.4"
         strokeLinecap="round"
       />
+
       <path
         d="M14 62V34H27V62"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinejoin="round"
       />
+
       <path
         d="M29 62V15H46V62"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinejoin="round"
       />
+
       <path
         d="M48 62V27H59V62"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinejoin="round"
       />
+
       <path
         d="M35 15V9M32 9H38"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinecap="round"
       />
+
       <path d="M18 40H23" stroke="currentColor" strokeWidth="1.2" />
       <path d="M18 47H23" stroke="currentColor" strokeWidth="1.2" />
       <path d="M18 54H23" stroke="currentColor" strokeWidth="1.2" />
+
       <path d="M34 23H41" stroke="currentColor" strokeWidth="1.2" />
       <path d="M34 31H41" stroke="currentColor" strokeWidth="1.2" />
       <path d="M34 39H41" stroke="currentColor" strokeWidth="1.2" />
       <path d="M34 47H41" stroke="currentColor" strokeWidth="1.2" />
       <path d="M34 55H41" stroke="currentColor" strokeWidth="1.2" />
+
       <path d="M52 35H56" stroke="currentColor" strokeWidth="1.2" />
       <path d="M52 43H56" stroke="currentColor" strokeWidth="1.2" />
       <path d="M52 51H56" stroke="currentColor" strokeWidth="1.2" />
@@ -67,42 +74,54 @@ function IntegratedIcon() {
       aria-hidden="true"
     >
       <circle cx="36" cy="36" r="8" stroke="currentColor" strokeWidth="1.4" />
+
       <circle cx="36" cy="11" r="4" stroke="currentColor" strokeWidth="1.4" />
+
       <circle cx="60" cy="27" r="4" stroke="currentColor" strokeWidth="1.4" />
+
       <circle cx="54" cy="57" r="4" stroke="currentColor" strokeWidth="1.4" />
+
       <circle cx="18" cy="57" r="4" stroke="currentColor" strokeWidth="1.4" />
+
       <circle cx="12" cy="27" r="4" stroke="currentColor" strokeWidth="1.4" />
+
       <path
         d="M36 15V28"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinecap="round"
       />
+
       <path
         d="M56 29L43 33"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinecap="round"
       />
+
       <path
         d="M51 54L41 42"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinecap="round"
       />
+
       <path
         d="M21 54L31 42"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinecap="round"
       />
+
       <path
         d="M16 29L29 33"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinecap="round"
       />
+
       <circle cx="36" cy="36" r="2.4" fill="currentColor" />
+
       <path
         d="M21 17C29 11 43 10 51 17"
         stroke="currentColor"
@@ -129,18 +148,21 @@ function TownshipIcon() {
         strokeWidth="1.4"
         strokeLinejoin="round"
       />
+
       <path
         d="M25 12L26 56M45 18L46 62"
         stroke="currentColor"
         strokeWidth="1.2"
         opacity=".65"
       />
+
       <path
         d="M36 24C30.7 24 27 27.8 27 32.6C27 39.3 36 48 36 48C36 48 45 39.3 45 32.6C45 27.8 41.3 24 36 24Z"
         stroke="currentColor"
         strokeWidth="1.4"
         strokeLinejoin="round"
       />
+
       <circle
         cx="36"
         cy="32.5"
@@ -148,6 +170,7 @@ function TownshipIcon() {
         stroke="currentColor"
         strokeWidth="1.3"
       />
+
       <path
         d="M13 24L21 21M51 22L59 19M13 51L21 48M51 51L59 48"
         stroke="currentColor"
@@ -200,10 +223,20 @@ function DrawLetter({
       viewBox="0 0 180 210"
       fill="none"
       aria-hidden="true"
-      style={{ "--draw-delay": `${delay}ms` } as CSSProperties}
+      style={
+        {
+          "--draw-delay": `${delay}ms`,
+        } as CSSProperties
+      }
     >
       <path
         className={s.drawLetterPath}
+        pathLength="1"
+        d={LETTER_PATHS[letter]}
+      />
+
+      <path
+        className={s.shineLetterPath}
         pathLength="1"
         d={LETTER_PATHS[letter]}
       />
@@ -218,7 +251,11 @@ function DrawDot({ delay }: { delay: number }) {
         className={s.drawDot}
         viewBox="0 0 20 20"
         fill="none"
-        style={{ "--draw-delay": `${delay}ms` } as CSSProperties}
+        style={
+          {
+            "--draw-delay": `${delay}ms`,
+          } as CSSProperties
+        }
       >
         <circle
           className={s.drawDotPath}
@@ -238,6 +275,7 @@ export default function Lit() {
 
   useEffect(() => {
     const section = sectionRef.current;
+
     if (!section) return;
 
     const observer = new IntersectionObserver(
@@ -252,7 +290,9 @@ export default function Lit() {
           setAnimate(false);
         }
       },
-      { threshold: 0.2 },
+      {
+        threshold: 0.2,
+      },
     );
 
     observer.observe(section);
@@ -267,63 +307,80 @@ export default function Lit() {
       ref={sectionRef}
       className={`${s.wrapper} ${animate ? s.animate : ""}`}
     >
+      {/* Background-only overlays.
+          They sit above a3-cut.jpeg but below every LIT text/card layer. */}
+      <div className={s.backgroundOverlay} aria-hidden="true" />
+      <div className={s.bottomOverlay} aria-hidden="true" />
+
       <div className={s.hero}>
         <div className={s.bg} aria-hidden="true" />
 
         <div className={s.content}>
-          <p className={s.eyebrow}>VASHI IS</p>
+          <p className={s.eyebrow}>
+            <span className={s.eyebrowVashi}>VASHI</span>
+            <span className={s.eyebrowIs}>IS</span>
+          </p>
 
           <h1
             className={s.lit}
             aria-label="L.I.T — Largest Integrated Township"
           >
-            <span className={s.litGroup}>
-              <span className={s.heroLetterRow}>
-                <DrawLetter letter="L" delay={150} />
-                <DrawDot delay={2870} />
-              </span>
+          <span className={s.litGroup}>
+  <span
+    className={s.heroLetterRow}
+    style={{ "--zoom-delay": "100ms" } as CSSProperties}
+  >
+    <DrawLetter letter="L" delay={100} />
+    <DrawDot delay={1420} />
+  </span>
 
-              <span
-                className={s.heroWord}
-                style={{ "--word-delay": "700ms" } as CSSProperties}
-              >
-                LARGEST
-              </span>
-            </span>
+  <span
+    className={s.heroWord}
+    style={{ "--word-delay": "450ms" } as CSSProperties}
+  >
+    LARGEST
+  </span>
+</span>
 
-            <span className={s.litGroup}>
-              <span className={s.heroLetterRow}>
-                <DrawLetter letter="I" delay={3670} />
-                <DrawDot delay={6390} />
-              </span>
+<span className={s.litGroup}>
+  <span
+    className={s.heroLetterRow}
+    style={{ "--zoom-delay": "2800ms" } as CSSProperties}
+  >
+    <DrawLetter letter="I" delay={2000} />
+    <DrawDot delay={3320} />
+  </span>
 
-              <span
-                className={s.heroWord}
-                style={{ "--word-delay": "4220ms" } as CSSProperties}
-              >
-                INTEGRATED
-              </span>
-            </span>
+  <span
+    className={s.heroWord}
+    style={{ "--word-delay": "2350ms" } as CSSProperties}
+  >
+    INTEGRATED
+  </span>
+</span>
 
-            <span className={s.litGroup}>
-              <span className={s.heroLetterRow}>
-                <DrawLetter letter="T" delay={7190} />
-              </span>
+<span className={s.litGroup}>
+  <span
+    className={s.heroLetterRow}
+    style={{ "--zoom-delay": "3900ms" } as CSSProperties}
+  >
+    <DrawLetter letter="T" delay={3900} />
+  </span>
 
-              <span
-                className={s.heroWord}
-                style={{ "--word-delay": "7740ms" } as CSSProperties}
-              >
-                TOWNSHIP
-              </span>
-            </span>
+  <span
+    className={s.heroWord}
+    style={{ "--word-delay": "4250ms" } as CSSProperties}
+  >
+    TOWNSHIP
+  </span>
+</span>
           </h1>
         </div>
       </div>
 
       <div className={s.cards}>
         {cards.map(({ letter, title, copy, Icon }, index) => {
-          const cardRevealDelays = [700, 4220, 7740];
+          const cardRevealDelays = [450, 2350, 4250];
 
           return (
             <article
@@ -341,20 +398,12 @@ export default function Lit() {
 
               <div className={s.cardBody}>
                 <h3>{title}</h3>
+
                 <p>{copy}</p>
               </div>
             </article>
           );
         })}
-      </div>
-
-      <div className={s.actions}>
-        <button type="button" className={s.discover}>
-          <span>DISCOVER VASHI</span>
-          <span className={s.discoverArrow} aria-hidden="true">
-            →
-          </span>
-        </button>
       </div>
 
       <div className={s.bottomSpace} />
