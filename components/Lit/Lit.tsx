@@ -345,7 +345,7 @@ export default function Lit() {
 <span className={s.litGroup}>
   <span
     className={s.heroLetterRow}
-    style={{ "--zoom-delay": "2800ms" } as CSSProperties}
+    style={{ "--zoom-delay": "2000ms" } as CSSProperties}
   >
     <DrawLetter letter="I" delay={2000} />
     <DrawDot delay={3320} />

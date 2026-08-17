@@ -4,6 +4,13 @@
 
   position: relative;
   width: 100%;
+  max-width: 100%;
+
+  /* Prevent oversized decorative vw layers from creating page-level horizontal scroll.
+     `clip` is used instead of `hidden` so this wrapper does not become a scroll container
+     and interfere with the sticky section. */
+  overflow-x: clip;
+
   background-color: #f3f3ec;
   color: #14213a;
   font-family: var(
@@ -997,10 +1004,15 @@
   }
 
   .sectionSeamBridge {
+    /* Keep the oversized seam artwork, but remove it from normal layout so its
+       120vw width cannot expand the document width on large screens. */
+    position: absolute;
     left: -10vw;
     bottom: -21vh;
     width: 120vw;
     height: 42vh;
+    overflow: hidden;
+    pointer-events: none;
   }
 
   .sectionSeamBack {
