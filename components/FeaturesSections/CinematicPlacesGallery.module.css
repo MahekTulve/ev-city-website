@@ -733,6 +733,8 @@
   opacity: 0;
   background: #0b0d0b;
   transition: opacity 180ms linear;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .videoReady {
@@ -744,4 +746,44 @@
 .sideCard video,
 .mainVideo {
   object-fit: cover;
+}
+
+/* =========================================
+   LARGE DESKTOP PERFORMANCE (1401px+)
+   Keep the wrappers composited, but do not create a second GPU texture/layer
+   for every individual video. On 1600/1920/2560px screens that can exhaust
+   GPU bandwidth and make MP4 playback look choppy even when it is buffered.
+========================================= */
+@media (min-width: 1401px) {
+  .videoElement {
+    transform: none;
+    backface-visibility: visible;
+    /* Avoid an extra compositor animation on seven large video surfaces. */
+    transition: opacity 120ms linear;
+  }
+
+  .sideCard,
+  .mainCard,
+  .mainVideoWrapper {
+    backface-visibility: hidden;
+  }
+
+  /* The moving card already owns the composited layer. The video should stay
+     a normal child texture instead of being promoted independently. */
+  .sideCard video,
+  .mainVideo {
+    transform: none;
+    will-change: auto;
+  }
+
+  /* Large soft shadows over several moving videos are expensive to repaint. */
+  .sideCard {
+    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.18);
+  }
+
+  /* Text blur competes for GPU time during the same part of the scroll where
+     the center video is expanding. The TSX also disables that blur >1400px. */
+  .titleLetter {
+    backface-visibility: hidden;
+  }
 }
