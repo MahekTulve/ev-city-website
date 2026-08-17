@@ -375,8 +375,8 @@
       var(--draw-delay, 0ms)
       forwards,
     fillLetter
-      320ms
-      cubic-bezier(0.22, 1, 0.36, 1)
+      380ms
+      cubic-bezier(0.2, 0.72, 0.22, 1)
       calc(var(--draw-delay, 0ms) + 1250ms)
       forwards;
 }
@@ -416,17 +416,18 @@
 }
 
 /* =========================================================
-   SLOWER SMOOTH BIG ZOOM
-   1 → 1.24
-   DOES NOT COME BACK
+   CONTINUOUS DRAW → FILL → ZOOM FLOW
+   Zoom begins while the fill is finishing, so there is no
+   visible pause between the two animation phases.
+   1 → 1.24 and it stays enlarged.
 ========================================================= */
 
 .animate .heroLetterRow {
   animation:
     heroLetterZoom
-    2600ms
-    cubic-bezier(0.16, 1, 0.3, 1)
-    calc(var(--zoom-delay, 0ms) + 1570ms)
+    7000ms
+    cubic-bezier(0.20, 0.70, 0.25, 1)
+    calc(var(--zoom-delay, 0ms) + 1190ms)
     forwards;
 }
 
@@ -474,7 +475,7 @@
     letterShine
     1750ms
     ease-in-out
-    calc(var(--draw-delay, 0ms) + 1570ms)
+    calc(var(--draw-delay, 0ms) + 1430ms)
     forwards;
 }
 

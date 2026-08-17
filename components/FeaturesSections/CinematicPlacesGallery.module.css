@@ -565,7 +565,7 @@
 
   .galleryTitle {
     top: clamp(15px, 3svh, 30px);
-    left: 50%;
+    /* left: 50%; */
     width: calc(100% - 24px);
     box-sizing: border-box;
     padding: 0 0.06em 0.12em;
@@ -659,7 +659,7 @@
 
   .galleryTitle {
     top: clamp(12px, 3.5svh, 28px);
-    left: 50%;
+    /* left: 50%; */
     width: calc(100% - 18px);
     font-size: 11vw;
     line-height: 0.72;

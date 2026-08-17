@@ -53,44 +53,44 @@ const VIDEOS: VideoItem[] = [
   {
     id: 1,
     src: "/images/square-1.mp4",
-    poster: "/images/ocean-room-poster.jpg",
+    poster: "",
     ariaLabel: "Ocean-facing luxury interior",
   },
   {
     id: 2,
     src: "/videos/city-desktop.mp4",
     mobileSrc: "/videos/city-mob.mp4",
-    poster: "/images/concrete-stairs-poster.jpg",
+    poster: "",
     ariaLabel: "Modern city view",
   },
   {
     id: 3,
     src: "/images/rectangle-1.mp4",
-    poster: "/images/winter-room-poster.jpg",
+    poster: "",
     ariaLabel: "Winter landscape interior",
   },
   {
     id: 4,
     src: "/images/vid1.mp4",
-    poster: "/images/garden-house-poster.jpg",
+    poster: "",
     ariaLabel: "Garden house interior",
   },
   {
     id: 5,
     src: "/images/16x9.mp4",
-    poster: "/images/vintage-rd oom-poster.jpg",
+    poster: "",
     ariaLabel: "Vintage plant-filled interior",
   },
   {
     id: 6,
     src: "/images/square-2.mp4",
-    poster: "/images/bright-living-room-poster.jpg",
+    poster: "",
     ariaLabel: "Bright modern living room",
   },
   {
     id: 7,
     src: "/images/rectangle-2.mp4",
-    poster: "/images/zen-room-poster.jpg",
+    poster: "",
     ariaLabel: "Minimal Zen-inspired interior",
   },
 ];
@@ -189,7 +189,11 @@ function AutoPlayVideo({
       if (!shouldPlay || document.visibilityState !== "visible") return;
 
       playTimer = window.setTimeout(() => {
-        if (cancelled || !shouldPlay || document.visibilityState !== "visible") {
+        if (
+          cancelled ||
+          !shouldPlay ||
+          document.visibilityState !== "visible"
+        ) {
           return;
         }
 
@@ -255,14 +259,17 @@ function RevealLetter({
   character,
   index,
   progress,
+  isMobile,
 }: {
   character: string;
   index: number;
   progress: MotionValue<number>;
+  isMobile: boolean;
 }) {
   const staggerStart = 0.06;
   const staggerEnd = 0.78;
   const letterDuration = 0.24;
+
   const step =
     TITLE_LETTER_COUNT > 1
       ? (staggerEnd - staggerStart) / (TITLE_LETTER_COUNT - 1)
@@ -272,11 +279,16 @@ function RevealLetter({
   const end = Math.min(start + letterDuration, 1);
 
   const opacity = useTransform(progress, [start, end], [0, 1]);
-  const x = useTransform(progress, [start, end], [-30, 0]);
+
+  // Smaller movement on mobile prevents the broken/ghost letter
+  const x = useTransform(progress, [start, end], isMobile ? [-8, 0] : [-30, 0]);
+
+  // Disable blur on mobile because background-clip text +
+  // animated blur can create the white fragment on the left.
   const filter = useTransform(
     progress,
     [start, end],
-    ["blur(12px)", "blur(0px)"],
+    isMobile ? ["blur(0px)", "blur(0px)"] : ["blur(12px)", "blur(0px)"],
   );
 
   return (
@@ -344,9 +356,7 @@ export default function CinematicPlacesGallery() {
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isSmallMobile = useMediaQuery("(max-width: 480px)");
-  const isTablet = useMediaQuery(
-    "(min-width: 701px) and (max-width: 1100px)",
-  );
+  const isTablet = useMediaQuery("(min-width: 701px) and (max-width: 1100px)");
   const isPageVisible = usePageVisible();
 
   const [isNearViewport, setIsNearViewport] = useState(false);
@@ -468,13 +478,23 @@ export default function CinematicPlacesGallery() {
   const sceneBottomLeftRadius = useTransform(
     smoothProgress,
     [0, EXIT_START, EXIT_END, 1],
-    ["0px", "0px", layout.exit.sceneBottomRadius, layout.exit.sceneBottomRadius],
+    [
+      "0px",
+      "0px",
+      layout.exit.sceneBottomRadius,
+      layout.exit.sceneBottomRadius,
+    ],
   );
 
   const sceneBottomRightRadius = useTransform(
     smoothProgress,
     [0, EXIT_START, EXIT_END, 1],
-    ["0px", "0px", layout.exit.sceneBottomRadius, layout.exit.sceneBottomRadius],
+    [
+      "0px",
+      "0px",
+      layout.exit.sceneBottomRadius,
+      layout.exit.sceneBottomRadius,
+    ],
   );
 
   const sceneShadowOpacity = useTransform(
@@ -598,11 +618,11 @@ export default function CinematicPlacesGallery() {
     [1, 1, 0.42, 0.18, 0.18],
   );
 
-  const titleEntranceRotateX = useTransform(
-    smoothTitleProgress,
-    [0, 0.22, 1],
-    [76, 76, 0],
-  );
+const titleEntranceRotateX = useTransform(
+  smoothTitleProgress,
+  [0, 0.22, 1],
+  isMobile ? [0, 0, 0] : [76, 76, 0],
+);
 
   const titleEntranceY = useTransform(
     smoothTitleProgress,
@@ -622,11 +642,11 @@ export default function CinematicPlacesGallery() {
     ["0vh", "0vh", "-18vh"],
   );
 
-  const titleExitRotateX = useTransform(
-    smoothProgress,
-    [0, 0.46, 0.61],
-    [0, 0, -45],
-  );
+const titleExitRotateX = useTransform(
+  smoothProgress,
+  [0, 0.46, 0.61],
+  isMobile ? [0, 0, 0] : [0, 0, -45],
+);
 
   const titleExitScale = useTransform(
     smoothProgress,
@@ -729,6 +749,7 @@ export default function CinematicPlacesGallery() {
                             character={character}
                             index={lineOffset + characterIndex}
                             progress={smoothTitleProgress}
+                            isMobile={isMobile}
                           />
                         ))}
                       </span>
