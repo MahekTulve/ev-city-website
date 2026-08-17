@@ -241,12 +241,40 @@ export default function WayVashi({
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const intro = `.${styles.domeIntro}`;
+      const introCrown = `.${styles.introCrown}`;
+      const introCrownLines = `.${styles.introCrownLine}`;
+      const introCrownBars = `.${styles.introCrownMark} span`;
+      const introEyebrow = `.${styles.introEyebrow}`;
+      const introVashi = `.${styles.introVashi}`;
+      const introNextRow = `.${styles.introNextRow}`;
+      const introRules = `.${styles.introRule}`;
+      const introNext = `.${styles.introNext}`;
+      const introAddress = `.${styles.introAddress}`;
+      const introSubtitle = `.${styles.introSubtitle}`;
       const curvedText = `.${styles.curvedText}`;
       const domeInner = `.${styles.domeInner}`;
 
       gsap.set(intro, {
         autoAlpha: 1,
         y: 0,
+      });
+
+      // Initial states for the cinematic intro.
+      // Each line/ornament starts differently so the composition does not
+      // feel like one generic fade-up animation.
+      gsap.set(introCrown, { autoAlpha: 0, scaleX: 0.72 });
+      gsap.set(introCrownLines, { scaleX: 0, transformOrigin: "center center" });
+      gsap.set(introCrownBars, { scaleY: 0, transformOrigin: "center bottom" });
+      gsap.set(introEyebrow, { autoAlpha: 0, y: 22 });
+      gsap.set(introVashi, { autoAlpha: 0, y: 34, scale: 0.82 });
+      gsap.set(introNextRow, { autoAlpha: 0 });
+      gsap.set(introRules, { scaleX: 0, transformOrigin: "center center" });
+      gsap.set(introNext, { autoAlpha: 0, y: -12, scale: 0.92 });
+      gsap.set(introAddress, { autoAlpha: 0, x: 58 });
+      gsap.set(introSubtitle, {
+        autoAlpha: 0,
+        y: 24,
+        clipPath: "inset(0 0 100% 0)",
       });
 
       gsap.set(curvedText, {
@@ -282,7 +310,123 @@ export default function WayVashi({
         },
       );
 
-      tl.to({}, { duration: 0.2 });
+      // -------------------------------------------------------------
+      // CINEMATIC INTRO ENTRANCE
+      // Runs after the dome has opened, then the existing intro exit
+      // continues exactly as before. Because this is part of the same
+      // ScrollTrigger timeline, it naturally runs again when the section
+      // is encountered again through scrolling.
+      // -------------------------------------------------------------
+      tl.to(introCrown, {
+        autoAlpha: 1,
+        scaleX: 1,
+        duration: 0.18,
+        ease: "power2.out",
+      });
+
+      tl.to(
+        introCrownLines,
+        {
+          scaleX: 1,
+          duration: 0.3,
+          stagger: 0.04,
+          ease: "power3.out",
+        },
+        "<0.02",
+      );
+
+      tl.to(
+        introCrownBars,
+        {
+          scaleY: 1,
+          duration: 0.28,
+          stagger: 0.025,
+          ease: "back.out(1.8)",
+        },
+        "<0.02",
+      );
+
+      tl.to(
+        introEyebrow,
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.28,
+          ease: "power3.out",
+        },
+        "<0.09",
+      );
+
+      tl.to(
+        introVashi,
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.48,
+          ease: "back.out(1.35)",
+        },
+        "<0.10",
+      );
+
+      tl.to(
+        introNextRow,
+        {
+          autoAlpha: 1,
+          duration: 0.12,
+          ease: "power1.out",
+        },
+        "<0.18",
+      );
+
+      tl.to(
+        introRules,
+        {
+          scaleX: 1,
+          duration: 0.34,
+          stagger: 0.035,
+          ease: "power3.inOut",
+        },
+        "<",
+      );
+
+      tl.to(
+        introNext,
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: "power3.out",
+        },
+        "<0.05",
+      );
+
+      tl.to(
+        introAddress,
+        {
+          autoAlpha: 1,
+          x: 0,
+          duration: 0.45,
+          ease: "power4.out",
+        },
+        "<0.10",
+      );
+
+      tl.to(
+        introSubtitle,
+        {
+          autoAlpha: 1,
+          y: 0,
+          clipPath: "inset(0 0 0% 0)",
+          duration: 0.42,
+          ease: "power3.out",
+        },
+        "<0.14",
+      );
+
+      // Give the completed title a short readable hold before it exits.
+      tl.to({}, { duration: 0.34 });
 
       tl.to(intro, {
         autoAlpha: 0,
