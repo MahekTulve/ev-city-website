@@ -78,13 +78,13 @@ const PlaceToLive = () => {
                 <div className={styles.imageGallery} ref={galleryRef}>
                     <div className={styles.imageCardOne} ref={cardOneRef}>
                         <img
-                            src="/images/1ass.webp"
+                            src="/images/denmark1.png"
                             alt="Architecture 1"
                         />
                     </div>
                     <div className={styles.imageCard} ref={cardTwoRef}>
                         <img
-                            src="/images/2ass.webp"
+                            src="/images/denmark2.png"
                             alt="Architecture 2"
                         />
                     </div>

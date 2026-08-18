@@ -20,7 +20,7 @@ export default function NextPhoto() {
         <section id="home" className={styles.hero} ref={ref}>
             <motion.div className={styles.bg} style={{ y: bgY }}>
                 <Image
-                    src="/images/bottomass.webp"
+                    src="/images/denmark3.png"
                     alt="Atmospheric mountain landscape"
                     fill
                     priority
@@ -37,7 +37,7 @@ export default function NextPhoto() {
                 <Reveal direction="blur" delay={0.2}>
                     <div className={styles.bottTextCont} >
                         <h3 className={styles.parabottom}>
-                            One city that changed the way we think about distance..
+                            One city changed the way we think about distance..
                         </h3>
                         <div className={styles.botomtext}>
                            It's not about building more, its a bout building closer.<br />
