@@ -28,7 +28,6 @@ type SideVideoCardProps = {
   exitX: number;
   exitY: number;
   shouldPlay: boolean;
-  startDelay: number;
 };
 
 type ResponsiveLayout = {
@@ -147,77 +146,105 @@ function AutoPlayVideo({
   src,
   className,
   shouldPlay,
-  priority = false,
-  startDelay = 0,
 }: {
   item: VideoItem;
   src: string;
   className?: string;
   shouldPlay: boolean;
-  priority?: boolean;
-  startDelay?: number;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [hasFrame, setHasFrame] = useState(false);
 
-  useEffect(() => {
-    setHasFrame(false);
-  }, [src]);
-
+  /*
+   * IMPORTANT:
+   * Preload the real <video> element as soon as this page/component mounts.
+   * Playback is still controlled separately by shouldPlay, so the videos
+   * download/buffer early without running while the user is elsewhere.
+   */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
-    let playTimer: number | undefined;
-    let cancelled = false;
+    setHasFrame(false);
 
     video.muted = true;
     video.defaultMuted = true;
+    video.preload = "auto";
+
+    const markReady = () => setHasFrame(true);
+
+    video.addEventListener("loadeddata", markReady);
+    video.addEventListener("canplay", markReady);
+    video.addEventListener("canplaythrough", markReady);
+
+    // Force the browser to begin fetching the MP4 now instead of waiting
+    // until IntersectionObserver says this section is near the viewport.
+    video.load();
+
+    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+      markReady();
+    }
+
+    return () => {
+      video.removeEventListener("loadeddata", markReady);
+      video.removeEventListener("canplay", markReady);
+      video.removeEventListener("canplaythrough", markReady);
+    };
+  }, [src]);
+
+  /*
+   * Start/stop playback only from section/page visibility.
+   * There is intentionally no per-card timeout here; because the files have
+   * already been preloaded, all visible videos can start immediately.
+   */
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    let cancelled = false;
 
     const pauseVideo = () => {
-      if (playTimer !== undefined) {
-        window.clearTimeout(playTimer);
-        playTimer = undefined;
+      if (!video.paused) {
+        video.pause();
       }
-
-      if (!video.paused) video.pause();
     };
 
     const playVideo = () => {
-      pauseVideo();
+      if (
+        cancelled ||
+        !shouldPlay ||
+        document.visibilityState !== "visible"
+      ) {
+        pauseVideo();
+        return;
+      }
 
-      if (!shouldPlay || document.visibilityState !== "visible") return;
+      const playPromise = video.play();
 
-      playTimer = window.setTimeout(() => {
-        if (
-          cancelled ||
-          !shouldPlay ||
-          document.visibilityState !== "visible"
-        ) {
-          return;
-        }
-
-        void video.play().catch(() => {
-          // Autoplay can briefly fail while the source is still buffering.
-          // If this fails, the next visibility/play-state change will retry it.
+      if (playPromise !== undefined) {
+        void playPromise.catch(() => {
+          // If the media element is not ready on this exact frame, canplay
+          // below retries once data is available.
         });
-      }, startDelay);
-    };
-
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") playVideo();
-      else pauseVideo();
+      }
     };
 
     const handleCanPlay = () => {
-      // Only reveal the first decodable frame here.
-      // Do NOT call play() from canplay: doing so bypasses startDelay and
-      // makes all desktop decoders start together.
       setHasFrame(true);
+      playVideo();
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        playVideo();
+      } else {
+        pauseVideo();
+      }
     };
 
     video.addEventListener("canplay", handleCanPlay);
     document.addEventListener("visibilitychange", handleVisibilityChange);
+
     playVideo();
 
     return () => {
@@ -226,7 +253,7 @@ function AutoPlayVideo({
       video.removeEventListener("canplay", handleCanPlay);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [shouldPlay, src, startDelay]);
+  }, [shouldPlay, src]);
 
   return (
     <video
@@ -245,12 +272,14 @@ function AutoPlayVideo({
       muted
       loop
       playsInline
-      preload={priority || shouldPlay ? "auto" : "metadata"}
+      preload="auto"
       controls={false}
       disablePictureInPicture
       disableRemotePlayback
       tabIndex={-1}
       onLoadedData={() => setHasFrame(true)}
+      onCanPlay={() => setHasFrame(true)}
+      onCanPlayThrough={() => setHasFrame(true)}
     />
   );
 }
@@ -310,7 +339,6 @@ function SideVideoCard({
   exitX,
   exitY,
   shouldPlay,
-  startDelay,
 }: SideVideoCardProps) {
   const x = useTransform(
     progress,
@@ -345,7 +373,6 @@ function SideVideoCard({
         item={item}
         src={src}
         shouldPlay={shouldPlay}
-        startDelay={startDelay}
       />
     </motion.div>
   );
@@ -357,6 +384,7 @@ export default function CinematicPlacesGallery() {
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isSmallMobile = useMediaQuery("(max-width: 480px)");
   const isTablet = useMediaQuery("(min-width: 701px) and (max-width: 1100px)");
+  const isLargeDesktop = useMediaQuery("(min-width: 1401px)");
   const isPageVisible = usePageVisible();
 
   const [isNearViewport, setIsNearViewport] = useState(false);
@@ -369,9 +397,10 @@ export default function CinematicPlacesGallery() {
     const observer = new IntersectionObserver(
       ([entry]) => setIsNearViewport(entry.isIntersecting),
       {
-        // Begin buffering before the user reaches the section, rather than
-        // starting seven files on the same frame when it becomes sticky.
-        rootMargin: "250px 0px",
+        // Playback begins only when the gallery is about to enter the screen.
+        // Buffering no longer depends on this observer; every video preloads
+        // immediately when the website/page mounts.
+        rootMargin: "100px 0px",
         threshold: 0,
       },
     );
@@ -392,7 +421,13 @@ export default function CinematicPlacesGallery() {
   });
 
   useMotionValueEvent(smoothProgress, "change", (latest) => {
-    const nextValue = latest < SIDE_VIDEO_PAUSE_POINT;
+    // On large displays the main video becomes a very large GPU surface.
+    // Stop decoding the six side videos a little earlier while that expansion
+    // is happening. They are already fading/moving away at this point, so the
+    // visual result stays the same while freeing decoder/GPU bandwidth.
+    const pausePoint = isLargeDesktop ? 0.56 : SIDE_VIDEO_PAUSE_POINT;
+    const nextValue = latest < pausePoint;
+
     setSidePlaybackEnabled((current) =>
       current === nextValue ? current : nextValue,
     );
@@ -663,7 +698,9 @@ const titleExitRotateX = useTransform(
   const titleExitBlur = useTransform(
     smoothProgress,
     [0, 0.48, 0.61],
-    ["blur(0px)", "blur(0px)", "blur(12px)"],
+    isLargeDesktop
+      ? ["blur(0px)", "blur(0px)", "blur(0px)"]
+      : ["blur(0px)", "blur(0px)", "blur(12px)"],
   );
 
   const mainVideo = VIDEOS[1];
@@ -770,7 +807,6 @@ const titleExitRotateX = useTransform(
                   exitX={position.exitX}
                   exitY={position.exitY}
                   shouldPlay={shouldPlaySides}
-                  startDelay={index * 180}
                 />
               ))}
 
@@ -797,7 +833,6 @@ const titleExitRotateX = useTransform(
                     src={mainVideoSrc}
                     className={styles.mainVideo}
                     shouldPlay={shouldPlayMain}
-                    priority
                   />
                 </motion.div>
 

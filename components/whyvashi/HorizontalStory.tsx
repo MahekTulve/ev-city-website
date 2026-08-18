@@ -242,6 +242,22 @@ export default function HorizontalStory() {
               aria-hidden="true"
             />
 
+            <div className={styles.coastHeadingWrap}>
+              <span className={styles.coastOrnament} aria-hidden="true">
+                ✥
+              </span>
+
+              <h2 className={styles.coastHeading}>
+                EVERY ICON, MINUTES AWAY.
+              </h2>
+
+              <span className={styles.coastHeadingDivider} aria-hidden="true">
+                <span />
+                <i />
+                <span />
+              </span>
+            </div>
+
             <div className={styles.timeline}>
               <div className={styles.routeStage}>
                 <svg
