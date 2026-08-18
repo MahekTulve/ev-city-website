@@ -26,7 +26,7 @@ const PlaceToLive = () => {
                 scrub: 0.5,
                 pin: true,
                 anticipatePin: 1,
-                
+
                 onUpdate: (self) => {
                     if (self.progress > 0.9) {
                         setShowText(true);
@@ -78,13 +78,13 @@ const PlaceToLive = () => {
                 <div className={styles.imageGallery} ref={galleryRef}>
                     <div className={styles.imageCardOne} ref={cardOneRef}>
                         <img
-                            src="/images/why-vashi-top-one.png"
+                            src="/images/1ass.png"
                             alt="Architecture 1"
                         />
                     </div>
                     <div className={styles.imageCard} ref={cardTwoRef}>
                         <img
-                            src="/images/why-vashi-top-two.png"
+                            src="/images/2ass.png"
                             alt="Architecture 2"
                         />
                     </div>
@@ -92,7 +92,7 @@ const PlaceToLive = () => {
 
                 {showText && (
                     <div className={styles.overlayTextContainer}>
-                        <h1 className={styles.animatedTitle}>
+                        {/* <h1 className={styles.animatedTitle}>
                             {headingText.split("").map((char, index) => (
                                 <span 
                                     key={index} 
@@ -102,11 +102,11 @@ const PlaceToLive = () => {
                                     {char === " " ? "\u00A0" : char}
                                 </span>
                             ))}
-                        </h1>
+                        </h1> */}
                     </div>
                 )}
 
-                <video
+                {/* <video
                     ref={videoRightRef}
                     className={`${styles["flower"]} ${styles["flowerTopRight"]}`}
                     src="/videos/flower-2.webm"
@@ -116,8 +116,18 @@ const PlaceToLive = () => {
                     playsInline
                     preload="auto"
                     aria-hidden="true"
-                />
-                <video
+                /> */}
+                {/* <div
+                    className={styles.imageTopRight} >
+                    <img src="/images/tree5.png" alt="right-image" />
+
+                </div>
+                <div
+                    className={styles.imageTopLeft} >
+                    <img src="/images/tree4.png" alt="right-image" />
+
+                </div> */}
+                {/* <video
                     ref={videoLeftRef}
                     className={`${styles["flower"]} ${styles["flowerTopLeft"]}`}
                     src="/videos/flower-2.webm"
@@ -127,7 +137,7 @@ const PlaceToLive = () => {
                     playsInline
                     preload="auto"
                     aria-hidden="true"
-                />
+                /> */}
             </div>
             {/* <div className={styles.bottompart}>
                 <img

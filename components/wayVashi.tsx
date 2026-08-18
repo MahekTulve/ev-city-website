@@ -1,3 +1,4 @@
+'use client'
 import {
   useEffect,
   useLayoutEffect,
@@ -286,15 +287,17 @@ export default function WayVashi({
         y: 90,
       });
 
-      const tl = gsap.timeline({
+     const tl = gsap.timeline({
         scrollTrigger: {
           trigger: stageRef.current,
           start: "top top",
           end: "+=180%",
-          scrub: 1,
+          scrub: 0.5,
           pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
+          fastScrollEnd: true, 
+          preventOverlaps: true,
         },
       });
 
