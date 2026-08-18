@@ -17,22 +17,22 @@ const items: Item[] = [
     id: 0,
     name: "Marina Bay Heights",
     label: "Waterfront Tower",
-    blueprint: "/images/blueprint-marina.png",
-    photo: "/images/building-marina.jpg",
+    blueprint: "/images/blueprint-marina.webp",
+    photo: "/images/building-marina.webp",
   },
   {
     id: 1,
     name: "23 Malibu West",
     label: "Skyline Residence",
-    blueprint: "/images/blueprint-malibu.png",
-    photo: "/images/building-malibu.png",
+    blueprint: "/images/blueprint-malibu.webp",
+    photo: "/images/building-malibu.webp",
   },
   {
     id: 2,
     name: "EV 9 Square",
     label: "Urban Landmark",
-    blueprint: "/images/blueprint-ev9.png",
-    photo: "/images/building-ev9.jpg",
+    blueprint: "/images/blueprint-ev9.webp",
+    photo: "/images/building-ev9.webp",
   },
 ];
 

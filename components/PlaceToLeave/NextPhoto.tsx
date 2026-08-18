@@ -20,7 +20,7 @@ export default function NextPhoto() {
         <section id="home" className={styles.hero} ref={ref}>
             <motion.div className={styles.bg} style={{ y: bgY }}>
                 <Image
-                    src="/images/bottomass.png"
+                    src="/images/bottomass.webp"
                     alt="Atmospheric mountain landscape"
                     fill
                     priority

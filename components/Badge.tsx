@@ -123,7 +123,7 @@ export default function Badge() {
         </svg>
         <img
           className={Style.badgeLogo}
-          src="/images/evhomelogo.png"
+          src="/images/evhomelogo.webp"
           alt="EV Homes Logo"
         />
       </div>

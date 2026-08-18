@@ -61,11 +61,11 @@
 }
 
 .dayStageBg {
-  background-image: url("/images/vashicityDay.png");
+  background-image: url("/images/vashicityDay.webp");
 }
 
 .nightStageBg {
-  background-image: url("/images/VashiCity2.jpg");
+  background-image: url("/images/VashiCity2.webp");
 }
 
 .dayNightButtonContainer {
@@ -129,7 +129,7 @@
   width: 100vw;
   height: 0;
 
-  background-image: url("/images/a2-cut.jpeg");
+  background-image: url("/images/a2-cut.webp");
   background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -940,7 +940,7 @@
   .dome {
     /* border-top-left-radius: 0;
     border-top-right-radius: 0; */
-    background-image: url("/images/lit-mob.png");
+    background-image: url("/images/lit-mob.webp");
     height: 100vh;
     background-size: cover;
     background-position: center bottom;

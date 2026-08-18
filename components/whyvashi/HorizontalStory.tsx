@@ -33,49 +33,49 @@ const STOPS = [
   {
     name: "9 SQUARE",
     time: "50 min",
-    image: "/images/9-square.png",
+    image: "/images/9-square.webp",
     x: 36,
     y: 70,
   },
   {
     name: "10 MARINA BAY",
     time: "10 min",
-    image: "/images/10-marina.png",
+    image: "/images/10-marina.webp",
     x: 285,
     y: 52,
   },
   {
     name: "9 VTC",
     time: "5 min",
-    image: "/images/9-vtc.png",
+    image: "/images/9-vtc.webp",
     x: 530,
     y: 66,
   },
   {
     name: "10 HQ",
     time: "4 min",
-    image: "/images/10-hq.png",
+    image: "/images/10-hq.webp",
     x: 775,
     y: 54,
   },
   {
     name: "23 MALIBU WEST",
     time: "20 min",
-    image: "/images/23-malibu.png",
+    image: "/images/23-malibu.webp",
     x: 1020,
     y: 74,
   },
   {
     name: "CAPITOL 9",
     time: "25 min",
-    image: "/images/capitol-9.png",
+    image: "/images/capitol-9.webp",
     x: 1265,
     y: 52,
   },
   {
     name: "PARKSIDE VISTA",
     time: "45 min",
-    image: "/images/parkside-vista.png",
+    image: "/images/parkside-vista.webp",
     x: PATH_END_X,
     y: 58,
   },
@@ -211,7 +211,7 @@ export default function HorizontalStory() {
 
             <img
               className={styles.goldenImage}
-              src="/images/why-vashi.png"
+              src="/images/why-vashi.webp"
               alt="Terrace with sea views and flowering plants"
               loading="lazy"
               width={912}
