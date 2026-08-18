@@ -117,23 +117,24 @@
     transform-origin: top left;
 }
 
-/* .flowerTopRight {
+.flowerTopRight {
     bottom: 4%;
     right: -55%;
     width: clamp(420px, 48vw, 850px);
     transform: rotate(90deg);
     transform-origin: top left;
-} */
+}
 .imageTopRight {
     position: absolute;
-    right: -5%;
-    top: -5%;
-    width: 480px;
-    height: 500px;
+    right:  -1%;
+    bottom: -1%;
+    width: 250px;
+    height:350px;
     z-index: 10;
-    animation: treeWindSway 6s ease-in-out infinite;
+    /* animation: treeWindSway 6s ease-in-out infinite; */
     transform-origin: top center;
     will-change: transform;
+    opacity: 0.3;
 }
 
 .imageTopRight img {
@@ -144,14 +145,16 @@
 
 .imageTopLeft {
     position: absolute;
-    left: -1%;
-    top: -10%;
-    width: 680px;
+    left: -7%;
+    top: -5%;
+    width: 350px;
     height: 700px;
     z-index: 10;
     animation: treeleftway 6s ease-in-out infinite;
     transform-origin: top center;
     will-change: transform;
+    opacity: 0.3;
+    rotate: -40deg;
 }
 
 @keyframes treeWindSway {

@@ -106,7 +106,7 @@ const PlaceToLive = () => {
                     </div>
                 )}
 
-                {/* <video
+                <video
                     ref={videoRightRef}
                     className={`${styles["flower"]} ${styles["flowerTopRight"]}`}
                     src="/videos/flower-2.webm"
@@ -116,18 +116,18 @@ const PlaceToLive = () => {
                     playsInline
                     preload="auto"
                     aria-hidden="true"
-                /> */}
+                />
                 {/* <div
                     className={styles.imageTopRight} >
-                    <img src="/images/tree5.png" alt="right-image" />
+                    <img src="/images/tree4.png" alt="right-image" />
 
                 </div>
                 <div
                     className={styles.imageTopLeft} >
-                    <img src="/images/tree4.png" alt="right-image" />
+                    <img src="/images/tree2.png" alt="right-image" />
 
                 </div> */}
-                {/* <video
+                <video
                     ref={videoLeftRef}
                     className={`${styles["flower"]} ${styles["flowerTopLeft"]}`}
                     src="/videos/flower-2.webm"
@@ -137,7 +137,7 @@ const PlaceToLive = () => {
                     playsInline
                     preload="auto"
                     aria-hidden="true"
-                /> */}
+                />
             </div>
             {/* <div className={styles.bottompart}>
                 <img

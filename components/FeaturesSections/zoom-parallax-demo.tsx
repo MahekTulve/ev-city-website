@@ -489,7 +489,7 @@ export default function ZoomParallaxDemo() {
         <WayVashi isNight={isNight} setIsNight={toggleNightMode} />
       </div>
       {/* Pinned VashiLetter Section - Yeh tab tak pin rahega jab tak "I" (isStepSix) nahi aata */}
-      <div ref={containerRef} data-section className="relative h-[800vh] w-full">
+      {/* <div ref={containerRef} data-section className="relative h-[800vh] w-full">
         <div className="sticky top-0 h-screen w-full overflow-hidden">
           <VashiLetter
             isActive={true}
@@ -502,7 +502,7 @@ export default function ZoomParallaxDemo() {
             isVideoActive={states.isVideoActive}
           />
         </div>
-      </div>
+      </div> */}
 
       {/* Yeh new section tab tak screen par nahi aayega jab tak upar wala "I" step khatam nahi hota */}
       <div data-section>
