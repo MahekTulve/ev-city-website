@@ -9,6 +9,7 @@
   color: var(--ink);
   background: var(--sky);
   font-family: "Jost", sans-serif;
+  -webkit-text-size-adjust: 100%;
 }
 
 .archStage {
@@ -17,6 +18,7 @@
   height: 100vh;
   overflow: hidden;
   background: #060405;
+  transform: translateZ(0);
 }
 
 
@@ -32,20 +34,16 @@
   pointer-events: none;
 
   background:
-    linear-gradient(
-      180deg,
+    linear-gradient(180deg,
       rgba(245, 247, 255, 0.34) 0%,
       rgba(21, 23, 28, 0.10) 40%,
       rgba(7, 12, 25, 0.24) 68%,
       rgba(7, 12, 25, 0.42) 86%,
-      rgba(7, 12, 25, 0.58) 100%
-    ),
-    linear-gradient(
-      90deg,
+      rgba(7, 12, 25, 0.58) 100%),
+    linear-gradient(90deg,
       rgba(5, 8, 18, 0.18) 0%,
       rgba(5, 8, 18, 0.015) 50%,
-      rgba(5, 8, 18, 0.18) 100%
-    );
+      rgba(5, 8, 18, 0.18) 100%);
 }
 
 .archBgLayer {
@@ -59,6 +57,7 @@
   background-size: cover;
   transition: opacity 0.8s ease-in-out;
   pointer-events: none;
+  will-change: opacity;
 }
 
 .dayStageBg {
@@ -91,17 +90,15 @@
   margin-top: clamp(1.5rem, 5vh, 3.5rem);
   padding: 0 clamp(1.5rem, 12vw, 14rem);
 
-  background-image: linear-gradient(
-    #707072 0%,
-    #dedfe5 10%,
-    #fcfcfe 60%,
-    #d9dbe1 70%,
-    #959699 80%,
-    #a1a1a3 100%
-  );
+  background-image: linear-gradient(#707072 0%,
+      #dedfe5 10%,
+      #fcfcfe 60%,
+      #d9dbe1 70%,
+      #959699 80%,
+      #a1a1a3 100%);
 
   background-clip: text;
-  filter: drop-shadow(0 2px 5px #faf3e375);
+  /* filter: drop-shadow(0 2px 5px #faf3e375); */
 
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -197,20 +194,16 @@
   will-change: transform;
   width: 100%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(185, 143, 44, 0),
-    rgba(237, 205, 112, 0.72)
-  );
+  background: linear-gradient(90deg,
+      rgba(185, 143, 44, 0),
+      rgba(237, 205, 112, 0.72));
   box-shadow: 0 0 8px rgba(246, 204, 108, 0.18);
 }
 
 .introCrownLine:last-child {
-  background: linear-gradient(
-    90deg,
-    rgba(237, 205, 112, 0.72),
-    rgba(185, 143, 44, 0)
-  );
+  background: linear-gradient(90deg,
+      rgba(237, 205, 112, 0.72),
+      rgba(185, 143, 44, 0));
 }
 
 .introCrownMark {
@@ -219,19 +212,17 @@
   align-items: flex-end;
   justify-content: center;
   gap: 2px;
-  filter: drop-shadow(0 0 5px rgba(246, 204, 108, 0.24));
+  /* filter: drop-shadow(0 0 5px rgba(246, 204, 108, 0.24)); */
 }
 
 .introCrownMark span {
   display: block;
   will-change: transform;
   width: 1px;
-  background: linear-gradient(
-    180deg,
-    #fff0a7 0%,
-    #d9a43f 55%,
-    rgba(174, 119, 31, 0.18) 100%
-  );
+  background: linear-gradient(180deg,
+      #fff0a7 0%,
+      #d9a43f 55%,
+      rgba(174, 119, 31, 0.18) 100%);
 }
 
 .introCrownMark span:nth-child(1),
@@ -278,18 +269,16 @@
   will-change: opacity, transform;
   width: fit-content;
   color: transparent;
-  background-image: linear-gradient(
-    180deg,
-    #fff1a0 0%,
-    #e7bd58 24%,
-    #c18c2d 57%,
-    #f2d36f 79%,
-    #a96f1e 100%
-  );
+  background-image: linear-gradient(180deg,
+      #fff1a0 0%,
+      #e7bd58 24%,
+      #c18c2d 57%,
+      #f2d36f 79%,
+      #a96f1e 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 5px rgba(246, 204, 108, 0.28));
+  /* filter: drop-shadow(0 2px 5px rgba(246, 204, 108, 0.28)); */
 }
 
 .introVashi {
@@ -313,20 +302,16 @@
   will-change: transform;
   width: 100%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(185, 143, 44, 0),
-    rgba(237, 205, 112, 0.78)
-  );
-  box-shadow: 0 0 7px rgba(246, 204, 108, 0.16);
+  background: linear-gradient(90deg,
+      rgba(185, 143, 44, 0),
+      rgba(237, 205, 112, 0.78));
+  /* box-shadow: 0 0 7px rgba(246, 204, 108, 0.16); */
 }
 
 .introRule:last-child {
-  background: linear-gradient(
-    90deg,
-    rgba(237, 205, 112, 0.78),
-    rgba(185, 143, 44, 0)
-  );
+  background: linear-gradient(90deg,
+      rgba(237, 205, 112, 0.78),
+      rgba(185, 143, 44, 0));
 }
 
 .introNext {
@@ -338,7 +323,7 @@
   line-height: 1;
   letter-spacing: clamp(0.38em, 0.62vw, 0.58em);
   white-space: nowrap;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.34);
+  /* text-shadow: 0 1px 8px rgba(0, 0, 0, 0.34); */
 }
 
 .introAddress {
@@ -358,9 +343,9 @@
   font-weight: 400;
   line-height: 1.28;
   letter-spacing: 0.025em;
-  text-shadow:
+  /* text-shadow:
     0 1px 2px rgba(0, 0, 0, 0.42),
-    0 0 18px rgba(255, 255, 255, 0.1);
+    0 0 18px rgba(255, 255, 255, 0.1); */
 }
 
 .domeInner {
@@ -374,9 +359,7 @@
   height: 100vh;
 
   padding:
-    clamp(3.2rem, 6vh, 4.8rem)
-    0
-    clamp(0.9rem, 2vh, 1.4rem);
+    clamp(3.2rem, 6vh, 4.8rem) 0 clamp(0.9rem, 2vh, 1.4rem);
 
   translate: -50% 0;
 
@@ -399,9 +382,9 @@
 
 .bigTitle {
   margin: 0;
- -webkit-text-fill-color: #ffffff;
-    filter: drop-shadow(0 4px 91px #faf3e375);
-    background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-text-fill-color: #ffffff;
+  filter: drop-shadow(0 4px 91px #faf3e375);
+  background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   font-family: "Bodoni Moda", serif;
@@ -415,17 +398,15 @@
 .subtitleBlock {
   width: min(1080px, 88vw);
   margin:
-    clamp(0.65rem, 1.4vh, 0.95rem)
-    auto
-    clamp(1.1rem, 2.2vh, 1.5rem);
+    clamp(0.65rem, 1.4vh, 0.95rem) auto clamp(1.1rem, 2.2vh, 1.5rem);
 }
 
 .recordSubtitle {
   max-width: 1040px;
   margin: 0 auto;
- -webkit-text-fill-color: #ffffff;
-    filter: drop-shadow(0 4px 91px #faf3e375);
-    background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-text-fill-color: #ffffff;
+  filter: drop-shadow(0 4px 91px #faf3e375);
+  background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   font-family: "Bodoni Moda", serif;
@@ -450,19 +431,15 @@
   display: block;
   width: 100%;
   height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(241, 239, 239, 0.973),
-    rgba(250, 250, 250, 0.86)
-  );
+  background: linear-gradient(90deg,
+      rgba(241, 239, 239, 0.973),
+      rgba(250, 250, 250, 0.86));
 }
 
 .subtitleRule:last-child {
-  background: linear-gradient(
-    90deg,
-    rgba(253, 252, 250, 0.86),
-    rgba(231, 231, 231, 0.945)
-  );
+  background: linear-gradient(90deg,
+      rgba(253, 252, 250, 0.86),
+      rgba(231, 231, 231, 0.945));
 }
 
 .subtitleHighlight {
@@ -470,16 +447,14 @@
   padding: 0.15em 0.8em;
   color: #ffffff;
 
-  background: linear-gradient(
-    90deg,
-    rgba(174, 137, 94, 0) 0%,
-    rgba(174, 137, 94, 0.18) 12%,
-    rgba(190, 154, 105, 0.38) 28%,
-    rgba(218, 188, 145, 0.62) 50%,
-    rgba(190, 154, 105, 0.38) 72%,
-    rgba(174, 137, 94, 0.18) 88%,
-    rgba(174, 137, 94, 0) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(174, 137, 94, 0) 0%,
+      rgba(174, 137, 94, 0.18) 12%,
+      rgba(190, 154, 105, 0.38) 28%,
+      rgba(218, 188, 145, 0.62) 50%,
+      rgba(190, 154, 105, 0.38) 72%,
+      rgba(174, 137, 94, 0.18) 88%,
+      rgba(174, 137, 94, 0) 100%);
 
   border: none;
   font-family: "Bodoni Moda", serif;
@@ -489,8 +464,8 @@
   line-height: 1.2;
   letter-spacing: 0.015em;
   text-align: center;
-  white-space: normal;
-  -webkit-font-smoothing: antialiased;
+  /* white-space: normal;
+  -webkit-font-smoothing: antialiased; */
 }
 
 .sliderFrame {
@@ -502,6 +477,7 @@
   border-radius: 10px;
   box-shadow: 0 22px 50px rgba(26, 34, 40, 0.12);
   background: rgba(255, 255, 255, 0.18);
+  transform: translateZ(0);
 }
 
 .slide {
@@ -512,7 +488,7 @@
   object-fit: cover;
   object-position: center;
   opacity: 0;
-  scale: 1.035;
+  scale: 1.015;
   transition:
     opacity 0.9s ease,
     scale 1.35s cubic-bezier(0.16, 1, 0.3, 1);
@@ -542,7 +518,7 @@
   padding: 0 clamp(0.85rem, 2vw, 1.7rem);
 }
 
-.featureItem + .featureItem {
+.featureItem+.featureItem {
   border-left: 1px solid rgba(117, 96, 64, 0.26);
 }
 
@@ -552,9 +528,9 @@
   height: clamp(2.7rem, 3.8vw, 3.25rem);
   flex: 0 0 auto;
   place-items: center;
- -webkit-text-fill-color: #ffffff;
-    filter: drop-shadow(0 4px 91px #faf3e375);
-    background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-text-fill-color: #ffffff;
+  filter: drop-shadow(0 4px 91px #faf3e375);
+  background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   border: 1px solid rgba(247, 247, 247, 0.86);
@@ -576,9 +552,9 @@
   min-width: 0;
   margin: 0;
   flex-direction: column;
- -webkit-text-fill-color: #ffffff;
-    filter: drop-shadow(0 4px 91px #faf3e375);
-    background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-text-fill-color: #ffffff;
+  filter: drop-shadow(0 4px 91px #faf3e375);
+  background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   font-family: "Bodoni Moda", serif;
@@ -603,9 +579,9 @@
   align-items: center;
   gap: 0.85rem;
   margin-top: 5rem;
- -webkit-text-fill-color: #ffffff;
-    filter: drop-shadow(0 4px 91px #faf3e375);
-    background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-text-fill-color: #ffffff;
+  filter: drop-shadow(0 4px 91px #faf3e375);
+  background-image: linear-gradient(#ffffff 0%, #ffffff 10%, #fcfcfe 60%, #ffffff 70%, #959699 80%, #a1a1a3 100%);
   -webkit-background-clip: text;
   background-clip: text;
   font-size: 0.62rem;
@@ -673,9 +649,10 @@
 }
 
 @media (min-width: 1500px) {
-.domeIntro {
-top: 50vh;
-}
+  .domeIntro {
+    top: 50vh;
+  }
+
   .domeInner {
     width: min(1320px, 94vw);
     padding-top: clamp(3.5rem, 6.2vh, 4.9rem);
@@ -792,6 +769,11 @@ top: 50vh;
   .domeIntro {
     top: 68vh;
     width: 92vw;
+  }
+
+  .slide {
+    scale: 1 !important;
+    transition: opacity 0.4s ease !important;
   }
 
   .introCrown {
@@ -913,6 +895,15 @@ top: 50vh;
     width: 1.8rem;
     height: 1.8rem;
   }
+
+  .dome {
+    /* border-top-left-radius: 0;
+    border-top-right-radius: 0; */
+    background-image: url("/images/lit-mob.png");
+    height: 100vh;
+    background-size: cover;
+    background-position: center bottom;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1004,6 +995,7 @@ top: 50vh;
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .slide,
   .recordCopy,
   .featureRow,
