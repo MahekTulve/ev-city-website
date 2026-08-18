@@ -82,9 +82,11 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
-  // --- GSAP Preloader Animation ---
+// --- GSAP Preloader Animation ---
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
+      const isMobile = window.innerWidth <= 768;
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: introRef.current,
@@ -110,8 +112,9 @@ export default function LandingPage({ isNight }: LandingPageProps) {
         .to(
           archRef.current,
           {
-            width: "34vw",
-            height: "78vh",
+            // Mobile par 85vw width shrink animation clear dikhane ke liye
+            width: isMobile ? "85vw" : "34vw",
+            height: isMobile ? "70vh" : "78vh",
             borderTopLeftRadius: "50% 38%",
             borderTopRightRadius: "50% 38%",
             duration: 0.5,

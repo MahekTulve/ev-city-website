@@ -262,7 +262,7 @@
   position: relative;
   z-index: 2;
   text-align: left;
-  padding: 8rem 5rem 1rem 12rem;
+  padding: 8rem 2rem 1rem 12vw;
 }
 
 .heroEra {
@@ -310,7 +310,7 @@
   text-transform: uppercase;
   display: inline-block;
   will-change: transform, opacity;
-   font-weight: 700;
+  font-weight: 700;
 }
 
 .glowingBorderLine,
@@ -646,7 +646,7 @@
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center bottom;
+  background-position: left bottom;
   background-repeat: no-repeat;
   transition: opacity 0.8s ease-in-out;
   pointer-events: none;
@@ -940,5 +940,195 @@
 @keyframes spin {
   to {
     rotate: 360deg;
+  }
+}
+
+/* ==========================================================================
+   RESPONSIVE MEDIA QUERIES (Mobile & Tablet)
+   ========================================================================== */
+
+/* ---------------- Tablet (portrait & landscape) & Laptops ---------------- */
+@media (max-width: 1024px) {
+
+  /* .rightContentBlock {
+    margin-left: 0;
+    margin-top: 3rem;
+  } */
+
+  .secondaryTitleLarge {
+    padding-left: 0;
+    font-size: clamp(3rem, 8vw, 6rem);
+  }
+
+  .subHeaderGoldRight {
+    padding-left: 0;
+  }
+
+  .momentsSubtitleRow {
+    padding-left: 0;
+    font-size: clamp(1.1rem, 2.5vw, 1.8rem);
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+
+
+  .watermark {
+    font-size: clamp(12rem, 35vw, 25rem);
+  }
+
+  .lockupResidence,
+  .fivenum {
+    font-size: clamp(2.5rem, 8vw, 6rem);
+  }
+}
+
+/* ---------------- Mobile Screens (max-width: 768px) ---------------- */
+@media (max-width: 768px) {
+
+  /* Frame and padding fixes */
+  .preloaderFrame {
+    inset: 1rem;
+  }
+
+  .preloaderGlyph {
+    top: 2.5rem;
+    width: 2.2rem;
+  }
+
+  .heroInner {
+    align-items: center;
+    padding: 0rem 12vw 1rem 15vw;
+
+  }
+
+  /* Lockup Section Adjustments */
+  .lockup {
+    margin-top: 5%;
+  }
+
+  .lockupEra {
+    font-size: clamp(2rem, 8vw, 3.5rem);
+  }
+
+  .lockupResidence {
+    font-size: clamp(2.2rem, 10vw, 4rem);
+  }
+
+  .fivenum {
+    font-size: clamp(2.2rem, 10vw, 4rem);
+  }
+
+  .lockupScript {
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
+    margin-top: -15px;
+  }
+
+  /* Main Hero Typography Fixes */
+  .heroEra {
+    white-space: normal;
+    font-size: clamp(2.5rem, 11vw, 4.5rem);
+    line-height: 1;
+  }
+
+  .subHeaderGold,
+  .subHeaderGoldBottom,
+  .subHeaderGoldRight {
+    font-size: clamp(0.75rem, 3.5vw, 1rem);
+    letter-spacing: 0.2em;
+    padding-left: 0;
+  }
+
+  .subHeaderGoldBottom {
+    word-spacing: 0.2rem;
+  }
+
+  .rightContentBlock {
+    margin-left: 0;
+    margin-top: 2.5rem;
+    width: 100%;
+  }
+
+  .secondaryTitleLarge {
+    font-size: clamp(2.8rem, 12vw, 4.5rem);
+    padding-left: 0;
+    white-space: normal;
+  }
+
+  .momentsSubtitleRow {
+    align-items: flex-start;
+    justify-content: center;
+    gap: 0.3rem;
+    padding-left: 0;
+    white-space: normal;
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
+  }
+
+  .hero {
+    justify-content: center;
+  }
+
+  .glowingBorderLine,
+  .glowintwo {
+    width: 100%;
+    margin: 0.8rem 0;
+  }
+
+  /* Floating UI Elements Adjustments */
+  .badge {
+    width: 4.5rem;
+    height: 4.5rem;
+    top: 1rem;
+    left: 1rem;
+  }
+
+  .nav {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .navPrimary {
+    font-size: 0.95rem;
+  }
+
+  .panel {
+    top: 50%;
+    right: 50%;
+    translate: 50% -50%;
+    width: 90vw;
+    padding: 1.5rem;
+  }
+
+  .panelOpen {
+    translate: 50% -50%;
+  }
+
+  .preloaderFoot {
+    bottom: 2rem;
+    font-size: 0.55rem;
+  }
+}
+
+/* ---------------- Small Mobile Screens (max-width: 480px) ---------------- */
+@media (max-width: 480px) {
+  /* .heroInner {
+    padding: 4.5rem 1rem 2rem 1rem;
+  } */
+
+  .heroEra {
+    font-size: 2.4rem;
+  }
+
+  .secondaryTitleLarge {
+    font-size: 2.5rem;
+  }
+
+  .momentsSubtitleRow {
+    font-size: 1.2rem;
+  }
+
+  .bgLayer {
+    height: 100vh;
+    object-fit: cover;
   }
 }

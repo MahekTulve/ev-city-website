@@ -37,11 +37,11 @@ export default function NextPhoto() {
                 <Reveal direction="blur" delay={0.2}>
                     <div className={styles.bottTextCont} >
                         <h3 className={styles.parabottom}>
-                            The architecture of ERA Residences balances clean contemporary lines with Mediterranean warmth and texture
+                            One city that changed the way we think about distance..
                         </h3>
                         <div className={styles.botomtext}>
-                            By Schiemann Weyers<br />
-                            Architects OCWA Architects
+                           It's not about building more, its a bout building closer.<br />
+                        -The Copenhagen Way
                         </div>
                     </div>
 
