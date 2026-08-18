@@ -316,9 +316,38 @@ export default function Lit() {
         <div className={s.bg} aria-hidden="true" />
 
         <div className={s.content}>
-          <p className={s.eyebrow}>
-            <span className={s.eyebrowVashi}>VASHI</span>
-            <span className={s.eyebrowIs}>IS</span>
+          <p className={s.eyebrow} aria-label="VASHI IS">
+            <span className={s.eyebrowVashi} aria-hidden="true">
+              {"VASHI".split("").map((char, index) => (
+                <span
+                  key={`${char}-${index}`}
+                  className={s.eyebrowLetter}
+                  style={
+                    {
+                      "--eyebrow-letter-delay": `${index * 95}ms`,
+                    } as CSSProperties
+                  }
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
+
+            <span className={s.eyebrowIs} aria-hidden="true">
+              {"IS".split("").map((char, index) => (
+                <span
+                  key={`${char}-${index}`}
+                  className={s.eyebrowLetter}
+                  style={
+                    {
+                      "--eyebrow-letter-delay": `${560 + index * 110}ms`,
+                    } as CSSProperties
+                  }
+                >
+                  {char}
+                </span>
+              ))}
+            </span>
           </p>
 
           <h1
