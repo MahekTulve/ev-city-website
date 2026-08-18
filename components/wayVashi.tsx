@@ -271,7 +271,7 @@ export default function WayVashi({
       gsap.set(introNextRow, { autoAlpha: 0 });
       gsap.set(introRules, { scaleX: 0, transformOrigin: "center center" });
       gsap.set(introNext, { autoAlpha: 0, y: -12, scale: 0.92 });
-      gsap.set(introAddress, { autoAlpha: 0, x: 58 });
+      gsap.set(introAddress, { autoAlpha: 0, y: 34, scale: 0.82 });
       gsap.set(introSubtitle, {
         autoAlpha: 0,
         y: 24,
@@ -409,9 +409,10 @@ export default function WayVashi({
         introAddress,
         {
           autoAlpha: 1,
-          x: 0,
-          duration: 0.45,
-          ease: "power4.out",
+          y: 0,
+          scale: 1,
+          duration: 0.48,
+          ease: "back.out(1.35)",
         },
         "<0.10",
       );
