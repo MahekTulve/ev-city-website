@@ -656,11 +656,11 @@
 }
 
 .dayBg {
-  background-image: url('/images/vashicityDayOne.png');
+  background-image: url('/images/vashicityDayOne.webp');
 }
 
 .nightBg {
-  background-image: url('/images/nightThemeOne.jpg');
+  background-image: url('/images/nightThemeOne.webp');
 }
 
 /* ---------------- Scene section ---------------- */

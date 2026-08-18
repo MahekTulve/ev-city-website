@@ -36,7 +36,7 @@
     transform: translateY(-1px);
     position: relative;
     overflow: hidden;
-    background-image: url('/images/why-vashi-bottom.png');
+    background-image: url('/images/why-vashi-bottom.webp');
     background-size: cover;
     background-position: top center;
 }

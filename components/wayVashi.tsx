@@ -33,7 +33,7 @@ type SlideRecord = {
 
 const RECORDS: SlideRecord[] = [
   {
-    src: "/images/city.png",
+    src: "/images/city.webp",
     alt: "Vashi waterfront skyline at sunset",
     title: "BUILT TO COMPOUND",
     subtitle: "The best addresses don’t chase growth.",
@@ -57,7 +57,7 @@ const RECORDS: SlideRecord[] = [
     ],
   },
   {
-    src: "/images/vashicityDay.png",
+    src: "/images/vashicityDay.webp",
     alt: "Vashi city during the day",
     title: "THE BUSINESS CAPITAL",
     subtitle:
@@ -82,7 +82,7 @@ const RECORDS: SlideRecord[] = [
     ],
   },
   {
-    src: "/images/VashiCity2.jpg",
+    src: "/images/VashiCity2.webp",
     alt: "Vashi skyline illuminated at night",
     title: "THE ONE-HOUR ADVANTAGE",
     subtitle:
@@ -108,7 +108,7 @@ const RECORDS: SlideRecord[] = [
     ],
   },
     {
-    src: "/images/building-malibu.png",
+    src: "/images/building-malibu.webp",
     alt: "Vashi skyline illuminated at night",
     title: "THE GATEWAY CITY",
     subtitle:
@@ -134,7 +134,7 @@ const RECORDS: SlideRecord[] = [
     ],
   },
     {
-    src: "/images/5min_city.png",
+    src: "/images/5min_city.webp",
     alt: "Vashi skyline illuminated at night",
     title: "THE ECONOMIC SHIFT",
     subtitle:

@@ -265,7 +265,7 @@ export default function VashiLetter({
               className={`${styles.imageWrapper} ${styles.imageLarge}`}
             >
               <img
-                src="/images/VletterImag.png"
+                src="/images/VletterImag.webp"
                 alt="Minimalist Architectural High-rise Tower"
                 className={styles.buildingImage}
               />
@@ -406,7 +406,7 @@ export default function VashiLetter({
               }`}
             >
               <img
-                src="/images/letterA.png"
+                src="/images/letterA.webp"
                 alt="Modern Luxury Villa Exterior"
                 className={styles.buildingImage}
               />
@@ -438,7 +438,7 @@ export default function VashiLetter({
               }`}
             >
               <img
-                src="/images/VletterImag.png"
+                src="/images/VletterImag.webp"
                 alt="S"
                 className={styles.buildingImage}
               />
@@ -596,7 +596,7 @@ export default function VashiLetter({
               }`}
             >
               <img
-                src="/images/letterA.png"
+                src="/images/letterA.webp"
                 alt="H"
                 className={styles.buildingImage}
               />
@@ -628,7 +628,7 @@ export default function VashiLetter({
               }`}
             >
               <img
-                src="/images/VletterImag.png"
+                src="/images/VletterImag.webp"
                 alt="I"
                 className={styles.buildingImage}
               />

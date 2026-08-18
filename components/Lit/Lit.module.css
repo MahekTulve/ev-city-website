@@ -22,7 +22,7 @@
     as one image instead of each section being independently cropped by cover.
   */
   background-color: #17233a;
-  background-image: url("/images/a3-cut.jpeg");
+  background-image: url("/images/a3-cut.webp");
   background-size: 100% auto;
   background-position: center top;
   background-repeat: no-repeat;
@@ -1115,7 +1115,7 @@
     min-height: 100dvh;
 
     background-color: #17233a;
-    background-image: url("/images/lit-mob.png");
+    background-image: url("/images/lit-mob.webp");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
