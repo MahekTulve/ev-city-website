@@ -96,7 +96,7 @@
   top: 60%;
   translate: -53% -50%;
   font-family: "Pinyon Script", cursive;
-  font-size: clamp(20rem, 50vw, 46rem);
+  font-size: clamp(10.5rem, 50vw, 46rem);
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(#70707227 0%, #dedfe521 10%, #fcfcfe1d 60%, #d9dbe11a 70%, #9596990e 80%, #a1a1a31d 100%);
   -webkit-background-clip: text;
@@ -973,9 +973,7 @@
 
 
 
-  .watermark {
-    font-size: clamp(12rem, 35vw, 25rem);
-  }
+
 
   .lockupResidence,
   .fivenum {
