@@ -7,10 +7,10 @@ export default function NextDesign() {
     return (
         <section >
             <div className={styles.place}>
-                <div className={styles.placeTopBanner}>
+                {/* <div className={styles.placeTopBanner}>
                     A <span className={styles.boxTag}>PLACE</span> TO LIVE — TO <br />
                     RETURN YEAR AFTER YEAR
-                </div>
+                </div> */}
 
 
                 <div className={styles.placeCenterContent}>
@@ -21,7 +21,7 @@ export default function NextDesign() {
                         2026<sup>+</sup>
                     </h1>
                 </div>
-                <video
+                {/* <video
 
                     className={`${styles["flower"]} ${styles["flowerTopRight"]}`}
                     src="/videos/flower-2.webm"
@@ -42,7 +42,7 @@ export default function NextDesign() {
                     playsInline
                     preload="auto"
                     aria-hidden="true"
-                />
+                /> */}
 
 
             </div>

@@ -93,11 +93,11 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: bottom right;
+    object-position: right bottom;
 }
 
 .imageCardOne img {
-    object-position: bottom left;
+    object-position:left bottom ;
 }
 
 /* --- Flowers & Video --- */
@@ -124,12 +124,13 @@
     transform: rotate(90deg);
     transform-origin: top left;
 }
+
 .imageTopRight {
     position: absolute;
-    right:  -1%;
+    right: -1%;
     bottom: -1%;
     width: 250px;
-    height:350px;
+    height: 350px;
     z-index: 10;
     /* animation: treeWindSway 6s ease-in-out infinite; */
     transform-origin: top center;
