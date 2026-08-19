@@ -107,12 +107,12 @@ const PlaceToLive = () => {
                     </div>
                 )}
 
-                <ViewportVideo
+                {/* <ViewportVideo
                     ref={videoRightRef}
                     className={`${styles["flower"]} ${styles["flowerTopRight"]}`}
                     src="/videos/flower-2.webm"
                     aria-hidden="true"
-                />
+                /> */}
                 {/* <div
                     className={styles.imageTopRight} >
                     <img src="/images/tree4.png" alt="right-image" />
@@ -123,12 +123,12 @@ const PlaceToLive = () => {
                     <img src="/images/tree2.png" alt="right-image" />
 
                 </div> */}
-                <ViewportVideo
+                {/* <ViewportVideo
                     ref={videoLeftRef}
                     className={`${styles["flower"]} ${styles["flowerTopLeft"]}`}
                     src="/videos/flower-2.webm"
                     aria-hidden="true"
-                />
+                /> */}
             </div>
             {/* <div className={styles.bottompart}>
                 <img
