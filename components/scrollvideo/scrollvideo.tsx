@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./scrollvideo.module.css";
 
 interface ScrollVideoProps {
@@ -19,6 +19,24 @@ export default function ScrollVideo({
   const currentTime = useRef(0);
 
   const raf = useRef<number | null>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+  const isNearViewport = useRef(false);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isNearViewport.current = entry.isIntersecting;
+        if (entry.isIntersecting) setShouldLoad(true);
+      },
+      { rootMargin: "1200px 0px", threshold: 0 },
+    );
+
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -43,7 +61,7 @@ export default function ScrollVideo({
     }
 
     const updateScroll = () => {
-      if (!duration) return;
+      if (!duration || !isNearViewport.current) return;
 
       const rect = section.getBoundingClientRect();
       const viewport = window.innerHeight;
@@ -113,10 +131,10 @@ export default function ScrollVideo({
         <video
           ref={videoRef}
           className={styles.video}
-          src={src}
+          src={shouldLoad ? src : undefined}
           muted
           playsInline
-          preload="auto"
+          preload={shouldLoad ? "auto" : "none"}
           disablePictureInPicture
         />
       </div>

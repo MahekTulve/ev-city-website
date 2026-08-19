@@ -28,6 +28,7 @@ type SideVideoCardProps = {
   exitX: number;
   exitY: number;
   shouldPlay: boolean;
+  shouldLoad: boolean;
 };
 
 type ResponsiveLayout = {
@@ -146,114 +147,75 @@ function AutoPlayVideo({
   src,
   className,
   shouldPlay,
+  shouldLoad,
+  preloadMode = "auto",
 }: {
   item: VideoItem;
   src: string;
   className?: string;
   shouldPlay: boolean;
+  shouldLoad: boolean;
+  preloadMode?: "metadata" | "auto";
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [hasFrame, setHasFrame] = useState(false);
 
-  /*
-   * IMPORTANT:
-   * Preload the real <video> element as soon as this page/component mounts.
-   * Playback is still controlled separately by shouldPlay, so the videos
-   * download/buffer early without running while the user is elsewhere.
-   */
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
 
     setHasFrame(false);
-
     video.muted = true;
     video.defaultMuted = true;
-    video.preload = "auto";
-
-    const markReady = () => setHasFrame(true);
-
-    video.addEventListener("loadeddata", markReady);
-    video.addEventListener("canplay", markReady);
-    video.addEventListener("canplaythrough", markReady);
-
-    // Force the browser to begin fetching the MP4 now instead of waiting
-    // until IntersectionObserver says this section is near the viewport.
+    video.preload = preloadMode;
     video.load();
 
     if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      markReady();
+      setHasFrame(true);
     }
+  }, [preloadMode, shouldLoad, src]);
 
-    return () => {
-      video.removeEventListener("loadeddata", markReady);
-      video.removeEventListener("canplay", markReady);
-      video.removeEventListener("canplaythrough", markReady);
-    };
-  }, [src]);
-
-  /*
-   * Start/stop playback only from section/page visibility.
-   * There is intentionally no per-card timeout here; because the files have
-   * already been preloaded, all visible videos can start immediately.
-   */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     let cancelled = false;
 
-    const pauseVideo = () => {
-      if (!video.paused) {
-        video.pause();
-      }
-    };
+    const syncPlayback = () => {
+      const canPlay =
+        !cancelled &&
+        shouldLoad &&
+        shouldPlay &&
+        document.visibilityState === "visible";
 
-    const playVideo = () => {
-      if (
-        cancelled ||
-        !shouldPlay ||
-        document.visibilityState !== "visible"
-      ) {
-        pauseVideo();
+      if (!canPlay) {
+        video.pause();
         return;
       }
 
       const playPromise = video.play();
-
-      if (playPromise !== undefined) {
-        void playPromise.catch(() => {
-          // If the media element is not ready on this exact frame, canplay
-          // below retries once data is available.
-        });
-      }
+      if (playPromise) void playPromise.catch(() => {});
     };
 
     const handleCanPlay = () => {
       setHasFrame(true);
-      playVideo();
+      syncPlayback();
     };
 
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        playVideo();
-      } else {
-        pauseVideo();
-      }
-    };
-
+    video.addEventListener("loadeddata", handleCanPlay);
     video.addEventListener("canplay", handleCanPlay);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+    document.addEventListener("visibilitychange", syncPlayback);
 
-    playVideo();
+    syncPlayback();
 
     return () => {
       cancelled = true;
-      pauseVideo();
+      video.pause();
+      video.removeEventListener("loadeddata", handleCanPlay);
       video.removeEventListener("canplay", handleCanPlay);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+      document.removeEventListener("visibilitychange", syncPlayback);
     };
-  }, [shouldPlay, src]);
+  }, [shouldLoad, shouldPlay, src]);
 
   return (
     <video
@@ -266,20 +228,19 @@ function AutoPlayVideo({
       ]
         .filter(Boolean)
         .join(" ")}
-      src={src}
-      poster={item.poster}
+      src={shouldLoad ? src : undefined}
+      poster={item.poster || undefined}
       aria-label={item.ariaLabel}
       muted
       loop
       playsInline
-      preload="auto"
+      preload={shouldLoad ? preloadMode : "none"}
       controls={false}
       disablePictureInPicture
       disableRemotePlayback
       tabIndex={-1}
       onLoadedData={() => setHasFrame(true)}
       onCanPlay={() => setHasFrame(true)}
-      onCanPlayThrough={() => setHasFrame(true)}
     />
   );
 }
@@ -339,6 +300,7 @@ function SideVideoCard({
   exitX,
   exitY,
   shouldPlay,
+  shouldLoad,
 }: SideVideoCardProps) {
   const x = useTransform(
     progress,
@@ -373,6 +335,8 @@ function SideVideoCard({
         item={item}
         src={src}
         shouldPlay={shouldPlay}
+        shouldLoad={shouldLoad}
+        preloadMode="auto"
       />
     </motion.div>
   );
@@ -387,6 +351,7 @@ export default function CinematicPlacesGallery() {
   const isLargeDesktop = useMediaQuery("(min-width: 1401px)");
   const isPageVisible = usePageVisible();
 
+  const [shouldPreload, setShouldPreload] = useState(false);
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [sidePlaybackEnabled, setSidePlaybackEnabled] = useState(true);
 
@@ -394,19 +359,28 @@ export default function CinematicPlacesGallery() {
     const section = sectionRef.current;
     if (!section) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsNearViewport(entry.isIntersecting),
-      {
-        // Playback begins only when the gallery is about to enter the screen.
-        // Buffering no longer depends on this observer; every video preloads
-        // immediately when the website/page mounts.
-        rootMargin: "100px 0px",
-        threshold: 0,
+    const preloadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setShouldPreload(true);
+          preloadObserver.disconnect();
+        }
       },
+      { rootMargin: "1200px 0px", threshold: 0 },
     );
 
-    observer.observe(section);
-    return () => observer.disconnect();
+    const playbackObserver = new IntersectionObserver(
+      ([entry]) => setIsNearViewport(entry.isIntersecting),
+      { rootMargin: "120px 0px", threshold: 0.01 },
+    );
+
+    preloadObserver.observe(section);
+    playbackObserver.observe(section);
+
+    return () => {
+      preloadObserver.disconnect();
+      playbackObserver.disconnect();
+    };
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -807,6 +781,7 @@ const titleExitRotateX = useTransform(
                   exitX={position.exitX}
                   exitY={position.exitY}
                   shouldPlay={shouldPlaySides}
+                  shouldLoad={shouldPreload}
                 />
               ))}
 
@@ -833,6 +808,8 @@ const titleExitRotateX = useTransform(
                     src={mainVideoSrc}
                     className={styles.mainVideo}
                     shouldPlay={shouldPlayMain}
+                    shouldLoad={shouldPreload}
+                    preloadMode="auto"
                   />
                 </motion.div>
 

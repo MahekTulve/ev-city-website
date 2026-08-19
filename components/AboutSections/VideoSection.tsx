@@ -1,4 +1,5 @@
 import styles from "./videoSection.module.css";
+import ViewportVideo from "../performance/ViewportVideo";
 
 interface VideoSectionProps {
   isActive: boolean;
@@ -16,13 +17,10 @@ export default function VideoSection({ isActive, isMinimized, isFinalText }: Vid
   return (
     <section className={videoSectionClass}>
       <div className={styles.videoWrapper}>
-        <video
+        <ViewportVideo
           className={styles.mainVideo}
-          src="videos/aboutvideo.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
+          src="/videos/aboutvideo.mp4"
+          preloadWhenNear="metadata"
         />
         <div className={`${styles.videoOverlay} ${isMinimized ? styles.overlayFadeOut : ''}`}>
           <h2 className={styles.videoTitle}>Shaping Dimensions</h2>
