@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './PlaceToLive.module.css';
+import ViewportVideo from '../performance/ViewportVideo';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -106,15 +107,10 @@ const PlaceToLive = () => {
                     </div>
                 )}
 
-                <video
+                <ViewportVideo
                     ref={videoRightRef}
                     className={`${styles["flower"]} ${styles["flowerTopRight"]}`}
                     src="/videos/flower-2.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
                     aria-hidden="true"
                 />
                 {/* <div
@@ -127,15 +123,10 @@ const PlaceToLive = () => {
                     <img src="/images/tree2.png" alt="right-image" />
 
                 </div> */}
-                <video
+                <ViewportVideo
                     ref={videoLeftRef}
                     className={`${styles["flower"]} ${styles["flowerTopLeft"]}`}
                     src="/videos/flower-2.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
                     aria-hidden="true"
                 />
             </div>

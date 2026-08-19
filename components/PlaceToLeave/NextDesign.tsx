@@ -1,5 +1,6 @@
 "use client";
 import styles from './NextPhoto.module.css';
+import ViewportVideo from '../performance/ViewportVideo';
 
 export default function NextDesign() {
 
@@ -21,26 +22,15 @@ export default function NextDesign() {
                         2026<sup>+</sup>
                     </h1>
                 </div>
-                {/* <video
+              {/*   <ViewportVideo
 
                     className={`${styles["flower"]} ${styles["flowerTopRight"]}`}
                     src="/videos/flower-2.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
                     aria-hidden="true"
                 />
-                <video
-
+                <ViewportVideo
                     className={`${styles["flower"]} ${styles["flowerTopLeft"]}`}
                     src="/videos/flower-2.webm"
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
                     aria-hidden="true"
                 /> */}
 

@@ -119,6 +119,10 @@ export function OptimizedShader({
     let canvasWidth = 0;
     let canvasHeight = 0;
     let particles: Particle[] = [];
+    let lastRenderedAt = 0;
+
+    const isSmallScreen = window.matchMedia("(max-width: 768px)").matches;
+    const frameInterval = 1000 / (isSmallScreen ? 30 : 60);
 
     const rgb = hexToRgb(particleColor);
 
@@ -278,7 +282,10 @@ export function OptimizedShader({
       canvasWidth = bounds.width;
       canvasHeight = bounds.height;
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      const pixelRatio = Math.min(
+        window.devicePixelRatio || 1,
+        isSmallScreen ? 1.25 : 2,
+      );
       canvas.width = Math.round(canvasWidth * pixelRatio);
       canvas.height = Math.round(canvasHeight * pixelRatio);
       canvas.style.width = `${canvasWidth}px`;
@@ -362,6 +369,12 @@ export function OptimizedShader({
     };
 
     const render = (currentTime: number) => {
+      if (currentTime - lastRenderedAt < frameInterval) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+
+      lastRenderedAt = currentTime;
       context.clearRect(0, 0, canvasWidth, canvasHeight);
       let hasPendingParticles = false;
 

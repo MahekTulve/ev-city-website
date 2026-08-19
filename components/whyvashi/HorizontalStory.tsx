@@ -3,6 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
+import ViewportVideo from "../performance/ViewportVideo";
 
 const PANELS = 3;
 const SCROLL_LENGTH_VH = 400;
@@ -231,14 +232,9 @@ export default function HorizontalStory() {
           </div>
 
           <div className={`${styles.panel} ${styles.coast}`}>
-            <video
+            <ViewportVideo
               className={styles.coastFlower}
               src="/videos/flower2.webm"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
               aria-hidden="true"
             />
 
