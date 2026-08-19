@@ -2,7 +2,7 @@
     position: relative;
     min-height: 100vh;
     display: flex;
-    align-items: center;
+    align-items: end;
     padding-top: 6rem;
     overflow: hidden;
 }
@@ -18,27 +18,20 @@
     object-position: top center;
 }
 
-.bgOverlay {
+.bgOverlayBottom {
     position: absolute;
-    inset: 0;
-    background: linear-gradient(105deg,
-            rgba(3, 3, 3, 0.95) 0%,
-            rgba(3, 3, 3, 0.7) 45%,
-            rgba(3, 3, 3, 0.4) 100%),
-        radial-gradient(ellipse at 70% 50%, rgba(201, 169, 98, 0.08), transparent 55%);
-}
-
-.bottompart {
-    display: flex;
+    bottom: 0;
+    left: 0;
     width: 100%;
-    height: 100vh;
-    margin-top: -2px;
-    transform: translateY(-1px);
-    position: relative;
-    overflow: hidden;
-    background-image: url('/images/why-vashi-bottom.webp');
-    background-size: cover;
-    background-position: top center;
+    height: 100%;
+  
+    background: linear-gradient(to bottom,
+            transparent 0%,
+            rgba(245, 243, 238, 0) 50%,
+            rgba(245, 243, 238, 0.701) 75%,
+            #f5f3ee 100%
+        );
+    z-index: 1;
 }
 
 .bottTextCont {
@@ -46,25 +39,32 @@
     flex-direction: column;
     background-color: transparent;
     position: relative;
-    color: #ffffff;
+    color: #0b0b0b;
     height: 100%;
     width: 100%;
     justify-content: end;
-    gap: 40px;
+    gap: 20px;
     will-change: transform;
+    z-index: 2;
+    margin-bottom: 3%;
 }
 
 .botomtext,
 .parabottom {
     font-size: 40px;
-    width: 60%;
+    width: 100%;
     margin-left: 15%;
     font-family: "Cinzel", serif;
     font-weight: 600;
 }
-
+.thirdline{
+    margin-left: 20%;
+}
 .botomtext {
     font-size: 20px;
+    text-align: center;
+        margin-left: 0%;
+
 }
 
 .place {
@@ -161,7 +161,7 @@
     font-size: clamp(2.5rem, 4.5vw, 5.5rem);
     line-height: 1.15;
     letter-spacing: 3px;
-    color: #162235; 
+    color: #162235;
     font-weight: 500;
     font-family: 'Cinzel', serif;
 }
@@ -186,7 +186,7 @@
     height: 100%;
     object-fit: cover;
     object-position: top right;
-    mix-blend-mode: multiply; 
+    mix-blend-mode: multiply;
     opacity: 0.95;
 }
 
@@ -245,6 +245,3 @@
     transform: rotate(90deg);
     transform-origin: top left;
 }
-
-
-
