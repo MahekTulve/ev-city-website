@@ -99,8 +99,6 @@ export default function LandingPage({ isNight }: LandingPageProps) {
 
       tl.to(`.${styles.preloaderGlyph}`, { opacity: 1, duration: 0.3 })
         .to(`.${styles.lockupEra}`, { opacity: 1, y: 0, duration: 0.3 }, "-=0.1")
-        .to(`.${styles.sideLeft}`, { opacity: 1, x: 0, duration: 0.3 }, "-=0.2")
-        .to(`.${styles.sideRight}`, { opacity: 1, x: 0, duration: 0.3 }, "-=0.3")
         .to(`.${styles.lockupResidence}`, { opacity: 1, y: 0, duration: 0.3 }, "-=0.2")
         .to(`.${styles.lockupScript}`, { opacity: 1, duration: 0.3 }, "-=0.1")
         .to(`.${styles.watermark}`, { opacity: 1, duration: 0.4 }, "-=0.2")

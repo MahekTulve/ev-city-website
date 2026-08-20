@@ -236,7 +236,7 @@ export default function HorizontalStory() {
           <div className={`${styles.panel} ${styles.coast}`}>
             <video
               className={styles.coastFlower}
-              src="/videos/flower2.webm"
+              src="/videos/flower-2.webm"
               autoPlay
               muted
               loop

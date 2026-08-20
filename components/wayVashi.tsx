@@ -108,7 +108,7 @@ const RECORDS: SlideRecord[] = [
     ],
   },
     {
-    src: "/images/building-malibu.webp",
+    src: "/images/gateway.png",
     alt: "Vashi skyline illuminated at night",
     title: "THE GATEWAY CITY",
     subtitle:
