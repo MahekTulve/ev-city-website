@@ -12,8 +12,6 @@ const PlaceToLive = () => {
     const cardOneRef = useRef<HTMLDivElement>(null);
     const cardTwoRef = useRef<HTMLDivElement>(null);
     const galleryRef = useRef<HTMLDivElement>(null);
-    const videoLeftRef = useRef<HTMLVideoElement>(null);
-    const videoRightRef = useRef<HTMLVideoElement>(null);
     const [showText, setShowText] = useState(false);
 
     useEffect(() => {
@@ -53,16 +51,6 @@ const PlaceToLive = () => {
             .to([cardOneRef.current, cardTwoRef.current], {
                 width: '50vw',
                 height: '100vh',
-                ease: 'power1.inOut',
-            }, 'step3')
-            .to(videoLeftRef.current, {
-                x: '-80vw',
-                scale: 2,
-                ease: 'power1.inOut',
-            }, 'step3')
-            .to(videoRightRef.current, {
-                x: '80vw',
-                scale: 2,
                 ease: 'power1.inOut',
             }, 'step3');
 

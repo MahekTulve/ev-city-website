@@ -38,7 +38,7 @@ export const Navbar: React.FC = () => {
       const logo = container.querySelector(`.${styles.lnNavbarLogo}`);
       const divider = container.querySelector(`.${styles.lnNavbarDivider}`);
       const rightSideElements = container.querySelectorAll(
-        `.${styles.lnNavbarPro}, .${styles.lnNavbarBrowse}, .${styles.lnNavbarGithub}`,
+        `.${styles.lnNavbarPro}, .${styles.lnNavbarBrowse}`,
       );
       const navBarInner = container.querySelector(`.${styles.lnNavbarInner}`);
 

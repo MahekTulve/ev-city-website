@@ -1,8 +1,6 @@
 "use client";
 import React, { useEffect, useRef, useState } from "react";
 import {
-  useScroll,
-  useTransform,
   motion,
   AnimatePresence,
   Variants,
@@ -13,7 +11,7 @@ import VashiLetter from "../AboutSections/VashiLetter";
 import RealEstateJourney from "../ev-city/denmark";
 
 import styles from "./FeaturesSection.module.css";
-import VashiDenmark from "../AboutSections/Vashidenmark";
+// import VashiDenmark from "../AboutSections/Vashidenmark";
 import FlashingIntroWords from "./FlashingIntroWords";
 import CinematicText from "../AboutSections/cinematicTex";
 import ExplainDenmark from "../AboutSections/ExplainDenmark";
@@ -36,8 +34,6 @@ const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
 const FINISH_HOLD = 300; // ms pause after last word before heading appears
 
 export default function ZoomParallaxDemo() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
   const [isNight, setIsNight] = useState(true);
   const cinematicTextRef = useRef<HTMLDivElement>(null);
 
@@ -149,70 +145,6 @@ export default function ZoomParallaxDemo() {
     setTriggerMainHeading(false);
   };
 
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end end"],
-  });
-
-  const isEntering = useTransform(scrollYProgress, [0, 1], [true, true]);
-  const isFinal = useTransform(scrollYProgress, [0.05, 0.25], [false, true]);       // V (Direct start)
-  const isStepThree = useTransform(scrollYProgress, [0.25, 0.4], [false, true]);   // A
-  const isStepFour = useTransform(scrollYProgress, [0.4, 0.55], [false, true]);    // S
-  const isStepFive = useTransform(scrollYProgress, [0.55, 0.7], [false, true]);    // H
-  const isStepSix = useTransform(scrollYProgress, [0.7, 0.9], [false, true]);     // I (Stops here)
-  const isVideoActive = useTransform(scrollYProgress, [0.9, 1.0], [false, true]);
-  const [states, setStates] = useState({
-    isEntering: false,
-    isFinal: false,
-    isStepThree: false,
-    isStepFour: false,
-    isStepFive: false,
-    isStepSix: false,
-    isVideoActive: false,
-  });
-
-  useEffect(() => {
-    const unsub1 = isEntering.on("change", (v) =>
-      setStates((prev) => ({ ...prev, isEntering: v })),
-    );
-    const unsub2 = isFinal.on("change", (v) =>
-      setStates((prev) => ({ ...prev, isFinal: v })),
-    );
-    const unsub3 = isStepThree.on("change", (v) =>
-      setStates((prev) => ({ ...prev, isStepThree: v })),
-    );
-    const unsub4 = isStepFour.on("change", (v) =>
-      setStates((prev) => ({ ...prev, isStepFour: v })),
-    );
-    const unsub5 = isStepFive.on("change", (v) =>
-      setStates((prev) => ({ ...prev, isStepFive: v })),
-    );
-    const unsub6 = isStepSix.on("change", (v) =>
-      setStates((prev) => ({ ...prev, isStepSix: v })),
-    );
-    const unsub7 = isVideoActive.on("change", (v) =>
-      setStates((prev) => ({ ...prev, isVideoActive: v })),
-    );
-
-    return () => {
-      unsub1();
-      unsub2();
-      unsub3();
-      unsub4();
-      unsub5();
-      unsub6();
-      unsub7();
-    };
-  }, [
-    isEntering,
-    isFinal,
-    isStepThree,
-    isStepFour,
-    isStepFive,
-    isStepSix,
-    isVideoActive,
-  ]);
-
   useEffect(() => {
     const lenis = new Lenis();
     let frameId = 0;
@@ -288,35 +220,6 @@ export default function ZoomParallaxDemo() {
       },
     },
   };
-  useEffect(() => {
-    let idleTimer: NodeJS.Timeout;
-
-    const handleScrollActivity = () => {
-      clearTimeout(idleTimer);
-
-      const container = containerRef.current;
-      if (!container) return;
-
-      const rect = container.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-      const isInContainer = rect.top <= 0 && rect.bottom >= windowHeight;
-      if (isInContainer && !states.isStepSix) {
-        idleTimer = setTimeout(() => {
-          window.scrollBy({
-            top: windowHeight * 0.5, 
-            behavior: "smooth",
-          });
-        }, 2000); 
-      }
-    };
-
-    window.addEventListener("scroll", handleScrollActivity);
-
-    return () => {
-      window.removeEventListener("scroll", handleScrollActivity);
-      clearTimeout(idleTimer);
-    };
-  }, [states.isStepSix]);
   const headingText = "THE 5 MINUTE CITY";
 
   return (
@@ -537,12 +440,12 @@ export default function ZoomParallaxDemo() {
       <PlaceToLive />
       <NextPhoto />
       <NextDesign />
-      <div data-section>
+      {/* <div data-section>
         <ExplainDenmark />
       </div>
       <div data-section>
         <VashiDenmark />
-      </div>
+      </div> */}
       <div data-section>
         <DenmarkToVashi />
       </div>
