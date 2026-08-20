@@ -56,6 +56,7 @@ function CloudLayer({
 export default function Blue() {
   return (
     <section className={styles.cloudPage}>
+      <div className={styles.bottomOverlay}  />
       <div className={styles.cloudTransition} aria-hidden="true">
       </div>
     </section>
