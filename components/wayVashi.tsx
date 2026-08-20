@@ -33,7 +33,7 @@ type SlideRecord = {
 
 const RECORDS: SlideRecord[] = [
   {
-    src: "/images/city.webp",
+    src: "/images/vashi1.png",
     alt: "Vashi waterfront skyline at sunset",
     title: "BUILT TO COMPOUND",
     subtitle: "The best addresses don’t chase growth.",
@@ -82,7 +82,7 @@ const RECORDS: SlideRecord[] = [
     ],
   },
   {
-    src: "/images/VashiCity2.webp",
+    src: "/images/one-hour-advantage.webp",
     alt: "Vashi skyline illuminated at night",
     title: "THE ONE-HOUR ADVANTAGE",
     subtitle:

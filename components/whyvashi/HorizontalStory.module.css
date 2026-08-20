@@ -36,10 +36,17 @@
   display: flex;
   width: max-content;
   height: 100%;
+  gap: 0;
   will-change: transform;
   backface-visibility: hidden;
 }
 
+/*
+ * FINAL SEAM FIX
+ * Keep every panel exactly 100vw because the React scroll math moves
+ * the track in exact 100vw steps. The Denmark panel gets its own
+ * cross-panel overlap shields below.
+ */
 .panel {
   position: relative;
   flex: 0 0 100vw;
@@ -125,12 +132,46 @@
 
 .golden {
   position: relative;
+  z-index: 20;
+  isolation: isolate;
+
   display: block;
   width: 100vw;
   height: 100vh;
   padding: 0;
-  overflow: hidden;
-  background: #000;
+
+  /*
+   * Visible overflow is intentional. It allows the cream seam shields
+   * to overlap the adjacent panels and hide fractional-pixel cracks
+   * while translate3d() is moving.
+   */
+  overflow: visible;
+  background: #f3f3ec;
+}
+
+/*
+ * CROSS-PANEL SEAM SHIELDS
+ * Solid cream only. No gradient here.
+ * The soft fade is handled inside VashiDenmark.
+ */
+.golden::before,
+.golden::after {
+  content: "";
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  bottom: 0;
+  width: clamp(18px, 1.5vw, 30px);
+  background: #f3f3ec;
+  pointer-events: none;
+}
+
+.golden::before {
+  left: -12px;
+}
+
+.golden::after {
+  right: -12px;
 }
 
 .goldenType {
@@ -225,6 +266,7 @@
   justify-content: flex-end;
   padding: 5rem 6rem clamp(7rem, 16vh, 11rem);
   overflow: hidden;
+  background: #f3f3ec;
 }
 
 .coastFlower {

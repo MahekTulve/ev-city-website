@@ -29,6 +29,7 @@ import PlaceToLive from "../PlaceToLeave/PlaceToLive";
 import NextPhoto from "../PlaceToLeave/NextPhoto";
 import NextDesign from "../PlaceToLeave/NextDesign";
 import Clouds from "../whyvashi/clouds";
+import Blue from "../whyvashi/blue";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -511,6 +512,10 @@ export default function ZoomParallaxDemo() {
 
       <div data-section>
         <Clouds />
+      </div>
+
+      <div data-section>
+        <Blue />
       </div>
 
       {/* <AboutFiveMinute /> */}
