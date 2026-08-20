@@ -124,7 +124,12 @@ export default function NextDesign() {
           <i />
           <span>Why Copenhagen?</span>
         </div>
-
+        <img
+          className={styles["skechImage"]}
+          src={"images/denamrkskech.png"}
+          alt="skech"
+       
+        />
         {/* <h2 className={styles["whyHeading"]}>
           A city that proves progress is possible when{" "}
           <em className={styles["italicGold"]}>design</em>, <em className={styles["italicGold"]}>values</em>, and{" "}

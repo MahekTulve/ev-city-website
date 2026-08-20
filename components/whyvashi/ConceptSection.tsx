@@ -12,7 +12,7 @@ export default function ConceptSection({
 }) {
   return (
     <section className={styles["section"]}>
-      <video
+      {/* <video
         className={`${styles["flower"]} ${styles["flowerTopLeft"]}`}
         src="/videos/flower-2.webm"
         autoPlay
@@ -21,7 +21,7 @@ export default function ConceptSection({
         playsInline
         preload="auto"
         aria-hidden="true"
-      />
+      /> */}
       {/* <video
         className={`${styles["flower"]} ${styles["flowerBottomRight"]}`}
         src=""
