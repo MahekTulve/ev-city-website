@@ -1,5 +1,4 @@
 import styles from "./ConceptSection.module.css";
-import ViewportVideo from "../performance/ViewportVideo";
 
 /**
  * Drop-in section for a Next.js (or any React) project.
@@ -13,9 +12,14 @@ export default function ConceptSection({
 }) {
   return (
     <section className={styles["section"]}>
-      <ViewportVideo
+      <video
         className={`${styles["flower"]} ${styles["flowerTopLeft"]}`}
         src="/videos/flower-2.webm"
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
         aria-hidden="true"
       />
       {/* <video

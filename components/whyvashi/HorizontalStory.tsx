@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from "react";
 import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
-import ViewportVideo from "../performance/ViewportVideo";
+import VashiDenmark from "../AboutSections/Vashidenmark";
 
 const PANELS = 3;
 const SCROLL_LENGTH_VH = 400;
@@ -202,7 +202,9 @@ export default function HorizontalStory() {
           </div>
 
           <div className={`${styles.panel} ${styles.golden}`}>
-            <h2 className={styles.goldenType}>
+          <VashiDenmark />
+
+            {/* <h2 className={styles.goldenType}>
               <span>THE 5</span>
               <span>MINUTE</span>
               <span>CITY</span>
@@ -228,13 +230,18 @@ export default function HorizontalStory() {
                 Surrounded by beaches, golf courses, wellness clubs and
                 established neighbourhoods on Marbella&apos;s THE 5 Minute City.
               </p>
-            </div>
+            </div> */}
           </div>
 
           <div className={`${styles.panel} ${styles.coast}`}>
-            <ViewportVideo
+            <video
               className={styles.coastFlower}
               src="/videos/flower2.webm"
+              autoPlay
+              muted
+              loop
+              playsInline
+              preload="auto"
               aria-hidden="true"
             />
 
