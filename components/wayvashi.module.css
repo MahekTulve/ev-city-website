@@ -937,6 +937,28 @@
     height: 1.8rem;
   }
 
+  /* Mobile-only dark overlay above lit-mob.webp and below all text/content.
+     This keeps the background visible while giving the white/gold copy
+     enough contrast on bright areas of the image. */
+  .domeOverlay {
+    z-index: 2;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(5, 8, 18, 0.22) 0%,
+        rgba(5, 8, 18, 0.34) 24%,
+        rgba(5, 8, 18, 0.52) 48%,
+        rgba(5, 8, 18, 0.68) 72%,
+        rgba(5, 8, 18, 0.78) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(5, 8, 18, 0.28) 0%,
+        rgba(5, 8, 18, 0.06) 50%,
+        rgba(5, 8, 18, 0.28) 100%
+      );
+  }
+
   .dome {
     /* border-top-left-radius: 0;
     border-top-right-radius: 0; */
@@ -945,7 +967,90 @@
     background-size: cover;
     background-position: center bottom;
   }
+
+  /* =========================================================
+     MOBILE CONTENT CENTERING
+     Keep every visible record element on the same center axis.
+     ========================================================= */
+  .domeInner {
+    left: 50%;
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+    translate: -50% 0;
+    box-sizing: border-box;
+    align-items: center;
+  }
+
+  .recordCopy {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0;
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  .bigTitle {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 6px;
+    box-sizing: border-box;
+    text-align: center;
+  }
+
+  .subtitleBlock {
+    width: 100%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 4px;
+    box-sizing: border-box;
+    align-items: center;
+  }
+
+  .recordSubtitle {
+    width: 100%;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .subtitleHighlightRow {
+    width: 100%;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .subtitleHighlight {
+    justify-self: center;
+    text-align: center;
+  }
+
+  .sliderFrame {
+    width: 100%;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+    align-self: center;
+  }
+
+  .sliderNav {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: center;
+    align-self: center;
+  }
 }
+
 
 @media (max-width: 480px) {
   .domeIntro {
@@ -990,7 +1095,7 @@
   }
 
   .domeInner {
-    padding-top: 3.6rem;
+    padding-top: 9rem;
   }
 
   .bigTitle {
