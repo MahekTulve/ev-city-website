@@ -14,7 +14,6 @@
   grid-template-columns: 1fr 2fr;
   min-height: 720px;
   max-height: 100vh;
-  border-bottom: 1px solid var(--line);
   position: relative;
 }
 
@@ -193,8 +192,10 @@
 
 /* ---------- SECTION 02 ---------- */
 .why {
-  display: grid;
-  grid-template-columns: 0.85fr 1.6fr;
+  /* display: grid;
+  grid-template-columns: 0.85fr 1fr; */
+  display: flex;
+  flex-direction: column;
   gap: 3rem;
   padding: 3.6rem 3.5rem 5rem;
   position: relative;
@@ -257,9 +258,142 @@
   border-left: none;
 }
 
+/* ---------- PILLAR SEQUENTIAL GLOW ---------- */
+
+.pillars .pillar {
+  position: relative;
+  animation: pillarPulse 10s infinite ease-in-out;
+}
+
+/* 5 pillars = 10 sec total
+   Each pillar gets its own 2 sec spotlight */
+
+.pillars .pillar:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.pillars .pillar:nth-child(2) {
+  animation-delay: 2s;
+}
+
+.pillars .pillar:nth-child(3) {
+  animation-delay: 4s;
+}
+
+.pillars .pillar:nth-child(4) {
+  animation-delay: 6s;
+}
+
+.pillars .pillar:nth-child(5) {
+  animation-delay: 8s;
+}
+
+
+@keyframes pillarPulse {
+
+  /* Normal */
+  0% {
+    transform: scale(1);
+  }
+
+  /* Start zoom */
+  8% {
+    transform: scale(1.05);
+  }
+
+  /* Glow peak */
+  14% {
+    transform: scale(1.08);
+  }
+
+  /* Stay highlighted */
+  20% {
+    transform: scale(1.05);
+  }
+
+  /* Back to normal */
+  28%,
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+/* Icon glow */
+
+.pillars .pillar .iconWrap {
+  transition:
+    box-shadow 0.4s ease,
+    background 0.4s ease,
+    transform 0.4s ease;
+}
+
+
+
+.pillars .pillar:nth-child(1) .iconWrap {
+  animation: iconGlow 10s infinite ease-in-out;
+  animation-delay: 0s;
+}
+
+.pillars .pillar:nth-child(2) .iconWrap {
+  animation: iconGlow 10s infinite ease-in-out;
+  animation-delay: 2s;
+}
+
+.pillars .pillar:nth-child(3) .iconWrap {
+  animation: iconGlow 10s infinite ease-in-out;
+  animation-delay: 4s;
+}
+
+.pillars .pillar:nth-child(4) .iconWrap {
+  animation: iconGlow 10s infinite ease-in-out;
+  animation-delay: 6s;
+}
+
+.pillars .pillar:nth-child(5) .iconWrap {
+  animation: iconGlow 10s infinite ease-in-out;
+  animation-delay: 8s;
+}
+
+
+@keyframes iconGlow {
+
+  0%,
+  7% {
+    transform: scale(1);
+    background: #efe8db;
+    box-shadow: 0 0 0 rgba(168, 130, 63, 0);
+  }
+
+  12% {
+    transform: scale(1.15);
+    background: #f5ead3;
+    box-shadow:
+      0 0 12px rgba(168, 130, 63, 0.35),
+      0 0 30px rgba(168, 130, 63, 0.2),
+      0 0 55px rgba(168, 130, 63, 0.1);
+  }
+
+  18% {
+    transform: scale(1.08);
+    background: #f5ead3;
+    box-shadow:
+      0 0 18px rgba(168, 130, 63, 0.45),
+      0 0 40px rgba(168, 130, 63, 0.25);
+  }
+
+  28%,
+  100% {
+    transform: scale(1);
+    background: #efe8db;
+    box-shadow: 0 0 0 rgba(168, 130, 63, 0);
+  }
+}
+
+
 .iconWrap {
-  width: 54px;
-  height: 54px;
+  width: 65px;
+  height: 65px;
   margin: 0 auto 1.4rem;
   border-radius: 50%;
   background: #efe8db;
@@ -269,21 +403,20 @@
 }
 
 .pillarTitle {
-  font-size: 0.66rem;
+  font-size: 0.85rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  margin: 0 0 0.9rem;
+  margin: 0 0 0.6rem;
 }
 
 .pillarText {
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   line-height: 1.7;
   color: #5c574e;
   margin: 0;
 }
 
 .closingQuote {
-  grid-column: 2 / -1;
   margin-top: 3.6rem;
   display: flex;
   gap: 1rem;
@@ -300,31 +433,81 @@
   max-width: 22rem;
   text-align: center;
 }
+.pillars .pillar:nth-child(1) .pillarTitle,
+.pillars .pillar:nth-child(1) .pillarText {
+  animation: textGlow 10s infinite ease-in-out;
+  animation-delay: 0s; 
+}
 
+.pillars .pillar:nth-child(2) .pillarTitle,
+.pillars .pillar:nth-child(2) .pillarText {
+  animation: textGlow 10s infinite ease-in-out;
+  animation-delay: 2s;
+}
+
+.pillars .pillar:nth-child(3) .pillarTitle,
+.pillars .pillar:nth-child(3) .pillarText {
+  animation: textGlow 10s infinite ease-in-out;
+  animation-delay: 4s;
+}
+
+.pillars .pillar:nth-child(4) .pillarTitle,
+.pillars .pillar:nth-child(4) .pillarText {
+  animation: textGlow 10s infinite ease-in-out;
+  animation-delay: 6s;
+}
+
+.pillars .pillar:nth-child(5) .pillarTitle,
+.pillars .pillar:nth-child(5) .pillarText {
+  animation: textGlow 10s infinite ease-in-out;
+  animation-delay: 8s;
+}
+
+@keyframes textGlow {
+  0%, 7% {
+    text-shadow: 0 0 0 rgba(168, 130, 63, 0);
+    color: #3b3730;
+  }
+  12%, 18% { 
+    text-shadow: 0 0 15px rgba(168, 130, 63, 0.5);
+    color: var(--gold);
+  }
+  28%, 100% {
+    text-shadow: 0 0 0 rgba(168, 130, 63, 0);
+    color: #3b3730;
+  }
+}
 @media (max-width: 900px) {
   .hero {
     grid-template-columns: 1fr;
   }
+
   .left {
     padding: 2rem 1.5rem 3rem;
   }
+
   .right {
     min-height: 60vh;
   }
+
   .nav a {
     display: none;
   }
+
   .why {
     grid-template-columns: 1fr;
     padding: 2.5rem 1.5rem 3.5rem;
   }
+
   .pillars {
     grid-template-columns: repeat(2, 1fr);
     gap: 2.4rem 0;
   }
+
   .pillar:nth-child(odd) {
     border-left: none;
   }
+
   .closingQuote {
     grid-column: 1 / -1;
   }
