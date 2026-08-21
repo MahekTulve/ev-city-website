@@ -234,7 +234,7 @@ export default function HorizontalStory() {
           </div>
 
           <div className={`${styles.panel} ${styles.coast}`}>
-            <video
+            {/* <video
               className={styles.coastFlower}
               src="/videos/flower-2.webm"
               autoPlay
@@ -243,7 +243,7 @@ export default function HorizontalStory() {
               playsInline
               preload="auto"
               aria-hidden="true"
-            />
+            /> */}
 
             <div className={styles.coastHeadingWrap}>
               <span className={styles.coastOrnament} aria-hidden="true">

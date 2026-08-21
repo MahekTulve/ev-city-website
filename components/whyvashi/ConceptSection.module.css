@@ -155,6 +155,13 @@
   letter-spacing: 0.005em;
   margin: 0 auto;
   max-width: 44ch;
+
+  /* Gradient text properties */
+  background-image: linear-gradient(70deg, #101a01ef, #230b5ae3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent; /* Fallback */
 }
 
 .body {
