@@ -63,7 +63,12 @@ export default function NextDesign() {
   return (
     <div className={styles["page"]}>
       <section className={styles["hero"]}>
+        <img
+          className={styles["heroImg"]}
+          src={"images/startDenmark.jpeg"}
+          alt="Sunrise over the Nyhavn canal in Copenhagen with cyclists riding along the quay"
 
+        />
         <div className={styles["left"]}>
           <div className={styles["brand"]}>
             <svg className={styles["crown"]} viewBox="0 0 40 34" fill="none" stroke="currentColor" strokeWidth="1.3">
@@ -99,13 +104,7 @@ export default function NextDesign() {
         </div>
 
         <div className={styles["right"]} id="inspiration">
-          <img
-            className={styles["heroImg"]}
-            src={"images/startDenmark.png"}
-            alt="Sunrise over the Nyhavn canal in Copenhagen with cyclists riding along the quay"
-            width={1600}
-            height={1104}
-          />
+
           <div className={styles["fade"]} />
           <div className={styles["overlayText"]}>
             <div className={styles["overlayKicker"]}>The inspiration isn&rsquo;t just</div>
@@ -128,7 +127,7 @@ export default function NextDesign() {
           className={styles["skechImage"]}
           src={"images/denamrkskech.png"}
           alt="skech"
-       
+
         />
         {/* <h2 className={styles["whyHeading"]}>
           A city that proves progress is possible when{" "}
