@@ -307,7 +307,7 @@ export default function WayVashi({
           height: "0vh",
         },
         {
-          height: "128vh",
+          height: "148vh",
           duration: 1.2,
           ease: "none",
         },
