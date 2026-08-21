@@ -131,7 +131,7 @@
   overflow: hidden;
   transform-origin: 50% 8%;
   transform-style: preserve-3d;
-  will-change: transform, opacity, filter;
+  will-change: transform, opacity;
 }
 
 .titleEntrance {
@@ -177,12 +177,12 @@
   text-align: center;
   white-space: nowrap;
   
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 2px 5px #faf3e375);
-  background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  
+  /* The gradient belongs to .titleLetter only. Keeping background-clip/text-fill
+     on this parent as well creates a second composited text layer and can show
+     stale/stacked glyphs during the reveal on mobile Chromium. */
+  color: inherit;
+  filter: none;
+
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
 }
@@ -191,7 +191,7 @@
   display: block;
   width: fit-content;
   margin-inline: auto;
-  overflow: hidden;
+  overflow: clip;
   perspective: 900px;
 }
 
@@ -206,7 +206,7 @@
 .titleLetter {
   display: inline-block;
   transform-origin: 50% 100%;
-  will-change: transform, opacity, filter;
+  will-change: opacity;
 
   color: transparent;
   background: linear-gradient(
@@ -220,6 +220,11 @@
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+
+  /* Prevent a glyph texture from leaking outside its own inline box while the
+     sticky parent is being transformed. */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .gallerySubtitle {
@@ -470,7 +475,7 @@
   .titleLine {
     max-width: 100%;
     padding-inline: 0.08em;
-    overflow: visible;
+    overflow: clip;
   }
 
   .gallerySubtitle {
@@ -578,7 +583,7 @@
   .titleLine {
     max-width: 100%;
     padding-inline: 0.1em;
-    overflow: visible;
+    overflow: clip;
   }
 
   .titleLine:first-child,
