@@ -35,24 +35,17 @@
 
 .bottTextCont {
     display: flex;
-    flex-direction: column;
-    background-color: transparent;
+    align-items: center;
+    justify-content: center;
     position: relative;
     color: #0b0b0b;
-    height: 100%;
     width: 100%;
-    justify-content: end;
-    gap: 20px;
-    will-change: transform;
-    z-index: 2;
     margin-bottom: 3%;
 }
 
 .botomtext,
 .parabottom {
     font-size: 40px;
-    width: 100%;
-    margin-left: 15%;
     font-family: "Cinzel", serif;
     font-weight: 600;
 }
