@@ -288,12 +288,10 @@ function RevealLetter({
   character,
   index,
   progress,
-  isMobile,
 }: {
   character: string;
   index: number;
   progress: MotionValue<number>;
-  isMobile: boolean;
 }) {
   const staggerStart = 0.06;
   const staggerEnd = 0.78;
@@ -309,21 +307,15 @@ function RevealLetter({
 
   const opacity = useTransform(progress, [start, end], [0, 1]);
 
-  // Smaller movement on mobile prevents the broken/ghost letter
-  const x = useTransform(progress, [start, end], isMobile ? [-8, 0] : [-30, 0]);
-
-  // Disable blur on mobile because background-clip text +
-  // animated blur can create the white fragment on the left.
-  const filter = useTransform(
-    progress,
-    [start, end],
-    isMobile ? ["blur(0px)", "blur(0px)"] : ["blur(12px)", "blur(0px)"],
-  );
-
+  /*
+   * Keep each glyph in its final layout position and animate opacity only.
+   * Translating/filtering individually background-clipped letters can produce
+   * detached/stacked glyph textures on mobile Chromium while scrolling.
+   */
   return (
     <motion.span
       className={styles.titleLetter}
-      style={{ opacity, x, filter }}
+      style={{ opacity }}
       aria-hidden="true"
     >
       {character}
@@ -695,14 +687,6 @@ const titleExitRotateX = useTransform(
     [1, 1, 0],
   );
 
-  const titleExitBlur = useTransform(
-    smoothProgress,
-    [0, 0.48, 0.61],
-    isLargeDesktop
-      ? ["blur(0px)", "blur(0px)", "blur(0px)"]
-      : ["blur(0px)", "blur(0px)", "blur(12px)"],
-  );
-
   const mainVideo = VIDEOS[1];
   const sideVideos = VIDEOS.filter((video) => video.id !== mainVideo.id).slice(
     0,
@@ -756,7 +740,6 @@ const titleExitRotateX = useTransform(
                 scale: titleExitScale,
                 rotateX: titleExitRotateX,
                 opacity: titleExitOpacity,
-                filter: titleExitBlur,
               }}
             >
               <motion.div
@@ -786,7 +769,6 @@ const titleExitRotateX = useTransform(
                             character={character}
                             index={lineOffset + characterIndex}
                             progress={smoothTitleProgress}
-                            isMobile={isMobile}
                           />
                         ))}
                       </span>
