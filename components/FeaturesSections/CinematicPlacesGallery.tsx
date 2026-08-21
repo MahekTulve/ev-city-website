@@ -407,9 +407,10 @@ export default function CinematicPlacesGallery() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    stiffness: 90,
-    damping: 27,
-    mass: 0.4,
+    // Mobile should track the finger more closely instead of trailing behind.
+    stiffness: isMobile ? 145 : 90,
+    damping: isMobile ? 28 : 27,
+    mass: isMobile ? 0.24 : 0.4,
   });
 
   useMotionValueEvent(smoothProgress, "change", (latest) => {
@@ -431,9 +432,10 @@ export default function CinematicPlacesGallery() {
   });
 
   const smoothTitleProgress = useSpring(titleScrollYProgress, {
-    stiffness: 105,
-    damping: 24,
-    mass: 0.35,
+    // Keep the Explore Places reveal in sync with the faster mobile section.
+    stiffness: isMobile ? 150 : 105,
+    damping: isMobile ? 27 : 24,
+    mass: isMobile ? 0.22 : 0.35,
   });
 
   const layout = useMemo<ResponsiveLayout>(() => {

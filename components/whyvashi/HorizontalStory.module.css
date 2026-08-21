@@ -586,6 +586,12 @@
   margin-inline: auto;
 }
 
+.timelineViewport {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
 .routeStage {
   --route-height: 100px;
   --stop-gap: 90px;
@@ -1021,13 +1027,18 @@
     letter-spacing: 0.38em;
   }
 
+  /*
+   * PHONE TIMELINE
+   * --------------------------------------------------------------
+   * The viewport stays one screen wide, while routeStage is 300vw.
+   * React translates routeStage according to page-scroll progress.
+   * This keeps about two large buildings visible instead of squeezing
+   * all seven into the phone width.
+   */
   .coast {
-    justify-content: center;
-
-    padding:
-      2.5rem
-      0.25rem
-      1rem;
+    justify-content: flex-start;
+    padding: 0;
+    overflow: hidden;
   }
 
   .coastFlower {
@@ -1040,7 +1051,7 @@
   }
 
   .coastHeadingWrap {
-    top: 1.5rem;
+    top: clamp(1.25rem, 3.6svh, 2rem);
     width: 94vw;
   }
 
@@ -1067,82 +1078,83 @@
     height: 0.34rem;
   }
 
-  .timeline {
-    width: 100%;
+.timeline {
+  position: absolute;
+  left: 0;
+
+  top: 50%;
+  bottom: auto;
+  transform: translateY(-50%);
+
+  width: 100vw;
+  margin: 0;
+  overflow: visible;
+}
+
+  .timelineViewport {
+    position: relative;
+    width: 100vw;
+    overflow: hidden;
   }
 
   .routeStage {
-    --route-height: 58px;
-    --stop-gap: 7px;
+    --route-height: 64px;
+    --stop-gap: 12px;
 
-    width: 96%;
+    width: 300vw;
+    height: clamp(320px, 47svh, 430px);
+    margin: 0;
 
-    height: clamp(
-      235px,
-      39vh,
-      300px
-    );
+    transform: translate3d(var(--mobile-route-x, 12vw), 0, 0);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
 
-    margin-inline: auto;
+  .timelineSvg {
+    height: var(--route-height);
   }
 
   .stopItem {
-    width: clamp(
-      3.2rem,
-      12vw,
-      4rem
-    );
+    width: clamp(8.25rem, 36vw, 10.75rem);
   }
 
   .stopArtwork {
     width: 100%;
+    height: clamp(11.5rem, 28svh, 15.5rem);
+    margin-bottom: 0.55rem;
+  }
 
-    height: clamp(
-      5rem,
-      19vw,
-      6.5rem
-    );
-
-    margin-bottom: 0.3rem;
+  .stopImage {
+    filter: drop-shadow(0 10px 12px rgb(20 33 58 / 14%));
   }
 
   .stopName {
     max-width: 100%;
 
-    font-size: clamp(
-      0.3rem,
-      1.35vw,
-      0.38rem
-    );
-
-    line-height: 1.2;
-
-    letter-spacing: 0.02em;
+    font-size: clamp(0.56rem, 2.3vw, 0.68rem);
+    line-height: 1.22;
+    letter-spacing: 0.045em;
 
     white-space: normal;
   }
 
   .stopTime {
-    margin-top: 0.12rem;
+    margin-top: 0.18rem;
 
-    font-size: clamp(
-      0.28rem,
-      1.2vw,
-      0.35rem
-    );
-
-    letter-spacing: 0.015em;
+    font-size: clamp(0.48rem, 1.9vw, 0.58rem);
+    letter-spacing: 0.035em;
   }
 
+  /* These two source cutouts have more empty transparent space around them. */
   .vtcImage {
-    transform: scale(1.25);
+    transform: scale(1.42);
   }
 
   .malibuImage {
-    transform: scale(1.35);
+    transform: scale(1.5);
   }
-
 }
+
 
 .timelineSvg,
 .timelinePath {
