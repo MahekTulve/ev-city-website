@@ -30,10 +30,12 @@ const MOBILE_TIMELINE_START = MOBILE_HORIZONTAL_END;
 const MOBILE_TIMELINE_END = 0.93;
 const MOBILE_CLOUD_START = 0.91;
 
-// The phone timeline is 300vw wide. Start it 12vw inside the screen and move
-// it by 220vw so roughly two buildings stay readable at a time.
-const MOBILE_ROUTE_START_X_VW = 12;
-const MOBILE_ROUTE_TRAVEL_VW = 220;
+// The phone timeline is 300vw wide.
+// Start farther inside the viewport so the first building does not touch the
+// left edge, and travel a little farther so the final pair also keeps a
+// comfortable gap from the right edge.
+const MOBILE_ROUTE_START_X_VW = 18;
+const MOBILE_ROUTE_TRAVEL_VW = 232;
 
 const PATH_WIDTH = 1480;
 const PATH_HEIGHT = 100;
@@ -406,6 +408,7 @@ export default function HorizontalStory() {
                     <div
                       className={styles.stopItem}
                       key={stop.name}
+                      data-stop-index={index}
                       style={{
                         left: `${xPercentage}%`,
                         bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,

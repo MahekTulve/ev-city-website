@@ -1095,17 +1095,19 @@
     position: relative;
     width: 100vw;
     overflow: hidden;
+    box-sizing: border-box;
   }
 
   .routeStage {
     --route-height: 64px;
-    --stop-gap: 12px;
+    --stop-gap: 18px;
 
     width: 300vw;
-    height: clamp(320px, 47svh, 430px);
+    /* Extra vertical room for the larger, height-normalized cutouts. */
+    height: clamp(360px, 51svh, 480px);
     margin: 0;
 
-    transform: translate3d(var(--mobile-route-x, 12vw), 0, 0);
+    transform: translate3d(var(--mobile-route-x, 18vw), 0, 0);
     will-change: transform;
     backface-visibility: hidden;
   }
@@ -1114,18 +1116,81 @@
     height: var(--route-height);
   }
 
+  /*
+   * MOBILE BUILDING NORMALIZATION
+   * --------------------------------------------------------------
+   * All cutouts now fill the SAME HEIGHT first. This is much more stable
+   * than width:100% for portrait building PNG/WebP files, because a narrow
+   * tower no longer becomes tiny beside a wider tower.
+   *
+   * We still keep roughly two buildings on-screen, but make both noticeably
+   * larger and leave enough horizontal breathing room between them.
+   */
   .stopItem {
-    width: clamp(8.25rem, 36vw, 10.75rem);
+    width: clamp(8.75rem, 38vw, 11.5rem);
   }
 
   .stopArtwork {
     width: 100%;
-    height: clamp(11.5rem, 28svh, 15.5rem);
-    margin-bottom: 0.55rem;
+    height: clamp(14rem, 31svh, 18rem);
+    margin-bottom: 0.65rem;
+
+    align-items: flex-end;
+    justify-content: center;
+    overflow: visible;
   }
 
   .stopImage {
+    display: block;
+
+    /* IMPORTANT: normalize by HEIGHT, not width. */
+    width: auto;
+    height: 100%;
+    max-width: none;
+    max-height: 100%;
+
+    object-fit: contain;
+    object-position: center bottom;
+
     filter: drop-shadow(0 10px 12px rgb(20 33 58 / 14%));
+    transform: scale(1.06);
+    transform-origin: center bottom;
+  }
+
+  /*
+   * Tiny source-specific corrections only.
+   * These compensate for transparent padding baked into some cutout files;
+   * they are NOT intended to make one building dominate another.
+   */
+  .stopItem[data-stop-index="0"] .stopImage {
+    transform: scale(1.08);
+  }
+
+  .stopItem[data-stop-index="1"] .stopImage {
+    transform: scale(1.08);
+  }
+
+  .stopItem[data-stop-index="2"] .stopImage {
+    /* 9 VTC has extra empty canvas in the source file. */
+    transform: scale(1.28);
+  }
+
+  .stopItem[data-stop-index="3"] .stopImage {
+    /* Keep 10 HQ large, but no longer much larger than VTC. */
+    transform: scale(1.02);
+  }
+
+  .stopItem[data-stop-index="4"] .stopImage {
+    /* Malibu also contains extra transparent padding. */
+    transform: scale(1.24);
+  }
+
+  .stopItem[data-stop-index="5"] .stopImage {
+    transform: scale(1.08);
+  }
+
+  .stopItem[data-stop-index="6"] .stopImage {
+    transform: scale(1.08);
   }
 
   .stopName {
@@ -1145,13 +1210,9 @@
     letter-spacing: 0.035em;
   }
 
-  /* These two source cutouts have more empty transparent space around them. */
-  .vtcImage {
-    transform: scale(1.42);
-  }
-
+  .vtcImage,
   .malibuImage {
-    transform: scale(1.5);
+    transform-origin: center bottom;
   }
 }
 
