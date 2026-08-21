@@ -66,7 +66,7 @@ export default function NextPhoto() {
                         One city changed the way we think about distance..
                     </motion.h3>
 
-                    <div className={styles.botomtext}>
+                    {/* <div className={styles.botomtext}>
                         <motion.div variants={itemVariants}>
                             It's not about building more, <br />its a bout building closer.
                         </motion.div>
@@ -77,7 +77,7 @@ export default function NextPhoto() {
                         >
                             -The Copenhagen Way
                         </motion.span>
-                    </div>
+                    </div> */}
 
                 </div>
             </motion.div>

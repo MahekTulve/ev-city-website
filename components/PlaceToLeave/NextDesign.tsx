@@ -101,7 +101,7 @@ export default function NextDesign() {
         <div className={styles["right"]} id="inspiration">
           <img
             className={styles["heroImg"]}
-            src={"images/startDenmark.jpg"}
+            src={"images/startDenmark.png"}
             alt="Sunrise over the Nyhavn canal in Copenhagen with cyclists riding along the quay"
             width={1600}
             height={1104}

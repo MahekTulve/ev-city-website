@@ -82,7 +82,8 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
-// --- GSAP Preloader Animation ---
+  // --- GSAP Preloader Animation ---
+  // --- GSAP Preloader Animation ---
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const isMobile = window.innerWidth <= 768;
@@ -91,41 +92,44 @@ export default function LandingPage({ isNight }: LandingPageProps) {
         scrollTrigger: {
           trigger: introRef.current,
           start: "top top",
-          end: "+=100%",
-          scrub: 0.5,
+          end: "+=300%", // Scroll distance ko bada kiya taaki animation complete hone tak page pin rahe
+          scrub: true, // Smooth scrub effect ke liye true ya choti value rakhein (jaise 0.5 ya 1)
           pin: true,
+          anticipatePin: 1,
         },
       });
 
-      tl.to(`.${styles.preloaderGlyph}`, { opacity: 1, duration: 0.3 })
-        .to(`.${styles.lockupEra}`, { opacity: 1, y: 0, duration: 0.3 }, "-=0.1")
-        .to(`.${styles.lockupResidence}`, { opacity: 1, y: 0, duration: 0.3 }, "-=0.2")
-        .to(`.${styles.lockupScript}`, { opacity: 1, duration: 0.3 }, "-=0.1")
-        .to(`.${styles.watermark}`, { opacity: 1, duration: 0.4 }, "-=0.2")
-        .to(`.${styles.preloaderFrame}`, { opacity: 1, duration: 0.4 }, "-=0.2")
-        .to(`.${styles.preloaderRule}`, { opacity: 1, duration: 0.3 }, "-=0.2")
-        .to(`.${styles.preloaderFoot}`, { opacity: 1, duration: 0.3 }, "-=0.2");
+      // Step 1: Preloader text aur elements ka fade-in
+      tl.to(`.${styles.preloaderGlyph}`, { opacity: 1, duration: 0.5 })
+        .to(`.${styles.lockupEra}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
+        .to(`.${styles.lockupResidence}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
+        .to(`.${styles.lockupScript}`, { opacity: 1, duration: 0.5 }, "-=0.3")
+        .to(`.${styles.watermark}`, { opacity: 1, duration: 0.6 }, "-=0.3")
+        .to(`.${styles.preloaderFrame}`, { opacity: 1, duration: 0.6 }, "-=0.3")
+        .to(`.${styles.preloaderRule}`, { opacity: 1, duration: 0.5 }, "-=0.3")
+        .to(`.${styles.preloaderFoot}`, { opacity: 1, duration: 0.5 }, "-=0.3");
 
-      tl.to(`.${styles.lockup}`, { opacity: 0, scale: 1.08, duration: 0.5 }, "+=0.1")
+      // Step 2: Lockup fade out aur arch expansion shuru
+      tl.to(`.${styles.lockup}`, { opacity: 0, scale: 1.08, duration: 0.8 }, "+=0.2")
         .to(
           archRef.current,
           {
-            // Mobile par 85vw width shrink animation clear dikhane ke liye
             width: isMobile ? "85vw" : "34vw",
             height: isMobile ? "70vh" : "78vh",
             borderTopLeftRadius: "50% 38%",
             borderTopRightRadius: "50% 38%",
-            duration: 0.5,
+            duration: 1,
             ease: "power1.inOut",
           },
-          "-=0.3",
+          "-=0.4",
         )
+        // Step 3: Arch ka poori tarah screen par expand hona (Jab tak yeh complete nahi hoga, pin khulega nahi)
         .to(archRef.current, {
           width: "100vw",
           height: "100vh",
           borderTopLeftRadius: "0%",
           borderTopRightRadius: "0%",
-          duration: 0.5,
+          duration: 1.2,
           ease: "power2.out",
         });
     }, introRef);
