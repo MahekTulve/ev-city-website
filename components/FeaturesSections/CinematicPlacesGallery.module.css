@@ -547,7 +547,8 @@
 
 @media (max-width: 700px) {
   .section {
-    height: 275vh;
+    /* Faster mobile scroll: shorter sticky animation distance. */
+    height: 215vh;
   }
 
   .stickyContainer,
@@ -654,7 +655,8 @@
 
 @media (max-width: 480px) {
   .section {
-    height: 260vh;
+    /* Keep narrow phones even snappier. */
+    height: 205vh;
   }
 
   .stickyContainer,

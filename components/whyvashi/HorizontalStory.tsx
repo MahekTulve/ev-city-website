@@ -1,6 +1,12 @@
 "use client";
 
-import { useEffect, useId, useRef, useState } from "react";
+import {
+  useEffect,
+  useId,
+  useRef,
+  useState,
+  type CSSProperties,
+} from "react";
 import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
 import VashiDenmark from "../AboutSections/Vashidenmark";
@@ -14,6 +20,20 @@ const TIMELINE_END = 0.85;
 
 // The cloud bridge fades in as the sticky section hands over to VashiLetter.
 const CLOUD_START = 0.82;
+
+// Phone-only timing: once the third panel is fully in place, use the rest of
+// the sticky scroll to travel across the enlarged building timeline.
+const MOBILE_BREAKPOINT = 520;
+const MOBILE_SCROLL_LENGTH_VH = 500;
+const MOBILE_HORIZONTAL_END = 0.56;
+const MOBILE_TIMELINE_START = MOBILE_HORIZONTAL_END;
+const MOBILE_TIMELINE_END = 0.93;
+const MOBILE_CLOUD_START = 0.91;
+
+// The phone timeline is 300vw wide. Start it 12vw inside the screen and move
+// it by 220vw so roughly two buildings stay readable at a time.
+const MOBILE_ROUTE_START_X_VW = 12;
+const MOBILE_ROUTE_TRAVEL_VW = 220;
 
 const PATH_WIDTH = 1480;
 const PATH_HEIGHT = 100;
@@ -88,9 +108,26 @@ const clamp = (value: number, min = 0, max = 1) =>
 const mapProgress = (value: number, start: number, end: number) =>
   clamp((value - start) / (end - start));
 
+function useMediaQuery(query: string) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(query);
+    const update = () => setMatches(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+
+    return () => mediaQuery.removeEventListener("change", update);
+  }, [query]);
+
+  return matches;
+}
+
 export default function HorizontalStory() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
+  const isPhone = useMediaQuery(`(max-width: ${MOBILE_BREAKPOINT}px)`);
 
   const generatedId = useId();
   const routeClipId = `route-clip-${generatedId.replace(/:/g, "")}`;
@@ -169,25 +206,37 @@ export default function HorizontalStory() {
     };
   }, []);
 
-  const horizontalProgress = mapProgress(progress, 0, HORIZONTAL_END);
+  const horizontalEnd = isPhone ? MOBILE_HORIZONTAL_END : HORIZONTAL_END;
+  const timelineStart = isPhone ? MOBILE_TIMELINE_START : TIMELINE_START;
+  const timelineEnd = isPhone ? MOBILE_TIMELINE_END : TIMELINE_END;
+  const cloudStart = isPhone ? MOBILE_CLOUD_START : CLOUD_START;
 
-  const timelineProgress = mapProgress(progress, TIMELINE_START, TIMELINE_END);
-
-  const cloudProgress = mapProgress(progress, CLOUD_START, 1);
+  const horizontalProgress = mapProgress(progress, 0, horizontalEnd);
+  const timelineProgress = mapProgress(progress, timelineStart, timelineEnd);
+  const cloudProgress = mapProgress(progress, cloudStart, 1);
 
   const shift = horizontalProgress * (PANELS - 1) * 100;
 
+  // On phones keep enough route visible for the first two buildings immediately,
+  // then continue drawing it as the enlarged timeline travels left.
+  const routeRevealProgress = isPhone
+    ? Math.max(0.23, timelineProgress)
+    : timelineProgress;
+
   const routeRevealWidth =
-    timelineProgress >= 0.999
+    routeRevealProgress >= 0.999
       ? PATH_WIDTH
-      : Math.min(PATH_WIDTH, PATH_WIDTH * timelineProgress + 2);
+      : Math.min(PATH_WIDTH, PATH_WIDTH * routeRevealProgress + 2);
+
+  const mobileRouteX =
+    MOBILE_ROUTE_START_X_VW - timelineProgress * MOBILE_ROUTE_TRAVEL_VW;
 
   return (
     <div
       ref={wrapperRef}
       className={styles.wrapper}
       style={{
-        height: `${SCROLL_LENGTH_VH}vh`,
+        height: `${isPhone ? MOBILE_SCROLL_LENGTH_VH : SCROLL_LENGTH_VH}vh`,
       }}
     >
       <div className={styles.sticky}>
@@ -202,7 +251,7 @@ export default function HorizontalStory() {
           </div>
 
           <div className={`${styles.panel} ${styles.golden}`}>
-          <VashiDenmark />
+            <VashiDenmark />
 
             {/* <h2 className={styles.goldenType}>
               <span>THE 5</span>
@@ -262,7 +311,15 @@ export default function HorizontalStory() {
             </div>
 
             <div className={styles.timeline}>
-              <div className={styles.routeStage}>
+              <div className={styles.timelineViewport}>
+                <div
+                  className={styles.routeStage}
+                  style={
+                    {
+                      "--mobile-route-x": `${mobileRouteX}vw`,
+                    } as CSSProperties
+                  }
+                >
                 <svg
                   className={styles.timelineSvg}
                   viewBox={`0 0 ${PATH_WIDTH} ${PATH_HEIGHT}`}
@@ -293,13 +350,20 @@ export default function HorizontalStory() {
                   />
 
                   {STOPS.map((stop, index) => {
-                    const revealPoint = (index / (STOPS.length - 1)) * 0.94;
+                    const revealPoint = isPhone
+                      ? index <= 1
+                        ? 0
+                        : ((index - 1) / (STOPS.length - 2)) * 0.88
+                      : (index / (STOPS.length - 1)) * 0.94;
 
-                    const dotProgress = mapProgress(
-                      timelineProgress,
-                      revealPoint,
-                      Math.min(1, revealPoint + 0.055),
-                    );
+                    const dotProgress =
+                      isPhone && index <= 1
+                        ? 1
+                        : mapProgress(
+                            timelineProgress,
+                            revealPoint,
+                            Math.min(1, revealPoint + (isPhone ? 0.05 : 0.055)),
+                          );
 
                     return (
                       <circle
@@ -319,13 +383,20 @@ export default function HorizontalStory() {
                 </svg>
 
                 {STOPS.map((stop, index) => {
-                  const revealPoint = (index / (STOPS.length - 1)) * 0.9;
+                  const revealPoint = isPhone
+                    ? index <= 1
+                      ? 0
+                      : ((index - 1) / (STOPS.length - 2)) * 0.88
+                    : (index / (STOPS.length - 1)) * 0.9;
 
-                  const stopProgress = mapProgress(
-                    timelineProgress,
-                    revealPoint,
-                    Math.min(1, revealPoint + 0.065),
-                  );
+                  const stopProgress =
+                    isPhone && index <= 1
+                      ? 1
+                      : mapProgress(
+                          timelineProgress,
+                          revealPoint,
+                          Math.min(1, revealPoint + (isPhone ? 0.055 : 0.065)),
+                        );
 
                   const xPercentage = (stop.x / PATH_WIDTH) * 100;
 
@@ -365,6 +436,7 @@ export default function HorizontalStory() {
                     </div>
                   );
                 })}
+                </div>
               </div>
             </div>
           </div>
