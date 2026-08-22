@@ -15,7 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}>
+      <body 
+      suppressHydrationWarning={true}
+      style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}>
         {/* <Navbar /> */}
         <main>
           {children}
