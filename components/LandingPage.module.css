@@ -1,6 +1,7 @@
-/* Fonts are loaded via non-blocking <link> tags in the index route head. */
-
-
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 .root {
   --wine: #050502;
   --wine-deep: #060405;
@@ -646,7 +647,6 @@
   overflow: hidden;
 }
 
-/* Background overlay layers logic */
 .bgLayer {
   position: absolute;
   inset: 0;
@@ -662,8 +662,7 @@
   will-change: opacity;
 }
 
-/* background-image is applied inline from bundled assets in LandingPage.tsx
-   so Vite can hash, optimize and preload them. */
+
 .dayBg,
 .nightBg {
   background-size: cover;
