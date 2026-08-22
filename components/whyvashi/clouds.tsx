@@ -38,6 +38,8 @@ function CloudLayer({
                   <img
                     src={src}
                     alt=""
+                    loading="lazy"
+                    decoding="async"
                     draggable={false}
                     className={`${styles.cloudImage} ${imageClass} ${
                       flipped ? styles.cloudImageFlipped : ""

@@ -43,7 +43,7 @@ export default function NextPhoto() {
                     src="/images/denmarkbottom.png"
                     alt="Atmospheric mountain landscape"
                     fill
-                    priority
+                    loading="lazy"
                     className={styles.bgImage}
                     sizes="100vw"
                 />
