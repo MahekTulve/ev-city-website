@@ -82,6 +82,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letter
 };
 
 export default function LandingPage({ isNight }: LandingPageProps) {
+  
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
