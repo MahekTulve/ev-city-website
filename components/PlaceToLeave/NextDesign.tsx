@@ -67,7 +67,8 @@ export default function NextDesign() {
           className={styles["heroImg"]}
           src={"images/startDenmark.jpeg"}
           alt="Sunrise over the Nyhavn canal in Copenhagen with cyclists riding along the quay"
-
+          loading="lazy"
+          decoding="async"
         />
         <div className={styles["left"]}>
           <div className={styles["brand"]}>
@@ -127,7 +128,8 @@ export default function NextDesign() {
           className={styles["skechImage"]}
           src={"images/denamrkskech.png"}
           alt="skech"
-
+          loading="lazy"
+          decoding="async"
         />
         {/* <h2 className={styles["whyHeading"]}>
           A city that proves progress is possible when{" "}

@@ -69,12 +69,16 @@ const PlaceToLive = () => {
                         <img
                             src="/images/denmarkcut1.png"
                             alt="Architecture 1"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                     <div className={styles.imageCard} ref={cardTwoRef}>
                         <img
                             src="/images/denmarkcut2.png"
                             alt="Architecture 2"
+                            loading="lazy"
+                            decoding="async"
                         />
                     </div>
                 </div>
