@@ -1120,12 +1120,12 @@
   }
 
   .introEyebrow {
-    font-size: 0.58rem;
+    font-size: 0.9rem;
     letter-spacing: 0.28em;
   }
 
   .introVashi {
-    font-size: clamp(2.8rem, 15vw, 4rem);
+    font-size: 18vw;
   }
 
   .introNextRow {
@@ -1134,16 +1134,16 @@
   }
 
   .introNext {
-    font-size: 0.56rem;
+    font-size: 0.9rem;
     letter-spacing: 0.24em;
   }
 
   .introAddress {
-    font-size: clamp(1.55rem, 8.9vw, 2.5rem);
+    font-size: 10vw;
   }
 
   .introSubtitle {
-    font-size: 0.74rem;
+    font-size: 1rem;
     line-height: 1.22;
   }
 
@@ -1152,18 +1152,18 @@
   }
 
   .bigTitle {
-    font-size: clamp(1.35rem, 6.7vw, 1.85rem);
+    font-size: 8vw;
   }
 
   .recordCopy {
-    height: 150px;
-    min-height: 150px;
-    flex-basis: 150px;
+    height: 180px;
+    min-height: 180px;
+    flex-basis: 180px;
   }
 
   .recordSubtitle,
   .subtitleHighlight {
-    font-size: 0.76rem;
+    font-size: 0.8rem;
   }
 
   .subtitleHighlightRow {
