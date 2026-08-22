@@ -1,10 +1,15 @@
-import { useLayoutEffect, useRef, useState, useEffect } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./LandingPage.module.css";
-import { motion, Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
+
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Mobile browsers fire resize events every time the address bar shows/hides.
+// Ignoring those stops the pinned section from jumping mid-scroll.
+ScrollTrigger.config({ ignoreMobileResize: true });
 
 function Glyph({ className }: { className?: string | undefined }) {
   return (
@@ -74,61 +79,66 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letter
   );
 };
 
-interface LandingPageProps {
-  isNight: boolean;
-}
-
-export default function LandingPage({ isNight }: LandingPageProps) {
+export default function LandingPage() {
+  const [isNight, setIsNight] = useState(false);
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
-  // --- GSAP Preloader Animation ---
-  // --- GSAP Preloader Animation ---
+  // --- GSAP Preloader + Arch Animation ---
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth <= 768;
+      const isMobile = () => window.innerWidth <= 768;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: introRef.current,
           start: "top top",
-          end: "+=300%", // Scroll distance ko bada kiya taaki animation complete hone tak page pin rahe
-          scrub: true, // Smooth scrub effect ke liye true ya choti value rakhein (jaise 0.5 ya 1)
+          // Mobile par chota scroll distance = arch jaldi aata hai
+          end: () => (isMobile() ? "+=220%" : "+=300%"),
+          // scrub: 1 = 1s smoothing, taaki fast flick par animation jump
+          // na kare, smoothly catch-up ho
+          scrub: 1,
           pin: true,
           anticipatePin: 1,
+          // Bahut tez scroll par end state par snap karo, aadha-adhura
+          // arch state kabhi na dikhe
+          fastScrollEnd: true,
+          invalidateOnRefresh: true,
         },
       });
 
-      // Step 1: Preloader text aur elements ka fade-in
-      tl.to(`.${styles.preloaderGlyph}`, { opacity: 1, duration: 0.5 })
-        .to(`.${styles.lockupEra}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.2")
-        .to(`.${styles.lockupResidence}`, { opacity: 1, y: 0, duration: 0.5 }, "-=0.3")
-        .to(`.${styles.lockupScript}`, { opacity: 1, duration: 0.5 }, "-=0.3")
-        .to(`.${styles.watermark}`, { opacity: 1, duration: 0.6 }, "-=0.3")
-        .to(`.${styles.preloaderFrame}`, { opacity: 1, duration: 0.6 }, "-=0.3")
-        .to(`.${styles.preloaderRule}`, { opacity: 1, duration: 0.5 }, "-=0.3")
-        .to(`.${styles.preloaderFoot}`, { opacity: 1, duration: 0.5 }, "-=0.3");
+      // Step 1: Preloader text aur elements ka fade-in (thoda tight timing,
+      // taaki arch jaldi arrive ho)
+      tl.to(`.${styles['preloaderGlyph']}`, { opacity: 1, duration: 0.4 })
+        .to(`.${styles['lockupEra']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2")
+        .to(`.${styles['lockupResidence']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.25")
+        .to(`.${styles['lockupScript']}`, { opacity: 1, duration: 0.4 }, "-=0.25")
+        .to(`.${styles['watermark']}`, { opacity: 1, duration: 0.5 }, "-=0.25")
+        .to(`.${styles['preloaderFrame']}`, { opacity: 1, duration: 0.5 }, "-=0.25")
+        .to(`.${styles['preloaderRule']}`, { opacity: 1, duration: 0.4 }, "-=0.25")
+        .to(`.${styles['preloaderFoot']}`, { opacity: 1, duration: 0.4 }, "-=0.25");
 
-      // Step 2: Lockup fade out aur arch expansion shuru
-      tl.to(`.${styles.lockup}`, { opacity: 0, scale: 1.08, duration: 0.8 }, "+=0.2")
+      // Step 2: Lockup fade out aur arch ka scale-in.
+      // IMPORTANT: width/height ki jagah scaleX/scaleY (GPU transform) —
+      // layout recalculation nahi hota, isliye mobile par lag nahi hota.
+      tl.to(`.${styles['lockup']}`, { opacity: 0, scale: 1.08, duration: 0.7 }, "+=0.1")
         .to(
           archRef.current,
           {
-            width: isMobile ? "85vw" : "34vw",
-            height: isMobile ? "70vh" : "78vh",
-            borderTopLeftRadius: "50% 38%",
-            borderTopRightRadius: "50% 38%",
+            scaleX: () => (isMobile() ? 0.85 : 0.34),
+            scaleY: () => (isMobile() ? 0.7 : 0.78),
             duration: 1,
             ease: "power1.inOut",
           },
-          "-=0.4",
+          "-=0.45",
         )
-        // Step 3: Arch ka poori tarah screen par expand hona (Jab tak yeh complete nahi hoga, pin khulega nahi)
+        // Step 3: Arch poori screen par scale-out (pin tabhi khulta hai jab
+        // yeh complete ho jata hai)
         .to(archRef.current, {
-          width: "100vw",
-          height: "100vh",
-          borderTopLeftRadius: "0%",
-          borderTopRightRadius: "0%",
+          scaleX: 1,
+          scaleY: 1,
+          borderTopLeftRadius: "0% 0%",
+          borderTopRightRadius: "0% 0%",
           duration: 1.2,
           ease: "power2.out",
         });
@@ -177,73 +187,73 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   };
 
   const renderMainSections = () => (
-    <div className={styles.heroSceneWrapper}>
+    <div className={styles['heroSceneWrapper']}>
       <div
-        className={`${styles.bgLayer} ${styles.nightBg}`}
-        style={{ opacity: isNight ? 1 : 0 }}
+        className={`${styles['bgLayer']} ${styles['nightBg']}`}
+        style={{ opacity: isNight ? 1 : 0, backgroundImage: `url('/images/nightThemeOne.webp')` }}
       />
       <div
-        className={`${styles.bgLayer} ${styles.dayBg}`}
-        style={{ opacity: isNight ? 0 : 1 }}
+        className={`${styles['bgLayer']} ${styles['dayBg']}`}
+        style={{ opacity: isNight ? 0 : 1, backgroundImage: `url('/images/vashicityDayOne.webp')` }}
       />
 
 
-      <header className={styles.hero}>
+      <header className={styles['hero']}>
         <motion.div
-          className={`${styles.heroInner} ${isNight ? styles.nightTheme : styles.dayTheme}`}
+          className={`${styles['heroInner']} ${isNight ? styles['nightTheme'] : styles['dayTheme']}`}
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
         >
           <motion.p
-            className={styles.subHeaderGold}
+            className={styles['subHeaderGold']}
             variants={blockVariants}
           >
             THE FUTURE OF
           </motion.p>
 
           <motion.h1
-            className={styles.heroEra}
+            className={styles['heroEra']}
             variants={blockVariants}
           >
             <span>THE CITY</span>
           </motion.h1>
 
           <motion.div
-            className={styles.glowingBorderLine}
+            className={styles['glowingBorderLine']}
             variants={blockVariants}
           />
 
           <motion.span
-            className={styles.subHeaderGoldBottom}
+            className={styles['subHeaderGoldBottom']}
             variants={blockVariants}
           >
             ISN’T MEASURED IN KMS
           </motion.span>
 
-          <div className={styles.rightContentBlock}>
+          <div className={styles['rightContentBlock']}>
             <motion.span
-              className={styles.subHeaderGoldRight}
+              className={styles['subHeaderGoldRight']}
               variants={blockVariants}
             >
               IT’S MEASURED IN
             </motion.span>
 
             <motion.h2
-              className={styles.secondaryTitleLarge}
+              className={styles['secondaryTitleLarge']}
               variants={blockVariants}
             >
               <span>MOMENTS</span>
             </motion.h2>
 
             <motion.div
-              className={styles.glowintwo}
+              className={styles['glowintwo']}
               style={{ transformOrigin: "center" }}
               variants={blockVariants}
             />
 
-            <div className={styles.momentsSubtitleRow}>
+            <div className={styles['momentsSubtitleRow']}>
               <TypewriterText text="moments saved," letterVariants={letterVariants} delay={2.8} />
               <TypewriterText text="moments shared," letterVariants={letterVariants} delay={3.4} />
               <TypewriterText text="moments remembered." letterVariants={letterVariants} delay={4.0} />
@@ -255,33 +265,51 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   );
 
   return (
-    <div className={styles.root}>
-      <section className={styles.introSection} ref={introRef}>
-        <span className={styles.preloaderFrame} />
-        <span className={styles.watermark}>Vashi</span>
-        <Glyph className={styles.preloaderGlyph} />
+    <div className={styles['root']}>
+      <section className={styles['introSection']} ref={introRef}>
+        <span className={styles['preloaderFrame']} />
+        <span className={styles['watermark']}>Vashi</span>
+        <Glyph className={styles['preloaderGlyph']} />
 
-        <div className={styles.preloaderRow}>
-          <span className={styles.lockup}>
-            <span className={styles.lockupEra}>THe</span>
-            <span className={styles.lockupResidence}>
-              <span className={styles.fivenum}>5</span> Minute City
+        <div className={styles['preloaderRow']}>
+          <span className={styles['lockup']}>
+            <span className={styles['lockupEra']}>THe</span>
+            <span className={styles['lockupResidence']}>
+              <span className={styles['fivenum']}>5</span> Minute City
             </span>
-            <span className={styles.lockupScript}>Time, Redefined</span>
+            <span className={styles['lockupScript']}>Time, Redefined</span>
           </span>
         </div>
 
-        <span className={styles.preloaderRule} />
-        <p className={styles.preloaderFoot}>
+        <span className={styles['preloaderRule']} />
+        <p className={styles['preloaderFoot']}>
           ev homes
           <br />
           A place to return to.
         </p>
 
-        <div className={styles.arch} ref={archRef}>
-          <div className={styles.archInnerWrapper}>{renderMainSections()}</div>
+        <div className={styles['arch']} ref={archRef}>
+          <div className={styles['archInnerWrapper']}>{renderMainSections()}</div>
         </div>
       </section>
+
+      <button
+        type="button"
+        className={styles['toggleWrap']}
+        onClick={() => setIsNight((v) => !v)}
+        aria-label={isNight ? "Switch to day theme" : "Switch to night theme"}
+      >
+        <span className={styles['toggle']}>
+          <span className={!isNight ? styles['toggleOn'] : styles['toggleOff']}>Day</span>
+          <span className={styles['toggleTrack']}>
+            <span
+              className={styles['toggleKnob']}
+              style={{ left: isNight ? "calc(100% - 5px)" : "0px" }}
+            />
+          </span>
+          <span className={isNight ? styles['toggleOn'] : styles['toggleOff']}>Night</span>
+        </span>
+      </button>
     </div>
   );
 }

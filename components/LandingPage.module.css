@@ -1,14 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+/* Fonts are loaded via non-blocking <link> tags in the index route head. */
+
 
 .root {
   --wine: #050502;
   --wine-deep: #060405;
   --cream: #f6f1e7;
   min-height: 100vh;
-  /* background: var(--wine-deep); */
   color: var(--cream);
   font-family: "Jost", sans-serif;
   overflow-x: hidden;
@@ -20,7 +17,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  /* background: var(--wine); */
+  height: 100svh; /* stable on mobile: ignores address-bar show/hide */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,17 +27,25 @@
 
 .arch {
   position: absolute;
-  left: 50%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
   bottom: 0;
-  transform: translateX(-50%);
-  /* translate ki jagah transform use karein */
-  width: 0;
-  height: 0;
+  /* The box stays full-size; GSAP grows it with GPU-composited scale
+     transforms instead of animating width/height (which forced a costly
+     layout recalculation on every scroll frame = mobile lag). */
+  width: 100vw;
+  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   border-top-left-radius: 50% 38%;
   border-top-right-radius: 50% 38%;
   z-index: 3;
-  will-change: width, height, border-radius;
+  transform: scale(0);
+  transform-origin: 50% 100%;
+  will-change: transform;
+  backface-visibility: hidden;
+  contain: paint;
 }
 
 .archInnerWrapper {
@@ -48,11 +53,12 @@
   left: 50%;
   bottom: 0;
   transform: translateX(-50%);
-  /* translate ki jagah transform */
   width: 100vw;
   height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
+  height: 100svh;
+  /* No nested scrolling: touch gestures must always drive the pinned
+     ScrollTrigger, otherwise mobile scroll gets hijacked mid-animation. */
+  overflow: hidden;
 }
 
 .archMedia {
@@ -252,6 +258,7 @@
 .hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
   flex-direction: column;
   /* justify-content: center; */
@@ -633,8 +640,8 @@
 .heroSceneWrapper {
   position: relative;
   width: 100vw;
-  /* 100% ki jagah 100vw karein taaki yeh hamesha full screen width le */
   min-height: 100vh;
+  min-height: 100svh;
   background-color: var(--wine-deep);
   overflow: hidden;
 }
@@ -655,12 +662,12 @@
   will-change: opacity;
 }
 
-.dayBg {
-  background-image: url('/images/vashicityDayOne.webp');
-}
-
+/* background-image is applied inline from bundled assets in LandingPage.tsx
+   so Vite can hash, optimize and preload them. */
+.dayBg,
 .nightBg {
-  background-image: url('/images/nightThemeOne.webp');
+  background-size: cover;
+  
 }
 
 /* ---------------- Scene section ---------------- */
@@ -1060,6 +1067,7 @@
     padding-left: 0;
     white-space: normal;
     font-size: clamp(1.2rem, 5vw, 1.8rem);
+    line-height: 1.6; /* script font ke descenders overlap na karein */
   }
 
   .hero {
@@ -1127,6 +1135,30 @@
 
   .bgLayer {
     height: 100vh;
+    height: 100svh;
     object-fit: cover;
+  }
+}
+
+/* ---------------- Day/Night toggle (fixed chrome) ---------------- */
+
+.toggleWrap {
+  position: fixed;
+  right: 2rem;
+  bottom: 2rem;
+  z-index: 40;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  color: var(--cream);
+  mix-blend-mode: difference;
+  font-family: inherit;
+}
+
+@media (max-width: 768px) {
+  .toggleWrap {
+    right: 1rem;
+    bottom: 1.2rem;
   }
 }
