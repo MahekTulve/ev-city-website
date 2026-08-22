@@ -19,9 +19,14 @@
   text-align: center;
   letter-spacing: 0.1em;
   font-size: 12px;
-  color: #d9ae59;
   font-family: "Helvetica", sans-serif;
   margin-bottom: 8px;
+
+  /* Gradient Text Properties */
+  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .topLabel::before,
@@ -32,7 +37,7 @@
   width: 50px;
   height: 2px;
   margin: 0 12px;
-  background-color: #d9ae59;
+  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
 }
 
 .title {
@@ -50,14 +55,8 @@
 }
 
 .title .big {
-  background-image: linear-gradient(
-    10deg,
-    transparent 0%,
-    #b98f2c 35%,
-    #fcea93 50%,
-    #b98f2c 70%,
-    transparent 100%
-  );
+   background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
+
   font-family: "Times New Roman", Times, serif;
   -webkit-background-clip: text;
   background-clip: text;
@@ -67,7 +66,7 @@
 .subtitle {
   text-align: center;
   font-family: "cormorant garamond", serif;
-  font-size: 16px;
+  font-size: 1.1rem;
   margin-top: 6px;
   line-height: 1.4;
   letter-spacing: 0.08rem;
@@ -219,9 +218,14 @@
 .nodeMin {
   font-size: 10px;
   letter-spacing: 0.3em;
-  color: #d4af37;
   margin-bottom: 8px;
   font-family: "Helvetica", sans-serif;
+
+  /* Gradient Text Properties */
+  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .nodeCircle {
@@ -242,23 +246,33 @@
 
 .nodeLabel {
   margin-top: 12px;
-  color: #e4ba59;
   font-family: "Helvetica", sans-serif;
   font-size: 12px;
   letter-spacing: 0.15em;
   text-align: center;
   width: 100%;
   white-space: nowrap;
+
+  /* Gradient Text Properties */
+  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .nodeSub {
-  color: #b8ac8a;
   font-family: "Helvetica-Light", "Helvetica", sans-serif;
   font-size: 11px;
   margin-top: 2px;
   text-align: center;
   width: 100%;
   white-space: nowrap;
+
+  /* Gradient Text Properties */
+  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .center {

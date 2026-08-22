@@ -191,13 +191,13 @@
 }
 
 .eyebrowVashi {
-  font-size: 2.8rem;
+  font-size: 2.5rem;
   letter-spacing: 30px;
 }
 
 .eyebrowIs {
   margin-top: 0.16em;
-  font-size: 0.78em;
+  font-size: 2em;
   letter-spacing: 0.34em;
   padding-left: 0.34em;
   padding-bottom: 1rem;
@@ -1234,7 +1234,7 @@
    SMALL MOBILE
 ========================================================= */
 
-@media (max-width: 430px) {
+@media (max-width: 480px) {
   .hero {
     padding-top: 5.4rem;
   }
@@ -1264,7 +1264,7 @@
   }
 
   .heroWord {
-    font-size: 0.36rem;
+    font-size: 0.8rem;
 
     letter-spacing: 0.06em;
   }
@@ -1280,9 +1280,9 @@
   }
 
   .iconHolder {
-    width: 46px;
+    width: 60px;
 
-    height: 46px;
+    height: 60px;
   }
 
   .cardIcon {
@@ -1293,6 +1293,12 @@
 
   .cardBody h3 {
     margin-bottom: 0.35rem;
+    font-size: 0.9rem;
+  }
+
+  .cardBody p {
+    font-size: 0.8rem;
+
   }
 }
 
