@@ -4,7 +4,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./LandingPage.module.css";
 import { motion, type Variants } from "framer-motion";
 
-
+interface LandingPageProps {
+  isNight: boolean;
+}
 gsap.registerPlugin(ScrollTrigger);
 
 // Mobile browsers fire resize events every time the address bar shows/hides.
@@ -79,8 +81,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letter
   );
 };
 
-export default function LandingPage() {
-  const [isNight, setIsNight] = useState(false);
+export default function LandingPage({ isNight }: LandingPageProps) {
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
@@ -189,15 +190,13 @@ export default function LandingPage() {
   const renderMainSections = () => (
     <div className={styles['heroSceneWrapper']}>
       <div
-        className={`${styles['bgLayer']} ${styles['nightBg']}`}
-        style={{ opacity: isNight ? 1 : 0, backgroundImage: `url('/images/nightThemeOne.webp')` }}
-      />
-      <div
         className={`${styles['bgLayer']} ${styles['dayBg']}`}
         style={{ opacity: isNight ? 0 : 1, backgroundImage: `url('/images/vashicityDayOne.webp')` }}
       />
-
-
+      <div
+        className={`${styles['bgLayer']} `}
+        style={{ opacity: isNight ? 1 : 0, backgroundImage: `url('/images/nightThemeOne.webp')` }}
+      />
       <header className={styles['hero']}>
         <motion.div
           className={`${styles['heroInner']} ${isNight ? styles['nightTheme'] : styles['dayTheme']}`}
@@ -293,23 +292,6 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <button
-        type="button"
-        className={styles['toggleWrap']}
-        onClick={() => setIsNight((v) => !v)}
-        aria-label={isNight ? "Switch to day theme" : "Switch to night theme"}
-      >
-        <span className={styles['toggle']}>
-          <span className={!isNight ? styles['toggleOn'] : styles['toggleOff']}>Day</span>
-          <span className={styles['toggleTrack']}>
-            <span
-              className={styles['toggleKnob']}
-              style={{ left: isNight ? "calc(100% - 5px)" : "0px" }}
-            />
-          </span>
-          <span className={isNight ? styles['toggleOn'] : styles['toggleOff']}>Night</span>
-        </span>
-      </button>
     </div>
   );
 }
