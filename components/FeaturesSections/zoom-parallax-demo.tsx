@@ -413,9 +413,9 @@ export default function ZoomParallaxDemo() {
         <HorizontalStory />
       </div>
 
-      <div data-section>
+      {/* <div data-section>
         <Clouds />
-      </div>
+      </div> */}
 
       {/* <div data-section>
         <Blue />
