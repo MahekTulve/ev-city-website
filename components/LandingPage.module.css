@@ -6,7 +6,7 @@
   --wine: #050502;
   --wine-deep: #060405;
   --cream: #f6f1e7;
-  min-height: 100vh;
+  /* min-height: 100vh; */
   color: var(--cream);
   font-family: "Jost", sans-serif;
   overflow-x: hidden;
@@ -32,9 +32,6 @@
   right: 0;
   margin: 0 auto;
   bottom: 0;
-  /* The box stays full-size; GSAP grows it with GPU-composited scale
-     transforms instead of animating width/height (which forced a costly
-     layout recalculation on every scroll frame = mobile lag). */
   width: 100vw;
   height: 100vh;
   height: 100svh;

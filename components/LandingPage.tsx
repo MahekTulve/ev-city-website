@@ -12,6 +12,7 @@ gsap.registerPlugin(ScrollTrigger);
 // Mobile browsers fire resize events every time the address bar shows/hides.
 // Ignoring those stops the pinned section from jumping mid-scroll.
 ScrollTrigger.config({ ignoreMobileResize: true });
+// ScrollTrigger.normalizeScroll(true)
 
 function Glyph({ className }: { className?: string | undefined }) {
   return (
@@ -82,7 +83,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letter
 };
 
 export default function LandingPage({ isNight }: LandingPageProps) {
-  
+
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
 
@@ -99,7 +100,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
           end: () => (isMobile() ? "+=220%" : "+=300%"),
           // scrub: 1 = 1s smoothing, taaki fast flick par animation jump
           // na kare, smoothly catch-up ho
-          scrub: 1,
+          scrub: 0.5,
           pin: true,
           anticipatePin: 1,
           // Bahut tez scroll par end state par snap karo, aadha-adhura
@@ -191,12 +192,14 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const renderMainSections = () => (
     <div className={styles['heroSceneWrapper']}>
       <div
-        className={`${styles['bgLayer']} ${styles['dayBg']}`}
-        style={{ opacity: isNight ? 0 : 1, backgroundImage: `url('/images/vashicityDayOne.webp')` }}
-      />
-      <div
-        className={`${styles['bgLayer']} `}
-        style={{ opacity: isNight ? 1 : 0, backgroundImage: `url('/images/nightThemeOne.webp')` }}
+        className={`${styles.bgLayer} ${isNight ? styles.nightBg : styles.dayBg
+          }`}
+        style={{
+          backgroundImage: `url(${isNight
+              ? "/images/nightThemeOne.webp"
+              : "/images/vashicityDayOne.webp"
+            })`,
+        }}
       />
       <header className={styles['hero']}>
         <motion.div
