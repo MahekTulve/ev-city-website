@@ -417,9 +417,9 @@ export default function ZoomParallaxDemo() {
         <Clouds />
       </div>
 
-      <div data-section>
+      {/* <div data-section>
         <Blue />
-      </div>
+      </div> */}
 
       {/* <AboutFiveMinute /> */}
 

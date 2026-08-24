@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 
 .wrapper {
-    background-color: #f5f3ee;
+    background-color: #78a3d4;;
     width: 100%;
     position: relative;
     overflow: hidden;
@@ -10,7 +10,7 @@
 .container {
     position: relative;
     height: 100vh;
-    background-color: #f5f3ee;
+    background-color: #78a3d4;
     display: flex;
     justify-content: center;
     align-items: center;
