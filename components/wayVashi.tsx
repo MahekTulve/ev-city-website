@@ -107,7 +107,7 @@ const RECORDS: SlideRecord[] = [
       },
     ],
   },
-    {
+  {
     src: "/images/gateway.png",
     alt: "Vashi skyline illuminated at night",
     title: "THE GATEWAY CITY",
@@ -133,7 +133,7 @@ const RECORDS: SlideRecord[] = [
       },
     ],
   },
-    {
+  {
     src: "/images/5min_city.webp",
     alt: "Vashi skyline illuminated at night",
     title: "THE ECONOMIC SHIFT",
@@ -287,7 +287,7 @@ export default function WayVashi({
         y: 90,
       });
 
-     const tl = gsap.timeline({
+      const tl = gsap.timeline({
         scrollTrigger: {
           trigger: stageRef.current,
           start: "top top",
@@ -296,7 +296,7 @@ export default function WayVashi({
           pin: true,
           anticipatePin: 1,
           invalidateOnRefresh: true,
-          fastScrollEnd: true, 
+          fastScrollEnd: true,
           preventOverlaps: true,
         },
       });
@@ -523,14 +523,12 @@ export default function WayVashi({
     <div className={styles.next} ref={rootRef}>
       <section className={styles.archStage} ref={stageRef}>
         <div
-          className={`${styles.archBgLayer} ${styles.dayStageBg}`}
-          style={{ opacity: night ? 0 : 1 }}
+          className={`${styles.archBgLayer}  ${night ? styles.nightStageBg : styles.dayStageBg
+            }`}
+
         />
 
-        <div
-          className={`${styles.archBgLayer} ${styles.nightStageBg}`}
-          style={{ opacity: night ? 1 : 0 }}
-        />
+
 
         <div className={styles.dayNightButtonContainer}>
           <div className={styles.heroTagline}>
@@ -626,11 +624,10 @@ export default function WayVashi({
                   loading={index === 0 ? "eager" : "lazy"}
                   width={1280}
                   height={720}
-                  className={`${styles.slide} ${
-                    index === slide
+                  className={`${styles.slide} ${index === slide
                       ? styles.slideActive
                       : ""
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -673,9 +670,8 @@ export default function WayVashi({
                 <span
                   className={styles.sliderProgress}
                   style={{
-                    width: `${
-                      ((slide + 1) / RECORDS.length) * 100
-                    }%`,
+                    width: `${((slide + 1) / RECORDS.length) * 100
+                      }%`,
                   }}
                 />
               </span>
