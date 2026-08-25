@@ -40,7 +40,7 @@ export default function NextPhoto() {
         <section id="home" className={styles.hero} ref={ref}>
             <motion.div className={styles.bg} >
                 <Image
-                    src="/images/denmarkbottom.png"
+                    src="/images/denmar_bottom_cut.webp"
                     alt="Atmospheric mountain landscape"
                     fill
                     loading="lazy"
