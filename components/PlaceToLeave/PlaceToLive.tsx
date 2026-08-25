@@ -188,7 +188,7 @@ const PlaceToLive = () => {
                         ref={cardOneRef}
                     >
                         <img
-                            src="/images/denmarkcut1.png"
+                            src="/images/denmark_left.webp"
                             alt="Architecture 1"
                             loading="lazy"
                             decoding="async"
@@ -200,7 +200,7 @@ const PlaceToLive = () => {
                         ref={cardTwoRef}
                     >
                         <img
-                            src="/images/denmarkcut2.png"
+                            src="/images/denmark_right.webp"
                             alt="Architecture 2"
                             loading="lazy"
                             decoding="async"
