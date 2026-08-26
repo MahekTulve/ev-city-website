@@ -8,14 +8,15 @@
     width: 100%;
     position: relative;
     overflow: hidden;
-    background-color: #78a3d4;
+    /* background-color: #78a3d4; */
+        /* background: linear-gradient(#03050f 0%, #0e1420 20%, #10131b 40%, #1b2232 60%, #12161e 80%, #020202 100%); */
 }
 
 .container {
     position: relative;
     width: 100%;
     height: 100vh;
-    background-color: #78a3d4;
+    /* background-color: #78a3d4; */
 
     display: flex;
     justify-content: center;
@@ -23,6 +24,7 @@
 
     overflow: hidden;
     box-sizing: border-box;
+    background: linear-gradient(to bottom ,#0f1d27 0%, #172e3e 50%, #658b94 100%);
 
     font-family: 'Times New Roman', serif;
 }
@@ -94,23 +96,19 @@
     pointer-events: none;
     overflow: visible;
 
-    -webkit-mask-image: linear-gradient(
-        to bottom,
-        #000 0%,
-        #000 45%,
-        rgba(0, 0, 0, 0.9) 65%,
-        rgba(0, 0, 0, 0.45) 82%,
-        transparent 100%
-    );
+    -webkit-mask-image: linear-gradient(to bottom,
+            #000 0%,
+            #000 45%,
+            rgba(0, 0, 0, 0.9) 65%,
+            rgba(0, 0, 0, 0.45) 82%,
+            transparent 100%);
 
-    mask-image: linear-gradient(
-        to bottom,
-        #000 0%,
-        #000 45%,
-        rgba(0, 0, 0, 0.9) 65%,
-        rgba(0, 0, 0, 0.45) 82%,
-        transparent 100%
-    );
+    mask-image: linear-gradient(to bottom,
+            #000 0%,
+            #000 45%,
+            rgba(0, 0, 0, 0.9) 65%,
+            rgba(0, 0, 0, 0.45) 82%,
+            transparent 100%);
 }
 
 
@@ -124,13 +122,11 @@
 
     z-index: 1;
 
-    background: linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(243, 243, 236, 0.88) 30%,
-        rgba(243, 243, 236, 0.5) 60%,
-        transparent 100%
-    );
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 1) 0%,
+            rgba(243, 243, 236, 0.88) 30%,
+            rgba(243, 243, 236, 0.5) 60%,
+            transparent 100%);
 }
 
 
@@ -147,13 +143,11 @@
 
     z-index: 2;
 
-    background: linear-gradient(
-        to bottom,
-        rgba(243, 243, 236, 0.92),
-        rgba(243, 243, 236, 0.82) 45%,
-        rgba(243, 243, 236, 0.35) 75%,
-        transparent
-    );
+    background: linear-gradient(to bottom,
+            rgba(243, 243, 236, 0.92),
+            rgba(243, 243, 236, 0.82) 45%,
+            rgba(243, 243, 236, 0.35) 75%,
+            transparent);
 }
 
 
@@ -164,26 +158,18 @@
     z-index: 3;
 
     background:
-        radial-gradient(
-            40% 45% at 8% 5%,
+        radial-gradient(40% 45% at 8% 5%,
             rgba(243, 243, 236, 0.8),
-            transparent 75%
-        ),
-        radial-gradient(
-            44% 45% at 33% 5%,
+            transparent 75%),
+        radial-gradient(44% 45% at 33% 5%,
             rgba(243, 243, 236, 0.72),
-            transparent 75%
-        ),
-        radial-gradient(
-            44% 45% at 67% 5%,
+            transparent 75%),
+        radial-gradient(44% 45% at 67% 5%,
             rgba(243, 243, 236, 0.72),
-            transparent 75%
-        ),
-        radial-gradient(
-            40% 45% at 94% 5%,
+            transparent 75%),
+        radial-gradient(40% 45% at 94% 5%,
             rgba(243, 243, 236, 0.78),
-            transparent 75%
-        );
+            transparent 75%);
 }
 
 
@@ -267,7 +253,7 @@
     overflow: visible;
 }
 
-.cloudItem + .cloudItem {
+.cloudItem+.cloudItem {
     margin-left: -28vw;
 }
 
@@ -322,13 +308,9 @@
     transform-origin: center center;
 
     transform:
-        translate3d(
-            calc(-50% + var(--cloud-x)),
+        translate3d(calc(-50% + var(--cloud-x)),
             calc(-50% + var(--cloud-y)),
-            0
-        )
-        scale(var(--cloud-scale))
-        scaleX(var(--cloud-flip));
+            0) scale(var(--cloud-scale)) scaleX(var(--cloud-flip));
 
     will-change: transform;
 }
@@ -345,9 +327,7 @@
     opacity: 0.75;
 
     filter:
-        brightness(1.12)
-        contrast(0.92)
-        blur(0px);
+        brightness(1.12) contrast(0.92) blur(0px);
 }
 
 
@@ -358,9 +338,7 @@
     opacity: 0.9;
 
     filter:
-        brightness(1.08)
-        contrast(0.95)
-        blur(0.5px);
+        brightness(1.08) contrast(0.95) blur(0.5px);
 }
 
 
@@ -371,8 +349,7 @@
     opacity: 1;
 
     filter:
-        brightness(1.05)
-        contrast(1);
+        brightness(1.05) contrast(1);
 }
 
 
@@ -484,7 +461,7 @@
         height: 50vh;
     }
 
-    .cloudItem + .cloudItem {
+    .cloudItem+.cloudItem {
         margin-left: -25vw;
     }
 
@@ -506,6 +483,7 @@
 ========================================================= */
 
 @media (max-width: 1024px) {
+
     .imageCardOne,
     .imageCard {
         width: 38vw;
@@ -533,7 +511,7 @@
         height: 44vh;
     }
 
-    .cloudItem + .cloudItem {
+    .cloudItem+.cloudItem {
         margin-left: -44vw;
     }
 
@@ -592,7 +570,7 @@
         height: 38vh;
     }
 
-    .cloudItem + .cloudItem {
+    .cloudItem+.cloudItem {
         margin-left: -64vw;
     }
 
