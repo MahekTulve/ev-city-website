@@ -28,6 +28,8 @@ import NextPhoto from "../PlaceToLeave/NextPhoto";
 import NextDesign from "../PlaceToLeave/NextDesign";
 import Clouds from "../whyvashi/clouds";
 import Blue from "../whyvashi/blue";
+import SlideOverStack from "../SlideOverStack";
+import WhyCopenhagen from "../PlaceToLeave/whyCopenhagen";
 
 // --- Timing constants ---
 const WORD_DURATION = 500; // Increased to 600ms so words are easier to read
@@ -437,18 +439,68 @@ export default function ZoomParallaxDemo() {
           />
         </div>
       </div> */}
-      <PlaceToLive />
-      <NextPhoto />
-      <NextDesign />
-      {/* <div data-section>
-        <ExplainDenmark />
-      </div>
       <div data-section>
-        <VashiDenmark />
-      </div> */}
-      <div data-section>
-        <DenmarkToVashi />
+        <PlaceToLive />
+        <NextPhoto />
       </div>
+
+      <div data-section>
+        <NextDesign />
+      </div>
+
+
+
+
+      <SlideOverStack previous={<WhyCopenhagen />}>
+        <section className={styles.sharedSequence}>
+
+          <div className={styles.sharedShaderTrack} aria-hidden="true">
+            <div className={styles.sharedShaderSticky}>
+
+              <OptimizedShader
+                className={styles.sharedShader}
+                colors={[
+                  // "#000000",
+                  // "#01040a",
+                  // "#1F1611",
+                  // "#523828",
+                  // "#4e3e10",
+                  // "#251a04",
+
+                  // option 1
+                  "#03050f",
+                  "#0e1420",
+                  "#10131b",
+                  "#1b2232",
+                  "#12161e",
+                  "#020202",
+
+                  //option 2
+                  //  "#020202",
+                  // "#100b1f",
+                  // "#1a1622",
+                  // "#1c1a2b",
+                  // "#181620",
+                  // "#0f0a13",
+
+                ]}
+                speed={0.7}
+                showParticles={isCinematicVisible}
+                particleColor="#e6c88d"
+                particleCount={48}
+                particleLayout="text"
+                continuous={true}
+                burstKey={sparkleBurstKey}
+              />
+              <div className={styles.sharedShaderOverlay} />
+            </div>
+          </div>
+
+          <div className={styles.sharedSequenceContent} data-section>
+            <DenmarkToVashi />
+          </div>
+        </section>
+      </SlideOverStack>
 
       {/* <RealEstateJourney /> */}
     </main>

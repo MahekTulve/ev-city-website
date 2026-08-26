@@ -829,10 +829,13 @@
   }
 
 
-  .nightStageBg {
-    background-image: url("/images/VashiCitynextmonile.webp");
-  }
+ .dayStageBg {
+  background-image: url("/images/day_two_mobile.webp");
+}
 
+.nightStageBg {
+  background-image: url("/images/night_two_mobile.webp");
+}
   .domeOverlay {
     z-index: 2;
     background:

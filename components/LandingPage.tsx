@@ -194,12 +194,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
       <div
         className={`${styles.bgLayer} ${isNight ? styles.nightBg : styles.dayBg
           }`}
-        style={{
-          backgroundImage: `url(${isNight
-              ? "/images/nightThemeOne.webp"
-              : "/images/vashicityDayOne.webp"
-            })`,
-        }}
+        
       />
       <header className={styles['hero']}>
         <motion.div

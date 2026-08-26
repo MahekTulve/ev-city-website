@@ -8,6 +8,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Badge() {
   const ringRef = useRef<SVGSVGElement | null>(null);
+  const badgeContainerRef = useRef<HTMLDivElement | null>(null); // 1. Badge wrapper ref
   const [activeSection, setActiveSection] = useState("00");
   const [sectionProgress, setSectionProgress] = useState(0);
   const [totalSections, setTotalSections] = useState(0);
@@ -15,7 +16,7 @@ export default function Badge() {
   useEffect(() => {
     if (!ringRef.current) return;
 
-    // 1. Base infinite badge rotation
+    // Base infinite rotation
     const baseTween = gsap.to(ringRef.current, {
       rotation: "+=360",
       duration: 10,
@@ -24,25 +25,19 @@ export default function Badge() {
     });
 
     const speedProxy = { scale: 1 };
-
     const setTimeScale = gsap.quickTo(speedProxy, "scale", {
       duration: 0.6,
       ease: "power2.out",
-      onUpdate: () => {
-        baseTween.timeScale(speedProxy.scale);
-      },
+      onUpdate: () => baseTween.timeScale(speedProxy.scale),
     });
 
     let scrollTimeout: NodeJS.Timeout;
 
-    // 2. Velocity speed boost & direction handling
     const speedTrigger = ScrollTrigger.create({
       onUpdate: (self) => {
         clearTimeout(scrollTimeout);
-
         const isUp = self.direction === -1;
         const direction = isUp ? -1 : 1;
-
         const rawVelocity = Math.abs(self.getVelocity());
         const speedBoost = Math.min(1 + rawVelocity / 450, 2.5);
 
@@ -55,15 +50,12 @@ export default function Badge() {
       },
     });
 
-    // 3. Section Local Scroll Progress & Total Sections Tracker
     const timer = setTimeout(() => {
       let sections = document.querySelectorAll("[data-section]");
-
       if (sections.length === 0) {
         sections = document.querySelectorAll("section");
       }
 
-      // Total count save kar rahe hain
       setTotalSections(sections.length);
 
       sections.forEach((section, index) => {
@@ -71,13 +63,37 @@ export default function Badge() {
           trigger: section,
           start: "top top",
           end: "bottom top",
-          onUpdate: (self) => {
-            setSectionProgress(self.progress * 100);
-          },
+          onUpdate: (self) => setSectionProgress(self.progress * 100),
           onEnter: () => setActiveSection(String(index).padStart(2, "0")),
           onEnterBack: () => setActiveSection(String(index).padStart(2, "0")),
         });
       });
+
+      // 2. Footer me badge ko hide karne ka ScrollTrigger logic
+      const footerElement = document.querySelector("footer");
+      if (footerElement && badgeContainerRef.current) {
+        ScrollTrigger.create({
+          trigger: footerElement,
+          start: "top 80%", // Jab footer screen par dikhna shuru ho
+          end: "top top",
+          onEnter: () => {
+            gsap.to(badgeContainerRef.current, {
+              opacity: 0,
+              pointerEvents: "none",
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          },
+          onLeaveBack: () => {
+            gsap.to(badgeContainerRef.current, {
+              opacity: 1,
+              pointerEvents: "auto",
+              duration: 0.4,
+              ease: "power2.out",
+            });
+          },
+        });
+      }
 
       ScrollTrigger.refresh();
     }, 200);
@@ -92,20 +108,19 @@ export default function Badge() {
   }, []);
 
   const currentIndex = parseInt(activeSection, 10);
-
   const isLastSection = totalSections > 0 && currentIndex >= totalSections - 1;
   const nextSection = isLastSection ? "END" : String(currentIndex + 1).padStart(2, "0");
+
   const handleBadgeClick = () => {
     const targetSection = document.getElementById("vidiosection");
     if (targetSection) {
       targetSection.scrollIntoView({ behavior: "smooth" });
     }
   };
+
   return (
-    <>
-      <div className={Style.badge}
-        onClick={handleBadgeClick}
-      >
+    <div ref={badgeContainerRef} style={{ transition: "opacity 0.3s ease" }}>
+      <div className={Style.badge} onClick={handleBadgeClick}>
         <svg
           ref={ringRef}
           className={Style.badgeRing}
@@ -130,20 +145,16 @@ export default function Badge() {
 
       <div className={Style.rail} aria-hidden="true">
         <span className={Style.railCount}>{activeSection}</span>
-
-        {/* Dynamic Faded Fill Line */}
         <div className={Style.railLine}>
           <div
             className={Style.railLineProgress}
             style={{ height: `${sectionProgress}%` }}
           />
         </div>
-
         <span className={Style.nextnum}>{nextSection}</span>
-
         <span className={Style.railLabel}>Scroll</span>
         <span className={Style.railArrow} />
       </div>
-    </>
+    </div>
   );
 }

@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+
 .root {
   --wine: #050502;
   --wine-deep: #060405;
@@ -18,7 +19,8 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  height: 100svh; /* stable on mobile: ignores address-bar show/hide */
+  height: 100svh;
+  /* stable on mobile: ignores address-bar show/hide */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -657,13 +659,16 @@
   z-index: 1;
   transform: translateZ(0);
   will-change: opacity;
+
 }
 
 
-.dayBg,
+.dayBg {
+  background-image: url("/images/vashicityDayOne.webp");
+}
+
 .nightBg {
-  background-size: cover;
-  
+  background-image: url("/images/nightThemeOne.webp");
 }
 
 /* ---------------- Scene section ---------------- */
@@ -992,6 +997,15 @@
     inset: 1rem;
   }
 
+  .dayBg {
+    background-image: url("/images/day_one_mobile.webp");
+  }
+
+  .nightBg {
+    background-image: url("/images/night_one_mobile.webp");
+    /* Mobile Night Image */
+  }
+
   .preloaderGlyph {
     top: 2.5rem;
     width: 2.2rem;
@@ -1063,7 +1077,8 @@
     padding-left: 0;
     white-space: normal;
     font-size: clamp(1.2rem, 5vw, 1.8rem);
-    line-height: 1.6; /* script font ke descenders overlap na karein */
+    line-height: 1.6;
+    /* script font ke descenders overlap na karein */
   }
 
   .hero {
