@@ -96,6 +96,10 @@
   opacity: 0;
 }
 
+.watermarkdo {
+  display: none;
+}
+
 .watermark {
   position: absolute;
   left: 50%;
@@ -150,6 +154,7 @@
   background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
   -webkit-background-clip: text;
   background-clip: text;
+
 }
 
 .lockupEra {
@@ -158,8 +163,11 @@
 }
 
 .lockupResidence {
+  display: flex;
+  justify-content: center;
   font-size: clamp(3.4rem, 9.5vw, 9.5vw);
   opacity: 0;
+  flex-direction: row;
 }
 
 .fivenum {
@@ -951,11 +959,10 @@
   }
 }
 
-/* ==========================================================================
-   RESPONSIVE MEDIA QUERIES (Mobile & Tablet)
-   ========================================================================== */
+.mobileBreak {
+  display: none;
+}
 
-/* ---------------- Tablet (portrait & landscape) & Laptops ---------------- */
 @media (max-width: 1024px) {
 
   /* .rightContentBlock {
@@ -1023,23 +1030,85 @@
   }
 
   .lockupEra {
-    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-size: clamp(2.5rem, 8vw, 8vw);
+    text-align: left;
+    margin-bottom: 10px;
+    margin-left: 25px;
+
   }
 
+
+
   .lockupResidence {
-    font-size: clamp(2.2rem, 10vw, 4rem);
+    font-size: clamp(2.5rem, 8vw, 8vw);
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: center;
+  }
+
+  .colum {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: end;
+    margin-bottom: 4%;
+  }
+
+  .mobileBreak {
+    display: block;
+  }
+
+  .preloaderRule {
+    display: none;
+  }
+
+  .citycs {
+    display: flex;
+    background-image: linear-gradient(10deg, #0000 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, #0000 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 1px 2px #f6cc6c75);
+    letter-spacing: 1rem;
+  }
+
+  .watermark {
+    background-image: linear-gradient(#7070720e 0%, #dedfe50b 50%, #fcfcfe08 100%);
+    display: none;
+  }
+
+  .watermarkdo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 8rem;
+    position: absolute;
+    right: 1%;
+    top: 50%;
+    translate: -53% -50%;
+    font-size: 150px;
+    color: #61616114;
+    pointer-events: none;
+    opacity: 0;
+    font-family: "Bodoni Moda", serif;
+
   }
 
   .fivenum {
-    font-size: clamp(2.2rem, 10vw, 4rem);
+    font-size: clamp(18rem, 14vw, 14vw);
+    font-weight: 300;
+    background-image: linear-gradient(10deg, #0000 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, #0000 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    filter: drop-shadow(0 1px 2px #f6cc6c75);
+
   }
 
   .lockupScript {
     font-size: clamp(1.8rem, 6vw, 2.5rem);
-    margin-top: -15px;
+    margin-top: 15px;
   }
 
-  /* Main Hero Typography Fixes */
   .heroEra {
     white-space: normal;
     font-size: clamp(2.5rem, 11vw, 4.5rem);
@@ -1064,10 +1133,23 @@
     width: 100%;
   }
 
+
+
   .secondaryTitleLarge {
     font-size: clamp(2.8rem, 12vw, 4.5rem);
     padding-left: 0;
     white-space: normal;
+  }
+
+  .lockupEra,
+  .lockupResidence,
+  .lockupScript,
+  .preloaderGlyph,
+  .preloaderFrame,
+  .preloaderRule,
+  .preloaderFoot,
+  .watermark {
+    opacity: 1;
   }
 
   .momentsSubtitleRow {
@@ -1078,7 +1160,6 @@
     white-space: normal;
     font-size: clamp(1.2rem, 5vw, 1.8rem);
     line-height: 1.6;
-    /* script font ke descenders overlap na karein */
   }
 
   .hero {
@@ -1091,7 +1172,6 @@
     margin: 0.8rem 0;
   }
 
-  /* Floating UI Elements Adjustments */
   .badge {
     width: 4.5rem;
     height: 4.5rem;
@@ -1126,11 +1206,7 @@
   }
 }
 
-/* ---------------- Small Mobile Screens (max-width: 480px) ---------------- */
 @media (max-width: 480px) {
-  /* .heroInner {
-    padding: 4.5rem 1rem 2rem 1rem;
-  } */
 
   .heroEra {
     font-size: 2.4rem;
@@ -1149,9 +1225,45 @@
     height: 100svh;
     object-fit: cover;
   }
+
+  .colum {
+    margin-bottom: 7%;
+  }
+
+  .fivenum {
+    margin-left: 5px;
+
+  }
+
+  .watermarkdo {
+    right: -10%;
+  }
 }
 
-/* ---------------- Day/Night toggle (fixed chrome) ---------------- */
+@media (max-width: 375px) {
+  .watermarkdo {
+    font-size: 120px;
+    right: -8%;
+
+  }
+
+  .fivenum {
+    font-size: clamp(14rem, 14vw, 14vw);
+    margin-left: 1px;
+  }
+
+  .lockupEra {
+    font-size: clamp(2rem, 8vw, 8vw);
+  }
+
+  .Minutecs {
+    font-size: clamp(2.2rem, 8vw, 8vw);
+  }
+
+  .Minutecs {
+    font-size: clamp(2.2rem, 8vw, 8vw);
+  }
+}
 
 .toggleWrap {
   position: fixed;

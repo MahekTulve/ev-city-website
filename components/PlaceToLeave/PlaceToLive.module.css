@@ -451,14 +451,14 @@
 
     .cloudMarquee {
         top: 0vh;
-        height: 50vh;
+        height: 30vh;
     }
 
     .cloudItem {
         flex-basis: 42vw;
 
         width: 42vw;
-        height: 50vh;
+        height: 30vh;
     }
 
     .cloudItem+.cloudItem {

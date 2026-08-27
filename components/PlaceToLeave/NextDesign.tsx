@@ -63,13 +63,13 @@ export default function NextDesign() {
   return (
     <div className={styles["page"]}>
       <section className={styles["hero"]}>
-        <img
+        {/* <img
           className={styles["heroImg"]}
           src={"images/startDenmark.jpeg"}
           alt="Sunrise over the Nyhavn canal in Copenhagen with cyclists riding along the quay"
           loading="lazy"
           decoding="async"
-        />
+        /> */}
         <div className={styles["left"]}>
           <div className={styles["brand"]}>
             <svg className={styles["crown"]} viewBox="0 0 40 34" fill="none" stroke="currentColor" strokeWidth="1.3">

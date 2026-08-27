@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./LandingPage.module.css";
@@ -9,10 +9,7 @@ interface LandingPageProps {
 }
 gsap.registerPlugin(ScrollTrigger);
 
-// Mobile browsers fire resize events every time the address bar shows/hides.
-// Ignoring those stops the pinned section from jumping mid-scroll.
 ScrollTrigger.config({ ignoreMobileResize: true });
-// ScrollTrigger.normalizeScroll(true)
 
 function Glyph({ className }: { className?: string | undefined }) {
   return (
@@ -38,7 +35,19 @@ function Glyph({ className }: { className?: string | undefined }) {
   );
 }
 
-// --- TRUE TYPEWRITER TEXT COMPONENT ---
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  return isMobile;
+}
+
 interface TypewriterTextProps {
   text: string;
   className?: string;
@@ -50,12 +59,12 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letter
   const letters = Array.from(text);
 
   const containerVariants: Variants = {
-    hidden: { opacity: 1 }, // Container hamesha visible rahega taaki collapse na ho
+    hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
         delayChildren: delay,
-        staggerChildren: 0.04, // Typing speed (jitna kam, utna fast type hoga)
+        staggerChildren: 0.04,
       },
     },
   };
@@ -83,60 +92,50 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letter
 };
 
 export default function LandingPage({ isNight }: LandingPageProps) {
-
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
+  const isMobile = useIsMobile();
 
-  // --- GSAP Preloader + Arch Animation ---
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      const isMobile = () => window.innerWidth <= 768;
+      const isMobileDevice = () => window.innerWidth <= 768;
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: introRef.current,
           start: "top top",
-          // Mobile par chota scroll distance = arch jaldi aata hai
-          end: () => (isMobile() ? "+=220%" : "+=300%"),
-          // scrub: 1 = 1s smoothing, taaki fast flick par animation jump
-          // na kare, smoothly catch-up ho
+          end: () => (isMobileDevice() ? "+=220%" : "+=300%"),
           scrub: 0.5,
           pin: true,
           anticipatePin: 1,
-          // Bahut tez scroll par end state par snap karo, aadha-adhura
-          // arch state kabhi na dikhe
           fastScrollEnd: true,
           invalidateOnRefresh: true,
         },
       });
 
-      // Step 1: Preloader text aur elements ka fade-in (thoda tight timing,
-      // taaki arch jaldi arrive ho)
-      tl.to(`.${styles['preloaderGlyph']}`, { opacity: 1, duration: 0.4 })
-        .to(`.${styles['lockupEra']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2")
-        .to(`.${styles['lockupResidence']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.25")
-        .to(`.${styles['lockupScript']}`, { opacity: 1, duration: 0.4 }, "-=0.25")
-        .to(`.${styles['watermark']}`, { opacity: 1, duration: 0.5 }, "-=0.25")
-        .to(`.${styles['preloaderFrame']}`, { opacity: 1, duration: 0.5 }, "-=0.25")
-        .to(`.${styles['preloaderRule']}`, { opacity: 1, duration: 0.4 }, "-=0.25")
-        .to(`.${styles['preloaderFoot']}`, { opacity: 1, duration: 0.4 }, "-=0.25");
+      // Desktop baseline animations (Mobile par Motion component opacity handling sambhale-ga)
+      if (!isMobileDevice()) {
+        tl.to(`.${styles['preloaderGlyph']}`, { opacity: 1, duration: 0.4 })
+          .to(`.${styles['lockupEra']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2")
+          .to(`.${styles['lockupResidence']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.25")
+          .to(`.${styles['lockupScript']}`, { opacity: 1, duration: 0.4 }, "-=0.25")
+          .to(`.${styles['watermark']}`, { opacity: 1, duration: 0.5 }, "-=0.25")
+          .to(`.${styles['preloaderFrame']}`, { opacity: 1, duration: 0.5 }, "-=0.25")
+          .to(`.${styles['preloaderRule']}`, { opacity: 1, duration: 0.4 }, "-=0.25")
+          .to(`.${styles['preloaderFoot']}`, { opacity: 1, duration: 0.4 }, "-=0.25");
+      }
 
-      // Step 2: Lockup fade out aur arch ka scale-in.
-      // IMPORTANT: width/height ki jagah scaleX/scaleY (GPU transform) —
-      // layout recalculation nahi hota, isliye mobile par lag nahi hota.
       tl.to(`.${styles['lockup']}`, { opacity: 0, scale: 1.08, duration: 0.7 }, "+=0.1")
         .to(
           archRef.current,
           {
-            scaleX: () => (isMobile() ? 0.85 : 0.34),
-            scaleY: () => (isMobile() ? 0.7 : 0.78),
+            scaleX: () => (isMobileDevice() ? 0.85 : 0.34),
+            scaleY: () => (isMobileDevice() ? 0.7 : 0.78),
             duration: 1,
             ease: "power1.inOut",
           },
           "-=0.45",
         )
-        // Step 3: Arch poori screen par scale-out (pin tabhi khulta hai jab
-        // yeh complete ho jata hai)
         .to(archRef.current, {
           scaleX: 1,
           scaleY: 1,
@@ -155,8 +154,8 @@ export default function LandingPage({ isNight }: LandingPageProps) {
     visible: {
       opacity: 1,
       transition: {
-        delayChildren: 0.8,
-        staggerChildren: 0.25,
+        delayChildren: isMobile ? 0.1 : 0.8,
+        staggerChildren: isMobile ? 0.15 : 0.25,
       },
     },
   };
@@ -164,37 +163,72 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const blockVariants: Variants = {
     hidden: {
       opacity: 0,
-      y: 60,
+      y: isMobile ? 35 : 60,
     },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.9,
+        duration: isMobile ? 0.6 : 0.9,
         ease: [0.22, 1, 0.36, 1],
       },
     },
   };
 
-  // --- STRICT TYPEWRITER LETTER VARIANT (No sliding, only instant appear like typing) ---
-  const letterVariants: Variants = {
+  // Preloader Elements Variant (Mobile Scroll-reveal ke liye)
+  const preloaderItemVariants: Variants = {
     hidden: {
-      opacity: 0, // Shuru mein bilkul invisible
+      opacity: 0,
+      y: isMobile ? 25 : 0,
     },
     visible: {
-      opacity: 1, // Bina kisi movement (y: 0) ke seedha show hoga
+      opacity: 1,
+      y: 0,
       transition: {
-        duration: 0.01, // Instant pop-in jo typewriter jaisa feel dega
+        duration: 0.5,
+        ease: "easeOut",
       },
     },
+  };
+
+  const letterVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { duration: 0.01 },
+    },
+  };
+
+  const getMotionProps = (extraAmount = 0.3) => {
+    if (isMobile) {
+      return {
+        initial: "hidden",
+        whileInView: "visible",
+        viewport: { once: false, amount: extraAmount },
+        variants: blockVariants,
+      };
+    }
+    return {
+      variants: blockVariants,
+    };
+  };
+
+  const getPreloaderMotionProps = (amount = 0.3) => {
+    if (isMobile) {
+      return {
+        initial: "hidden",
+        whileInView: "visible",
+        viewport: { once: false, amount },
+        variants: preloaderItemVariants,
+      };
+    }
+    return {};
   };
 
   const renderMainSections = () => (
     <div className={styles['heroSceneWrapper']}>
       <div
-        className={`${styles.bgLayer} ${isNight ? styles.nightBg : styles.dayBg
-          }`}
-        
+        className={`${styles.bgLayer} ${isNight ? styles.nightBg : styles.dayBg}`}
       />
       <header className={styles['hero']}>
         <motion.div
@@ -204,44 +238,26 @@ export default function LandingPage({ isNight }: LandingPageProps) {
           whileInView="visible"
           viewport={{ once: false, amount: 0.2 }}
         >
-          <motion.p
-            className={styles['subHeaderGold']}
-            variants={blockVariants}
-          >
+          <motion.p className={styles['subHeaderGold']} variants={blockVariants}>
             THE FUTURE OF
           </motion.p>
 
-          <motion.h1
-            className={styles['heroEra']}
-            variants={blockVariants}
-          >
+          <motion.h1 className={styles['heroEra']} variants={blockVariants}>
             <span>THE CITY</span>
           </motion.h1>
 
-          <motion.div
-            className={styles['glowingBorderLine']}
-            variants={blockVariants}
-          />
+          <motion.div className={styles['glowingBorderLine']} variants={blockVariants} />
 
-          <motion.span
-            className={styles['subHeaderGoldBottom']}
-            variants={blockVariants}
-          >
+          <motion.span className={styles['subHeaderGoldBottom']} variants={blockVariants}>
             ISN’T MEASURED IN KMS
           </motion.span>
 
           <div className={styles['rightContentBlock']}>
-            <motion.span
-              className={styles['subHeaderGoldRight']}
-              variants={blockVariants}
-            >
+            <motion.span className={styles['subHeaderGoldRight']} variants={blockVariants}>
               IT’S MEASURED IN
             </motion.span>
 
-            <motion.h2
-              className={styles['secondaryTitleLarge']}
-              variants={blockVariants}
-            >
+            <motion.h2 className={styles['secondaryTitleLarge']} variants={blockVariants}>
               <span>MOMENTS</span>
             </motion.h2>
 
@@ -265,32 +281,55 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   return (
     <div className={styles['root']}>
       <section className={styles['introSection']} ref={introRef}>
-        <span className={styles['preloaderFrame']} />
-        <span className={styles['watermark']}>Vashi</span>
-        <Glyph className={styles['preloaderGlyph']} />
+        <motion.span className={styles['preloaderFrame']} {...getPreloaderMotionProps(0.1)} />
+        <motion.span className={styles['watermark']} {...getPreloaderMotionProps(0.2)}>Vashi</motion.span>
+        <motion.span className={styles['watermarkdo']} {...getPreloaderMotionProps(0.2)}>
+          <span>V</span>
+          <span>A</span>
+          <span>S</span>
+          <span>H</span>
+          <span>I</span>
+          </motion.span>
+
+        <motion.div {...getPreloaderMotionProps(0.2)}>
+          <Glyph className={styles['preloaderGlyph']} />
+        </motion.div>
 
         <div className={styles['preloaderRow']}>
-          <span className={styles['lockup']}>
-            <span className={styles['lockupEra']}>THe</span>
-            <span className={styles['lockupResidence']}>
-              <span className={styles['fivenum']}>5</span> Minute City
-            </span>
-            <span className={styles['lockupScript']}>Time, Redefined</span>
-          </span>
+          <div className={styles['lockup']}>
+            <motion.span className={styles['lockupEra']} {...getPreloaderMotionProps(0.3)}>
+              THe
+            </motion.span>
+
+            <motion.span className={styles['lockupResidence']} {...getPreloaderMotionProps(0.4)}>
+              <span className={styles['fivenum']}>5</span>
+              <div className={styles['colum']}>
+                <span className={styles['Minutecs']}>Minute</span>
+
+                <span className={styles['citycs']}>City</span>
+              </div>
+
+
+            </motion.span>
+
+            <motion.span className={styles['lockupScript']} {...getPreloaderMotionProps(0.5)}>
+              Time, Redefined
+            </motion.span>
+          </div>
         </div>
 
-        <span className={styles['preloaderRule']} />
-        <p className={styles['preloaderFoot']}>
+        <motion.span className={styles['preloaderRule']} {...getPreloaderMotionProps(0.5)} />
+
+        <motion.p className={styles['preloaderFoot']} {...getPreloaderMotionProps(0.6)}>
           ev homes
           <br />
           A place to return to.
-        </p>
+        </motion.p>
 
         <div className={styles['arch']} ref={archRef}>
           <div className={styles['archInnerWrapper']}>{renderMainSections()}</div>
         </div>
       </section>
-
     </div>
   );
 }
