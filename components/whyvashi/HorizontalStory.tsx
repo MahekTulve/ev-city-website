@@ -11,24 +11,33 @@ import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
 import VashiDenmark from "../AboutSections/Vashidenmark";
 
-const PANELS = 3;
-const SCROLL_LENGTH_VH = 400;
+const SCROLL_LENGTH_VH = 650;
 
-const HORIZONTAL_END = 0.6;
-const TIMELINE_START = 0.55;
-const TIMELINE_END = 0.85;
+// Desktop horizontal scroll is split into 3 phases:
+// 1) Concept -> VashiDenmark
+// 2) Hold on VashiDenmark for more than a full viewport of vertical scroll
+// 3) VashiDenmark -> timeline panel
+const DENMARK_REACH = 0.24;
+const DENMARK_HOLD_END = 0.54;
+const HORIZONTAL_END = 0.72;
+
+// Do not start the timeline until the third panel is completely in place.
+const TIMELINE_START = HORIZONTAL_END;
+const TIMELINE_END = 0.92;
 
 // The cloud bridge fades in as the sticky section hands over to VashiLetter.
-const CLOUD_START = 0.82;
+const CLOUD_START = 0.91;
 
 // Phone-only timing: once the third panel is fully in place, use the rest of
 // the sticky scroll to travel across the enlarged building timeline.
 const MOBILE_BREAKPOINT = 520;
-const MOBILE_SCROLL_LENGTH_VH = 500;
-const MOBILE_HORIZONTAL_END = 0.56;
+const MOBILE_SCROLL_LENGTH_VH = 750;
+const MOBILE_DENMARK_REACH = 0.23;
+const MOBILE_DENMARK_HOLD_END = 0.49;
+const MOBILE_HORIZONTAL_END = 0.67;
 const MOBILE_TIMELINE_START = MOBILE_HORIZONTAL_END;
-const MOBILE_TIMELINE_END = 0.93;
-const MOBILE_CLOUD_START = 0.91;
+const MOBILE_TIMELINE_END = 0.94;
+const MOBILE_CLOUD_START = 0.92;
 
 // The phone timeline is 300vw wide.
 // Start farther inside the viewport so the first building does not touch the
@@ -209,15 +218,28 @@ export default function HorizontalStory() {
   }, []);
 
   const horizontalEnd = isPhone ? MOBILE_HORIZONTAL_END : HORIZONTAL_END;
+  const denmarkReach = isPhone ? MOBILE_DENMARK_REACH : DENMARK_REACH;
+  const denmarkHoldEnd = isPhone
+    ? MOBILE_DENMARK_HOLD_END
+    : DENMARK_HOLD_END;
   const timelineStart = isPhone ? MOBILE_TIMELINE_START : TIMELINE_START;
   const timelineEnd = isPhone ? MOBILE_TIMELINE_END : TIMELINE_END;
   const cloudStart = isPhone ? MOBILE_CLOUD_START : CLOUD_START;
 
-  const horizontalProgress = mapProgress(progress, 0, horizontalEnd);
+  // Horizontal movement deliberately HARD-HOLDS at panel 2 (VashiDenmark).
+  // 0 -> 100vw: arrive at Denmark
+  // 100vw: stay pinned during the hold window
+  // 100 -> 200vw: continue to the timeline panel
+  const shift =
+    progress <= denmarkReach
+      ? mapProgress(progress, 0, denmarkReach) * 100
+      : progress <= denmarkHoldEnd
+        ? 100
+        : 100 + mapProgress(progress, denmarkHoldEnd, horizontalEnd) * 100;
+
   const timelineProgress = mapProgress(progress, timelineStart, timelineEnd);
   const cloudProgress = mapProgress(progress, cloudStart, 1);
 
-  const shift = horizontalProgress * (PANELS - 1) * 100;
 
   // On phones keep enough route visible for the first two buildings immediately,
   // then continue drawing it as the enlarged timeline travels left.

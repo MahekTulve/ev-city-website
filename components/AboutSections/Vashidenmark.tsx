@@ -441,7 +441,7 @@ export default function VashiDenmark() {
           <aside>
             <p className={styles.topLabel}>EVERYTHING WITHIN REACH</p>
             <h1 className={styles.title}>
-              LIFE AT <span className={styles.big}>DENMARK</span>
+              LIFE AT <span className={styles.big}>VASHI</span>
             </h1>
             <p className={styles.subtitle}>
               At Denmark, every essential is just minutes away.
