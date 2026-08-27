@@ -27,7 +27,10 @@ type SideVideoCardProps = {
   progress: MotionValue<number>;
   exitX: number;
   exitY: number;
+  shouldLoad: boolean;
   shouldPlay: boolean;
+  loadDelayMs: number;
+  playDelayMs: number;
 };
 
 type ResponsiveLayout = {
@@ -145,73 +148,89 @@ function AutoPlayVideo({
   item,
   src,
   className,
+  shouldLoad,
   shouldPlay,
+  preload = "metadata",
+  loadDelayMs = 0,
+  playDelayMs = 0,
 }: {
   item: VideoItem;
   src: string;
   className?: string;
+  shouldLoad: boolean;
   shouldPlay: boolean;
+  preload?: "none" | "metadata" | "auto";
+  loadDelayMs?: number;
+  playDelayMs?: number;
 }) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [hasFrame, setHasFrame] = useState(false);
 
   /*
-   * IMPORTANT:
-   * Preload the real <video> element as soon as this page/component mounts.
-   * Playback is still controlled separately by shouldPlay, so the videos
-   * download/buffer early without running while the user is elsewhere.
+   * Do not make every decorative MP4 download at page mount. The main video is
+   * allowed to preload immediately; side videos are warmed up shortly before
+   * this section reaches the viewport. This avoids a large network + decoder
+   * spike on phones and high-DPI laptops.
    */
   useEffect(() => {
     const video = videoRef.current;
-    if (!video) return;
+    if (!video || !shouldLoad) return;
+
+    let cancelled = false;
+    let loadTimer: ReturnType<typeof setTimeout> | undefined;
 
     setHasFrame(false);
-
     video.muted = true;
     video.defaultMuted = true;
-    video.preload = "auto";
+    video.preload = preload;
 
-    const markReady = () => setHasFrame(true);
+    const markReady = () => {
+      if (!cancelled) setHasFrame(true);
+    };
 
     video.addEventListener("loadeddata", markReady);
     video.addEventListener("canplay", markReady);
-    video.addEventListener("canplaythrough", markReady);
 
-    // Force the browser to begin fetching the MP4 now instead of waiting
-    // until IntersectionObserver says this section is near the viewport.
-    video.load();
+    const beginLoad = () => {
+      if (cancelled) return;
+      // Setting src in JSX already schedules a load in most browsers. Calling
+      // load() here makes Safari/Chromium start predictably after our stagger.
+      video.load();
 
-    if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
-      markReady();
+      if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
+        markReady();
+      }
+    };
+
+    if (loadDelayMs > 0) {
+      loadTimer = setTimeout(beginLoad, loadDelayMs);
+    } else {
+      beginLoad();
     }
 
     return () => {
+      cancelled = true;
+      if (loadTimer) clearTimeout(loadTimer);
       video.removeEventListener("loadeddata", markReady);
       video.removeEventListener("canplay", markReady);
-      video.removeEventListener("canplaythrough", markReady);
     };
-  }, [src]);
+  }, [loadDelayMs, preload, shouldLoad, src]);
 
-  /*
-   * Start/stop playback only from section/page visibility.
-   * There is intentionally no per-card timeout here; because the files have
-   * already been preloaded, all visible videos can start immediately.
-   */
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
     let cancelled = false;
+    let playTimer: ReturnType<typeof setTimeout> | undefined;
 
     const pauseVideo = () => {
-      if (!video.paused) {
-        video.pause();
-      }
+      if (!video.paused) video.pause();
     };
 
     const playVideo = () => {
       if (
         cancelled ||
+        !shouldLoad ||
         !shouldPlay ||
         document.visibilityState !== "visible"
       ) {
@@ -219,41 +238,46 @@ function AutoPlayVideo({
         return;
       }
 
-      const playPromise = video.play();
-
-      if (playPromise !== undefined) {
-        void playPromise.catch(() => {
-          // If the media element is not ready on this exact frame, canplay
-          // below retries once data is available.
+      const promise = video.play();
+      if (promise !== undefined) {
+        void promise.catch(() => {
+          // canplay/loadeddata will retry once enough data is available.
         });
+      }
+    };
+
+    const queuePlay = () => {
+      if (playTimer) clearTimeout(playTimer);
+      if (playDelayMs > 0) {
+        playTimer = setTimeout(playVideo, playDelayMs);
+      } else {
+        playVideo();
       }
     };
 
     const handleCanPlay = () => {
       setHasFrame(true);
-      playVideo();
+      queuePlay();
     };
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") {
-        playVideo();
-      } else {
-        pauseVideo();
-      }
+      if (document.visibilityState === "visible") queuePlay();
+      else pauseVideo();
     };
 
     video.addEventListener("canplay", handleCanPlay);
     document.addEventListener("visibilitychange", handleVisibilityChange);
 
-    playVideo();
+    queuePlay();
 
     return () => {
       cancelled = true;
+      if (playTimer) clearTimeout(playTimer);
       pauseVideo();
       video.removeEventListener("canplay", handleCanPlay);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
-  }, [shouldPlay, src]);
+  }, [playDelayMs, shouldLoad, shouldPlay, src]);
 
   return (
     <video
@@ -266,20 +290,19 @@ function AutoPlayVideo({
       ]
         .filter(Boolean)
         .join(" ")}
-      src={src}
-      poster={item.poster}
+      src={shouldLoad ? src : undefined}
+      poster={item.poster || undefined}
       aria-label={item.ariaLabel}
       muted
       loop
       playsInline
-      preload="auto"
+      preload={shouldLoad ? preload : "none"}
       controls={false}
       disablePictureInPicture
       disableRemotePlayback
       tabIndex={-1}
       onLoadedData={() => setHasFrame(true)}
       onCanPlay={() => setHasFrame(true)}
-      onCanPlayThrough={() => setHasFrame(true)}
     />
   );
 }
@@ -330,7 +353,10 @@ function SideVideoCard({
   progress,
   exitX,
   exitY,
+  shouldLoad,
   shouldPlay,
+  loadDelayMs,
+  playDelayMs,
 }: SideVideoCardProps) {
   const x = useTransform(
     progress,
@@ -364,7 +390,11 @@ function SideVideoCard({
       <AutoPlayVideo
         item={item}
         src={src}
+        shouldLoad={shouldLoad}
         shouldPlay={shouldPlay}
+        preload="auto"
+        loadDelayMs={loadDelayMs}
+        playDelayMs={playDelayMs}
       />
     </motion.div>
   );
@@ -380,25 +410,33 @@ export default function CinematicPlacesGallery() {
   const isPageVisible = usePageVisible();
 
   const [isNearViewport, setIsNearViewport] = useState(false);
+  const [shouldWarmVideos, setShouldWarmVideos] = useState(false);
   const [sidePlaybackEnabled, setSidePlaybackEnabled] = useState(true);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsNearViewport(entry.isIntersecting),
-      {
-        // Playback begins only when the gallery is about to enter the screen.
-        // Buffering no longer depends on this observer; every video preloads
-        // immediately when the website/page mounts.
-        rootMargin: "100px 0px",
-        threshold: 0,
-      },
+    // Warm video files well before playback, but do not make every MP4 compete
+    // for bandwidth from the first page render.
+    const preloadObserver = new IntersectionObserver(
+      ([entry]) => setShouldWarmVideos(entry.isIntersecting),
+      { rootMargin: "1200px 0px", threshold: 0 },
     );
 
-    observer.observe(section);
-    return () => observer.disconnect();
+    // Playback starts only when the gallery is close to entering the viewport.
+    const playbackObserver = new IntersectionObserver(
+      ([entry]) => setIsNearViewport(entry.isIntersecting),
+      { rootMargin: "250px 0px", threshold: 0 },
+    );
+
+    preloadObserver.observe(section);
+    playbackObserver.observe(section);
+
+    return () => {
+      preloadObserver.disconnect();
+      playbackObserver.disconnect();
+    };
   }, []);
 
   const { scrollYProgress } = useScroll({
@@ -413,17 +451,22 @@ export default function CinematicPlacesGallery() {
     mass: isMobile ? 0.24 : 0.4,
   });
 
+  const sidePlaybackEnabledRef = useRef(true);
+
   useMotionValueEvent(smoothProgress, "change", (latest) => {
-    // On large displays the main video becomes a very large GPU surface.
-    // Stop decoding the six side videos a little earlier while that expansion
-    // is happening. They are already fading/moving away at this point, so the
-    // visual result stays the same while freeing decoder/GPU bandwidth.
-    const pausePoint = isLargeDesktop ? 0.56 : SIDE_VIDEO_PAUSE_POINT;
+    // As the main card grows, give its decoder/GPU surface priority. Paused
+    // decorative cards keep their current frame, so the composition stays the
+    // same without several invisible videos continuing to decode.
+    // Keep side videos running until they are almost fully faded out.
+    // The old aggressive device-specific pause points could make videos look
+    // frozen while they were still visibly on screen.
+    const pausePoint = SIDE_VIDEO_PAUSE_POINT;
     const nextValue = latest < pausePoint;
 
-    setSidePlaybackEnabled((current) =>
-      current === nextValue ? current : nextValue,
-    );
+    if (sidePlaybackEnabledRef.current !== nextValue) {
+      sidePlaybackEnabledRef.current = nextValue;
+      setSidePlaybackEnabled(nextValue);
+    }
   });
 
   const { scrollYProgress: titleScrollYProgress } = useScroll({
@@ -628,19 +671,6 @@ export default function CinematicPlacesGallery() {
     [1, 1, 1.06, 1.1, 1.02, 1.02],
   );
 
-  const mainCardShadow = useTransform(
-    smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
-    [
-      "0 30px 90px rgba(0,0,0,.38)",
-      "0 30px 90px rgba(0,0,0,.38)",
-      "0 0 0 rgba(0,0,0,0)",
-      "0 0 0 rgba(0,0,0,0)",
-      "0 26px 80px rgba(0,0,0,.34)",
-      "0 26px 80px rgba(0,0,0,.34)",
-    ],
-  );
-
   const backgroundOpacity = useTransform(
     smoothProgress,
     [0, EXPAND_START, 0.6, EXIT_START, 1],
@@ -698,13 +728,19 @@ const titleExitRotateX = useTransform(
   const mainVideoSrc =
     isSmallMobile && mainVideo.mobileSrc ? mainVideo.mobileSrc : mainVideo.src;
 
+  const shouldLoadMain = true;
+  const shouldLoadSides = shouldWarmVideos || isNearViewport;
   const shouldPlayMain = isNearViewport && isPageVisible;
   const shouldPlaySides =
     isNearViewport && isPageVisible && sidePlaybackEnabled;
 
+  // Play every visible side video. Loading/playback is still staggered below
+  // so the browser does not initialize all MP4 decoders on the exact same frame.
+  const sidePlaybackPriority = [0, 4, 5, 2, 1, 3];
+
   const visibleSideEntries = sideVideos
     .map((item, index) => ({ item, index, position: SIDE_POSITIONS[index] }))
-    // These two cards are display:none in your mobile CSS. Do not mount and
+    // These two cards are display:none in your mobile CSS. Do not mount or
     // decode their MP4s when they cannot be seen.
     .filter(({ index }) => !isMobile || (index !== 1 && index !== 3));
 
@@ -790,7 +826,10 @@ const titleExitRotateX = useTransform(
                   progress={smoothProgress}
                   exitX={position.exitX}
                   exitY={position.exitY}
+                  shouldLoad={shouldLoadSides}
                   shouldPlay={shouldPlaySides}
+                  loadDelayMs={sidePlaybackPriority.indexOf(index) * 90}
+                  playDelayMs={sidePlaybackPriority.indexOf(index) * 45}
                 />
               ))}
 
@@ -805,7 +844,6 @@ const titleExitRotateX = useTransform(
                   borderTopRightRadius: mainTopRightRadius,
                   borderBottomLeftRadius: mainBottomLeftRadius,
                   borderBottomRightRadius: mainBottomRightRadius,
-                  boxShadow: mainCardShadow,
                 }}
               >
                 <motion.div
@@ -816,7 +854,9 @@ const titleExitRotateX = useTransform(
                     item={mainVideo}
                     src={mainVideoSrc}
                     className={styles.mainVideo}
+                    shouldLoad={shouldLoadMain}
                     shouldPlay={shouldPlayMain}
+                    preload="auto"
                   />
                 </motion.div>
 
