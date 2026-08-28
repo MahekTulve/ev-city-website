@@ -113,7 +113,6 @@ export default function LandingPage({ isNight }: LandingPageProps) {
         },
       });
 
-      // Desktop baseline animations (Mobile par Motion component opacity handling sambhale-ga)
       if (!isMobileDevice()) {
         tl.to(`.${styles['preloaderGlyph']}`, { opacity: 1, duration: 0.4 })
           .to(`.${styles['lockupEra']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2")
@@ -175,7 +174,6 @@ export default function LandingPage({ isNight }: LandingPageProps) {
     },
   };
 
-  // Preloader Elements Variant (Mobile Scroll-reveal ke liye)
   const preloaderItemVariants: Variants = {
     hidden: {
       opacity: 0,
@@ -199,18 +197,25 @@ export default function LandingPage({ isNight }: LandingPageProps) {
     },
   };
 
-  const getMotionProps = (extraAmount = 0.3) => {
-    if (isMobile) {
-      return {
-        initial: "hidden",
-        whileInView: "visible",
-        viewport: { once: false, amount: extraAmount },
-        variants: blockVariants,
-      };
-    }
-    return {
-      variants: blockVariants,
-    };
+  // --- MOBILE SEQUENTIAL WORD ANIMATION VARIANTS ---
+  const mobileSequentialContainer: Variants = {
+    hidden: { opacity: 1 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.4, // Har ek WORD ke aane ke beech ka gap (0.4s)
+        delayChildren: 0.1,
+      },
+    },
+  };
+
+  const wordChildVariant: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   const getPreloaderMotionProps = (amount = 0.3) => {
@@ -283,40 +288,88 @@ export default function LandingPage({ isNight }: LandingPageProps) {
       <section className={styles['introSection']} ref={introRef}>
         <motion.span className={styles['preloaderFrame']} {...getPreloaderMotionProps(0.1)} />
         <motion.span className={styles['watermark']} {...getPreloaderMotionProps(0.2)}>Vashi</motion.span>
-        <motion.span className={styles['watermarkdo']} {...getPreloaderMotionProps(0.2)}>
-          <span>V</span>
-          <span>A</span>
-          <span>S</span>
-          <span>H</span>
-          <span>I</span>
-          </motion.span>
 
-        <motion.div {...getPreloaderMotionProps(0.2)}>
+        {/* <motion.div {...getPreloaderMotionProps(0.2)}>
           <Glyph className={styles['preloaderGlyph']} />
-        </motion.div>
+        </motion.div> */}
 
-        <div className={styles['preloaderRow']}>
-          <div className={styles['lockup']}>
-            <motion.span className={styles['lockupEra']} {...getPreloaderMotionProps(0.3)}>
-              THe
-            </motion.span>
+        {isMobile ? (
+          <motion.div
+            variants={mobileSequentialContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            style={{ width: "100%", textAlign: "center", position: "relative" }}
+          >
+            <div className={styles['preloaderRow']}>
+              <div className={styles['lockup']}>
+                {/* Word 1: THe */}
+                <motion.span className={styles['lockupEra']} variants={wordChildVariant}>
+                  THe
+                </motion.span>
 
-            <motion.span className={styles['lockupResidence']} {...getPreloaderMotionProps(0.4)}>
-              <span className={styles['fivenum']}>5</span>
-              <div className={styles['colum']}>
-                <span className={styles['Minutecs']}>Minute</span>
+                <div className={styles['lockupResidence']}>
+                  {/* Word 2: 5 */}
+                  <motion.span className={styles['fivenum']} variants={wordChildVariant}>
+                    5
+                  </motion.span>
 
-                <span className={styles['citycs']}>City</span>
+                  <div className={styles['colum']}>
+                    {/* Word 3: Minute */}
+                    <motion.span className={styles['Minutecs']} variants={wordChildVariant}>
+                      Minute
+                    </motion.span>
+                    <motion.span className={styles['citycs']} variants={wordChildVariant}>
+                      City
+                    </motion.span>
+                  </div>
+                </div>
+                <motion.div className={styles['watermarkdo']} variants={wordChildVariant}>
+                  <span>V</span>
+                  <span>A</span>
+                  <span>S</span>
+                  <span>H</span>
+                  <span>I</span>
+                </motion.div>
+                <motion.span className={styles['lockupScript']} variants={wordChildVariant}>
+                  Time, Redefined
+                </motion.span>
               </div>
+            </div>
 
+          </motion.div>
+        ) : (
+          /* DESKTOP ORIGINAL CODE */
+          <>
+            <div className={styles['watermarkdo']}>
+              <span>V</span>
+              <span>A</span>
+              <span>S</span>
+              <span>H</span>
+              <span>I</span>
+            </div>
 
-            </motion.span>
+            <div className={styles['preloaderRow']}>
+              <div className={styles['lockup']}>
+                <motion.span className={styles['lockupEra']} {...getPreloaderMotionProps(0.3)}>
+                  THe
+                </motion.span>
 
-            <motion.span className={styles['lockupScript']} {...getPreloaderMotionProps(0.5)}>
-              Time, Redefined
-            </motion.span>
-          </div>
-        </div>
+                <motion.span className={styles['lockupResidence']} {...getPreloaderMotionProps(0.4)}>
+                  <span className={styles['fivenum']}>5</span>
+                  <div className={styles['colum']}>
+                    <span className={styles['Minutecs']}>Minute</span>
+                    <span className={styles['citycs']}>City</span>
+                  </div>
+                </motion.span>
+
+                <motion.span className={styles['lockupScript']} {...getPreloaderMotionProps(0.5)}>
+                  Time, Redefined
+                </motion.span>
+              </div>
+            </div>
+          </>
+        )}
 
         <motion.span className={styles['preloaderRule']} {...getPreloaderMotionProps(0.5)} />
 
