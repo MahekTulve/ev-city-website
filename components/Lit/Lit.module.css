@@ -9,7 +9,7 @@
   /* Slight overlap removes any 1px browser seam between a2-cut and a3-cut. */
   margin-top: -2px;
 
-  min-height: 100vh;
+  min-height: 100lvh;
   overflow: hidden;
 
   color: var(--text);
@@ -1104,7 +1104,7 @@
       );
   }
   .wrapper {
-    min-height: 100dvh;
+    min-height: 100lvh;
 
     background-color: #17233a;
     background-image: url("/images/cut2mobile.png");
@@ -1236,7 +1236,7 @@
 
 @media (max-width: 480px) {
   .hero {
-    padding-top: 5.4rem;
+    padding-top: 0rem;
   }
 
   .lit {

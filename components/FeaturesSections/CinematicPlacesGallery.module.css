@@ -441,6 +441,70 @@
     );
 }
 
+/* Center video play / pause control. It is visible while the card is in its
+   gallery size, disappears during the full-screen scroll phase, and is forced
+   visible whenever the user has paused the video. */
+.mainVideoControl {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+width: clamp(56px, 5.2vw, 76px);
+  height: clamp(56px, 5.2vw, 76px);
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(8, 10, 9, 0.85);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    background-color 180ms ease,
+    border-color 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mainVideoControlVisible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.mainVideoControlHidden {
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.86);
+}
+
+.mainVideoControlIcon {
+  width: 42%;
+  height: 42%;
+  display: block;
+}
+
+.mainVideoControlIcon svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .mainVideoControl:hover {
+    background: rgba(8, 10, 9, 0.85);
+    border-color: rgba(255, 255, 255, 0.9);
+  }
+}
+
+.mainVideoControl:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.96);
+  outline-offset: 4px;
+}
+
 .titleStage {
   perspective: 1200px;
   transform-style: preserve-3d;
