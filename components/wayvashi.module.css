@@ -106,7 +106,7 @@
   font-family: "Bodoni Moda", serif;
   font-size: clamp(1.05rem, 1.2vw, 1.2rem);
   letter-spacing: 0.04em;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   white-space: nowrap;
 }
 
@@ -852,7 +852,17 @@
         rgba(5, 8, 18, 0.2) 100%);
   }
 }
+@media (max-width: 768px) {
 
+
+ .dayStageBg {
+  background-image: url("/images/day_two_mobile.webp");
+}
+
+.nightStageBg {
+  background-image: url("/images/night_two_mobile.webp");
+}
+}
 @media (max-width: 700px) {
   .domeIntro {
     top: 78vh;

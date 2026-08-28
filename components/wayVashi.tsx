@@ -532,16 +532,16 @@ export default function WayVashi({
 
         <div className={styles.dayNightButtonContainer}>
           <div className={styles.heroTagline}>
-            <span className={styles.taglineWord}>A PLACE</span>
+            <span className={styles.taglineWord}>See It Differently</span>
 
             <DayNightButton
               isNight={night}
               onToggle={handleToggle}
             />
 
-            <span className={styles.taglineWord}>
-              TO RETURN TO
-            </span>
+            {/* <span className={styles.taglineWord}>
+               Day and Night
+            </span> */}
           </div>
         </div>
 

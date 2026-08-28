@@ -149,17 +149,17 @@
   letter-spacing: 0.01em;
   text-transform: uppercase;
   font-family: "Cinzel", serif;
-  -webkit-text-fill-color: transparent;
+  /* -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 2px 5px #faf3e375);
   background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
   -webkit-background-clip: text;
-  background-clip: text;
-
+  background-clip: text; */
 }
 
 .lockupEra {
   font-size: clamp(3rem, 6vw, 6rem);
   opacity: 0;
+  
 }
 
 .lockupResidence {
@@ -174,7 +174,17 @@
   font-size: clamp(3.4rem, 9vw, 9vw);
 
 }
+.citycs,
+.Minutecs,
+.fivenum 
+.lockupEra {
 
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 5px #faf3e375);
+  background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
 .lockupScript {
   display: block;
   font-family: "Pinyon Script", cursive;
@@ -1033,7 +1043,7 @@
     font-size: clamp(2.5rem, 8vw, 8vw);
     text-align: left;
     margin-bottom: 10px;
-    margin-left: 25px;
+    margin-left: 15px;
 
   }
 
@@ -1068,6 +1078,7 @@
     background-image: linear-gradient(10deg, #0000 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, #0000 100%);
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 1px 2px #f6cc6c75);
     letter-spacing: 1rem;
   }
@@ -1083,15 +1094,19 @@
     align-items: center;
     line-height: 8rem;
     position: absolute;
-    right: 1%;
+    right: -10%;
     top: 50%;
     translate: -53% -50%;
     font-size: 150px;
     color: #61616114;
     pointer-events: none;
-    opacity: 0;
+    opacity: 1;
     font-family: "Bodoni Moda", serif;
+  }
 
+  .watermarkdo span {
+    display: inline-block;
+    will-change: transform, opacity;
   }
 
   .fivenum {
@@ -1100,6 +1115,8 @@
     background-image: linear-gradient(10deg, #0000 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, #0000 100%);
     -webkit-background-clip: text;
     background-clip: text;
+    -webkit-text-fill-color: transparent;
+
     filter: drop-shadow(0 1px 2px #f6cc6c75);
 
   }
@@ -1118,9 +1135,13 @@
   .subHeaderGold,
   .subHeaderGoldBottom,
   .subHeaderGoldRight {
-    font-size: clamp(0.75rem, 3.5vw, 1rem);
+    font-size: clamp(1rem, 3.7vw, 1rem);
     letter-spacing: 0.2em;
     padding-left: 0;
+  }
+
+  .subHeaderGoldRight {
+    margin-bottom: 10px;
   }
 
   .subHeaderGoldBottom {
@@ -1209,15 +1230,15 @@
 @media (max-width: 480px) {
 
   .heroEra {
-    font-size: 2.4rem;
+    font-size: 3.3rem;
   }
 
   .secondaryTitleLarge {
-    font-size: 2.5rem;
+    font-size: 3.3rem;
   }
 
   .momentsSubtitleRow {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
   }
 
   .bgLayer {
@@ -1236,15 +1257,34 @@
   }
 
   .watermarkdo {
-    right: -10%;
+    right: -15%;
   }
 }
 
 @media (max-width: 375px) {
   .watermarkdo {
     font-size: 120px;
-    right: -8%;
 
+  }
+
+  .subHeaderGold,
+  .subHeaderGoldBottom,
+  .subHeaderGoldRight {
+    font-size: clamp(0.8rem, 3.7vw, 1rem);
+    letter-spacing: 0.2em;
+    padding-left: 0;
+  }
+
+  .heroEra {
+    font-size: 2.8rem;
+  }
+
+  .secondaryTitleLarge {
+    font-size: 2.8rem;
+  }
+
+  .momentsSubtitleRow {
+    font-size: 1.4rem;
   }
 
   .fivenum {
