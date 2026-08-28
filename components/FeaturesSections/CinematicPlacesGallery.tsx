@@ -412,6 +412,8 @@ export default function CinematicPlacesGallery() {
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [shouldWarmVideos, setShouldWarmVideos] = useState(false);
   const [sidePlaybackEnabled, setSidePlaybackEnabled] = useState(true);
+  const [isMainVideoPaused, setIsMainVideoPaused] = useState(false);
+  const [isMainVideoExpanded, setIsMainVideoExpanded] = useState(false);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -452,6 +454,7 @@ export default function CinematicPlacesGallery() {
   });
 
   const sidePlaybackEnabledRef = useRef(true);
+  const mainVideoExpandedRef = useRef(false);
 
   useMotionValueEvent(smoothProgress, "change", (latest) => {
     // As the main card grows, give its decoder/GPU surface priority. Paused
@@ -466,6 +469,15 @@ export default function CinematicPlacesGallery() {
     if (sidePlaybackEnabledRef.current !== nextValue) {
       sidePlaybackEnabledRef.current = nextValue;
       setSidePlaybackEnabled(nextValue);
+    }
+
+    // Hide the center-video control once the card has expanded to cover the
+    // screen. If the user pauses manually, the control is still shown so the
+    // video can always be resumed.
+    const expanded = latest >= EXPAND_END - 0.015 && latest <= EXIT_START + 0.015;
+    if (mainVideoExpandedRef.current !== expanded) {
+      mainVideoExpandedRef.current = expanded;
+      setIsMainVideoExpanded(expanded);
     }
   });
 
@@ -730,7 +742,7 @@ const titleExitRotateX = useTransform(
 
   const shouldLoadMain = true;
   const shouldLoadSides = shouldWarmVideos || isNearViewport;
-  const shouldPlayMain = isNearViewport && isPageVisible;
+  const shouldPlayMain = isNearViewport && isPageVisible && !isMainVideoPaused;
   const shouldPlaySides =
     isNearViewport && isPageVisible && sidePlaybackEnabled;
 
@@ -861,6 +873,32 @@ const titleExitRotateX = useTransform(
                 </motion.div>
 
                 <div className={styles.mainVideoOverlay} />
+
+                <button
+                  type="button"
+                  className={[
+                    styles.mainVideoControl,
+                    !isMainVideoExpanded || isMainVideoPaused
+                      ? styles.mainVideoControlVisible
+                      : styles.mainVideoControlHidden,
+                  ].join(" ")}
+                  onClick={() => setIsMainVideoPaused((paused) => !paused)}
+                  aria-label={isMainVideoPaused ? "Play center video" : "Pause center video"}
+                  aria-pressed={isMainVideoPaused}
+                >
+                  <span className={styles.mainVideoControlIcon} aria-hidden="true">
+                    {isMainVideoPaused ? (
+                      <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor" />
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 24 24" focusable="false">
+                        <rect x="7" y="5" width="3.5" height="14" rx="1" fill="currentColor" />
+                        <rect x="13.5" y="5" width="3.5" height="14" rx="1" fill="currentColor" />
+                      </svg>
+                    )}
+                  </span>
+                </button>
               </motion.div>
             </div>
           </div>
