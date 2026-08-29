@@ -1,10 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Junge&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
+
 .badge {
   position: fixed;
   top: 1.5rem;
   left: 1rem;
   z-index: 999;
-  width: 7rem;
-  height: 7rem;
+  width: 6.4rem;
+  height: 6.4rem;
   color: #fff;
   pointer-events: none;
   mix-blend-mode: difference;
@@ -18,11 +20,11 @@
 }
 
 .badgeRing text {
-  font-family: "Jost", sans-serif;
-  font-size: 9px;
+  font-family: 'Junge', serif;
+  font-size: 11px;
   font-weight: 700;
-  letter-spacing: 0.28em;
-  word-spacing: 0.5rem;
+  letter-spacing: 0.2em;
+  word-spacing: 0.3rem;
   fill: #fff;
 }
 
@@ -31,8 +33,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  /* 'translate' style property standard cross-browser fix */
-  width: 3.5rem;
+  width: 3rem;
   pointer-events: auto;
 }
 
