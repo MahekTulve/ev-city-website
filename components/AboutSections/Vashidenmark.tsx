@@ -14,6 +14,7 @@ import {
   Film,
   Building,
   Crown,
+  Hospital,
 } from "lucide-react";
 import styles from "./vashidenmark.module.css";
 import { BsHandIndexThumb } from "react-icons/bs";
@@ -35,7 +36,7 @@ const ALL_NODES: NodeData[] = [
     label: "RAILWAY STATION",
     sub: "Seamless Connectivity",
     icon: <Train size={28} />,
-    video: "/videos/aboutvideo.mp4",
+    video: "/videos/railway-station.mp4",
   },
   {
     id: 2,
@@ -43,15 +44,15 @@ const ALL_NODES: NodeData[] = [
     label: "NEXUS MALL",
     sub: "Shopping & Dining",
     icon: <ShoppingBag size={26} />,
-    video: "/videos/school.mp4",
+    video: "/videos/mall.mp4",
   },
   {
     id: 3,
     time: "4",
     label: "APOLLO HOSPITAL",
     sub: "Quality Healthcare",
-    icon: <Plus size={26} />,
-    video: "/videos/aboutvideo.mp4",
+    icon: <Hospital size={26} />,
+    video: "/videos/hospital.mp4",
   },
   {
     id: 4,
@@ -61,37 +62,37 @@ const ALL_NODES: NodeData[] = [
     icon: <GraduationCap size={26} />,
     video: "/videos/school.mp4",
   },
-  {
-    id: 5,
-    time: "11",
-    label: "BUSINESS HUB",
-    sub: "Work & Thrive",
-    icon: <Briefcase size={26} />,
-    video: "/videos/aboutvideo.mp4",
-  },
+  // {
+  //   id: 5,
+  //   time: "11",
+  //   label: "BUSINESS HUB",
+  //   sub: "Work & Thrive",
+  //   icon: <Briefcase size={26} />,
+  //   video: "/videos/aboutvideo.mp4",
+  // },
   {
     id: 6,
     time: "30",
     label: "AIRPORT",
     sub: "Travel with Ease",
     icon: <Plane size={26} />,
-    video: "/videos/school.mp4",
+    video: "/videos/airport.mp4",
   },
-  {
-    id: 7,
-    time: "18",
-    label: "5-STAR HOTEL",
-    sub: "Luxury Stay & Hospitality",
-    icon: <Hotel size={26} />,
-    video: "/videos/aboutvideo.mp4",
-  },
+  // {
+  //   id: 7,
+  //   time: "18",
+  //   label: "5-STAR HOTEL",
+  //   sub: "Luxury Stay & Hospitality",
+  //   icon: <Hotel size={26} />,
+  //   video: "/videos/aboutvideo.mp4",
+  // },
   {
     id: 8,
     time: "9",
     label: "FINE DINING",
     sub: "Gourmet Cuisines",
     icon: <Utensils size={26} />,
-    video: "/videos/school.mp4",
+    video: "/videos/dining.mp4",
   },
   {
     id: 9,
@@ -99,7 +100,7 @@ const ALL_NODES: NodeData[] = [
     label: "MULTIPLEX",
     sub: "Entertainment Hub",
     icon: <Film size={26} />,
-    video: "/videos/aboutvideo.mp4",
+    video: "/videos/entertainment-hub.mp4",
   },
   {
     id: 10,
@@ -107,7 +108,7 @@ const ALL_NODES: NodeData[] = [
     label: "IT PARK",
     sub: "Corporate Neighborhood",
     icon: <Building size={26} />,
-    video: "/videos/school.mp4",
+    video: "/videos/IT-park.mp4",
   },
 ];
 
