@@ -132,13 +132,13 @@ export default function Badge() {
           </defs>
           <text>
             <textPath href="#badgeCircle" startOffset="0%">
-              EV CITY · THE 5 MINUTE CITY .
+              EV CITY · THE 5 MINUTE CITY ·
             </textPath>
           </text>
         </svg>
         <img
           className={Style.badgeLogo}
-          src="/images/evhomelogo.webp"
+          src="/images/ev_city_logo.png"
           alt="EV Homes Logo"
         />
       </div>
