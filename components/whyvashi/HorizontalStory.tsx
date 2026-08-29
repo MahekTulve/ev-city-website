@@ -457,7 +457,7 @@ export default function HorizontalStory() {
 
                       <span className={styles.stopName}>{stop.name}</span>
 
-                      <span className={styles.stopTime}>{stop.time}</span>
+                      {/* <span className={styles.stopTime}>{stop.time}</span> */}
                     </div>
                   );
                 })}
