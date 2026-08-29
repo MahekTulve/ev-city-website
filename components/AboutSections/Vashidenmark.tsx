@@ -31,7 +31,7 @@ type NodeData = {
 const ALL_NODES: NodeData[] = [
   {
     id: 1,
-    time: "2",
+    time: "10",
     label: "RAILWAY STATION",
     sub: "Seamless Connectivity",
     icon: <Train size={28} />,
@@ -39,7 +39,7 @@ const ALL_NODES: NodeData[] = [
   },
   {
     id: 2,
-    time: "3",
+    time: "12",
     label: "NEXUS MALL",
     sub: "Shopping & Dining",
     icon: <ShoppingBag size={26} />,
@@ -63,7 +63,7 @@ const ALL_NODES: NodeData[] = [
   },
   {
     id: 5,
-    time: "5",
+    time: "11",
     label: "BUSINESS HUB",
     sub: "Work & Thrive",
     icon: <Briefcase size={26} />,
@@ -71,7 +71,7 @@ const ALL_NODES: NodeData[] = [
   },
   {
     id: 6,
-    time: "15",
+    time: "30",
     label: "AIRPORT",
     sub: "Travel with Ease",
     icon: <Plane size={26} />,
@@ -79,7 +79,7 @@ const ALL_NODES: NodeData[] = [
   },
   {
     id: 7,
-    time: "7",
+    time: "18",
     label: "5-STAR HOTEL",
     sub: "Luxury Stay & Hospitality",
     icon: <Hotel size={26} />,
@@ -87,7 +87,7 @@ const ALL_NODES: NodeData[] = [
   },
   {
     id: 8,
-    time: "4",
+    time: "9",
     label: "FINE DINING",
     sub: "Gourmet Cuisines",
     icon: <Utensils size={26} />,
@@ -95,7 +95,7 @@ const ALL_NODES: NodeData[] = [
   },
   {
     id: 9,
-    time: "6",
+    time: "10",
     label: "MULTIPLEX",
     sub: "Entertainment Hub",
     icon: <Film size={26} />,
@@ -103,7 +103,7 @@ const ALL_NODES: NodeData[] = [
   },
   {
     id: 10,
-    time: "8",
+    time: "12",
     label: "IT PARK",
     sub: "Corporate Neighborhood",
     icon: <Building size={26} />,
