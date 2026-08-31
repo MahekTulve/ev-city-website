@@ -2,11 +2,11 @@
 
 .badge {
   position: fixed;
-  top: 1.5rem;
-  left: 1rem;
+  top: 0.5rem;
+  left: 0.5rem;
   z-index: 999;
-  width: 6.4rem;
-  height: 6.4rem;
+  width: 5.7rem;
+  height: 5.7rem;
   color: #fff;
   pointer-events: none;
   mix-blend-mode: difference;
@@ -33,7 +33,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 3rem;
+  width: 2.7rem;
   pointer-events: auto;
 }
 
