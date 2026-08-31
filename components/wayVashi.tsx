@@ -459,22 +459,33 @@ export default function WayVashi({
         ease: "power3.out",
       });
 
-      // Keep zooming from the moment domeIntro begins until the
-      // very end of this ScrollTrigger timeline.
+      // Camera-style zoom:
+      // 1. Starts when domeIntro begins.
+      // 2. Keeps the BOTTOM-CENTER point locked so the picture does not drift.
+      // 3. Finishes before the section ends.
+      // 4. Holds the final crop until the pin releases, making the transition
+      //    into the next section feel like one continuous picture.
       const zoomStart = tl.labels.backgroundZoomStart;
       const sectionEnd = tl.duration();
-      const zoomDuration = Math.max(sectionEnd - zoomStart, 0.001);
+      const availableZoomTime = Math.max(sectionEnd - zoomStart, 0.001);
+
+      // Use ~72% of the remaining section for the zoom.
+      // The final ~28% is a HOLD at the exact same crop.
+      const zoomDuration = availableZoomTime * 0.72;
 
       tl.fromTo(
         domeBackgroundRef.current,
         {
           scale: 1,
+          transformOrigin: "50% 100%",
         },
         {
-          scale: 1.24,
+          scale: 1.18,
+          transformOrigin: "50% 100%",
           duration: zoomDuration,
           ease: "none",
           immediateRender: false,
+          force3D: true,
         },
         zoomStart,
       );
