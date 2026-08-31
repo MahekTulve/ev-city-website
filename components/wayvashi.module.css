@@ -55,7 +55,8 @@
   background-size: cover;
   transition: opacity 0.8s ease-in-out;
   pointer-events: none;
-  will-change: opacity;
+  will-change: opacity, transform;
+  transform-origin: center center;
 }
 
 .dayStageBg {
@@ -127,11 +128,6 @@
   width: 100vw;
   height: 100vh;
 
-  background-image: url("/images/a2-cut.webp");
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-
   border-top-left-radius: 250% 250vh;
   border-top-right-radius: 250% 250vh;
 
@@ -141,6 +137,23 @@
   pointer-events: none;
 
   overflow: hidden;
+}
+
+.domeBackground {
+  position: absolute;
+  inset: -1px;
+  z-index: 0;
+  pointer-events: none;
+
+  background-image: url("/images/a2-cut.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+
+  transform: scale(1);
+  /* Keep the bottom-center of the artwork visually locked while scaling. */
+  transform-origin: 50% 100%;
+  will-change: transform;
 }
 
 .curvedText {
@@ -822,8 +835,11 @@
 
 @media (max-width: 760px) {
   .dome {
-    background-image: url("/images/cut1mobile.png");
     height: 100vh;
+  }
+
+  .domeBackground {
+    background-image: url("/images/cut1mobile.png");
     background-size: cover;
     background-position: center bottom;
   }
