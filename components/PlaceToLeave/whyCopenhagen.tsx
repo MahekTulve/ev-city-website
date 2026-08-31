@@ -65,11 +65,7 @@ export default function WhyCopenhagen() {
 
       <section className={styles["why"]} id="why">
         <div className={styles["blush"]} />
-        <div className={styles["sectionIndex"]}>
-          <span>02</span>
-          <i />
-          <span>Why Copenhagen?</span>
-        </div>
+       
         <img
           className={styles["skechImage"]}
           src={"images/denamrkskech.png"}
@@ -77,11 +73,6 @@ export default function WhyCopenhagen() {
           loading="lazy"
           decoding="async"
         />
-        {/* <h2 className={styles["whyHeading"]}>
-          A city that proves progress is possible when{" "}
-          <em className={styles["italicGold"]}>design</em>, <em className={styles["italicGold"]}>values</em>, and{" "}
-          <em className={styles["italicGold"]}>vision</em> come together.
-        </h2> */}
 
         <div className={styles["pillars"]}>
           {pillars.map((p) => (
