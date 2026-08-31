@@ -227,6 +227,7 @@ export default function WayVashi({
 }: WayVashiProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
+  const domeBackgroundRef = useRef<HTMLDivElement>(null);
   const domeRef = useRef<HTMLDivElement>(null);
 
   const [slide, setSlide] = useState(0);
@@ -315,11 +316,11 @@ export default function WayVashi({
 
       // -------------------------------------------------------------
       // CINEMATIC INTRO ENTRANCE
-      // Runs after the dome has opened, then the existing intro exit
-      // continues exactly as before. Because this is part of the same
-      // ScrollTrigger timeline, it naturally runs again when the section
-      // is encountered again through scrolling.
+      // Background zoom begins here and then continues slowly until
+      // the exact end of the pinned WayVashi section.
       // -------------------------------------------------------------
+      tl.addLabel("backgroundZoomStart");
+
       tl.to(introCrown, {
         autoAlpha: 1,
         scaleX: 1,
@@ -457,6 +458,26 @@ export default function WayVashi({
         duration: 0.7,
         ease: "power3.out",
       });
+
+      // Keep zooming from the moment domeIntro begins until the
+      // very end of this ScrollTrigger timeline.
+      const zoomStart = tl.labels.backgroundZoomStart;
+      const sectionEnd = tl.duration();
+      const zoomDuration = Math.max(sectionEnd - zoomStart, 0.001);
+
+      tl.fromTo(
+        domeBackgroundRef.current,
+        {
+          scale: 1,
+        },
+        {
+          scale: 1.24,
+          duration: zoomDuration,
+          ease: "none",
+          immediateRender: false,
+        },
+        zoomStart,
+      );
     }, rootRef);
 
     return () => ctx.revert();
@@ -525,7 +546,6 @@ export default function WayVashi({
         <div
           className={`${styles.archBgLayer}  ${night ? styles.nightStageBg : styles.dayStageBg
             }`}
-
         />
 
 
@@ -546,6 +566,11 @@ export default function WayVashi({
         </div>
 
         <div className={styles.dome} ref={domeRef}>
+          <div
+            ref={domeBackgroundRef}
+            className={styles.domeBackground}
+            aria-hidden="true"
+          />
           <div className={styles.domeOverlay} aria-hidden="true" />
           <svg
             className={styles.curvedText}
