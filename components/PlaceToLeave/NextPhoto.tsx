@@ -4,6 +4,8 @@ import Image from "next/image";
 import { motion, useScroll, useTransform, Variants } from "framer-motion";
 import { useRef } from "react";
 import styles from "./NextPhoto.module.css";
+import NextDesign from "./NextDesign";
+
 export default function NextPhoto() {
     const ref = useRef(null);
     const { scrollYProgress } = useScroll({
@@ -13,18 +15,18 @@ export default function NextPhoto() {
 
     const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
     const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -200]);
+
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.2, // Har element ke beech mein 0.2 seconds ka gap hoga
+                staggerChildren: 0.2,
                 delayChildren: 0.1,
             },
         },
     };
 
-    // 2. Har ek line/child ke liye individual animation variants
     const itemVariants: Variants = {
         hidden: { opacity: 0, y: 30 },
         visible: {
@@ -32,55 +34,48 @@ export default function NextPhoto() {
             y: 0,
             transition: {
                 duration: 0.6,
-                ease: [0.25, 1, 0.5, 1], // Smooth easing
+                ease: [0.25, 1, 0.5, 1],
             },
         },
     };
+
     return (
-        <section id="home" className={styles.hero} ref={ref}>
-            <motion.div className={styles.bg} >
+        /* Outer Section wrapper jo dono sections ko hold karega */
+        <div className={styles.outerWrapper}>
+            {/* Direct fixed background Image for both sections */}
+            <div className={styles.bgWrapper}>
                 <Image
-                    src="/images/denmar_bottom_cut.webp"
-                    alt="Atmospheric mountain landscape"
+                    src="/images/denmark_bottom_cut.png"
+                    alt="Background Landscape"
                     fill
-                    loading="lazy"
+                    priority
                     className={styles.bgImage}
                     sizes="100vw"
                 />
                 <div className={styles.bgOverlayBottom} />
-            </motion.div>
-            <motion.div
-                className={styles.bottTextCont}
-                style={{ opacity: contentOpacity, y: contentY }}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: false, amount: 0.3 }}
-                variants={containerVariants}
-            >
-                <div className={styles.bottTextCont}>
+            </div>
 
+            {/* Section 1: NextPhoto Hero */}
+            <section id="home" className={styles.hero} ref={ref}>
+                <motion.div
+                    className={styles.bottTextCont}
+                    style={{ opacity: contentOpacity, y: contentY }}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: false, amount: 0.3 }}
+                    variants={containerVariants}
+                >
                     <motion.h3
                         className={styles.parabottom}
                         variants={itemVariants}
                     >
                         One city changed the way we think about distance..
                     </motion.h3>
+                </motion.div>
+            </section>
 
-                    {/* <div className={styles.botomtext}>
-                        <motion.div variants={itemVariants}>
-                            It's not about building more, <br />its a bout building closer.
-                        </motion.div>
-
-                        <motion.span
-                            className={styles.thirdline}
-                            variants={itemVariants}
-                        >
-                            -The Copenhagen Way
-                        </motion.span>
-                    </div> */}
-
-                </div>
-            </motion.div>
-        </section>
+            {/* Section 2: NextDesign */}
+            <NextDesign />
+        </div>
     );
 }

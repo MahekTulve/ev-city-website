@@ -444,9 +444,9 @@ export default function ZoomParallaxDemo() {
         <NextPhoto />
       </div>
 
-      <div data-section>
+      {/* <div data-section>
         <NextDesign />
-      </div>
+      </div> */}
 
 
 

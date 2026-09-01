@@ -4,8 +4,8 @@
   --paper: #FFFFF7;
   --ink: #1d1c1a;
   --gold: #b1904f;
-  --gold-soft: #c9ae76;
-  --muted: #6e675d;
+  --gold-soft: #d7b36a;
+  --muted: #1d1b18;
   --line: #ddd5c6;
   background: var(--paper);
   color: var(--ink);
@@ -449,6 +449,7 @@
 .pillars {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  margin-bottom: 8%;
 }
 
 .pillar {
@@ -625,6 +626,7 @@
   gap: 1rem;
   justify-content: center;
   align-items: flex-start;
+  z-index: 5;
 }
 
 .closingQuote p {
@@ -690,12 +692,12 @@
 
 .skechImage {
   position: absolute;
-  z-index: 10;
-  width: 500px;
-  height: 300px;
+  z-index: 1;
+  width: 40vw;
+  height: 350px;
   bottom: -20px;
-  left: 1px;
-  opacity: 0.3;
+  left:1px;
+  opacity: 0.7;
   -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
 }
