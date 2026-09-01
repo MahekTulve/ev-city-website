@@ -141,7 +141,23 @@
 
 .domeBackground {
   position: absolute;
-  inset: -1px;
+
+  /*
+   * IMPORTANT:
+   * The parent .dome animates from 0vh -> 148vh.
+   * If this layer uses inset: 0, its own height changes with the dome and
+   * background-size: cover keeps recalculating — that looks like a FAST
+   * zoom on entry.
+   *
+   * Keep this artwork at the FINAL dome size from frame one.
+   * The dome now only reveals/crops the image; it does not resize it.
+   */
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  top: auto;
+  height: calc(148vh + 2px);
+
   z-index: 0;
   pointer-events: none;
 
@@ -151,7 +167,6 @@
   background-repeat: no-repeat;
 
   transform: scale(1);
-  /* Keep the bottom-center of the artwork visually locked while scaling. */
   transform-origin: 50% 100%;
   will-change: transform;
 }
