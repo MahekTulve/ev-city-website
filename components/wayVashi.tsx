@@ -469,9 +469,9 @@ export default function WayVashi({
       const sectionEnd = tl.duration();
       const availableZoomTime = Math.max(sectionEnd - zoomStart, 0.001);
 
-      // Use ~72% of the remaining section for the zoom.
-      // The final ~28% is a HOLD at the exact same crop.
-      const zoomDuration = availableZoomTime * 0.72;
+      // Keep the camera movement extremely gradual.
+      // The final ~10% stays locked at the exact same crop.
+      const zoomDuration = availableZoomTime * 0.90;
 
       tl.fromTo(
         domeBackgroundRef.current,
@@ -480,7 +480,7 @@ export default function WayVashi({
           transformOrigin: "50% 100%",
         },
         {
-          scale: 1.18,
+          scale: 1.16,
           transformOrigin: "50% 100%",
           duration: zoomDuration,
           ease: "none",
