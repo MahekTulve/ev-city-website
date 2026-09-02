@@ -6,8 +6,13 @@
 
   position: relative;
 
-  /* Slight overlap removes any 1px browser seam between a2-cut and a3-cut. */
+  /*
+    Hide the 1–2px compositing seam created where the pinned/zoomed
+    WayVashi cutout meets this section. The later section overlaps the
+    first one very slightly, so the parent background can never peek through.
+  */
   margin-top: -2px;
+  z-index: 2;
 
   min-height: 100lvh;
   overflow: hidden;
@@ -17,61 +22,90 @@
 
   /*
     IMPORTANT:
-    WayVashi a2-cut uses 100% auto.
-    Use the exact same scaling for a3-cut so both cutouts visually continue
-    as one image instead of each section being independently cropped by cover.
+    The top cutout finishes at CUTOUT_ZOOM_SCALE in WayVashi.tsx.
+    --cutout-final-bg-size is supplied by the WayVashi parent, so this lower
+    cutout uses the exact same final scale and both halves meet like one image.
   */
   background-color: #17233a;
-  background-image: url("/images/a3-cut.webp");
-  background-size: 100% auto;
+  background-image: url("/images/vashi_cut_bottom.png");
+  background-size: var(--cutout-final-bg-size, 116%) auto;
   background-position: center top;
   background-repeat: no-repeat;
 
   isolation: isolate;
 }
 
-/* =========================================================
-   BACKGROUND-ONLY OVERLAYS
+/* .wrapper::before {
+  content: ""
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -12px;
+  height: 18px;
+  z-index: 0;
+  pointer-events: none;
 
-   Stacking order:
-   a3-cut.jpeg background
-   -> .backgroundOverlay / .bottomOverlay
-   -> LIT title, letters, cards and actions
-
-   The top value (0.58) matches the bottom of the WayVashi
-   dome overlay, so a2-cut -> a3-cut reads as one section.
-   ========================================================= */
+  background-image: url("/images/vashi_cut_bottom.png");
+  background-size: var(--cutout-final-bg-size, 116%) auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+} */
 
 .backgroundOverlay {
   position: absolute;
-  inset: 0;
+
+  /*
+    Extend slightly above/below to prevent
+    browser sub-pixel seam.
+  */
+  top: -3px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
   z-index: 1;
   pointer-events: none;
 
   background:
     linear-gradient(
       180deg,
+
+      /*
+        EXACT continuation of WayVashi bottom.
+        Hold it briefly so the transition isn't visible.
+      */
       rgba(7, 12, 25, 0.58) 0%,
-      rgba(7, 12, 25, 0.58) 10%,
+      rgba(7, 12, 25, 0.58) 4%,
+      rgba(7, 12, 25, 0.58) 9%,
+
       rgba(7, 12, 25, 0.61) 25%,
       rgba(6, 10, 21, 0.69) 48%,
       rgba(5, 8, 18, 0.82) 73%,
       rgba(5, 8, 18, 0.93) 100%
     ),
+
+    /*
+      SAME horizontal gradient as WayVashi.
+      Don't use 0.20 here.
+    */
     linear-gradient(
       90deg,
-      rgba(5, 8, 18, 0.2) 0%,
+      rgba(5, 8, 18, 0.18) 0%,
       rgba(5, 8, 18, 0.015) 50%,
-      rgba(5, 8, 18, 0.2) 100%
+      rgba(5, 8, 18, 0.18) 100%
     );
+
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .bottomOverlay {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+
+  z-index: 1;
+  pointer-events: none;
+
   background:
     linear-gradient(
       360deg,
@@ -84,12 +118,10 @@
       rgba(243, 243, 236, 0.093) 14.5%,
       transparent 17%,
       transparent 100%
-    ),
-    radial-gradient(ellipse at center, rgba(248, 244, 202, 0) 0%, #f3f3ec00 85%);
+    );
 
-  pointer-events: none;
-
-  z-index: 1;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .hero,
@@ -1108,9 +1140,15 @@
 
     background-color: #17233a;
     background-image: url("/images/cut2mobile.png");
-    background-size: cover;
-    background-position: center;
+    background-size: var(--cutout-final-bg-size, 116%) auto;
+    background-position: center top;
     background-repeat: no-repeat;
+  }
+
+  .wrapper::before {
+    background-image: url("/images/cut2mobile.png");
+    background-size: var(--cutout-final-bg-size, 116%) auto;
+    background-position: center top;
   }
   .hero {
     min-height: auto;

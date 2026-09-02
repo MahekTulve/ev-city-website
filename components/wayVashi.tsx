@@ -4,6 +4,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  type CSSProperties,
   type Dispatch,
   type SetStateAction,
 } from "react";
@@ -15,6 +16,9 @@ import DayNightButton from "./DayNightButton";
 import Lit from "./Lit/Lit";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Keep both cutout halves on the exact same final camera scale.
+const CUTOUT_ZOOM_SCALE = 1.16;
 
 type FeatureIconType = "connectivity" | "ecosystem" | "momentum";
 
@@ -237,8 +241,6 @@ export default function WayVashi({
   // Any manual arrow click disables autoplay until the next refresh.
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(true);
   const [isStageVisible, setIsStageVisible] = useState(false);
-
-  const activeRecord = RECORDS[slide];
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -480,7 +482,7 @@ export default function WayVashi({
           transformOrigin: "50% 100%",
         },
         {
-          scale: 1.16,
+          scale: CUTOUT_ZOOM_SCALE,
           transformOrigin: "50% 100%",
           duration: zoomDuration,
           ease: "none",
@@ -513,6 +515,14 @@ export default function WayVashi({
     return () => {
       observer.disconnect();
     };
+  }, []);
+
+  useEffect(() => {
+    // Preload every record image so switching never waits on a lazy request.
+    RECORDS.forEach((record) => {
+      const image = new Image();
+      image.src = record.src;
+    });
   }, []);
 
   useEffect(() => {
@@ -552,7 +562,15 @@ export default function WayVashi({
   };
 
   return (
-    <div className={styles.next} ref={rootRef}>
+    <div
+      className={styles.next}
+      ref={rootRef}
+      style={
+        {
+          "--cutout-final-bg-size": `${CUTOUT_ZOOM_SCALE * 100}%`,
+        } as CSSProperties
+      }
+    >
       <section className={styles.archStage} ref={stageRef}>
         <div
           className={`${styles.archBgLayer}  ${night ? styles.nightStageBg : styles.dayStageBg
@@ -635,20 +653,25 @@ export default function WayVashi({
           </div>
 
           <div className={styles.domeInner}>
-            <div
-              className={styles.recordCopy}
-              key={`copy-${slide}`}
-            >
-              <h2 className={styles.bigTitle}>
-                {activeRecord.title}
-              </h2>
+            <div className={styles.recordCopyViewport}>
+              {RECORDS.map((record, index) => (
+                <div
+                  key={record.title}
+                  className={`${styles.recordCopy} ${
+                    index === slide ? styles.recordCopyActive : ""
+                  }`}
+                  aria-hidden={index !== slide}
+                >
+                  <h2 className={styles.bigTitle}>
+                    {record.title}
+                  </h2>
 
-              <RecordSubtitle
-                subtitle={activeRecord.subtitle}
-                subtitleHighlight={
-                  activeRecord.subtitleHighlight
-                }
-              />
+                  <RecordSubtitle
+                    subtitle={record.subtitle}
+                    subtitleHighlight={record.subtitleHighlight}
+                  />
+                </div>
+              ))}
             </div>
 
             <div className={styles.sliderFrame}>
@@ -657,7 +680,8 @@ export default function WayVashi({
                   key={item.src}
                   src={item.src}
                   alt={item.alt}
-                  loading={index === 0 ? "eager" : "lazy"}
+                  loading="eager"
+                  decoding="async"
                   width={1280}
                   height={720}
                   className={`${styles.slide} ${index === slide
