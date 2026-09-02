@@ -52,6 +52,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
 }
+
 .nextnum,
 .railCount {
   font-family: "Bodoni Moda", serif;
@@ -68,13 +69,16 @@
   -webkit-text-fill-color: transparent;
   color: transparent;
 }
-.nextnum{
-margin-top: -0.5rem;
+
+.nextnum {
+  margin-top: -0.5rem;
 }
+
 .railLine {
   width: 2px;
   height: 14rem;
-  background: rgba(246, 241, 231, 0.2); /* Base un-filled line color */
+  background: rgba(246, 241, 231, 0.2);
+  /* Base un-filled line color */
   position: relative;
   overflow: hidden;
   border-radius: 2px;
@@ -88,22 +92,29 @@ margin-top: -0.5rem;
   position: absolute;
   top: 0;
   left: 0;
-  background: linear-gradient(
-    180deg,
-    #80601d 0%,
-    #b98f2c98 25%,
-    #fcea93c3 50%,
-    #b98f2cdc 75%,
-    #80611dcf 100%
-  );
+  background: linear-gradient(180deg,
+      #80601d 0%,
+      #b98f2c98 25%,
+      #fcea93c3 50%,
+      #b98f2cdc 75%,
+      #80611dcf 100%);
   will-change: height;
 }
+
 .railLabel {
   text-transform: uppercase;
   writing-mode: vertical-rl;
   letter-spacing: 0.35em;
-  color: rgba(246, 241, 231, 0.75);
-  color:#fffae2;
+  background: linear-gradient(110deg,
+      #80601d 0%,
+      #b98f2c 25%,
+      #fcea93 50%,
+      #b98f2c 75%,
+      #80601d 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 .railArrow {
@@ -129,4 +140,41 @@ margin-top: -0.5rem;
   border-right: 1px solid #b98f2c;
   border-bottom: 1px solid #b98f2c;
   rotate: 45deg;
+}
+
+@media screen and (max-width: 768px) {
+  .badge {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .badgeLogo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.7rem;
+    pointer-events: auto;
+  }
+
+  .nextnum,
+  .railCount {
+    font-size: 0.55rem;
+  }
+
+  .nextnum {
+    margin-top: -0.4rem;
+  }
+
+  .railLabel {
+    letter-spacing: 0.2em;
+  }
+
+  .rail {
+    left: 0.2rem;
+    top: 35%;
+    gap: 0.5rem;
+    font-size: 0.62rem;
+  }
+
 }

@@ -45,7 +45,7 @@ export default function NextPhoto() {
             {/* Direct fixed background Image for both sections */}
             <div className={styles.bgWrapper}>
                 <Image
-                    src="/images/denmark_bottom_cut.png"
+                    src="/images/new_bootom_cut.webp"
                     alt="Background Landscape"
                     fill
                     priority

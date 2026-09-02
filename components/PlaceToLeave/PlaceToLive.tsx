@@ -135,6 +135,7 @@ const PlaceToLive = () => {
                         ease: 'power1.inOut',
                     },
                     'step3'
+                    
                 );
         }, el);
 
@@ -188,7 +189,7 @@ const PlaceToLive = () => {
                         ref={cardOneRef}
                     >
                         <img
-                            src="/images/denmark_left_cut.png"
+                            src="/images/new_left_cut.webp"
                             alt="Architecture 1"
                             loading="lazy"
                             decoding="async"
@@ -200,7 +201,7 @@ const PlaceToLive = () => {
                         ref={cardTwoRef}
                     >
                         <img
-                            src="/images/denmark_right_cut.png"
+                            src="/images/new_right_cut.webp"
                             alt="Architecture 2"
                             loading="lazy"
                             decoding="async"
