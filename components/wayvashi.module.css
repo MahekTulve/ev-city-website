@@ -22,26 +22,43 @@
 }
 
 /* =========================================================
-   BACKGROUND-ONLY DOME OVERLAY
-   a2-cut background -> this overlay -> all WayVashi content
+   WAYVASHI → LIT CONTINUOUS OVERLAY
    ========================================================= */
+
 .domeOverlay {
   position: absolute;
   inset: 0;
+
   z-index: 1;
   pointer-events: none;
 
+  /*
+    IMPORTANT:
+    Bottom of this gradient is EXACTLY the same as
+    the top of Lit .backgroundOverlay.
+  */
   background:
-    linear-gradient(180deg,
+    linear-gradient(
+      180deg,
       rgba(245, 247, 255, 0.34) 0%,
-      rgba(21, 23, 28, 0.1) 40%,
+      rgba(21, 23, 28, 0.10) 40%,
       rgba(7, 12, 25, 0.24) 68%,
       rgba(7, 12, 25, 0.42) 86%,
-      rgba(7, 12, 25, 0.58) 100%),
-    linear-gradient(90deg,
+
+      /* hold same shade near join */
+      rgba(7, 12, 25, 0.54) 96%,
+      rgba(7, 12, 25, 0.58) 100%
+    ),
+
+    linear-gradient(
+      90deg,
       rgba(5, 8, 18, 0.18) 0%,
       rgba(5, 8, 18, 0.015) 50%,
-      rgba(5, 8, 18, 0.18) 100%);
+      rgba(5, 8, 18, 0.18) 100%
+    );
+
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .archBgLayer {
@@ -146,23 +163,33 @@
    * IMPORTANT:
    * The parent .dome animates from 0vh -> 148vh.
    * If this layer uses inset: 0, its own height changes with the dome and
-   * background-size: cover keeps recalculating — that looks like a FAST
-   * zoom on entry.
+   * background-size keeps recalculating — that looks like a FAST zoom
+   * on entry.
    *
    * Keep this artwork at the FINAL dome size from frame one.
-   * The dome now only reveals/crops the image; it does not resize it.
+   * The dome only reveals/crops the image; it does not resize it.
+   *
+   * Also use the SAME width-anchored scaling logic as the lower cutout
+   * section so both halves visually stitch together as one image.
    */
-  left: -1px;
-  right: -1px;
-  bottom: -1px;
+  left: 0;
+  right:0;
+  bottom: 0;
   top: auto;
-  height: calc(148vh + 2px);
+  height: calc(148vh + 16px);
 
   z-index: 0;
   pointer-events: none;
 
-  background-image: url("/images/a2-cut.webp");
-  background-size: cover;
+  /*
+   * The artwork is width-anchored (100% auto), so on tall screens there can
+   * be unused space above the PNG. During the GSAP scale that PNG edge used
+   * to travel upward and appear as a horizontal overlay/background seam.
+   * Keep the whole camera layer opaque so there is no edge to reveal.
+   */
+  background-color: #10172f;
+  background-image: url("/images/vashi_cut_top.png");
+  background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
 
@@ -398,18 +425,39 @@
   will-change: opacity, transform;
 }
 
-.recordCopy {
+.recordCopyViewport {
+  position: relative;
   width: 100%;
   height: 190px;
   min-height: 190px;
   flex: 0 0 190px;
+  overflow: hidden;
+}
+
+.recordCopy {
+  position: absolute;
+  inset: 0;
+  width: 100%;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
   text-align: center;
-  animation: contentSwapIn 0.72s cubic-bezier(0.16, 1, 0.3, 1) both;
+  opacity: 0;
+  transform: translate3d(0, 12px, 0) scale(0.992);
+  pointer-events: none;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  transition:
+    opacity 0.58s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.78s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.recordCopyActive {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  pointer-events: auto;
 }
 
 .bigTitle {
@@ -541,15 +589,17 @@
   object-fit: cover;
   object-position: center center;
   opacity: 0;
-  scale: 1.015;
+  transform: translate3d(0, 0, 0) scale(1.025);
+  will-change: opacity, transform;
+  backface-visibility: hidden;
   transition:
-    opacity 0.9s ease,
-    scale 1.35s cubic-bezier(0.16, 1, 0.3, 1);
+    opacity 0.82s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 1.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .slideActive {
   opacity: 1;
-  scale: 1;
+  transform: translate3d(0, 0, 0) scale(1);
 }
 
 .featureRow {
@@ -744,7 +794,7 @@
     width: min(900px, 72vw);
   }
 
-  .recordCopy {
+  .recordCopyViewport {
     height: 190px;
     min-height: 190px;
     flex-basis: 190px;
@@ -817,7 +867,7 @@
     letter-spacing: 0.08em;
   }
 
-  .recordCopy {
+  .recordCopyViewport {
     height: 180px;
     min-height: 180px;
     flex-basis: 180px;
@@ -854,8 +904,9 @@
   }
 
   .domeBackground {
+    background-color: #10172f;
     background-image: url("/images/cut1mobile.png");
-    background-size: cover;
+    background-size: 100% auto;
     background-position: center bottom;
   }
 
@@ -901,8 +952,14 @@
   }
 
   .slide {
-    scale: 1 !important;
-    transition: opacity 0.4s ease !important;
+    transform: translate3d(0, 0, 0) scale(1.012) !important;
+    transition:
+      opacity 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .slideActive {
+    transform: translate3d(0, 0, 0) scale(1) !important;
   }
 
   .introCrown {
@@ -961,7 +1018,7 @@
     letter-spacing: 0.07em;
   }
 
-  .recordCopy {
+  .recordCopyViewport {
     height: 165px;
     min-height: 165px;
     flex-basis: 165px;
@@ -1170,7 +1227,7 @@
     font-size: 8vw;
   }
 
-  .recordCopy {
+  .recordCopyViewport {
     height: 180px;
     min-height: 180px;
     flex-basis: 180px;
