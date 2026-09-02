@@ -50,27 +50,27 @@ const wedgeData = [
   {
     img: wedgePark,
     alt: "People relaxing in a sunlit Copenhagen park",
-    label: { icon: TreePine, text: "Parks & Nature", pos: { top: "-2%", left: "40%" }, line: "50px" },
+    label: { icon: TreePine, text: "Parks & Nature", pos: { top: "-2%", left: "38%" }, line: "50px" },
   },
   {
     img: wedgeCafe,
     alt: "Warm café interior with guests at wooden tables",
-    label: { icon: Coffee, text: "Cafés & Restaurants", pos: { top: "18%", left: "64%" }, line: "40px" },
+    label: { icon: Coffee, text: "Cafés & Restaurants", pos: { top: "11%", left: "68%" }, line: "40px" },
   },
   {
     img: wedgeCulture,
     alt: "Cobblestone street with pedestrians and bicycles",
-    label: { icon: Users, text: "Culture & Community", pos: { top: "42%", left: "73%" }, line: "34px" },
+    label: { icon: Users, text: "Culture & Community", pos: { top: "41%", left: "82%" }, line: "10px" },
   },
   {
     img: wedgeWork,
     alt: "Bright coworking space with people working",
-    label: { icon: Laptop2, text: "Workspaces", pos: { top: "70%", left: "65%" }, line: "34px" },
+    label: { icon: Laptop2, text: "Workspaces", pos: { top: "72%", left: "72%" }, line: "34px" },
   },
   {
     img: wedgeRetail,
     alt: "Glowing boutique storefront at dusk",
-    label: { icon: ShoppingBag, text: "Retail & Services", pos: { top: "85%", left: "50%" }, line: "34px" },
+    label: { icon: ShoppingBag, text: "Retail & Services", pos: { top: "89%", left: "44%" }, line: "34px" },
   },
 ].map((w, i) => {
   const a0 = WEDGE_START + i * (WEDGE_SIZE + WEDGE_GAP);

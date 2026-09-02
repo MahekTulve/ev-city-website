@@ -52,6 +52,7 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
 
     will-change: width, height;
+    
 }
 
 .imageCardOne {
@@ -96,7 +97,7 @@
     pointer-events: none;
     overflow: visible;
 
-    -webkit-mask-image: linear-gradient(to bottom,
+    /* -webkit-mask-image: linear-gradient(to bottom,
             #000 0%,
             #000 45%,
             rgba(0, 0, 0, 0.9) 65%,
@@ -108,7 +109,7 @@
             #000 45%,
             rgba(0, 0, 0, 0.9) 65%,
             rgba(0, 0, 0, 0.45) 82%,
-            transparent 100%);
+            transparent 100%); */
 }
 
 
@@ -446,7 +447,7 @@
 
 @media (min-width: 1600px) {
     .cloudTransition {
-        height: 100vh;
+        height: 70vh;
     }
 
     .cloudMarquee {
