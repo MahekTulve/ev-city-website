@@ -285,14 +285,7 @@ export default function HorizontalStory() {
 
             <span className={styles.spain}>Vashi</span>
 
-            <img
-              className={styles.goldenImage}
-              src="/images/why-vashi.webp"
-              alt="Terrace with sea views and flowering plants"
-              loading="lazy"
-              width={912}
-              height={900}
-            />
+         
 
             <div className={styles.caption}>
               <p className={styles.captionTitle}>
