@@ -691,15 +691,6 @@
 
 /* ---------------- Scene section ---------------- */
 
-.scene {
-  position: relative;
-  min-height: 100vh;
-  background-image: "/images/landingImg.webp";
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
-}
-
 .hotspot {
   position: absolute;
   width: 2.4rem;

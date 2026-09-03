@@ -286,16 +286,6 @@ export default function NextDesign() {
               </p>
             </div>
           </motion.div>
-
-          {/* 6. Nyhavn Image */}
-          {/* <motion.img
-            className={styles["nyhavn"]}
-            src="/images/denmark_city.jpeg"
-            alt="Nyhavn harbour in Copenhagen with colourful waterfront houses"
-            width={1536}
-            height={1024}
-            variants={imageVariants}
-          /> */}
         </motion.div>
 
         {/* ------ right column : the wheel ------ */}

@@ -1,12 +1,13 @@
-import { Navbar } from '@/components/Navbar';
 import './globals.css';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
-// import Footer from '../components/Footer';
 
 export const metadata = {
   title: 'EV City Website',
   description: 'Welcome to EV City',
+  icons: {
+    icon: '/favicon.png', // 'icon' ko 'icons' object ke andar hona chahiye
+  },
 };
 
 export default function RootLayout({
@@ -20,7 +21,6 @@ export default function RootLayout({
         <body
           suppressHydrationWarning={true}
           style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}>
-          {/* <Navbar /> */}
           <main>
             {children}
           </main>

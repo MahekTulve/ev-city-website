@@ -1089,14 +1089,6 @@
     height: 1.8rem;
   }
 
-  /* Mobile-only dark overlay above lit-mob.webp and below all text/content.
-     This keeps the background visible while giving the white/gold copy
-     enough contrast on bright areas of the image. */
-
-  /* =========================================================
-     MOBILE CONTENT CENTERING
-     Keep every visible record element on the same center axis.
-     ========================================================= */
   .domeInner {
     left: 50%;
     width: 100%;
