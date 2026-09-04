@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './PlaceToLive.module.css';
+import NextPhoto from './NextPhoto';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -28,24 +29,16 @@ function CloudLayer({
     imageClass,
 }: CloudLayerProps) {
     return (
-        <div
-            className={`${styles.cloudLayer} ${layerClass}`}
-            aria-hidden="true"
-        >
+        <div className={`${styles.cloudLayer} ${layerClass}`} aria-hidden="true">
             <div className={`${styles.cloudMarquee} ${trackClass}`}>
                 {[0, 1].map((groupIndex) => (
-                    <div
-                        className={styles.cloudGroup}
-                        key={groupIndex}
-                    >
+                    <div className={styles.cloudGroup} key={groupIndex}>
                         {[0, 1, 2, 3].map((itemIndex) => {
                             const flipped = itemIndex % 2 === 1;
 
                             return (
                                 <div
-                                    className={`${styles.cloudItem} ${
-                                        cloudPositions[itemIndex]
-                                    }`}
+                                    className={`${styles.cloudItem} ${cloudPositions[itemIndex]}`}
                                     key={`${groupIndex}-${itemIndex}`}
                                 >
                                     <img
@@ -54,11 +47,8 @@ function CloudLayer({
                                         loading="lazy"
                                         decoding="async"
                                         draggable={false}
-                                        className={`${styles.cloudImage} ${imageClass} ${
-                                            flipped
-                                                ? styles.cloudImageFlipped
-                                                : ''
-                                        }`}
+                                        className={`${styles.cloudImage} ${imageClass} ${flipped ? styles.cloudImageFlipped : ''
+                                            }`}
                                     />
                                 </div>
                             );
@@ -80,7 +70,6 @@ const PlaceToLive = () => {
 
     useEffect(() => {
         const el = containerRef.current;
-
         if (!el) return;
 
         const ctx = gsap.context(() => {
@@ -88,71 +77,57 @@ const PlaceToLive = () => {
                 scrollTrigger: {
                     trigger: el,
                     start: 'top top',
-                    end: '+=1600',
+                    end: '+=1800',
                     scrub: 0.5,
                     pin: true,
                     anticipatePin: 1,
-
                     onUpdate: (self) => {
-                        if (self.progress > 0.9) {
-                            setShowText(true);
-                        } else {
-                            setShowText(false);
-                        }
+                        setShowText(self.progress > 0.9);
                     },
                 },
             });
 
+            // PHASE 1: Align Top/Bottom offsets (Dono Cards level par aayenge)
             tl.to(
                 cardOneRef.current,
-                {
-                    marginTop: '0px',
-                    ease: 'none',
-                },
-                'step1'
+                { marginTop: '0px', ease: 'none' },
+                'phase1'
             )
                 .to(
                     cardTwoRef.current,
-                    {
-                        marginBottom: '0px',
-                        ease: 'none',
-                    },
-                    'step1'
+                    { marginBottom: '0px', ease: 'none' },
+                    'phase1'
                 )
+                // PHASE 2: Gap 0px karke dono tukdo ko milayenge
                 .to(
                     galleryRef.current,
-                    {
-                        gap: '0px',
-                        ease: 'none',
-                    },
-                    'step2'
+                    { gap: '0px', ease: 'none' },
+                    'phase2'
                 )
+                // PHASE 3: Dono cards ko 50vw aur 100vh extend karenge, aur Clip Path opens to Full Square
                 .to(
                     [cardOneRef.current, cardTwoRef.current],
                     {
                         width: '50vw',
                         height: '100vh',
+                        clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
                         ease: 'power1.inOut',
                     },
-                    'step3'
-                    
+                    'phase3'
                 );
         }, el);
 
         return () => ctx.revert();
     }, []);
 
+    // APKI MASTER IMAGE (Ek hi main image ka URL yahan rakhein)
+    const masterImage = "/images/new_cut_example.png";
+
     return (
         <div className={styles.wrapper}>
-            <div
-                className={styles.container}
-                ref={containerRef}
-            >
-                {/* TOP CLOUDS */}
-                <div
-                    className={styles.cloudTransition}
-                    aria-hidden="true"
-                >
+            <div className={styles.container} ref={containerRef}>
+                {/* CLOUDS SECTION */}
+                <div className={styles.cloudTransition} aria-hidden="true">
                     <div className={styles.cloudBase} />
                     <div className={styles.cloudCore} />
                     <div className={styles.cloudFog} />
@@ -163,14 +138,12 @@ const PlaceToLive = () => {
                         trackClass={styles.cloudTrackBack}
                         imageClass={styles.cloudImageBack}
                     />
-
                     <CloudLayer
                         src="/images/cloud_5.avif"
                         layerClass={styles.cloudLayerMiddle}
                         trackClass={styles.cloudTrackMiddle}
                         imageClass={styles.cloudImageMiddle}
                     />
-
                     <CloudLayer
                         src="/images/cloud_4.avif"
                         layerClass={styles.cloudLayerFront}
@@ -179,42 +152,32 @@ const PlaceToLive = () => {
                     />
                 </div>
 
-                {/* IMAGE GALLERY */}
-                <div
-                    className={styles.imageGallery}
-                    ref={galleryRef}
-                >
-                    <div
-                        className={styles.imageCardOne}
-                        ref={cardOneRef}
-                    >
+                {/* SPLIT IMAGE GALLERY */}
+                <div className={styles.imageGallery} ref={galleryRef}>
+                    {/* LEFT PIECE (Contains Left Half of Master Image) */}
+                    <div className={styles.imageCardOne} ref={cardOneRef}>
                         <img
-                            src="/images/new_left_cut.webp"
-                            alt="Architecture 1"
+                            src={masterImage}
+                            alt="Master Image Left Half"
+                            className={styles.fullClipImage}
                             loading="lazy"
-                            decoding="async"
                         />
                     </div>
 
-                    <div
-                        className={styles.imageCard}
-                        ref={cardTwoRef}
-                    >
+                    {/* RIGHT PIECE (Contains Right Half of Master Image) */}
+                    <div className={styles.imageCard} ref={cardTwoRef}>
                         <img
-                            src="/images/new_right_cut.webp"
-                            alt="Architecture 2"
+                            src={masterImage}
+                            alt="Master Image Right Half"
+                            className={styles.fullClipImage}
                             loading="lazy"
-                            decoding="async"
                         />
                     </div>
                 </div>
 
-                {showText && (
-                    <div
-                        className={styles.overlayTextContainer}
-                    />
-                )}
+                {showText && <div className={styles.overlayTextContainer} />}
             </div>
+            <NextPhoto />
         </div>
     );
 };
