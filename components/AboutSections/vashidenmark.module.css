@@ -4,7 +4,7 @@
   width: 100%;
   min-width: 100%;
   max-width: none;
-  height: 110vh;
+  height: 100vh;
   margin: 0;
   box-sizing: border-box;
   background: #f3f3ec;
@@ -17,16 +17,14 @@
 
 .topLabel {
   text-align: center;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.11em;
   font-size: 12px;
-  font-family: "Helvetica", sans-serif;
+  font-weight: 600;
+  font-family: "Helvetica", Arial, sans-serif;
   margin-bottom: 8px;
-
-  /* Gradient Text Properties */
-  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #16213b;
+  -webkit-text-fill-color: currentColor;
+  background: none;
 }
 
 .topLabel::before,
@@ -37,7 +35,7 @@
   width: 50px;
   height: 2px;
   margin: 0 12px;
-  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
+  background: #b38a39;
 }
 
 .title {
@@ -55,8 +53,7 @@
 }
 
 .title .big {
-   background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
-
+  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
   font-family: "Times New Roman", Times, serif;
   -webkit-background-clip: text;
   background-clip: text;
@@ -65,27 +62,19 @@
 
 .subtitle {
   text-align: center;
-  font-family: "cormorant garamond", serif;
-  font-size: 1.1rem;
-  margin-top: 6px;
-  line-height: 1.4;
-  letter-spacing: 0.08rem;
-
-  /* Gradient text properties */
-  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: transparent; /* Fallback */
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.08rem;
+  font-weight: 600;
+  margin-top: 7px;
+  line-height: 1.32;
+  letter-spacing: 0.025rem;
+  color: #18223c;
+  -webkit-text-fill-color: currentColor;
+  background: none;
 }
 
 .videoContainer {
   position: absolute;
-
-  /*
-   * Overscan prevents the moving video layer from exposing a dark
-   * compositor edge at the panel boundary.
-   */
   inset: -3px;
   width: auto;
   height: auto;
@@ -95,7 +84,6 @@
   background: #000;
 }
 
-/* GPU Performance Optimized Video Class */
 .bgVideo {
   position: absolute;
   top: 0;
@@ -112,7 +100,26 @@
   position: absolute;
   inset: -4px;
   z-index: 1;
+  pointer-events: none;
+
   background:
+    linear-gradient(
+      180deg,
+      rgba(246, 240, 231, 0.985) 0%,
+      rgba(246, 240, 231, 0.94) 8%,
+      rgba(246, 240, 231, 0.82) 16%,
+      rgba(246, 240, 231, 0.62) 25%,
+      rgba(246, 240, 231, 0.38) 34%,
+      rgba(246, 240, 231, 0.18) 43%,
+      rgba(246, 240, 231, 0.06) 51%,
+      rgba(246, 240, 231, 0) 60%,
+      rgba(246, 240, 231, 0) 70%,
+      rgba(246, 240, 231, 0.12) 79%,
+      rgba(246, 240, 231, 0.46) 89%,
+      rgba(246, 240, 231, 0.88) 97%,
+      #f3f3ec 100%
+    ),
+
     linear-gradient(
       90deg,
       #f3f3ec 0%,
@@ -120,31 +127,24 @@
       rgba(243, 243, 236, 0.96) 4.5%,
       rgba(243, 243, 236, 0.82) 6.5%,
       rgba(243, 243, 236, 0.58) 9%,
-      rgba(243, 243, 236, 0.3) 12%,
-      rgba(243, 243, 236, 0.1) 14.5%,
+      rgba(243, 243, 236, 0.30) 12%,
+      rgba(243, 243, 236, 0.10) 14.5%,
       rgba(243, 243, 236, 0) 17%,
       rgba(243, 243, 236, 0) 83%,
-      rgba(243, 243, 236, 0.1) 85.5%,
-      rgba(243, 243, 236, 0.3) 88%,
+      rgba(243, 243, 236, 0.10) 85.5%,
+      rgba(243, 243, 236, 0.30) 88%,
       rgba(243, 243, 236, 0.58) 91%,
       rgba(243, 243, 236, 0.82) 93.5%,
       rgba(243, 243, 236, 0.96) 95.5%,
       #f3f3ec 97.5%,
       #f3f3ec 100%
     ),
+
     radial-gradient(
       ellipse at center,
       rgba(248, 244, 202, 0.281) 0%,
-      #f3f3ec8f 85%
+      rgba(243, 243, 236, 0.56) 85%
     );
-
-  pointer-events: none;
-
-  /*
-   * Do not transform/promote this mask independently. A separate
-   * compositor layer can create the exact 1px anti-aliased seam
-   * you were seeing while scrolling.
-   */
 }
 
 .layout {
@@ -160,7 +160,6 @@
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  /* margin-bottom: 15vh; */
 }
 
 .mapWrap {
@@ -169,7 +168,6 @@
   display: flex;
   justify-content: center;
   width: 100%;
-
   margin-top: 40px;
 }
 
@@ -187,7 +185,7 @@
   width: 92vw;
   height: 100%;
   pointer-events: none;
-  top: -35%;
+  top: -42%;
 }
 
 .nodes {
@@ -206,35 +204,64 @@
   width: 140px;
   text-align: center;
   transform: translate3d(-50%, -50%, 0);
+  isolation: isolate;
+  will-change: left, top, transform, opacity;
+  backface-visibility: hidden;
+}
+
+.node::before {
+  display: none;
+}
+
+.nodeTime,
+.nodeMin,
+.nodeLabel,
+.nodeSub {
+  position: relative;
+  z-index: 1;
+  text-shadow:
+    -1px -1px 4px rgba(255, 255, 255, 0.98),
+     1px -1px 4px rgba(255, 255, 255, 0.98),
+    -1px  1px 4px rgba(255, 255, 255, 0.98),
+     1px  1px 4px rgba(255, 255, 255, 0.98),
+     0 0 5px rgba(255, 255, 255, 0.92),
+     0 0 9px rgba(255, 255, 255, 0.62);
+}
+
+.nodeTime::before,
+.nodeMin::before {
+  display: none;
 }
 
 .nodeTime {
-  font-size: 28px;
-  color: #f5e6b8;
-  font-family: "Helvetica", sans-serif;
+  margin-bottom: 2px;
+  font-size: 22px;
   line-height: 1;
+  font-weight: 600;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  letter-spacing: 0.02em;
+  color: #14213d;
 }
 
 .nodeMin {
-  font-size: 10px;
-  letter-spacing: 0.3em;
-  margin-bottom: 8px;
+  margin-bottom: 7px;
+  font-size: 8px;
+  line-height: 1;
+  letter-spacing: 0.2em;
+  font-weight: 600;
   font-family: "Helvetica", sans-serif;
-
-  /* Gradient Text Properties */
-  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #8f6c23;
+  -webkit-text-fill-color: currentColor;
+  background: none;
 }
 
 .nodeCircle {
-  width: 70px;
-  height: 70px;
+  width: 66px;
+  height: 66px;
   border-radius: 50%;
-  border: 2px solid #ffe796;
-  background: linear-gradient(70deg, #01051aef, #230b5ae3);
-  color: #e1b44c;
+  border: 2px solid #fff2d0;
+  background: linear-gradient(148deg, #254489 0%, #071127 100%);
+  color: #fff2d0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -242,37 +269,40 @@
   overflow: hidden;
   position: relative;
   transform: translate3d(0, 0, 0);
+  box-shadow: 
+    0 14px 19px #081024, 
+    0 0 0 0px #deb24c14, 
+    inset 0 0 50px #ffd67309;
 }
 
 .nodeLabel {
-  margin-top: 12px;
-  font-family: "Helvetica", sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.15em;
-  text-align: center;
+  margin-top: 10px;
   width: 100%;
+  text-align: center;
   white-space: nowrap;
-
-  /* Gradient Text Properties */
-  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-family: "Helvetica", Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.15;
+  letter-spacing: 0.015em;
+  font-weight: 700;
+  color: #101b36;
+  -webkit-text-fill-color: currentColor;
+  background: none;
 }
 
 .nodeSub {
-  font-family: "Helvetica-Light", "Helvetica", sans-serif;
-  font-size: 11px;
-  margin-top: 2px;
-  text-align: center;
+  margin-top: 4px;
   width: 100%;
+  text-align: center;
   white-space: nowrap;
-
-  /* Gradient Text Properties */
-  background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  font-family: "Helvetica", Arial, sans-serif;
+  font-size: 0.7rem;
+  line-height: 1.25;
+  letter-spacing: 0;
+  font-weight: 400;
+  color: rgba(14, 23, 45, 0.82);
+  -webkit-text-fill-color: currentColor;
+  background: none;
 }
 
 .center {
@@ -287,101 +317,329 @@
 }
 
 .centerCircle {
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  border: 1px solid #ffe796;
-  background: linear-gradient(70deg, #01051aef, #230b5ae3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  position: relative;
-  transform: translate3d(0, 0, 0);
+  width: 158px;
+  height: 158px;
+     background: linear-gradient(148deg, #254489 0%, #071127 100%);
+    border: 2px solid #fff2d0;
+    border-radius: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 158px;
+    height: 158px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0);
+    box-shadow: 0 14px 19px #081024, 0 0 0 0px #deb24c14, inset 0 0 50px #ffd67309;
 }
 
 .centerBrand {
-  color: #d0a645;
-  margin-bottom: 5px;
+  color: #fff2d0;
+  margin-bottom: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .centerName {
   font-size: 25px;
-  letter-spacing: 0.1em;
-  background-image: linear-gradient(
-    10deg,
-    transparent 0%,
-    #ffd87c 35%,
-    #ffee97 50%,
-    #e4ba59 70%,
-    transparent 100%
-  );
-  font-family: "Times New Roman", Times, serif;
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  letter-spacing: 0.03em;
+  font-weight: 500;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  color: #fff2d0;
+  -webkit-text-fill-color: currentColor;
+  background: none;
+  text-shadow: 0 1px 12px rgba(232, 185, 85, 0.14);
 }
 
 .centerCity {
-  font-size: 10px;
-  letter-spacing: 0.15em;
-  color: #cfc3a3;
-  font-family: "Times New Roman", Times, serif;
+  margin-top: 7px;
+  max-width: 130px;
+  text-align: center;
+  font-size: 0.7rem;
+  line-height: 1.15;
+  letter-spacing: 0.04em;
+  font-weight: 700;
+  color: #fff2d0;
+  font-family: "Helvetica", Arial, sans-serif;
 }
 
 .dragBar {
   position: absolute;
-
-  /* Remove top: 55% */
   left: 50%;
   bottom: 40%;
   top: auto;
   transform: translateX(-50%);
-
   margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 15px;
-  padding: 3px 1px;
-  border: 1px solid rgba(212, 175, 55, 0.147);
+  gap: 13px;
+  min-height: 48px;
+  padding: 4px 10px;
+  border: 1px solid rgba(224, 177, 66, 0.88);
   border-radius: 999px;
   width: max-content;
-  color: #e6c76a;
-  font-family: "Helvetica", sans-serif;
-  font-size: 13px;
-  letter-spacing: 0.1em;
-  background: rgba(0, 0, 0, 0.4);
+  color: #e7b64c;
+  font-family: "Helvetica", Arial, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  background: linear-gradient(180deg, rgba(15, 29, 59, 0.96), rgba(5, 14, 32, 0.96));
+  box-shadow:
+    0 12px 30px rgba(5, 13, 31, 0.22),
+    inset 0 0 0 1px rgba(255, 223, 147, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .handIcon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
   border-radius: 50%;
-  border: 2px solid transparent;
-  background-image:
-    radial-gradient(circle, #453b17 0%, #0c0900 80%),
-    linear-gradient(135deg, #d4af37, #fcea93, #8a6103, #fff1c4);
-  background-origin: border-box;
-  background-clip: padding-box, border-box;
+  border: 1px solid #d9a83e;
+  background: linear-gradient(145deg, #12203f 0%, #071127 100%);
+  color: #e8b64b;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px;
+  padding: 0;
+  box-shadow: inset 0 0 0 2px rgba(255, 225, 158, 0.04);
 }
 
 .arrowBtn {
+  width: 34px;
+  height: 34px;
   display: flex;
-  padding: 10px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
   border-radius: 50%;
-  background-color: #ffffff07;
+  background: transparent;
   cursor: pointer;
   border: none;
-  color: #d4af37;
-  transition: opacity 0.2s ease;
+  color: #e1ad3e;
+  transition:
+    opacity 0.2s ease,
+    background-color 0.2s ease,
+    transform 0.2s ease;
 }
 
-/* TABLET VIEW: 481px to 768px (Shows 2 left, 1 center, 2 right) */
+.arrowBtn:hover:not(:disabled) {
+  background: rgba(225, 173, 62, 0.08);
+  transform: scale(1.04);
+}
+
+.dragBar > span {
+  color: #e4b14a;
+  white-space: nowrap;
+}
+
+@media (min-width: 1600px) {
+
+  .page {
+    width: 100%;
+    min-width: 100%;
+    height: 100vh;
+    min-height: 800px;
+    max-height: 1000px;
+
+    padding:
+      clamp(24px, 3vh, 34px)
+      clamp(38px, 3vw, 52px)
+      0;
+
+    overflow: hidden;
+  }
+
+  .layout {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .cardrow {
+    width: 100%;
+    flex: 0 0 auto;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .topLabel {
+    font-size: 1.3vw;
+    letter-spacing: 0.11em;
+    margin-bottom: 8px;
+  }
+
+  .topLabel::before,
+  .topLabel::after {
+    width: clamp(45px, 3vw, 55px);
+    margin: 0 12px;
+  }
+
+  .title {
+    font-size: 5vw;
+    line-height: 0.98;
+    letter-spacing: 0.09em;
+  }
+
+  .subtitle {
+    font-size: 1.4vw;
+    line-height: 1.3;
+    margin-top: 10px;
+  }
+
+  .mapWrap {
+    position: relative;
+
+    flex: 1 1 auto;
+    width: 100%;
+
+    min-height: 0;
+    height: auto;
+
+    margin-top: clamp(22px, 2.5vh, 34px);
+
+    overflow: visible;
+  }
+
+.arcStage {
+  position: absolute;
+  inset: 0;
+  transform: translateY(
+    clamp(50px, 5vh, 63px)
+  );
+}
+
+  .arcSvg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 50%;
+    top: -35%;
+    transform: translateX(-50%);
+    overflow: visible;
+  }
+
+  .nodes {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    top: 0;
+
+    overflow: visible;
+  }
+
+  .node {
+    width: clamp(130px, 9vw, 150px);
+  }
+
+  .nodeTime {
+    font-size: 1.8vw;
+    margin-bottom: 2px;
+  }
+
+  .nodeMin {
+    font-size: 8px;
+    margin-bottom: 7px;
+  }
+
+  .nodeCircle {
+    width: clamp(80px, 4.2vw, 75px);
+    height: clamp(80px, 4.2vw, 75px);
+  }
+
+  .nodeCircle svg {
+    width: 35px;
+    height: 35px;
+  }
+
+  .nodeLabel {
+    margin-top: 9px;
+
+    font-size: 0.8vw;
+
+    line-height: 1.15;
+
+    white-space: nowrap;
+  }
+
+  .nodeSub {
+    margin-top: 4px;
+
+    font-size: 0.7vw;
+
+    line-height: 1.2;
+
+    white-space: nowrap;
+  }
+
+  .center {
+    left: 50%;
+    top: 15%;
+
+    transform: translate(-50%, -50%);
+  }
+
+  .centerCircle {
+    width: clamp(148px, 10vw, 162px);
+    height: clamp(148px, 10vw, 162px);
+  }
+
+  .centerBrand svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  .centerName {
+    font-size: clamp(23px, 1.65vw, 27px);
+  }
+
+  .centerCity {
+    margin-top: 7px;
+
+    max-width: 135px;
+
+    font-size: clamp(10px, 0.7vw, 11px);
+  }
+
+  .dragBar {
+    left: 50%;
+
+    top: auto;
+
+    bottom: clamp(105px, 14vh, 135px);
+
+    transform: translateX(-50%);
+
+    min-height: 48px;
+
+    gap: 13px;
+
+    padding: 4px 10px;
+
+    font-size: 12px;
+  }
+
+  .handIcon {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+  }
+
+  .arrowBtn {
+    width: 34px;
+    height: 34px;
+  }
+}
+
 @media (min-width: 601px) and (max-width: 1024px) {
   .page {
     height: auto;
@@ -418,7 +676,7 @@
   .arcSvg {
     width: 100%;
     height: 100%;
-    top: -30%;
+    top: -34%;
   }
 
   .nodes {
@@ -491,9 +749,6 @@
   }
 }
 
-/* =========================================================
-   MOBILE VIEW: <= 600px (Shows 1 left, 1 center, 1 right)
-   ========================================================= */
 @media (max-width: 600px) {
   .cardrow {
     margin-bottom: 0;
@@ -534,7 +789,7 @@
     left: 50%;
     transform: translateX(-50%);
     height: 100%;
-    top: -8%;
+    top: -16%;
   }
 
   .center {
@@ -618,5 +873,70 @@
   .mapWrap {
     min-height: 520px;
     margin-top: 40px;
+  }
+}
+
+.nodeTime,
+.nodeMin,
+.nodeLabel,
+.nodeSub {
+  position: relative;
+  z-index: 2;
+  width: fit-content;
+  max-width: 100%;
+  align-self: center;
+  isolation: isolate;
+}
+
+.nodeTime,
+.nodeMin {
+  text-shadow:
+    -1px 0 1px rgba(255, 255, 255, 0.86),
+     1px 0 1px rgba(255, 255, 255, 0.86),
+     0 0 3px rgba(255, 255, 255, 0.40);
+}
+
+.nodeLabel::before,
+.nodeSub::before {
+  display: none !important;
+  content: none !important;
+}
+
+.nodeLabel {
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.96),
+    -1px 0 2px rgba(255, 255, 255, 0.72),
+     1px 0 2px rgba(255, 255, 255, 0.72),
+     0 0 4px rgba(255, 255, 255, 0.34),
+     0 0 7px rgba(255, 255, 255, 0.16);
+}
+
+.nodeSub {
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.90),
+    -1px 0 2px rgba(255, 255, 255, 0.48),
+     1px 0 2px rgba(255, 255, 255, 0.48),
+     0 0 4px rgba(255, 255, 255, 0.26),
+     0 0 6px rgba(255, 255, 255, 0.12);
+}
+
+.nodeTime::before,
+.nodeMin::before {
+  display: none !important;
+  content: none !important;
+}
+
+@media (max-width: 1024px) {
+  .nodeLabel,
+  .nodeSub {
+    width: fit-content;
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 600px) {
+  .nodeLabel,
+  .nodeSub {
+    max-width: 105px;
   }
 }

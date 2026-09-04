@@ -1,35 +1,17 @@
 "use client";
 
-import {
-  useEffect,
-  useId,
-  useRef,
-  useState,
-  type CSSProperties,
-} from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
 import VashiDenmark from "../AboutSections/Vashidenmark";
 
 const SCROLL_LENGTH_VH = 650;
-
-// Desktop horizontal scroll is split into 3 phases:
-// 1) Concept -> VashiDenmark
-// 2) Hold on VashiDenmark for more than a full viewport of vertical scroll
-// 3) VashiDenmark -> timeline panel
 const DENMARK_REACH = 0.24;
 const DENMARK_HOLD_END = 0.54;
 const HORIZONTAL_END = 0.72;
-
-// Do not start the timeline until the third panel is completely in place.
 const TIMELINE_START = HORIZONTAL_END;
 const TIMELINE_END = 0.92;
-
-// The cloud bridge fades in as the sticky section hands over to VashiLetter.
 const CLOUD_START = 0.91;
-
-// Phone-only timing: once the third panel is fully in place, use the rest of
-// the sticky scroll to travel across the enlarged building timeline.
 const MOBILE_BREAKPOINT = 520;
 const MOBILE_SCROLL_LENGTH_VH = 750;
 const MOBILE_DENMARK_REACH = 0.23;
@@ -38,14 +20,8 @@ const MOBILE_HORIZONTAL_END = 0.67;
 const MOBILE_TIMELINE_START = MOBILE_HORIZONTAL_END;
 const MOBILE_TIMELINE_END = 0.94;
 const MOBILE_CLOUD_START = 0.92;
-
-// The phone timeline is 300vw wide.
-// Start farther inside the viewport so the first building does not touch the
-// left edge, and travel a little farther so the final pair also keeps a
-// comfortable gap from the right edge.
 const MOBILE_ROUTE_START_X_VW = 18;
 const MOBILE_ROUTE_TRAVEL_VW = 232;
-
 const PATH_WIDTH = 1480;
 const PATH_HEIGHT = 100;
 const PATH_SIDE_PADDING = 36;
@@ -66,6 +42,7 @@ const STOPS = [
     name: "9 SQUARE",
     time: "50 min",
     image: "/images/9-square.webp",
+    link: "https://9square.co.in",
     x: 36,
     y: 70,
   },
@@ -73,6 +50,7 @@ const STOPS = [
     name: "10 MARINA BAY",
     time: "10 min",
     image: "/images/10-marina.webp",
+    link: "https://10marinabay.com",
     x: 285,
     y: 52,
   },
@@ -80,6 +58,7 @@ const STOPS = [
     name: "9 VTC",
     time: "5 min",
     image: "/images/9-vtc.webp",
+    link: "https://www.evgroup.in/home.html",
     x: 530,
     y: 66,
   },
@@ -87,6 +66,7 @@ const STOPS = [
     name: "10 HQ",
     time: "4 min",
     image: "/images/10-hq.webp",
+    link: "https://www.evgroup.in/home.html",
     x: 775,
     y: 54,
   },
@@ -94,6 +74,7 @@ const STOPS = [
     name: "23 MALIBU WEST",
     time: "20 min",
     image: "/images/23-malibu.webp",
+    link: "https://ev23malibuwest.com/",
     x: 1020,
     y: 74,
   },
@@ -101,6 +82,7 @@ const STOPS = [
     name: "CAPITOL 9",
     time: "25 min",
     image: "/images/capitol-9.webp",
+    link: "https://www.evgroup.in/home.html",
     x: 1265,
     y: 52,
   },
@@ -108,6 +90,7 @@ const STOPS = [
     name: "PARKSIDE VISTA",
     time: "45 min",
     image: "/images/parkside-vista.webp",
+    link: "https://www.evgroup.in/home.html",
     x: PATH_END_X,
     y: 58,
   },
@@ -219,17 +202,10 @@ export default function HorizontalStory() {
 
   const horizontalEnd = isPhone ? MOBILE_HORIZONTAL_END : HORIZONTAL_END;
   const denmarkReach = isPhone ? MOBILE_DENMARK_REACH : DENMARK_REACH;
-  const denmarkHoldEnd = isPhone
-    ? MOBILE_DENMARK_HOLD_END
-    : DENMARK_HOLD_END;
+  const denmarkHoldEnd = isPhone ? MOBILE_DENMARK_HOLD_END : DENMARK_HOLD_END;
   const timelineStart = isPhone ? MOBILE_TIMELINE_START : TIMELINE_START;
   const timelineEnd = isPhone ? MOBILE_TIMELINE_END : TIMELINE_END;
   const cloudStart = isPhone ? MOBILE_CLOUD_START : CLOUD_START;
-
-  // Horizontal movement deliberately HARD-HOLDS at panel 2 (VashiDenmark).
-  // 0 -> 100vw: arrive at Denmark
-  // 100vw: stay pinned during the hold window
-  // 100 -> 200vw: continue to the timeline panel
   const shift =
     progress <= denmarkReach
       ? mapProgress(progress, 0, denmarkReach) * 100
@@ -240,9 +216,6 @@ export default function HorizontalStory() {
   const timelineProgress = mapProgress(progress, timelineStart, timelineEnd);
   const cloudProgress = mapProgress(progress, cloudStart, 1);
 
-
-  // On phones keep enough route visible for the first two buildings immediately,
-  // then continue drawing it as the enlarged timeline travels left.
   const routeRevealProgress = isPhone
     ? Math.max(0.23, timelineProgress)
     : timelineProgress;
@@ -316,9 +289,7 @@ export default function HorizontalStory() {
                 ✥
               </span>
 
-              <h2 className={styles.coastHeading}>
-                EVERY ICON, MINUTES AWAY.
-              </h2>
+              <h2 className={styles.coastHeading}>EVERY ICON, MINUTES AWAY.</h2>
 
               <span className={styles.coastHeadingDivider} aria-hidden="true">
                 <span />
@@ -337,123 +308,148 @@ export default function HorizontalStory() {
                     } as CSSProperties
                   }
                 >
-                <svg
-                  className={styles.timelineSvg}
-                  viewBox={`0 0 ${PATH_WIDTH} ${PATH_HEIGHT}`}
-                  preserveAspectRatio="none"
-                  aria-hidden="true"
-                >
-                  <defs>
-                    <clipPath id={routeClipId} clipPathUnits="userSpaceOnUse">
-                      <rect
-                        x="0"
-                        y="-10"
-                        width={routeRevealWidth}
-                        height={PATH_HEIGHT + 20}
-                      />
-                    </clipPath>
-                  </defs>
+                  <svg
+                    className={styles.timelineSvg}
+                    viewBox={`0 0 ${PATH_WIDTH} ${PATH_HEIGHT}`}
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+                    <defs>
+                      <clipPath id={routeClipId} clipPathUnits="userSpaceOnUse">
+                        <rect
+                          x="0"
+                          y="-10"
+                          width={routeRevealWidth}
+                          height={PATH_HEIGHT + 20}
+                        />
+                      </clipPath>
+                    </defs>
 
-                  <path
-                    className={styles.timelinePath}
-                    d={PATH_D}
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    vectorEffect="non-scaling-stroke"
-                    clipPath={`url(#${routeClipId})`}
-                  />
+                    <path
+                      className={styles.timelinePath}
+                      d={PATH_D}
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      vectorEffect="non-scaling-stroke"
+                      clipPath={`url(#${routeClipId})`}
+                    />
+
+                    {STOPS.map((stop, index) => {
+                      const revealPoint = isPhone
+                        ? index <= 1
+                          ? 0
+                          : ((index - 1) / (STOPS.length - 2)) * 0.88
+                        : (index / (STOPS.length - 1)) * 0.94;
+
+                      const dotProgress =
+                        isPhone && index <= 1
+                          ? 1
+                          : mapProgress(
+                              timelineProgress,
+                              revealPoint,
+                              Math.min(
+                                1,
+                                revealPoint + (isPhone ? 0.05 : 0.055),
+                              ),
+                            );
+
+                      return (
+                        <circle
+                          className={styles.timelineDot}
+                          key={stop.name}
+                          cx={stop.x}
+                          cy={stop.y}
+                          r={
+                            index === 0 || index === STOPS.length - 1 ? 4 : 3.4
+                          }
+                          fill="currentColor"
+                          style={{
+                            opacity: dotProgress,
+                            transform: `scale(${0.25 + dotProgress * 0.75})`,
+                          }}
+                        />
+                      );
+                    })}
+                  </svg>
 
                   {STOPS.map((stop, index) => {
                     const revealPoint = isPhone
                       ? index <= 1
                         ? 0
                         : ((index - 1) / (STOPS.length - 2)) * 0.88
-                      : (index / (STOPS.length - 1)) * 0.94;
+                      : (index / (STOPS.length - 1)) * 0.9;
 
-                    const dotProgress =
+                    const stopProgress =
                       isPhone && index <= 1
                         ? 1
                         : mapProgress(
                             timelineProgress,
                             revealPoint,
-                            Math.min(1, revealPoint + (isPhone ? 0.05 : 0.055)),
+                            Math.min(
+                              1,
+                              revealPoint + (isPhone ? 0.055 : 0.065),
+                            ),
                           );
 
+                    const xPercentage = (stop.x / PATH_WIDTH) * 100;
+
+                    const dotBottomRatio = (PATH_HEIGHT - stop.y) / PATH_HEIGHT;
+
                     return (
-                      <circle
-                        className={styles.timelineDot}
+                      <div
+                        className={styles.stopItem}
                         key={stop.name}
-                        cx={stop.x}
-                        cy={stop.y}
-                        r={index === 0 || index === STOPS.length - 1 ? 4 : 3.4}
-                        fill="currentColor"
+                        data-stop-index={index}
                         style={{
-                          opacity: dotProgress,
-                          transform: `scale(${0.25 + dotProgress * 0.75})`,
+                          left: `${xPercentage}%`,
+                          bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,
+                          opacity: stopProgress,
+                          transform: `translateX(-50%) translateY(${
+                            (1 - stopProgress) * 20
+                          }px) scale(${0.9 + stopProgress * 0.1})`,
                         }}
-                      />
+                      >
+                        <span className={styles.stopArtwork}>
+                          <img
+                            className={`${styles.stopImage} ${
+                              stop.name === "9 VTC"
+                                ? styles.vtcImage
+                                : stop.name === "23 MALIBU WEST"
+                                  ? styles.malibuImage
+                                  : ""
+                            }`}
+                            src={stop.image}
+                            alt={`${stop.name} building`}
+                            loading="lazy"
+                          />
+
+                          <a
+                            className={styles.stopVisitLink}
+                            href={stop.link}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={`Visit ${stop.name} project website`}
+                          >
+                            <span>Visit</span>
+                            <svg
+                              className={styles.stopVisitArrow}
+                              viewBox="0 0 16 16"
+                              aria-hidden="true"
+                            >
+                              <path d="M4 12 12 4M6 4h6v6" />
+                            </svg>
+                          </a>
+                        </span>
+
+                        <span className={styles.stopName}>{stop.name}</span>
+
+                        {/* <span className={styles.stopTime}>{stop.time}</span> */}
+                      </div>
                     );
                   })}
-                </svg>
-
-                {STOPS.map((stop, index) => {
-                  const revealPoint = isPhone
-                    ? index <= 1
-                      ? 0
-                      : ((index - 1) / (STOPS.length - 2)) * 0.88
-                    : (index / (STOPS.length - 1)) * 0.9;
-
-                  const stopProgress =
-                    isPhone && index <= 1
-                      ? 1
-                      : mapProgress(
-                          timelineProgress,
-                          revealPoint,
-                          Math.min(1, revealPoint + (isPhone ? 0.055 : 0.065)),
-                        );
-
-                  const xPercentage = (stop.x / PATH_WIDTH) * 100;
-
-                  const dotBottomRatio = (PATH_HEIGHT - stop.y) / PATH_HEIGHT;
-
-                  return (
-                    <div
-                      className={styles.stopItem}
-                      key={stop.name}
-                      data-stop-index={index}
-                      style={{
-                        left: `${xPercentage}%`,
-                        bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,
-                        opacity: stopProgress,
-                        transform: `translateX(-50%) translateY(${
-                          (1 - stopProgress) * 20
-                        }px) scale(${0.9 + stopProgress * 0.1})`,
-                      }}
-                    >
-                      <span className={styles.stopArtwork}>
-                        <img
-                          className={`${styles.stopImage} ${
-                            stop.name === "9 VTC"
-                              ? styles.vtcImage
-                              : stop.name === "23 MALIBU WEST"
-                                ? styles.malibuImage
-                                : ""
-                          }`}
-                          src={stop.image}
-                          alt={`${stop.name} building`}
-                          loading="lazy"
-                        />
-                      </span>
-
-                      <span className={styles.stopName}>{stop.name}</span>
-
-                      {/* <span className={styles.stopTime}>{stop.time}</span> */}
-                    </div>
-                  );
-                })}
                 </div>
               </div>
             </div>
