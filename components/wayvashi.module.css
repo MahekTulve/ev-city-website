@@ -21,10 +21,6 @@
   transform: translateZ(0);
 }
 
-/* =========================================================
-   WAYVASHI → LIT CONTINUOUS OVERLAY
-   ========================================================= */
-
 .domeOverlay {
   position: absolute;
   inset: 0;
@@ -32,11 +28,6 @@
   z-index: 1;
   pointer-events: none;
 
-  /*
-    IMPORTANT:
-    Bottom of this gradient is EXACTLY the same as
-    the top of Lit .backgroundOverlay.
-  */
   background:
     linear-gradient(
       180deg,
@@ -45,7 +36,6 @@
       rgba(7, 12, 25, 0.24) 68%,
       rgba(7, 12, 25, 0.42) 86%,
 
-      /* hold same shade near join */
       rgba(7, 12, 25, 0.54) 96%,
       rgba(7, 12, 25, 0.58) 100%
     ),
@@ -114,8 +104,6 @@
       #a1a1a3 100%);
 
   background-clip: text;
-  /* filter: drop-shadow(0 2px 5px #faf3e375); */
-
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -124,7 +112,6 @@
   font-family: "Bodoni Moda", serif;
   font-size: clamp(1.05rem, 1.2vw, 1.2rem);
   letter-spacing: 0.04em;
-  /* text-transform: uppercase; */
   white-space: nowrap;
 }
 
@@ -158,20 +145,6 @@
 
 .domeBackground {
   position: absolute;
-
-  /*
-   * IMPORTANT:
-   * The parent .dome animates from 0vh -> 148vh.
-   * If this layer uses inset: 0, its own height changes with the dome and
-   * background-size keeps recalculating — that looks like a FAST zoom
-   * on entry.
-   *
-   * Keep this artwork at the FINAL dome size from frame one.
-   * The dome only reveals/crops the image; it does not resize it.
-   *
-   * Also use the SAME width-anchored scaling logic as the lower cutout
-   * section so both halves visually stitch together as one image.
-   */
   left: 0;
   right:0;
   bottom: 0;
@@ -180,13 +153,6 @@
 
   z-index: 0;
   pointer-events: none;
-
-  /*
-   * The artwork is width-anchored (100% auto), so on tall screens there can
-   * be unused space above the PNG. During the GSAP scale that PNG edge used
-   * to travel upward and appear as a horizontal overlay/background seam.
-   * Keep the whole camera layer opaque so there is no edge to reveal.
-   */
   background-color: #10172f;
   background-image: url("/images/vashi_cut_top.png");
   background-size: 100% auto;
@@ -228,10 +194,6 @@
   will-change: opacity, transform;
 }
 
-/* ---------------------------------------------------------
-   Intro typography only — designed to match the reference.
-   No background / dome / overlay styles are changed here.
-   --------------------------------------------------------- */
 .introCrown {
   display: grid;
   will-change: opacity, transform;
@@ -265,7 +227,6 @@
   align-items: flex-end;
   justify-content: center;
   gap: 2px;
-  /* filter: drop-shadow(0 0 5px rgba(246, 204, 108, 0.24)); */
 }
 
 .introCrownMark span {
@@ -331,7 +292,6 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* filter: drop-shadow(0 2px 5px rgba(246, 204, 108, 0.28)); */
 }
 
 .introVashi {
@@ -358,7 +318,6 @@
   background: linear-gradient(90deg,
       rgba(185, 143, 44, 0),
       rgba(237, 205, 112, 0.78));
-  /* box-shadow: 0 0 7px rgba(246, 204, 108, 0.16); */
 }
 
 .introRule:last-child {
@@ -376,7 +335,6 @@
   line-height: 1;
   letter-spacing: clamp(0.38em, 0.62vw, 0.58em);
   white-space: nowrap;
-  /* text-shadow: 0 1px 8px rgba(0, 0, 0, 0.34); */
 }
 
 .introAddress {
@@ -396,9 +354,6 @@
   font-weight: 400;
   line-height: 1.28;
   letter-spacing: 0.025em;
-  /* text-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.42),
-    0 0 18px rgba(255, 255, 255, 0.1); */
 }
 
 .domeInner {
@@ -562,8 +517,6 @@
   line-height: 1.2;
   letter-spacing: 0.015em;
   text-align: center;
-  /* white-space: normal;
-  -webkit-font-smoothing: antialiased; */
 }
 
 .sliderFrame {
@@ -767,7 +720,13 @@
   }
 }
 
-@media (min-width: 1550px) {
+@media (min-width: 1800px) {
+  .domeIntro {
+    top: 100vh;
+  }
+}
+
+@media (min-width: 1550px) and (max-width: 1799px) {
   .domeIntro {
     top: 65vh;
   }

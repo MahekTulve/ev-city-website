@@ -1,6 +1,12 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useLayoutEffect,
+  useCallback,
+} from "react";
 import gsap from "gsap";
 import {
   Train,
@@ -116,25 +122,23 @@ const DESKTOP_ARC_POSITIONS = [
   { x: 7, y: 60 },
   { x: 20, y: 36 },
   { x: 34, y: 24 },
-  { x: 50, y: 10 }, // Center Target Slot
+  { x: 50, y: 10 },
   { x: 66, y: 24 },
   { x: 80, y: 36 },
   { x: 92, y: 60 },
 ];
 
-// Tablet / Mid-size (601px - 1024px): 2 Left, 1 Center, 2 Right (Total 5)
 const TABLET_ARC_POSITIONS = [
   { x: 14, y: 42 },
   { x: 30, y: 25 },
-  { x: 50, y: 14 }, // Center Target Slot
+  { x: 50, y: 14 },
   { x: 70, y: 26 },
   { x: 86, y: 42 },
 ];
 
-// Mobile (<=600px): 1 Left, 1 Center, 1 Right (Total 3)
 const MOBILE_ARC_POSITIONS = [
   { x: 18, y: 36 },
-  { x: 50, y: 20 }, // Center Target Slot
+  { x: 50, y: 20 },
   { x: 82, y: 36 },
 ];
 
@@ -174,7 +178,6 @@ export default function VashiDenmark() {
 
   const totalNodes = ALL_NODES.length;
 
-  // Set configuration based on screen width
   const arcPositions =
     deviceType === "mobile"
       ? MOBILE_ARC_POSITIONS
@@ -203,7 +206,6 @@ export default function VashiDenmark() {
     setStartIndex((prev) => (prev - 1 + totalNodes) % totalNodes);
   }, [isButtonDisabled, totalNodes]);
 
-  // Automatically move to the next slide every 2.5 seconds
   useEffect(() => {
     const autoScrollInterval = window.setInterval(() => {
       if (!document.hidden) {
@@ -220,7 +222,6 @@ export default function VashiDenmark() {
 
   const currentCenterData = ALL_NODES[centerNodeIndex];
 
-  // Video transition logic
   useEffect(() => {
     const targetVideoSrc = currentCenterData?.video;
     if (!targetVideoSrc) {
@@ -278,8 +279,7 @@ export default function VashiDenmark() {
     );
   }, [centerNodeIndex, currentCenterData]);
 
-  // Node position transitions
-  useEffect(() => {
+  useLayoutEffect(() => {
     const didIndexChange = previousStartIndexRef.current !== startIndex;
     const direction = slideDirection.current;
 
@@ -299,16 +299,12 @@ export default function VashiDenmark() {
 
         if (!targetLeft || !targetTop) return;
 
-        // Newly visible edge node.
-        // next: enters from the right, prev: enters from the left.
         const isEnteringEdgeNode =
           didIndexChange &&
           isVisible &&
           ((direction === "next" && relativeIndex === visibleCount - 1) ||
             (direction === "prev" && relativeIndex === 0));
 
-        // Node that has just left the visible arc. Keep it visible until
-        // it finishes sliding off-screen, then hide it.
         const isExitingEdgeNode =
           didIndexChange &&
           !isVisible &&
@@ -452,115 +448,115 @@ export default function VashiDenmark() {
           </aside>
         </div>
 
-<section className={styles.mapWrap}>
-  <div className={styles.arcStage}>
-    <svg
-      className={styles.arcSvg}
-      viewBox="0 0 100 50"
-      preserveAspectRatio="none"
-    >
-      <defs>
-        <linearGradient id="arcGrad" x1="0" x2="1">
-          <stop offset="0" stopColor="#d4af370f" stopOpacity="0" />
-          <stop offset="0.5" stopColor="#fed167" stopOpacity="0.9" />
-          <stop offset="1" stopColor="#d4af370a" stopOpacity="0" />
-        </linearGradient>
-      </defs>
+        <section className={styles.mapWrap}>
+          <div className={styles.arcStage}>
+            <svg
+              className={styles.arcSvg}
+              viewBox="0 0 100 50"
+              preserveAspectRatio="none"
+            >
+              <defs>
+                <linearGradient id="arcGrad" x1="0" x2="1">
+                  <stop offset="0" stopColor="#d4af370f" stopOpacity="0" />
+                  <stop offset="0.5" stopColor="#fed167" stopOpacity="0.9" />
+                  <stop offset="1" stopColor="#d4af370a" stopOpacity="0" />
+                </linearGradient>
+              </defs>
 
-      <path
-        d="M 0 50 Q 50 -5 100 50"
-        fill="none"
-        stroke="url(#arcGrad)"
-        strokeWidth="0.3"
-      />
-    </svg>
+              <path
+                d="M 0 50 Q 50 5 100 50"
+                fill="none"
+                stroke="url(#arcGrad)"
+                strokeWidth="0.3"
+              />
+            </svg>
 
-    <div className={styles.center}>
-      <div className={styles.centerCircle}>
-        <div
-          ref={centerContentRef}
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            width: "100%",
-            textAlign: "center",
-            padding: "0 8px",
-          }}
-        >
-          {currentCenterData ? (
-            <>
-              <div className={styles.centerBrand}>
-                {currentCenterData.icon}
+            <div className={styles.center}>
+              <div className={styles.centerCircle}>
+                <div
+                  ref={centerContentRef}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    width: "100%",
+                    textAlign: "center",
+                    padding: "0 8px",
+                  }}
+                >
+                  {currentCenterData ? (
+                    <>
+                      <div className={styles.centerBrand}>
+                        {currentCenterData.icon}
+                      </div>
+
+                      <div className={styles.centerName}>
+                        {currentCenterData.time} MINS
+                      </div>
+
+                      <div className={styles.centerCity}>
+                        {currentCenterData.label}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className={styles.centerBrand}>
+                        <Crown size={26} />
+                      </div>
+
+                      <div className={styles.centerName}>DENMARK</div>
+                      <div className={styles.centerCity}>VASHI</div>
+                    </>
+                  )}
+                </div>
               </div>
+            </div>
 
-              <div className={styles.centerName}>
-                {currentCenterData.time} MINS
-              </div>
+            <div className={styles.nodes} ref={nodesContainerRef}>
+              {ALL_NODES.map((n, globalIndex) => {
+                const relativeIndex =
+                  (globalIndex - startIndex + totalNodes) % totalNodes;
 
-              <div className={styles.centerCity}>
-                {currentCenterData.label}
-              </div>
-            </>
-          ) : (
-            <>
-              <div className={styles.centerBrand}>
-                <Crown size={26} />
-              </div>
+                const isGoingCenter = relativeIndex === centerOffset;
+                const isVisible =
+                  relativeIndex < visibleCount && !isGoingCenter;
 
-              <div className={styles.centerName}>DENMARK</div>
-              <div className={styles.centerCity}>VASHI</div>
-            </>
-          )}
-        </div>
-      </div>
-    </div>
+                let pos = { x: 50, y: 90 };
 
-    <div className={styles.nodes} ref={nodesContainerRef}>
-      {ALL_NODES.map((n, globalIndex) => {
-        const relativeIndex =
-          (globalIndex - startIndex + totalNodes) % totalNodes;
+                if (isVisible) {
+                  pos = arcPositions[relativeIndex];
+                } else if (isGoingCenter) {
+                  pos = arcPositions[centerOffset] || { x: 50, y: 20 };
+                } else if (relativeIndex < centerOffset) {
+                  pos = { x: -20, y: 90 };
+                } else {
+                  pos = { x: 120, y: 90 };
+                }
 
-        const isGoingCenter = relativeIndex === centerOffset;
-        const isVisible =
-          relativeIndex < visibleCount && !isGoingCenter;
-
-        let pos = { x: 50, y: 90 };
-
-        if (isVisible) {
-          pos = arcPositions[relativeIndex];
-        } else if (isGoingCenter) {
-          pos = arcPositions[centerOffset] || { x: 50, y: 20 };
-        } else if (relativeIndex < centerOffset) {
-          pos = { x: -20, y: 90 };
-        } else {
-          pos = { x: 120, y: 90 };
-        }
-
-        return (
-          <div
-            key={n.id}
-            className={styles.node}
-            data-left={pos.x}
-            data-top={pos.y}
-            data-relative-index={relativeIndex}
-            data-visible={isVisible ? "true" : "false"}
-            data-going-center={isGoingCenter ? "true" : "false"}
-            style={{
-              position: "absolute",
-              pointerEvents: isVisible ? "auto" : "none",
-            }}
-          >
-            <div className={styles.nodeTime}>{n.time}</div>
-            <div className={styles.nodeMin}>MIN</div>
-            <div className={styles.nodeCircle}>{n.icon}</div>
-            <div className={styles.nodeLabel}>{n.label}</div>
-            <div className={styles.nodeSub}>{n.sub}</div>
+                return (
+                  <div
+                    key={n.id}
+                    className={styles.node}
+                    data-left={pos.x}
+                    data-top={pos.y}
+                    data-relative-index={relativeIndex}
+                    data-visible={isVisible ? "true" : "false"}
+                    data-going-center={isGoingCenter ? "true" : "false"}
+                    style={{
+                      position: "absolute",
+                      pointerEvents: isVisible ? "auto" : "none",
+                    }}
+                  >
+                    <div className={styles.nodeTime}>{n.time}</div>
+                    <div className={styles.nodeMin}>MIN</div>
+                    <div className={styles.nodeCircle}>{n.icon}</div>
+                    <div className={styles.nodeLabel}>{n.label}</div>
+                    <div className={styles.nodeSub}>{n.sub}</div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        );
-      })}
-    </div>
-  </div>
 
           <div className={styles.dragBar}>
             <button
