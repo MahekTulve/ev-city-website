@@ -1,128 +1,100 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
 
-/* =========================================================
-   MAIN SECTION
-========================================================= */
-
 .wrapper {
     width: 100%;
     position: relative;
     overflow: hidden;
-    /* background-color: #78a3d4; */
-        /* background: linear-gradient(#03050f 0%, #0e1420 20%, #10131b 40%, #1b2232 60%, #12161e 80%, #020202 100%); */
 }
 
 .container {
     position: relative;
     width: 100%;
     height: 100vh;
-    /* background-color: #78a3d4; */
-
     display: flex;
     justify-content: center;
     align-items: center;
-
     overflow: hidden;
     box-sizing: border-box;
-    background: linear-gradient(to bottom ,#0f1d27 0%, #172e3e 50%, #658b94 100%);
-
+    background: linear-gradient(to bottom, #0f1d27 0%, #172e3e 50%, #658b94 100%);
     font-family: 'Times New Roman', serif;
 }
 
 /* =========================================================
-   IMAGE GALLERY
+   GALLERY CONTAINER
 ========================================================= */
 
 .imageGallery {
     position: relative;
-
     display: flex;
-    gap: 30px;
-
-    z-index: 2;
-}
-
-.imageCardOne,
-.imageCard {
-    width: 380px;
-    height: 400px;
-
-    overflow: hidden;
-
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-
-    will-change: width, height;
-    
-}
-
-.imageCardOne {
-    margin-top: 150px;
-}
-
-.imageCard {
-    margin-bottom: 150px;
-}
-
-.imageCardOne img,
-.imageCard img {
+    gap: 40px;
+    z-index: 5;
     width: 100%;
     height: 100%;
-
-    object-fit: cover;
-    object-position: right bottom;
+    justify-content: center;
+    align-items: center;
 }
 
-.imageCardOne img {
-    object-position: left bottom;
+/* Base Card Styling */
+.imageCardOne,
+.imageCard {
+    position: relative;
+    width: 380px;
+    height: 420px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    will-change: width, height, margin, clip-path, transform;
+}
+
+/* Diagonal Clips */
+.imageCardOne {
+    margin-top: 120px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+.imageCard {
+    margin-bottom: 120px;
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+
+.fullClipImage {
+    position: absolute;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    max-width: none;
+    object-fit: cover;
+    object-position: bottom center;
+    pointer-events: none;
+}
+
+.imageCardOne .fullClipImage {
+    left: 0;
+}
+
+.imageCard .fullClipImage {
+    right: 0;
 }
 
 /* =========================================================
-   CLOUD TRANSITION
-   SHORTER HEIGHT - CLOUDS ONLY AT TOP
+   CLOUDS (UNTOUCHED)
 ========================================================= */
 
 .cloudTransition {
     position: absolute;
-
     top: 0;
     left: -10vw;
-
     width: 120vw;
-
-    /* CHANGED: was 80vh */
     height: 38vh;
-
     z-index: 10;
-
     pointer-events: none;
     overflow: visible;
-
-    /* -webkit-mask-image: linear-gradient(to bottom,
-            #000 0%,
-            #000 45%,
-            rgba(0, 0, 0, 0.9) 65%,
-            rgba(0, 0, 0, 0.45) 82%,
-            transparent 100%);
-
-    mask-image: linear-gradient(to bottom,
-            #000 0%,
-            #000 45%,
-            rgba(0, 0, 0, 0.9) 65%,
-            rgba(0, 0, 0, 0.45) 82%,
-            transparent 100%); */
 }
-
-
-/* =========================================================
-   CLOUD BACKGROUND
-========================================================= */
 
 .cloudBase {
     position: absolute;
     inset: 0;
-
     z-index: 1;
-
     background: linear-gradient(to bottom,
             rgba(255, 255, 255, 1) 0%,
             rgba(243, 243, 236, 0.88) 30%,
@@ -130,20 +102,13 @@
             transparent 100%);
 }
 
-
 .cloudCore {
     position: absolute;
-
     left: -5%;
     right: -5%;
-
     top: -3vh;
-
-    /* CHANGED: was 29vh */
     height: 18vh;
-
     z-index: 2;
-
     background: linear-gradient(to bottom,
             rgba(243, 243, 236, 0.92),
             rgba(243, 243, 236, 0.82) 45%,
@@ -151,42 +116,23 @@
             transparent);
 }
 
-
 .cloudFog {
     position: absolute;
     inset: 0;
-
     z-index: 3;
-
     background:
-        radial-gradient(40% 45% at 8% 5%,
-            rgba(243, 243, 236, 0.8),
-            transparent 75%),
-        radial-gradient(44% 45% at 33% 5%,
-            rgba(243, 243, 236, 0.72),
-            transparent 75%),
-        radial-gradient(44% 45% at 67% 5%,
-            rgba(243, 243, 236, 0.72),
-            transparent 75%),
-        radial-gradient(40% 45% at 94% 5%,
-            rgba(243, 243, 236, 0.78),
-            transparent 75%);
+        radial-gradient(40% 45% at 8% 5%, rgba(243, 243, 236, 0.8), transparent 75%),
+        radial-gradient(44% 45% at 33% 5%, rgba(243, 243, 236, 0.72), transparent 75%),
+        radial-gradient(44% 45% at 67% 5%, rgba(243, 243, 236, 0.72), transparent 75%),
+        radial-gradient(40% 45% at 94% 5%, rgba(243, 243, 236, 0.78), transparent 75%);
 }
-
-
-/* =========================================================
-   CLOUD LAYERS
-========================================================= */
 
 .cloudLayer {
     position: absolute;
     inset: 0;
-
     width: 100%;
     height: 100%;
-
     pointer-events: none;
-
     mix-blend-mode: screen;
 }
 
@@ -205,63 +151,33 @@
     opacity: 1;
 }
 
-
-/* =========================================================
-   CLOUD MOVING AREA
-   REDUCED HEIGHT
-========================================================= */
-
 .cloudMarquee {
     position: absolute;
-
-    /* keep clouds near the top */
     top: -3vh;
     left: 0;
-
-    /* CHANGED: was 52vh */
     height: 32vh;
-
     display: flex;
     width: max-content;
-
     will-change: transform;
-
     backface-visibility: hidden;
-
     transform: translate3d(0, 0, 0);
 }
-
-
-/* =========================================================
-   CLOUD ITEM
-========================================================= */
 
 .cloudItem {
     --cloud-x: 0%;
     --cloud-y: 0%;
     --cloud-scale: 1;
     --cloud-flip: 1;
-
     position: relative;
-
     flex: 0 0 48vw;
-
     width: 48vw;
-
-    /* CHANGED: was 52vh */
     height: 32vh;
-
     overflow: visible;
 }
 
 .cloudItem+.cloudItem {
     margin-left: -28vw;
 }
-
-
-/* =========================================================
-   SAME CLOUD POSITIONS
-========================================================= */
 
 .cloudPositionA {
     --cloud-x: -4%;
@@ -287,81 +203,41 @@
     --cloud-scale: 1.15;
 }
 
-
-/* =========================================================
-   CLOUD IMAGE
-========================================================= */
-
 .cloudImage {
     position: absolute;
-
     top: 50%;
     left: 50%;
-
     display: block;
-
     height: auto;
     max-width: none;
-
     pointer-events: none;
     user-select: none;
-
     transform-origin: center center;
-
-    transform:
-        translate3d(calc(-50% + var(--cloud-x)),
-            calc(-50% + var(--cloud-y)),
-            0) scale(var(--cloud-scale)) scaleX(var(--cloud-flip));
-
+    transform: translate3d(calc(-50% + var(--cloud-x)), calc(-50% + var(--cloud-y)), 0) scale(var(--cloud-scale)) scaleX(var(--cloud-flip));
     will-change: transform;
 }
 
-
-/* =========================================================
-   CLOUD SIZES - REDUCED
-========================================================= */
-
 .cloudImageBack {
-    /* was 125% */
     width: 105%;
-
     opacity: 0.75;
-
-    filter:
-        brightness(1.12) contrast(0.92) blur(0px);
+    filter: brightness(1.12) contrast(0.92) blur(0px);
 }
-
 
 .cloudImageMiddle {
-    /* was 135% */
     width: 115%;
-
     opacity: 0.9;
-
-    filter:
-        brightness(1.08) contrast(0.95) blur(0.5px);
+    filter: brightness(1.08) contrast(0.95) blur(0.5px);
 }
-
 
 .cloudImageFront {
-    /* was 150% */
     width: 125%;
-
     opacity: 1;
-
-    filter:
-        brightness(1.05) contrast(1);
+    filter: brightness(1.05) contrast(1);
 }
-
 
 .cloudImageFlipped {
     --cloud-flip: -1;
 }
-
-
-/* =========================================================
-   CLOUD ANIMATION
-========================================================= */
 
 .cloudTrackBack {
     animation: cloudMove 80s linear infinite;
@@ -385,227 +261,26 @@
     }
 }
 
-
-/* =========================================================
-   MAKE GALLERY ABOVE THE BACKGROUND
-   BUT CLOUDS STILL FLOAT OVER TOP ONLY
-========================================================= */
-
-.imageGallery {
-    position: relative;
-    z-index: 5;
-}
-
-.cloudTrackBack {
-    animation: cloudMove 80s linear infinite;
-}
-
-.cloudTrackMiddle {
-    animation: cloudMove 58s linear infinite;
-}
-
-.cloudTrackFront {
-    animation: cloudMove 42s linear infinite;
-}
-
-/* =========================================================
-   CLOUD GROUP
-========================================================= */
-
 .cloudGroup {
     position: relative;
-
     display: flex;
-
     flex: none;
-
     height: 100%;
 }
 
-/* =========================================================
-   TEXT OVERLAY
-========================================================= */
-
 .overlayTextContainer {
     position: absolute;
-
     top: 80%;
     left: 50%;
-
     transform: translate(-50%, -50%);
-
     z-index: 20;
-
     pointer-events: none;
-
     text-align: center;
 }
 
-/* =========================================================
-   LARGE DESKTOP
-========================================================= */
-
-@media (min-width: 1600px) {
-    .cloudTransition {
-        height: 70vh;
+@media (max-width: 1130px) {
+    .fullClipImage {
+        object-fit: contain;
     }
-
-    .cloudMarquee {
-        top: 0vh;
-        height: 30vh;
-    }
-
-    .cloudItem {
-        flex-basis: 42vw;
-
-        width: 42vw;
-        height: 30vh;
-    }
-
-    .cloudItem+.cloudItem {
-        margin-left: -25vw;
-    }
-
-    .cloudImageBack {
-        width: 130%;
-    }
-
-    .cloudImageMiddle {
-        width: 140%;
-    }
-
-    .cloudImageFront {
-        width: 155%;
-    }
-}
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-@media (max-width: 1024px) {
-
-    .imageCardOne,
-    .imageCard {
-        width: 38vw;
-        height: 55vw;
-
-        max-height: 400px;
-    }
-
-    .cloudTransition {
-        left: -20vw;
-
-        width: 140vw;
-        height: 42vh;
-    }
-
-    .cloudMarquee {
-        top: -3vh;
-        height: 44vh;
-    }
-
-    .cloudItem {
-        flex-basis: 70vw;
-
-        width: 70vw;
-        height: 44vh;
-    }
-
-    .cloudItem+.cloudItem {
-        margin-left: -44vw;
-    }
-
-    .cloudImageBack {
-        width: 140%;
-    }
-
-    .cloudImageMiddle {
-        width: 150%;
-    }
-
-    .cloudImageFront {
-        width: 165%;
-    }
-}
-
-/* =========================================================
-   MOBILE
-========================================================= */
-
-@media (max-width: 600px) {
-    .imageGallery {
-        gap: 12px;
-    }
-
-    .imageCardOne,
-    .imageCard {
-        width: 48vw;
-        height: 65vh;
-    }
-
-    .imageCardOne {
-        margin-top: 80px;
-    }
-
-    .imageCard {
-        margin-bottom: 80px;
-    }
-
-    .cloudTransition {
-        left: -45vw;
-
-        width: 190vw;
-        height: 70vh;
-    }
-
-    .cloudMarquee {
-        top: -1vh;
-        height: 38vh;
-    }
-
-    .cloudItem {
-        flex-basis: 100vw;
-
-        width: 100vw;
-        height: 38vh;
-    }
-
-    .cloudItem+.cloudItem {
-        margin-left: -64vw;
-    }
-
-    .cloudImageBack {
-        width: 155%;
-    }
-
-    .cloudImageMiddle {
-        width: 170%;
-    }
-
-    .cloudImageFront {
-        width: 185%;
-    }
-
-    .cloudTrackBack {
-        animation-duration: 65s;
-    }
-
-    .cloudTrackMiddle {
-        animation-duration: 48s;
-    }
-
-    .cloudTrackFront {
-        animation-duration: 35s;
-    }
-}
-
-/* =========================================================
-   REDUCED MOTION
-========================================================= */
-
-@media (prefers-reduced-motion: reduce) {
-    .cloudMarquee {
-        animation: none;
-    }
+    
 }

@@ -149,7 +149,7 @@ export default function ZoomParallaxDemo() {
       </div>
       <div data-section>
         <PlaceToLive />
-        <NextPhoto />
+       
       </div>
       <SlideOverStack previous={<WhyCopenhagen />}>
         <section className={styles.sharedSequence}>

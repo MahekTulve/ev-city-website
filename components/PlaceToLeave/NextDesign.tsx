@@ -253,15 +253,7 @@ export default function NextDesign() {
           </motion.div>
 
           {/* 4. Icon List (Horizontal items animate 1-by-1) */}
-          <motion.ul className={styles["iconRow"]} variants={iconRowContainerVariants}>
-            {iconRow.map(({ icon: Icon, label }) => (
-              <motion.li key={label} className={styles["iconItem"]} variants={iconItemVariants}>
-                <Icon size={30} strokeWidth={1.1} />
-                <span>{label}</span>
-              </motion.li>
-            ))}
-          </motion.ul>
-
+    
           {/* 5. Subtitle & Body Paragraphs */}
           <motion.div className={styles["blockRow"]} variants={fadeRightVariants}>
             <div>

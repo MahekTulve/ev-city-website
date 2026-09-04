@@ -279,6 +279,7 @@
   white-space: nowrap;
 
 }
+
 .WellnessIcon,
 .schoolIcon {
   position: absolute;
@@ -290,8 +291,9 @@
   left: -3%;
   top: 20%;
 }
-.WellnessIcon{
-   top: 50%;
+
+.WellnessIcon {
+  top: 50%;
 }
 
 .labelChip {
@@ -332,63 +334,7 @@
 }
 
 
-@media (max-width: 1100px) {
-  .hero {
-    grid-template-columns: 1fr;
-    padding: 2.5rem 1.5rem 0;
-  }
 
-  .left {
-    padding-left: 2.5rem;
-  }
-
-  .blockNum {
-    left: -2.5rem;
-  }
-
-  .nyhavn {
-    position: static;
-    width: 100%;
-    margin-top: 2rem;
-  }
-
-  .wheel {
-    margin: 2rem auto 0;
-  }
-
-  .cyclist {
-    display: none;
-  }
-
-  .strip {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem 0;
-    padding: 2.5rem 1.5rem;
-  }
-
-  .pillar:nth-child(odd) {
-    border-left: none;
-  }
-}
-
-@media (max-width: 620px) {
-  .iconRow {
-    flex-wrap: wrap;
-    gap: 1.5rem 0;
-  }
-
-  .wheelLabel .labelText {
-    display: none;
-  }
-
-  .strip {
-    grid-template-columns: 1fr;
-  }
-
-  .pillar {
-    border-left: none !important;
-  }
-}
 
 /* ---------- SECTION 02 ---------- */
 .why {
@@ -696,44 +642,56 @@
   width: 40vw;
   height: 350px;
   bottom: -20px;
-  left:1px;
+  left: 1px;
   opacity: 0.7;
   -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
   mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
   .hero {
-    grid-template-columns: 1fr;
+    padding: 0.5rem 3vw 0.1rem 3vw;
   }
 
   .left {
-    padding: 2rem 1.5rem 3rem;
+    position: relative;
+    z-index: 1;
+    padding-left: 1.5rem;
+    padding-bottom: 0.2rem;
   }
 
-  .right {
-    min-height: 60vh;
+  .title {
+    font-size: clamp(2.6rem, 5vw, 5rem);
   }
 
-  .nav a {
-    display: none;
+  .rule {
+    width: 40px;
+    background: #b1904f;
   }
 
-  .why {
-    grid-template-columns: 1fr;
-    padding: 2.5rem 1.5rem 3.5rem;
+  .kicker {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
   }
 
-  .pillars {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.4rem 0;
+  .kickerSub {
+    margin: 0.3rem 0 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
   }
 
-  .pillar:nth-child(odd) {
-    border-left: none;
+  .ruleRow {
+    margin: 0.5rem 0 1rem;
   }
 
-  .closingQuote {
-    grid-column: 1 / -1;
+  .blockRow {
+    margin-bottom: 0.7rem;
+  }
+
+  .body,
+  .bodyStrong {
+    margin: 0 0 1rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 }
