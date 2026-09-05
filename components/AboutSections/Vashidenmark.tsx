@@ -11,11 +11,8 @@ import gsap from "gsap";
 import {
   Train,
   ShoppingBag,
-  Plus,
   GraduationCap,
-  Briefcase,
   Plane,
-  Hotel,
   Utensils,
   Film,
   Building,
@@ -167,6 +164,8 @@ export default function VashiDenmark() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const pageRef = useRef<HTMLElement>(null);
+  const [isSectionActive, setIsSectionActive] = useState(false);
   const nodesContainerRef = useRef<HTMLDivElement>(null);
   const centerContentRef = useRef<HTMLDivElement>(null);
   const videoRef1 = useRef<HTMLVideoElement>(null);
@@ -175,6 +174,7 @@ export default function VashiDenmark() {
   const gsapTimelineRef = useRef<gsap.core.Timeline | null>(null);
   const slideDirection = useRef<"next" | "prev">("next");
   const previousStartIndexRef = useRef(startIndex);
+  const hasInitializedVideoRef = useRef(false);
 
   const totalNodes = ALL_NODES.length;
 
@@ -189,6 +189,25 @@ export default function VashiDenmark() {
     deviceType === "mobile" ? 1 : deviceType === "tablet" ? 2 : 3;
 
   const visibleCount = arcPositions.length;
+
+  useEffect(() => {
+    const page = pageRef.current;
+    if (!page) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsSectionActive(entry.isIntersecting),
+      { rootMargin: "300px 0px", threshold: 0.01 },
+    );
+
+    observer.observe(page);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (isSectionActive) return;
+    videoRef1.current?.pause();
+    videoRef2.current?.pause();
+  }, [isSectionActive]);
 
   const handleNext = useCallback(() => {
     if (isButtonDisabled) return;
@@ -207,6 +226,8 @@ export default function VashiDenmark() {
   }, [isButtonDisabled, totalNodes]);
 
   useEffect(() => {
+    if (!isSectionActive) return;
+
     const autoScrollInterval = window.setInterval(() => {
       if (!document.hidden) {
         handleNext();
@@ -216,7 +237,7 @@ export default function VashiDenmark() {
     return () => {
       window.clearInterval(autoScrollInterval);
     };
-  }, [handleNext]);
+  }, [handleNext, isSectionActive]);
 
   const centerNodeIndex = (startIndex + centerOffset) % totalNodes;
 
@@ -224,6 +245,12 @@ export default function VashiDenmark() {
 
   useEffect(() => {
     const targetVideoSrc = currentCenterData?.video;
+
+    if (!isSectionActive) {
+      setIsButtonDisabled(false);
+      return;
+    }
+
     if (!targetVideoSrc) {
       setIsButtonDisabled(false);
       return;
@@ -235,6 +262,25 @@ export default function VashiDenmark() {
       activeIndexRef.current === 1 ? videoRef2.current : videoRef1.current;
 
     if (!currentVideo || !nextVideo) {
+      setIsButtonDisabled(false);
+      return;
+    }
+
+    if (!hasInitializedVideoRef.current) {
+      currentVideo.src = targetVideoSrc;
+      currentVideo.setAttribute("data-src", targetVideoSrc);
+      currentVideo.preload = "metadata";
+      gsap.set(currentVideo, { xPercent: 0, zIndex: 1 });
+      const initialPlay = currentVideo.play();
+      if (initialPlay !== undefined) initialPlay.catch(() => {});
+      hasInitializedVideoRef.current = true;
+      setIsButtonDisabled(false);
+      return;
+    }
+
+    if (currentVideo.getAttribute("data-src") === targetVideoSrc) {
+      const resumePlay = currentVideo.play();
+      if (resumePlay !== undefined) resumePlay.catch(() => {});
       setIsButtonDisabled(false);
       return;
     }
@@ -277,7 +323,7 @@ export default function VashiDenmark() {
       { xPercent: 0 },
       0,
     );
-  }, [centerNodeIndex, currentCenterData]);
+  }, [centerNodeIndex, currentCenterData, isSectionActive]);
 
   useLayoutEffect(() => {
     const didIndexChange = previousStartIndexRef.current !== startIndex;
@@ -408,18 +454,15 @@ export default function VashiDenmark() {
   }, [startIndex, deviceType, visibleCount, totalNodes]);
 
   return (
-    <main className={styles.page}>
+    <main ref={pageRef} className={styles.page}>
       <div className={styles.videoContainer}>
         <video
           ref={videoRef1}
           className={styles.bgVideo}
-          preload="metadata"
-          autoPlay
+          preload="none"
           muted
           loop
           playsInline
-          data-src={ALL_NODES[centerOffset].video}
-          src={ALL_NODES[centerOffset].video}
         />
         <video
           ref={videoRef2}
