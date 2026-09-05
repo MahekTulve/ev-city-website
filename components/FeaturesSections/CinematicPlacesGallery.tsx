@@ -392,7 +392,7 @@ function SideVideoCard({
         src={src}
         shouldLoad={shouldLoad}
         shouldPlay={shouldPlay}
-        preload="auto"
+        preload="metadata"
         loadDelayMs={loadDelayMs}
         playDelayMs={playDelayMs}
       />
@@ -411,6 +411,7 @@ export default function CinematicPlacesGallery() {
 
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [shouldWarmVideos, setShouldWarmVideos] = useState(false);
+  const [hasScrollIntent, setHasScrollIntent] = useState(false);
   const [sidePlaybackEnabled, setSidePlaybackEnabled] = useState(true);
   const [isMainVideoPaused, setIsMainVideoPaused] = useState(false);
   const [isMainVideoExpanded, setIsMainVideoExpanded] = useState(false);
@@ -419,17 +420,16 @@ export default function CinematicPlacesGallery() {
     const section = sectionRef.current;
     if (!section) return;
 
-    // Warm video files well before playback, but do not make every MP4 compete
-    // for bandwidth from the first page render.
+    // Do not preload decorative MP4s while the intro/LCP content is on screen.
+    // The gallery begins loading only when it actually starts entering view.
     const preloadObserver = new IntersectionObserver(
       ([entry]) => setShouldWarmVideos(entry.isIntersecting),
-      { rootMargin: "1200px 0px", threshold: 0 },
+      { rootMargin: "0px", threshold: 0.01 },
     );
 
-    // Playback starts only when the gallery is close to entering the viewport.
     const playbackObserver = new IntersectionObserver(
       ([entry]) => setIsNearViewport(entry.isIntersecting),
-      { rootMargin: "250px 0px", threshold: 0 },
+      { rootMargin: "0px", threshold: 0.01 },
     );
 
     preloadObserver.observe(section);
@@ -438,6 +438,27 @@ export default function CinematicPlacesGallery() {
     return () => {
       preloadObserver.disconnect();
       playbackObserver.disconnect();
+    };
+  }, []);
+
+  useEffect(() => {
+    const warmMainVideo = () => setHasScrollIntent(true);
+
+    window.addEventListener("wheel", warmMainVideo, { passive: true, once: true });
+    window.addEventListener("touchmove", warmMainVideo, { passive: true, once: true });
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (["ArrowDown", "PageDown", " ", "End"].includes(event.key)) {
+        warmMainVideo();
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown, { once: true });
+
+    return () => {
+      window.removeEventListener("wheel", warmMainVideo);
+      window.removeEventListener("touchmove", warmMainVideo);
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, []);
 
@@ -740,7 +761,7 @@ const titleExitRotateX = useTransform(
   const mainVideoSrc =
     isSmallMobile && mainVideo.mobileSrc ? mainVideo.mobileSrc : mainVideo.src;
 
-  const shouldLoadMain = true;
+  const shouldLoadMain = hasScrollIntent || shouldWarmVideos || isNearViewport;
   const shouldLoadSides = shouldWarmVideos || isNearViewport;
   const shouldPlayMain = isNearViewport && isPageVisible && !isMainVideoPaused;
   const shouldPlaySides =

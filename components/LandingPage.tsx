@@ -92,9 +92,29 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letter
 };
 
 export default function LandingPage({ isNight }: LandingPageProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
+  const [isNearViewport, setIsNearViewport] = useState(false);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsNearViewport(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "1000px 0px", threshold: 0 },
+    );
+
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, []);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -233,7 +253,9 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const renderMainSections = () => (
     <div className={styles['heroSceneWrapper']}>
       <div
-        className={`${styles.bgLayer} ${isNight ? styles.nightBg : styles.dayBg}`}
+        className={`${styles.bgLayer} ${
+          isNearViewport ? (isNight ? styles.nightBg : styles.dayBg) : ""
+        }`}
       />
       <header className={styles['hero']}>
         <motion.div
@@ -284,7 +306,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   );
 
   return (
-    <div className={styles['root']}>
+    <div ref={rootRef} className={styles['root']}>
       <section className={styles['introSection']} ref={introRef}>
         <motion.span className={styles['preloaderFrame']} {...getPreloaderMotionProps(0.1)} />
         <motion.span className={styles['watermark']} {...getPreloaderMotionProps(0.2)}>Vashi</motion.span>

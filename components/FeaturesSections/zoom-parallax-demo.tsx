@@ -10,7 +10,6 @@ import CinematicPlacesGallery from "./CinematicPlacesGallery";
 import WayVashi from "../wayVashi";
 import HorizontalStory from "../whyvashi/HorizontalStory";
 import PlaceToLive from "../PlaceToLeave/PlaceToLive";
-import NextPhoto from "../PlaceToLeave/NextPhoto";
 import SlideOverStack from "../SlideOverStack";
 import WhyCopenhagen from "../PlaceToLeave/whyCopenhagen";
 
