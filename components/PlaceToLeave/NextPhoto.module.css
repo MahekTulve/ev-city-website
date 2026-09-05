@@ -109,8 +109,41 @@
 
 @media (max-width: 1080px) {
     .outerWrapper {
-        min-height: auto;
+        min-height: 191vh;
     }
 
- 
+
+
+}
+
+@media (max-width: 1000px) {
+    .outerWrapper {
+        min-height: 200vh;
+    }
+
+    .bgImage {
+        object-fit: cover;
+    }
+
+    .parabottom {
+        font-size: 30px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    .parabottom {
+        font-size: 25px;
+    }
+
+}
+
+@media (max-width: 425px) {
+
+    .parabottom {
+        font-size: 20px;
+        padding: 0 10px;
+    }
+
 }
