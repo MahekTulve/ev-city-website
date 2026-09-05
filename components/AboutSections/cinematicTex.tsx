@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styles from "./CinematicText.module.css";
 
 type Slide =
@@ -17,10 +17,27 @@ const SLIDES: Slide[] = [
 const SLIDE_MS = 3000;
 
 export default function CinematicTrailer() {
+  const stageRef = useRef<HTMLDivElement>(null);
   const [i, setI] = useState(0);
   const [runKey, setRunKey] = useState(0);
+  const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    const stage = stageRef.current;
+    if (!stage) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsVisible(entry.isIntersecting),
+      { threshold: 0.05 },
+    );
+
+    observer.observe(stage);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!isVisible || document.visibilityState !== "visible") return;
+
     const t = setTimeout(() => {
       setI((prevI) => {
         // Agar last slide par pohench gaye hain, toh wapas 0 se start karein
@@ -33,10 +50,10 @@ export default function CinematicTrailer() {
     }, SLIDE_MS);
 
     return () => clearTimeout(t);
-  }, [i, runKey]);
+  }, [i, runKey, isVisible]);
 
   return (
-    <div className={styles.stage}>
+    <div ref={stageRef} className={styles.stage}>
       <div className={styles.grain} />
       <div className={`${styles.bar} ${styles.barTop}`} />
       <div className={`${styles.bar} ${styles.barBot}`} />

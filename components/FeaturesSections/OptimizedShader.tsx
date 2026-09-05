@@ -278,7 +278,7 @@ export function OptimizedShader({
       canvasWidth = bounds.width;
       canvasHeight = bounds.height;
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.round(canvasWidth * pixelRatio);
       canvas.height = Math.round(canvasHeight * pixelRatio);
       canvas.style.width = `${canvasWidth}px`;
@@ -361,7 +361,21 @@ export function OptimizedShader({
       context.restore();
     };
 
+    let lastFrameTime = 0;
+    const minFrameInterval = 1000 / 30;
+
     const render = (currentTime: number) => {
+      if (document.visibilityState !== "visible") {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+
+      if (currentTime - lastFrameTime < minFrameInterval) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
+      lastFrameTime = currentTime;
+
       context.clearRect(0, 0, canvasWidth, canvasHeight);
       let hasPendingParticles = false;
 

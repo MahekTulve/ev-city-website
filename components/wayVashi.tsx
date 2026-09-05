@@ -241,6 +241,7 @@ export default function WayVashi({
   // Any manual arrow click disables autoplay until the next refresh.
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(true);
   const [isStageVisible, setIsStageVisible] = useState(false);
+  const [isStageNear, setIsStageNear] = useState(false);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -498,6 +499,24 @@ export default function WayVashi({
 
   useEffect(() => {
     const stage = stageRef.current;
+    if (!stage) return;
+
+    const preloadObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsStageNear(true);
+          preloadObserver.disconnect();
+        }
+      },
+      { rootMargin: "1000px 0px", threshold: 0 },
+    );
+
+    preloadObserver.observe(stage);
+    return () => preloadObserver.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const stage = stageRef.current;
 
     if (!stage) return;
 
@@ -515,14 +534,6 @@ export default function WayVashi({
     return () => {
       observer.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    // Preload every record image so switching never waits on a lazy request.
-    RECORDS.forEach((record) => {
-      const image = new Image();
-      image.src = record.src;
-    });
   }, []);
 
   useEffect(() => {
@@ -573,8 +584,9 @@ export default function WayVashi({
     >
       <section className={styles.archStage} ref={stageRef}>
         <div
-          className={`${styles.archBgLayer}  ${night ? styles.nightStageBg : styles.dayStageBg
-            }`}
+          className={`${styles.archBgLayer} ${
+            isStageNear ? (night ? styles.nightStageBg : styles.dayStageBg) : ""
+          }`}
         />
 
 
@@ -597,7 +609,9 @@ export default function WayVashi({
         <div className={styles.dome} ref={domeRef}>
           <div
             ref={domeBackgroundRef}
-            className={styles.domeBackground}
+            className={`${styles.domeBackground} ${
+              isStageNear ? styles.domeBackgroundLoaded : ""
+            }`}
             aria-hidden="true"
           />
           <div className={styles.domeOverlay} aria-hidden="true" />
@@ -680,7 +694,7 @@ export default function WayVashi({
                   key={item.src}
                   src={item.src}
                   alt={item.alt}
-                  loading="eager"
+                  loading="lazy"
                   decoding="async"
                   width={1280}
                   height={720}
