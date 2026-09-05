@@ -47,8 +47,9 @@ function CloudLayer({
                                         loading="lazy"
                                         decoding="async"
                                         draggable={false}
-                                        className={`${styles.cloudImage} ${imageClass} ${flipped ? styles.cloudImageFlipped : ''
-                                            }`}
+                                        className={`${styles.cloudImage} ${imageClass} ${
+                                            flipped ? styles.cloudImageFlipped : ''
+                                        }`}
                                     />
                                 </div>
                             );
@@ -67,6 +68,21 @@ const PlaceToLive = () => {
     const galleryRef = useRef<HTMLDivElement>(null);
 
     const [showText, setShowText] = useState(false);
+    
+    // 1. Mobile screen check karne ke liye state
+    const [isMobile, setIsMobile] = useState(false);
+
+    useEffect(() => {
+        // Screen size check function
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth <= 1000);
+        };
+
+        checkMobile(); // Initial check
+        window.addEventListener('resize', checkMobile);
+
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
 
     useEffect(() => {
         const el = containerRef.current;
@@ -87,7 +103,7 @@ const PlaceToLive = () => {
                 },
             });
 
-            // PHASE 1: Align Top/Bottom offsets (Dono Cards level par aayenge)
+            // PHASE 1: Align Top/Bottom offsets
             tl.to(
                 cardOneRef.current,
                 { marginTop: '0px', ease: 'none' },
@@ -98,13 +114,13 @@ const PlaceToLive = () => {
                     { marginBottom: '0px', ease: 'none' },
                     'phase1'
                 )
-                // PHASE 2: Gap 0px karke dono tukdo ko milayenge
+                // PHASE 2: Gap 0px
                 .to(
                     galleryRef.current,
                     { gap: '0px', ease: 'none' },
                     'phase2'
                 )
-                // PHASE 3: Dono cards ko 50vw aur 100vh extend karenge, aur Clip Path opens to Full Square
+                // PHASE 3: Dono cards expand honge
                 .to(
                     [cardOneRef.current, cardTwoRef.current],
                     {
@@ -120,8 +136,10 @@ const PlaceToLive = () => {
         return () => ctx.revert();
     }, []);
 
-    // APKI MASTER IMAGE (Ek hi main image ka URL yahan rakhein)
-    const masterImage = "/images/new_cut_example.png";
+    // 2. Conditional Image Path (Mobile vs Desktop)
+    const masterImage = isMobile
+        ? "/images/denmar_mobile_top.png" // Mobile Image
+        : "/images/new_cut_example.png";        // Desktop Image
 
     return (
         <div className={styles.wrapper}>
@@ -154,7 +172,7 @@ const PlaceToLive = () => {
 
                 {/* SPLIT IMAGE GALLERY */}
                 <div className={styles.imageGallery} ref={galleryRef}>
-                    {/* LEFT PIECE (Contains Left Half of Master Image) */}
+                    {/* LEFT PIECE */}
                     <div className={styles.imageCardOne} ref={cardOneRef}>
                         <img
                             src={masterImage}
@@ -164,7 +182,7 @@ const PlaceToLive = () => {
                         />
                     </div>
 
-                    {/* RIGHT PIECE (Contains Right Half of Master Image) */}
+                    {/* RIGHT PIECE */}
                     <div className={styles.imageCard} ref={cardTwoRef}>
                         <img
                             src={masterImage}

@@ -277,10 +277,171 @@
     pointer-events: none;
     text-align: center;
 }
+@media (max-width: 1024px) {
 
+  
+
+    .cloudTransition {
+        left: -20vw;
+
+        width: 140vw;
+        height: 42vh;
+    }
+
+    .cloudMarquee {
+        top: -3vh;
+        height: 44vh;
+    }
+
+    .cloudItem {
+        flex-basis: 70vw;
+
+        width: 70vw;
+        height: 44vh;
+    }
+
+    .cloudItem+.cloudItem {
+        margin-left: -44vw;
+    }
+
+    .cloudImageBack {
+        width: 140%;
+    }
+
+    .cloudImageMiddle {
+        width: 150%;
+    }
+
+    .cloudImageFront {
+        width: 165%;
+    }
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+   
+    .cloudTransition {
+        left: -45vw;
+
+        width: 190vw;
+        height: 70vh;
+    }
+
+    .cloudMarquee {
+        top: -1vh;
+        height: 38vh;
+    }
+
+    .cloudItem {
+        flex-basis: 100vw;
+
+        width: 100vw;
+        height: 38vh;
+    }
+
+    .cloudItem+.cloudItem {
+        margin-left: -64vw;
+    }
+
+    .cloudImageBack {
+        width: 155%;
+    }
+
+    .cloudImageMiddle {
+        width: 170%;
+    }
+
+    .cloudImageFront {
+        width: 185%;
+    }
+
+    .cloudTrackBack {
+        animation-duration: 65s;
+    }
+
+    .cloudTrackMiddle {
+        animation-duration: 48s;
+    }
+
+    .cloudTrackFront {
+        animation-duration: 35s;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .cloudMarquee {
+        animation: none;
+    }
+}
 @media (max-width: 1130px) {
     .fullClipImage {
         object-fit: contain;
     }
-    
+
+}
+
+@media (max-width: 1000px) {
+    .fullClipImage {
+        object-fit: cover;
+    }
+
+}
+
+@media (max-width: 850px) {
+
+    .imageCardOne,
+    .imageCard {
+        position: relative;
+        width: 300px;
+        height: 300px;
+
+    }
+}
+
+@media (max-width: 600px) {
+
+    .imageCardOne,
+    .imageCard {
+        position: relative;
+        width: 200px;
+        height: 350px;
+
+    }
+}
+
+@media (max-width: 450px) {
+
+    .imageCardOne,
+    .imageCard {
+        position: relative;
+        width: 160px;
+        height: 340px;
+
+    }
+
+    .imageGallery {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 375px) {
+
+    .imageCardOne,
+    .imageCard {
+        position: relative;
+        width: 150px;
+        height: 300px;
+
+    }
+
+    .imageGallery {
+        gap: 15px;
+    }
 }

@@ -42,16 +42,22 @@ export default function NextPhoto() {
     return (
         /* Outer Section wrapper jo dono sections ko hold karega */
         <div className={styles.outerWrapper}>
-            {/* Direct fixed background Image for both sections */}
             <div className={styles.bgWrapper}>
-                <Image
-                    src="/images/new_bootom_cut.webp"
-                    alt="Background Landscape"
-                    fill
-                    priority
-                    className={styles.bgImage}
-                    sizes="100vw"
-                />
+                <picture>
+                    <source
+                        media="(max-width: 1000px)"
+                        srcSet="/images/mobile_cute_bottom.png"
+                    />
+
+                    <Image
+                        src="/images/new_bootom_cut.webp"
+                        alt="Background Landscape"
+                        fill
+                        priority
+                        className={styles.bgImage}
+                        sizes="100vw"
+                    />
+                </picture>
                 <div className={styles.bgOverlayBottom} />
             </div>
 

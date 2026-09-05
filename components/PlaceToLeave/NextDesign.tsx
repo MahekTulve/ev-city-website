@@ -50,28 +50,29 @@ const wedgeData = [
   {
     img: wedgePark,
     alt: "People relaxing in a sunlit Copenhagen park",
-    label: { icon: TreePine, text: "Parks & Nature", pos: { top: "-2%", left: "38%" }, line: "50px" },
+    label: { icon: TreePine, text: "Parks & Nature", pos: { top: "-2%", left: "38%" }, line: "120px", mobline: "60px" },
   },
   {
     img: wedgeCafe,
     alt: "Warm café interior with guests at wooden tables",
-    label: { icon: Coffee, text: "Cafés & Restaurants", pos: { top: "11%", left: "68%" }, line: "40px" },
+    label: { icon: Coffee, text: "Cafés & Restaurants", pos: { top: "11%", left: "68%" }, line: "40px", mobline: "20px" },
   },
   {
     img: wedgeCulture,
     alt: "Cobblestone street with pedestrians and bicycles",
-    label: { icon: Users, text: "Culture & Community", pos: { top: "41%", left: "82%" }, line: "10px" },
+    label: { icon: Users, text: "Culture & Community", pos: { top: "41%", left: "82%" }, line: "10px", mobline: "5px" },
   },
   {
     img: wedgeWork,
     alt: "Bright coworking space with people working",
-    label: { icon: Laptop2, text: "Workspaces", pos: { top: "72%", left: "72%" }, line: "34px" },
+    label: { icon: Laptop2, text: "Workspaces", pos: { top: "72%", left: "72%" }, line: "34px", mobline: "17px" },
   },
   {
     img: wedgeRetail,
     alt: "Glowing boutique storefront at dusk",
-    label: { icon: ShoppingBag, text: "Retail & Services", pos: { top: "89%", left: "44%" }, line: "34px" },
+    label: { icon: ShoppingBag, text: "Retail & Services", pos: { top: "89%", left: "44%" }, line: "34px", mobline: "17px" },
   },
+
 ].map((w, i) => {
   const a0 = WEDGE_START + i * (WEDGE_SIZE + WEDGE_GAP);
   const [mx, my] = polar(a0 + WEDGE_SIZE / 2, (R_IN + R_OUT) / 2);
@@ -253,7 +254,7 @@ export default function NextDesign() {
           </motion.div>
 
           {/* 4. Icon List (Horizontal items animate 1-by-1) */}
-    
+
           {/* 5. Subtitle & Body Paragraphs */}
           <motion.div className={styles["blockRow"]} variants={fadeRightVariants}>
             <div>
@@ -330,11 +331,11 @@ export default function NextDesign() {
               <span className={styles["big5"]}>5&prime;</span>
               <span className={styles["minutes"]}>Minutes</span>
               <span className={styles["walkBike"]}>Walk or bike</span>
-              <Footprints size={25} strokeWidth={1.2} className={styles["walkicon"]} />
+              <Footprints strokeWidth={1.2} className={styles["walkicon"]} />
               <div className={styles["walkunder"]} />
             </motion.div>
 
-            {wedgeData.map(({ id, label: { icon: Icon, text, pos, line } }, index) => (
+            {wedgeData.map(({ id, label: { icon: Icon, text, pos, line, mobline } }, index) => (
               <motion.div
                 key={`label-${id}`}
                 className={styles["wheelLabel"]}
@@ -349,27 +350,30 @@ export default function NextDesign() {
                   <Icon size={16} strokeWidth={1.3} />
                 </span>
                 <span className={styles["labelText"]}>{text}</span>
+                <span className={styles["mobilelabelLine"]} style={{ width: mobline }} />
+
                 <span className={styles["labelLine"]} style={{ width: line }} />
+              </motion.div>
+            ))}
+            {extraIcons.map(({ id, icon: Icon, text, className }, extraIdx) => (
+              <motion.div
+                key={id}
+                className={className}
+                custom={wedgeData.length + extraIdx}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ amount: 0.5, once: false }}
+                variants={itemPairVariants}
+              >
+                <span className={styles["labelChip"]}>
+                  <Icon size={16} strokeWidth={1.3} />
+                </span>
+                <span className={styles["labelText"]}>{text}</span>
               </motion.div>
             ))}
           </div>
 
-          {extraIcons.map(({ id, icon: Icon, text, className }, extraIdx) => (
-            <motion.div
-              key={id}
-              className={className}
-              custom={wedgeData.length + extraIdx}
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ amount: 0.5, once: false }}
-              variants={itemPairVariants}
-            >
-              <span className={styles["labelChip"]}>
-                <Icon size={16} strokeWidth={1.3} />
-              </span>
-              <span className={styles["labelText"]}>{text}</span>
-            </motion.div>
-          ))}
+
         </div>
       </section>
     </main>
