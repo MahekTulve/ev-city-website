@@ -68,17 +68,14 @@ const PlaceToLive = () => {
     const galleryRef = useRef<HTMLDivElement>(null);
 
     const [showText, setShowText] = useState(false);
-    
-    // 1. Mobile screen check karne ke liye state
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        // Screen size check function
         const checkMobile = () => {
             setIsMobile(window.innerWidth <= 1000);
         };
 
-        checkMobile(); // Initial check
+        checkMobile();
         window.addEventListener('resize', checkMobile);
 
         return () => window.removeEventListener('resize', checkMobile);
@@ -114,13 +111,13 @@ const PlaceToLive = () => {
                     { marginBottom: '0px', ease: 'none' },
                     'phase1'
                 )
-                // PHASE 2: Gap 0px
+                // PHASE 2: Gap 0px (Dono aadhi image aur text aapas me jud jayenge)
                 .to(
                     galleryRef.current,
                     { gap: '0px', ease: 'none' },
                     'phase2'
                 )
-                // PHASE 3: Dono cards expand honge
+                // PHASE 3: Dono cards aur text sath me expand / zoom honge
                 .to(
                     [cardOneRef.current, cardTwoRef.current],
                     {
@@ -136,10 +133,21 @@ const PlaceToLive = () => {
         return () => ctx.revert();
     }, []);
 
-    // 2. Conditional Image Path (Mobile vs Desktop)
     const masterImage = isMobile
-        ? "/images/denmar_mobile_top.png" // Mobile Image
-        : "/images/new_cut_example.png";        // Desktop Image
+        ? '/images/den_mobile_top.png'
+        : '/images/new_cut_example.png';
+
+    // Text structure element
+    const TextOverlay = () => (
+        <div className={styles.copehe}>
+            <h1>COPENHAGEN</h1>
+            <div className={styles.denma}>
+                <span></span>
+                denmark
+                <span></span>
+            </div>
+        </div>
+    );
 
     return (
         <div className={styles.wrapper}>
@@ -170,9 +178,9 @@ const PlaceToLive = () => {
                     />
                 </div>
 
-                {/* SPLIT IMAGE GALLERY */}
+                {/* SPLIT IMAGE & TEXT GALLERY */}
                 <div className={styles.imageGallery} ref={galleryRef}>
-                    {/* LEFT PIECE */}
+                    {/* LEFT PIECE (Left Image + Left Half Text) */}
                     <div className={styles.imageCardOne} ref={cardOneRef}>
                         <img
                             src={masterImage}
@@ -180,9 +188,12 @@ const PlaceToLive = () => {
                             className={styles.fullClipImage}
                             loading="lazy"
                         />
+                        <div className={styles.textWrapperLeft}>
+                            <TextOverlay />
+                        </div>
                     </div>
 
-                    {/* RIGHT PIECE */}
+                    {/* RIGHT PIECE (Right Image + Right Half Text) */}
                     <div className={styles.imageCard} ref={cardTwoRef}>
                         <img
                             src={masterImage}
@@ -190,6 +201,9 @@ const PlaceToLive = () => {
                             className={styles.fullClipImage}
                             loading="lazy"
                         />
+                        <div className={styles.textWrapperRight}>
+                            <TextOverlay />
+                        </div>
                     </div>
                 </div>
 

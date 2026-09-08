@@ -111,9 +111,6 @@
     .outerWrapper {
         min-height: 191vh;
     }
-
-
-
 }
 
 @media (max-width: 1000px) {
@@ -146,4 +143,7 @@
         padding: 0 10px;
     }
 
+    .bgImage {
+      object-position: right top;
+    }
 }

@@ -46,7 +46,7 @@ export default function NextPhoto() {
                 <picture>
                     <source
                         media="(max-width: 1000px)"
-                        srcSet="/images/mobile_cute_bottom.png"
+                        srcSet="/images/den_mobile_bottom.png"
                     />
 
                     <Image
