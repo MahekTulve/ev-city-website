@@ -34,7 +34,6 @@
     align-items: center;
 }
 
-/* Base Card Styling */
 .imageCardOne,
 .imageCard {
     position: relative;
@@ -277,9 +276,76 @@
     pointer-events: none;
     text-align: center;
 }
+
+/* =========================================================
+   SPLIT TEXT CONTAINERS
+========================================================= */
+
+.textWrapperLeft,
+.textWrapperRight {
+    position: absolute;
+    top: 0;
+    width: 200%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.textWrapperLeft {
+    left: 0;
+}
+
+.textWrapperRight {
+    right: 0;
+}
+
+.copehe {
+    position: absolute;
+    top: 75%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.copehe h1 {
+    font-size: 12.5vw;
+    font-family: "Cinzel", serif;
+    font-weight: 600;
+    color: #680000;
+    text-align: center;
+    margin-bottom: 1px;
+    letter-spacing: 0.3rem;
+    line-height: 1;
+}
+
+.denma {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 3.5vw;
+    font-family: "Cinzel", serif;
+    font-weight: 500;
+    letter-spacing: 10px;
+    color: #680000;
+}
+
+.denma span {
+    display: block;
+    width: 60px;
+    height: 2px;
+    background-color: #680000;
+}
+
 @media (max-width: 1024px) {
 
-  
+
 
     .cloudTransition {
         left: -20vw;
@@ -317,12 +383,38 @@
     }
 }
 
-/* =========================================================
-   MOBILE
-========================================================= */
+@media (max-width: 1000px) {
+    .copehe {
+        display: flex;
+    }
+}
 
 @media (max-width: 600px) {
-   
+
+    .copehe h1 {
+        font-size: 12vw;
+
+        letter-spacing: 0.3rem;
+        line-height: 1;
+    }
+
+    .denma {
+        gap: 8px;
+        font-size: 3.2vw;
+        letter-spacing: 8px;
+
+    }
+
+    .denma span {
+        width: 40px;
+        height: 1.5px;
+
+
+    }
+}
+
+@media (max-width: 600px) {
+
     .cloudTransition {
         left: -45vw;
 
@@ -380,6 +472,7 @@
         animation: none;
     }
 }
+
 @media (max-width: 1130px) {
     .fullClipImage {
         object-fit: contain;
@@ -417,6 +510,23 @@
 }
 
 @media (max-width: 450px) {
+    .copehe h1 {
+        font-size: 11.2vw;
+    }
+
+    .denma {
+
+        font-size: 4.3vw;
+        letter-spacing: 6px;
+        font-weight: 700;
+    }
+
+    .denma span {
+        width: 30px;
+        height: 1px;
+
+
+    }
 
     .imageCardOne,
     .imageCard {
@@ -428,6 +538,16 @@
 
     .imageGallery {
         gap: 20px;
+    }
+}
+
+@media (max-width: 425px) {
+
+
+
+    .fullClipImage {
+        object-position: right top;
+
     }
 }
 

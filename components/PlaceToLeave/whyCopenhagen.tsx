@@ -68,7 +68,7 @@ export default function WhyCopenhagen() {
        
         <img
           className={styles["skechImage"]}
-          src={"images/denamrkskech.png"}
+          src={"images/waybgimage.png"}
           alt="skech"
           loading="lazy"
           decoding="async"
