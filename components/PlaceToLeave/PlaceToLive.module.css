@@ -313,7 +313,7 @@
     white-space: nowrap;
 }
 
-.copehe h1 {
+.copehe h2 {
     font-size: 12.5vw;
     font-family: "Cinzel", serif;
     font-weight: 600;
@@ -391,7 +391,7 @@
 
 @media (max-width: 600px) {
 
-    .copehe h1 {
+    .copehe h2 {
         font-size: 12vw;
 
         letter-spacing: 0.3rem;
@@ -510,7 +510,7 @@
 }
 
 @media (max-width: 450px) {
-    .copehe h1 {
+    .copehe h2 {
         font-size: 11.2vw;
     }
 
