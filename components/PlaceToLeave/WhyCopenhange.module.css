@@ -1,0 +1,442 @@
+.page {
+    --paper: #FFFFF7;
+    --ink: #1d1c1a;
+    --gold: #b1904f;
+    --gold-soft: #734d00;
+    --muted: #1d1b18;
+    --line: #ddd5c6;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Jost", system-ui, sans-serif;
+}
+
+.why {
+    /* display: grid;
+  grid-template-columns: 0.85fr 1fr; */
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 3.6rem 3.5rem 5rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 3;
+    height: 100vh;
+    justify-content: center;
+}
+
+.blush {
+    position: absolute;
+    left: -140px;
+    bottom: -160px;
+    width: 460px;
+    height: 460px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(168, 130, 63, 0.09), rgba(168, 130, 63, 0));
+    pointer-events: none;
+}
+
+.sectionIndex {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--gold);
+    grid-column: 1 / -1;
+    margin-bottom: 1.4rem;
+}
+
+.sectionIndex i {
+    width: 46px;
+    height: 1px;
+    background: var(--gold);
+    display: inline-block;
+}
+
+.whyHeading {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    font-weight: 400;
+    line-height: 1.35;
+    margin: 0;
+    max-width: 20rem;
+    position: relative;
+    z-index: 1;
+}
+
+.pillars {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    margin-bottom: 5%;
+    z-index: 2;
+}
+
+.pillar {
+    text-align: center;
+    padding: 0 1.2rem;
+    border-left: 1px solid var(--line);
+}
+
+.pillar:first-child {
+    border-left: none;
+}
+
+/* ---------- PILLAR SEQUENTIAL GLOW ---------- */
+
+.pillars .pillar {
+    position: relative;
+    animation: pillarPulse 10s infinite ease-in-out;
+}
+
+/* 5 pillars = 10 sec total
+   Each pillar gets its own 2 sec spotlight */
+
+.pillars .pillar:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.pillars .pillar:nth-child(2) {
+    animation-delay: 2s;
+}
+
+.pillars .pillar:nth-child(3) {
+    animation-delay: 4s;
+}
+
+.pillars .pillar:nth-child(4) {
+    animation-delay: 6s;
+}
+
+.pillars .pillar:nth-child(5) {
+    animation-delay: 8s;
+}
+
+
+@keyframes pillarPulse {
+
+    /* Normal */
+    0% {
+        transform: scale(1);
+    }
+
+    /* Start zoom */
+    8% {
+        transform: scale(1.05);
+    }
+
+    /* Glow peak */
+    14% {
+        transform: scale(1.08);
+    }
+
+    /* Stay highlighted */
+    20% {
+        transform: scale(1.05);
+    }
+
+    /* Back to normal */
+    28%,
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* Icon glow */
+
+.pillars .pillar .iconWrap {
+    transition:
+        box-shadow 0.4s ease,
+        background 0.4s ease,
+        transform 0.4s ease;
+        
+}
+
+
+
+.pillars .pillar:nth-child(1) .iconWrap {
+    animation: iconGlow 10s infinite ease-in-out;
+    animation-delay: 0s;
+    
+}
+
+.pillars .pillar:nth-child(2) .iconWrap {
+    animation: iconGlow 10s infinite ease-in-out;
+    animation-delay: 2s;
+}
+
+.pillars .pillar:nth-child(3) .iconWrap {
+    animation: iconGlow 10s infinite ease-in-out;
+    animation-delay: 4s;
+}
+
+.pillars .pillar:nth-child(4) .iconWrap {
+    animation: iconGlow 10s infinite ease-in-out;
+    animation-delay: 6s;
+}
+
+.pillars .pillar:nth-child(5) .iconWrap {
+    animation: iconGlow 10s infinite ease-in-out;
+    animation-delay: 8s;
+}
+
+
+@keyframes iconGlow {
+
+    0%,
+    7% {
+        transform: scale(1);
+        background: #efe8db;
+        box-shadow: 0 0 0 rgba(168, 130, 63, 0);
+        color: #3b3730;
+    }
+
+    12% {
+        transform: scale(1.15);
+        background: #f5ead3;
+        box-shadow:
+            0 0 12px rgba(168, 130, 63, 0.35),
+            0 0 30px rgba(168, 130, 63, 0.2),
+            0 0 55px rgba(168, 130, 63, 0.1);
+            color: var(--gold);
+    }
+
+    18% {
+        transform: scale(1.08);
+        background: #f5ead3;
+        box-shadow:
+            0 0 18px rgba(168, 130, 63, 0.45),
+            0 0 40px rgba(168, 130, 63, 0.25);
+            color: var(--gold);
+    }
+
+    28%,
+    100% {
+        transform: scale(1);
+        background: #efe8db;
+        box-shadow: 0 0 0 rgba(168, 130, 63, 0);
+        color: #3b3730;
+    }
+}
+
+
+.iconWrap {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 1.4rem;
+    border-radius: 50%;
+    background: #efe8db;
+    display: grid;
+    place-items: center;
+    color: #3b3730;
+    font-size: 30px;
+}
+
+.pillarTitle {
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin: 0 0 0.6rem;
+}
+
+.pillarText {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #5c574e;
+    margin: 0;
+}
+
+.closingQuote {
+    margin-top: 3.6rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: flex-start;
+    z-index: 5;
+}
+
+.closingQuote p {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-style: italic;
+    font-size: clamp(1.15rem, 1.8vw, 1.6rem);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 22rem;
+    text-align: center;
+}
+
+.pillars .pillar:nth-child(1) .pillarTitle,
+.pillars .pillar:nth-child(1) .pillarText {
+    animation: textGlow 10s infinite ease-in-out;
+    animation-delay: 0s;
+}
+
+.pillars .pillar:nth-child(2) .pillarTitle,
+.pillars .pillar:nth-child(2) .pillarText {
+    animation: textGlow 10s infinite ease-in-out;
+    animation-delay: 2s;
+}
+
+.pillars .pillar:nth-child(3) .pillarTitle,
+.pillars .pillar:nth-child(3) .pillarText {
+    animation: textGlow 10s infinite ease-in-out;
+    animation-delay: 4s;
+}
+
+.pillars .pillar:nth-child(4) .pillarTitle,
+.pillars .pillar:nth-child(4) .pillarText {
+    animation: textGlow 10s infinite ease-in-out;
+    animation-delay: 6s;
+}
+
+.pillars .pillar:nth-child(5) .pillarTitle,
+.pillars .pillar:nth-child(5) .pillarText {
+    animation: textGlow 10s infinite ease-in-out;
+    animation-delay: 8s;
+}
+
+@keyframes textGlow {
+
+    0%,
+    7% {
+        text-shadow: 0 0 0 rgba(168, 130, 63, 0);
+        color: #3b3730;
+    }
+
+    12%,
+    18% {
+        text-shadow: 0 0 15px rgba(168, 130, 63, 0.5);
+        color: var(--gold);
+    }
+
+    28%,
+    100% {
+        text-shadow: 0 0 0 rgba(168, 130, 63, 0);
+        color: #3b3730;
+    }
+}
+
+.skechImage {
+    position: absolute;
+    z-index: 1;
+    width: 100vw;
+    height: 80vh;
+    bottom: -10px;
+    left: 1px;
+    opacity: 0.3;
+    object-fit: cover;
+    -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
+}
+
+.mobilePillars {
+    display: none;
+    z-index: 2;
+    width: 100%;
+}
+
+.desktopPillars {
+    display: grid;
+}
+
+@media (max-width: 1024px) {
+    .desktopPillars {
+        display: none;
+    }
+
+    .mobilePillars {
+        display: block;
+    }
+
+    .activeCenter .iconWrap {
+        transform: scale(1.18);
+        background: #f5ead3;
+        box-shadow:
+            0 0 10px rgba(168, 130, 63, 0.167),
+            0 0 20px rgba(168, 130, 63, 0.149);
+        transition: all 0.4s ease;
+        color: var(--gold);
+    }
+
+    .activeCenter .pillarTitle {
+        color: var(--gold);
+        text-shadow: 0 0 12px rgba(168, 130, 63, 0.4);
+        transition: all 0.4s ease;
+    }
+
+    .activeCenter .pillarText {
+        color: var(--gold-soft);
+        transition: all 0.4s ease;
+    }
+
+    .pillar {
+        display: flex;
+        flex-direction: column;
+        border-left: none;
+        padding: 1rem;
+        transition: transform 0.4s ease;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .pillarText {
+        max-width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+    .why {
+        padding: 2.5rem 1.5rem 3rem;
+    }
+
+
+    .closingQuote {
+        margin-top: 2rem;
+    }
+
+    .skechImage {
+        height: 100%;
+        opacity: 0.15;
+    }
+
+    .iconWrap {
+        width: 55px;
+        height: 55px;
+        margin-bottom: 1rem;
+        font-size: 25px;
+    }
+
+    .pillarTitle {
+        font-size: 0.75rem;
+        margin: 0 0 0.5rem;
+    }
+
+    .pillarText {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        max-width: 150px;
+    }
+
+}
+
+@media (max-width: 480px) {
+    .iconWrap {
+        width: 65px;
+        height: 65px;
+        margin-bottom: 1.5rem;
+        font-size: 30px;
+    }
+
+    .pillarTitle {
+        font-size: 1rem;
+        margin: 0 0 0.2rem;
+    }
+
+    .pillarText {
+        font-size: 0.95rem;
+        line-height: 1.8;
+        max-width: 250px;
+    }
+
+}
