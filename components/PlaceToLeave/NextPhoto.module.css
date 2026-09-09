@@ -24,7 +24,14 @@
     height: 100%;
     z-index: 0;
 }
+/* NextPhoto.module.css me add karein */
 
+.bgWrapper picture {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 100%;
+}
 .bgImage {
     max-width: none;
     object-fit: cover;

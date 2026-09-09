@@ -140,7 +140,7 @@ const PlaceToLive = () => {
     // Text structure element
     const TextOverlay = () => (
         <div className={styles.copehe}>
-            <h1>COPENHAGEN</h1>
+            <h2>COPENHAGEN</h2>
             <div className={styles.denma}>
                 <span></span>
                 denmark
