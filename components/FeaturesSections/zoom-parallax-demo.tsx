@@ -16,9 +16,9 @@ const PlaceToLive = lazy(() => import("../PlaceToLeave/PlaceToLive"));
 const SlideOverStack = lazy(() => import("../SlideOverStack"));
 const WhyCopenhagen = lazy(() => import("../PlaceToLeave/whyCopenhagen"));
 
-const ComponentFallback = () => (
-  <div className="w-full h-[50vh] bg-neutral-900/40 animate-pulse rounded-lg my-4" />
-);
+// const ComponentFallback = () => (
+//   <div className="w-full h-[50vh] bg-neutral-900/40 animate-pulse rounded-lg my-4" />
+// );
 export default function ZoomParallaxDemo() {
   const [isNight, setIsNight] = useState(true);
   const cinematicTextRef = useRef<HTMLDivElement>(null);
