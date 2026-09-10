@@ -1,20 +1,24 @@
 "use client";
-import  { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import Lenis from "@studio-freight/lenis";
 import styles from "./FeaturesSection.module.css";
-import CinematicText from "../AboutSections/cinematicTex";
-import DenmarkToVashi from "../AboutSections/DenmarkToVashi";
-import { OptimizedShader } from "./OptimizedShader";
-import LandingPage from "../LandingPage";
-import CinematicPlacesGallery from "./CinematicPlacesGallery";
-import WayVashi from "../wayVashi";
-import HorizontalStory from "../whyvashi/HorizontalStory";
-import PlaceToLive from "../PlaceToLeave/PlaceToLive";
-import SlideOverStack from "../SlideOverStack";
-import WhyCopenhagen from "../PlaceToLeave/whyCopenhagen";
+const CinematicText = lazy(() => import("../AboutSections/cinematicTex"));
 
+const DenmarkToVashi = lazy(() => import("../AboutSections/DenmarkToVashi"));
+const OptimizedShader = lazy(() =>
+  import("./OptimizedShader").then((mod) => ({ default: mod.OptimizedShader }))
+);
+const LandingPage = lazy(() => import("../LandingPage"));
+const CinematicPlacesGallery = lazy(() => import("./CinematicPlacesGallery"));
+const WayVashi = lazy(() => import("../wayVashi"));
+const HorizontalStory = lazy(() => import("../whyvashi/HorizontalStory"));
+const PlaceToLive = lazy(() => import("../PlaceToLeave/PlaceToLive"));
+const SlideOverStack = lazy(() => import("../SlideOverStack"));
+const WhyCopenhagen = lazy(() => import("../PlaceToLeave/whyCopenhagen"));
 
-
+const ComponentFallback = () => (
+  <div className="w-full h-[50vh] bg-neutral-900/40 animate-pulse rounded-lg my-4" />
+);
 export default function ZoomParallaxDemo() {
   const [isNight, setIsNight] = useState(true);
   const cinematicTextRef = useRef<HTMLDivElement>(null);
@@ -126,9 +130,12 @@ export default function ZoomParallaxDemo() {
         </div>
 
         <div className={styles.sharedSequenceContent}>
-          <div ref={cinematicTextRef} data-section>
-            <CinematicText />
-          </div>
+          <Suspense fallback={<div className="h-[60vh] bg-neutral-900 animate-pulse" />}>
+            <div ref={cinematicTextRef} data-section>
+              <CinematicText />
+            </div>
+          </Suspense>
+
 
           <div data-section>
             <CinematicPlacesGallery />
@@ -139,17 +146,22 @@ export default function ZoomParallaxDemo() {
 
         </div>
       </section>
+      <Suspense fallback={<div className="h-[60vh] bg-neutral-900 animate-pulse" />}>
+        <div data-section className="-mt-[2px] relative z-20">
+          <WayVashi isNight={isNight} setIsNight={toggleNightMode} />
+        </div>
+      </Suspense>
 
-      <div data-section className="-mt-[2px] relative z-20">
-        <WayVashi isNight={isNight} setIsNight={toggleNightMode} />
-      </div>
       <div data-section>
         <HorizontalStory />
       </div>
-      <div data-section>
-        <PlaceToLive />
-       
-      </div>
+      <Suspense fallback={<div className="h-[60vh] bg-neutral-900 animate-pulse" />}>
+        <div data-section>
+          <PlaceToLive />
+
+        </div>
+      </Suspense>
+
       <SlideOverStack previous={<WhyCopenhagen />}>
         <section className={styles.sharedSequence}>
 
@@ -179,10 +191,12 @@ export default function ZoomParallaxDemo() {
               <div className={styles.sharedShaderOverlay} />
             </div>
           </div>
+          <Suspense fallback={<div className="h-[60vh] bg-neutral-900 animate-pulse" />}>
+            <div className={styles.sharedSequenceContent} data-section>
+              <DenmarkToVashi />
+            </div>
+          </Suspense>
 
-          <div className={styles.sharedSequenceContent} data-section>
-            <DenmarkToVashi />
-          </div>
         </section>
       </SlideOverStack>
 
