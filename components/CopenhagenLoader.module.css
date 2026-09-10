@@ -1,0 +1,320 @@
+.loader {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 118%, rgba(212, 175, 106, 0.14), transparent 60%),
+    radial-gradient(ellipse 60% 45% at 78% 8%, rgba(120, 150, 190, 0.16), transparent 65%),
+    linear-gradient(180deg, #05090f 0%, #0a1522 45%, #10222f 78%, #142c3a 100%);
+  opacity: 1;
+  transition: opacity 0.8s ease;
+  will-change: opacity;
+}
+
+/* soft cinematic vignette */
+.loader::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 120% 100% at 50% 45%, transparent 55%, rgba(2, 5, 9, 0.55) 100%);
+}
+
+.out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* thin gold frame, like a gallery plaque */
+.frame {
+  position: absolute;
+  inset: 18px;
+  border: 1px solid rgba(212, 175, 106, 0.28);
+  pointer-events: none;
+  animation: frameIn 1.6s ease-out both;
+}
+
+.frame::before,
+.frame::after {
+  content: "";
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border: 1px solid rgba(212, 175, 106, 0.75);
+}
+
+.frame::before {
+  top: -1px;
+  left: -1px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.frame::after {
+  bottom: -1px;
+  right: -1px;
+  border-left: none;
+  border-top: none;
+}
+
+@keyframes frameIn {
+  from {
+    opacity: 0;
+    inset: 34px;
+  }
+  to {
+    opacity: 1;
+    inset: 18px;
+  }
+}
+
+.stars {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #fdf6e3;
+  animation: twinkle 3s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+}
+
+.moon {
+  position: absolute;
+  top: 11%;
+  right: 13%;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 34% 32%, #fffbe9, #f0dfae 55%, #d9bd7e);
+  box-shadow:
+    0 0 40px 10px rgba(240, 223, 174, 0.22),
+    0 0 110px 40px rgba(240, 223, 174, 0.1);
+  animation: moonFloat 6s ease-in-out infinite;
+}
+
+@keyframes moonFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.title {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", serif;
+  animation: titleIn 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.titleText {
+  display: inline-block;
+  font-size: clamp(26px, 4.5vw, 44px);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  background: linear-gradient(100deg, #b8934e 0%, #f3e3b3 30%, #d4af6a 52%, #f7ecc8 70%, #b8934e 100%);
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: goldShine 4s linear infinite;
+}
+
+@keyframes goldShine {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+.rule {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.ruleLine {
+  height: 1px;
+  width: 64px;
+  background: linear-gradient(90deg, transparent, rgba(212, 175, 106, 0.8));
+}
+
+.ruleLine:last-child {
+  background: linear-gradient(90deg, rgba(212, 175, 106, 0.8), transparent);
+}
+
+.ruleDiamond {
+  width: 6px;
+  height: 6px;
+  background: #d4af6a;
+  transform: rotate(45deg);
+}
+
+.subtitle {
+  margin-top: 12px;
+  color: rgba(246, 239, 223, 0.62);
+  font-size: clamp(10px, 1.2vw, 12px);
+  letter-spacing: 0.55em;
+  text-transform: uppercase;
+}
+
+@keyframes titleIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.skyline {
+  width: min(100%, 1100px);
+  display: block;
+  filter: drop-shadow(0 -6px 20px rgba(212, 175, 106, 0.12));
+}
+
+/* Optimized entrance animation to eliminate lag */
+.house {
+  animation: rise 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
+  transform-origin: bottom center;
+  transform-box: fill-box;
+  will-change: transform, opacity;
+}
+
+.house:nth-of-type(1) { animation-delay: 50ms; }
+.house:nth-of-type(2) { animation-delay: 100ms; }
+.house:nth-of-type(3) { animation-delay: 150ms; }
+.house:nth-of-type(4) { animation-delay: 200ms; }
+.house:nth-of-type(5) { animation-delay: 250ms; }
+.house:nth-of-type(6) { animation-delay: 300ms; }
+.house:nth-of-type(7) { animation-delay: 350ms; }
+.house:nth-of-type(8) { animation-delay: 400ms; }
+.house:nth-of-type(9) { animation-delay: 450ms; }
+.house:nth-of-type(10) { animation-delay: 500ms; }
+.house:nth-of-type(11) { animation-delay: 550ms; }
+.house:nth-of-type(12) { animation-delay: 600ms; }
+
+@keyframes rise {
+  from {
+    transform: translate3d(0, 30px, 0) scaleY(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: translate3d(0, 0, 0) scaleY(1);
+    opacity: 1;
+  }
+}
+
+.window {
+  animation: windowGlow 2.8s ease-in-out infinite;
+}
+
+@keyframes windowGlow {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.reflect {
+  animation: shimmer 2.6s ease-in-out infinite;
+}
+
+.reflect:nth-of-type(1) { animation-delay: 0ms; }
+.reflect:nth-of-type(2) { animation-delay: 140ms; }
+.reflect:nth-of-type(3) { animation-delay: 280ms; }
+.reflect:nth-of-type(4) { animation-delay: 420ms; }
+.reflect:nth-of-type(5) { animation-delay: 560ms; }
+.reflect:nth-of-type(6) { animation-delay: 700ms; }
+.reflect:nth-of-type(7) { animation-delay: 840ms; }
+.reflect:nth-of-type(8) { animation-delay: 980ms; }
+.reflect:nth-of-type(9) { animation-delay: 1120ms; }
+.reflect:nth-of-type(10) { animation-delay: 1260ms; }
+.reflect:nth-of-type(11) { animation-delay: 1400ms; }
+.reflect:nth-of-type(12) { animation-delay: 1540ms; }
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+}
+
+.progressWrap {
+  position: absolute;
+  bottom: 44px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(340px, 62vw);
+  z-index: 1;
+  transition: opacity 0.4s ease;
+}
+
+.progressWrapHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.track {
+  height: 2px;
+  background: rgba(246, 239, 223, 0.14);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.bar {
+  height: 100%;
+  width: var(--cp-progress, 0%);
+  background: linear-gradient(90deg, #b8934e, #f3e3b3, #d4af6a);
+  box-shadow: 0 0 12px rgba(212, 175, 106, 0.55);
+  transition: width 0.1s linear;
+}
+
+.progressLabel {
+  margin-top: 12px;
+  text-align: center;
+  color: rgba(246, 239, 223, 0.6);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 10px;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+}

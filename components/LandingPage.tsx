@@ -134,7 +134,10 @@ export default function LandingPage({ isNight }: LandingPageProps) {
       });
 
       if (!isMobileDevice()) {
-        tl.to(`.${styles['preloaderGlyph']}`, { opacity: 1, duration: 0.4 })
+        if (document.querySelector(`.${styles['preloaderGlyph']}`)) {
+          tl.to(`.${styles['preloaderGlyph']}`, { opacity: 1, duration: 0.4 });
+        }
+        tl
           .to(`.${styles['lockupEra']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.2")
           .to(`.${styles['lockupResidence']}`, { opacity: 1, y: 0, duration: 0.4 }, "-=0.25")
           .to(`.${styles['lockupScript']}`, { opacity: 1, duration: 0.4 }, "-=0.25")
@@ -253,9 +256,8 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const renderMainSections = () => (
     <div className={styles['heroSceneWrapper']}>
       <div
-        className={`${styles.bgLayer} ${
-          isNearViewport ? (isNight ? styles.nightBg : styles.dayBg) : ""
-        }`}
+        className={`${styles.bgLayer} ${isNearViewport ? (isNight ? styles.nightBg : styles.dayBg) : ""
+          }`}
       />
       <header className={styles['hero']}>
         <motion.div
