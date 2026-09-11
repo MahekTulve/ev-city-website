@@ -234,11 +234,14 @@ export default function NextDesign() {
           viewport={{ amount: 0.3, once: false }}
           variants={leftContainerVariants}
         >
-          {/* 1. Main Title */}
-          <motion.h1 className={styles["title"]} variants={titleVariants}>
-            Denmark&rsquo;s
-            <span className={styles["titleGold"]}>Inspiration</span>
-          </motion.h1>
+          <motion.div variants={titleVariants} >
+            <p className={styles["titleGold"]}>Inspirad By</p>
+            <h1 className={styles["title"]} >
+              <span>C</span>OPENHAGEN
+
+            </h1>
+
+          </motion.div>
 
           {/* 2. Gold Separator Line */}
           <motion.div className={styles["ruleRow"]} variants={ruleVariants} style={{ originX: 0 }}>
