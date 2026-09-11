@@ -39,16 +39,25 @@
 .title {
   font-family: "Bodoni Moda", serif;
   font-weight: 400;
-  font-size: clamp(2.6rem, 5.4vw, 5.1rem);
+  font-size: clamp(2.6rem, 5.1vw, 5.1rem);
   line-height: 0.98;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.02em;
   text-transform: uppercase;
   margin: 0;
 }
 
+.title span {
+  font-size: clamp(3rem, 6.5vw, 6.5rem);
+
+}
+
 .titleGold {
-  display: block;
+  width: 100%;
+  display: flex;
   color: var(--gold);
+  text-align: center;
+  font-size: clamp(0.5rem, 2vw, 2rem);
+
 }
 
 .ruleRow {

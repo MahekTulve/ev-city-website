@@ -30,6 +30,7 @@ type NodeData = {
   sub: string;
   icon: React.ReactNode;
   video: string;
+  mobileVideo?: string;
 };
 
 const ALL_NODES: NodeData[] = [
@@ -39,7 +40,8 @@ const ALL_NODES: NodeData[] = [
     label: "RAILWAY STATION",
     sub: "Seamless Connectivity",
     icon: <Train size={28} />,
-    video: "/videos/railway-station.mp4",
+    video: "/videos/railway-station.webm",
+    mobileVideo: "/videos/Station_mobile.webm",
   },
   {
     id: 2,
@@ -47,7 +49,8 @@ const ALL_NODES: NodeData[] = [
     label: "NEXUS MALL",
     sub: "Shopping & Dining",
     icon: <ShoppingBag size={26} />,
-    video: "/videos/mall.mp4",
+    video: "/videos/mall.webm",
+    mobileVideo: "/videos/mall_mobile.webm",
   },
   {
     id: 3,
@@ -55,7 +58,8 @@ const ALL_NODES: NodeData[] = [
     label: "APOLLO HOSPITAL",
     sub: "Quality Healthcare",
     icon: <Hospital size={26} />,
-    video: "/videos/hospital.mp4",
+    video: "/videos/hospital.webm",
+    mobileVideo: "/videos/hospital_mobile.webm",
   },
   {
     id: 4,
@@ -63,39 +67,26 @@ const ALL_NODES: NodeData[] = [
     label: "TOP SCHOOLS",
     sub: "Bright Futures",
     icon: <GraduationCap size={26} />,
-    video: "/videos/school.mp4",
+    video: "/videos/school.webm",
+    mobileVideo: "/videos/school_mobile.webm",
   },
-  // {
-  //   id: 5,
-  //   time: "11",
-  //   label: "BUSINESS HUB",
-  //   sub: "Work & Thrive",
-  //   icon: <Briefcase size={26} />,
-  //   video: "/videos/aboutvideo.mp4",
-  // },
   {
     id: 6,
     time: "30",
     label: "AIRPORT",
     sub: "Travel with Ease",
     icon: <Plane size={26} />,
-    video: "/videos/airport.mp4",
+    video: "/videos/airport.webm",
+    mobileVideo: "/videos/airpor_mobile.webm",
   },
-  // {
-  //   id: 7,
-  //   time: "18",
-  //   label: "5-STAR HOTEL",
-  //   sub: "Luxury Stay & Hospitality",
-  //   icon: <Hotel size={26} />,
-  //   video: "/videos/aboutvideo.mp4",
-  // },
   {
     id: 8,
     time: "9",
     label: "FINE DINING",
     sub: "Gourmet Cuisines",
     icon: <Utensils size={26} />,
-    video: "/videos/dining.mp4",
+    video: "/videos/dining.webm",
+    mobileVideo: "/videos/dinning_mobile.webm",
   },
   {
     id: 9,
@@ -103,7 +94,8 @@ const ALL_NODES: NodeData[] = [
     label: "MULTIPLEX",
     sub: "Entertainment Hub",
     icon: <Film size={26} />,
-    video: "/videos/entertainment-hub.mp4",
+    video: "/videos/entertainment-hub.webm",
+    mobileVideo: "/videos/cinema_mobile.webm",
   },
   {
     id: 10,
@@ -111,7 +103,8 @@ const ALL_NODES: NodeData[] = [
     label: "IT PARK",
     sub: "Corporate Neighborhood",
     icon: <Building size={26} />,
-    video: "/videos/IT-park.mp4",
+    video: "/videos/IT-park.webm",
+    mobileVideo: "/videos/IT_park_mobile.webm",
   },
 ];
 
@@ -244,14 +237,12 @@ export default function VashiDenmark() {
   const currentCenterData = ALL_NODES[centerNodeIndex];
 
   useEffect(() => {
-    const targetVideoSrc = currentCenterData?.video;
+    const targetVideoSrc =
+      deviceType === "mobile" && currentCenterData?.mobileVideo
+        ? currentCenterData.mobileVideo
+        : currentCenterData?.video;
 
-    if (!isSectionActive) {
-      setIsButtonDisabled(false);
-      return;
-    }
-
-    if (!targetVideoSrc) {
+    if (!isSectionActive || !targetVideoSrc) {
       setIsButtonDisabled(false);
       return;
     }
@@ -272,7 +263,7 @@ export default function VashiDenmark() {
       currentVideo.preload = "metadata";
       gsap.set(currentVideo, { xPercent: 0, zIndex: 1 });
       const initialPlay = currentVideo.play();
-      if (initialPlay !== undefined) initialPlay.catch(() => {});
+      if (initialPlay !== undefined) initialPlay.catch(() => { });
       hasInitializedVideoRef.current = true;
       setIsButtonDisabled(false);
       return;
@@ -280,7 +271,7 @@ export default function VashiDenmark() {
 
     if (currentVideo.getAttribute("data-src") === targetVideoSrc) {
       const resumePlay = currentVideo.play();
-      if (resumePlay !== undefined) resumePlay.catch(() => {});
+      if (resumePlay !== undefined) resumePlay.catch(() => { });
       setIsButtonDisabled(false);
       return;
     }
@@ -303,7 +294,7 @@ export default function VashiDenmark() {
 
     const playPromise = nextVideo.play();
     if (playPromise !== undefined) {
-      playPromise.catch(() => {});
+      playPromise.catch(() => { });
     }
 
     const tl = gsap.timeline({
@@ -323,7 +314,7 @@ export default function VashiDenmark() {
       { xPercent: 0 },
       0,
     );
-  }, [centerNodeIndex, currentCenterData, isSectionActive]);
+  }, [centerNodeIndex, currentCenterData, isSectionActive, deviceType]);
 
   useLayoutEffect(() => {
     const didIndexChange = previousStartIndexRef.current !== startIndex;
