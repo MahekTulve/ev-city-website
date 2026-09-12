@@ -1,19 +1,4 @@
-.badgeContainer {
-  transition: opacity 0.3s ease;
-}
-
-.badgeButton {
-  position: fixed;
-  top: 0.5rem;
-  left: 0.5rem;
-  z-index: 1000;
-  width: 5.7rem;
-  height: 5.7rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
+@import url('https://fonts.googleapis.com/css2?family=Junge&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
 
 .badge {
   position: fixed;
@@ -30,12 +15,12 @@
 .badgeRing {
   width: 100%;
   height: 100%;
-  animation: badgeSpin 10s linear infinite;
-  transform-origin: 50% 50%;
+  will-change: transform;
+  /* GPU render booster to prevent lag */
 }
 
 .badgeRing text {
-  font-family: 'Junge', Georgia, serif;
+  font-family: 'Junge', serif;
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -113,9 +98,7 @@
       #fcea93c3 50%,
       #b98f2cdc 75%,
       #80611dcf 100%);
-  transform: scaleY(0);
-  transform-origin: top;
-  will-change: transform;
+  will-change: height;
 }
 
 .railLabel {
@@ -159,40 +142,8 @@
   rotate: 45deg;
 }
 
-@keyframes badgeSpin {
-  to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .badgeRing,
-  .railArrow {
-    animation: none;
-  }
-}
-
 @media screen and (max-width: 768px) {
-  .badgeButton {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-  .badgeContainer {
-  transition: opacity 0.3s ease;
-}
-
-.badgeButton {
-  position: fixed;
-  top: 0.5rem;
-  left: 0.5rem;
-  z-index: 1000;
-  width: 5.7rem;
-  height: 5.7rem;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  cursor: pointer;
-}
-
-.badge {
+  .badge {
     width: 3.5rem;
     height: 3.5rem;
   }

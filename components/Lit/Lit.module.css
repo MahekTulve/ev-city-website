@@ -27,16 +27,12 @@
     cutout uses the exact same final scale and both halves meet like one image.
   */
   background-color: #17233a;
-  background-image: none;
+  background-image: url("/images/vashi_cut_bottom.png");
   background-size: var(--cutout-final-bg-size, 116%) auto;
   background-position: center top;
   background-repeat: no-repeat;
 
   isolation: isolate;
-}
-
-.backgroundReady {
-  background-image: url("/images/vashi_cut_bottom.png");
 }
 
 /* .wrapper::before {
@@ -1141,15 +1137,18 @@
   }
   .wrapper {
     min-height: 100lvh;
+
     background-color: #17233a;
-    background-image: none;
+    background-image: url("/images/cut2mobile.png");
     background-size: var(--cutout-final-bg-size, 116%) auto;
     background-position: center top;
     background-repeat: no-repeat;
   }
 
-  .backgroundReady {
+  .wrapper::before {
     background-image: url("/images/cut2mobile.png");
+    background-size: var(--cutout-final-bg-size, 116%) auto;
+    background-position: center top;
   }
   .hero {
     min-height: auto;

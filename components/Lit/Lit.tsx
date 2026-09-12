@@ -272,25 +272,6 @@ function DrawDot({ delay }: { delay: number }) {
 export default function Lit() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [animate, setAnimate] = useState(false);
-  const [backgroundReady, setBackgroundReady] = useState(false);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const backgroundObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setBackgroundReady(true);
-          backgroundObserver.disconnect();
-        }
-      },
-      { rootMargin: "700px 0px", threshold: 0 },
-    );
-
-    backgroundObserver.observe(section);
-    return () => backgroundObserver.disconnect();
-  }, []);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -324,7 +305,7 @@ export default function Lit() {
   return (
     <section
       ref={sectionRef}
-      className={`${s.wrapper} ${backgroundReady ? s.backgroundReady : ""} ${animate ? s.animate : ""}`}
+      className={`${s.wrapper} ${animate ? s.animate : ""}`}
     >
       {/* Background-only overlays.
           They sit above a3-cut.jpeg but below every LIT text/card layer. */}

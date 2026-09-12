@@ -132,40 +132,29 @@ const MOBILE_ARC_POSITIONS = [
   { x: 82, y: 36 },
 ];
 
-type DeviceType = "mobile" | "tablet" | "desktop";
-
 export default function VashiDenmark() {
   const [startIndex, setStartIndex] = useState(0);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
   const [deviceType, setDeviceType] = useState<DeviceType>("desktop");
   const AUTO_SCROLL_MS = 2500;
 
+  type DeviceType = "mobile" | "tablet" | "desktop";
+
   useEffect(() => {
-    const mobileQuery = window.matchMedia("(max-width: 600px)");
-    const tabletQuery = window.matchMedia(
-      "(min-width: 601px) and (max-width: 1024px)",
-    );
-
-    const updateDeviceType = () => {
-      const nextType: DeviceType = mobileQuery.matches
-        ? "mobile"
-        : tabletQuery.matches
-          ? "tablet"
-          : "desktop";
-
-      setDeviceType((currentType) =>
-        currentType === nextType ? currentType : nextType,
-      );
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width <= 600) {
+        setDeviceType("mobile");
+      } else if (width <= 1024) {
+        setDeviceType("tablet");
+      } else {
+        setDeviceType("desktop");
+      }
     };
 
-    updateDeviceType();
-    mobileQuery.addEventListener("change", updateDeviceType);
-    tabletQuery.addEventListener("change", updateDeviceType);
-
-    return () => {
-      mobileQuery.removeEventListener("change", updateDeviceType);
-      tabletQuery.removeEventListener("change", updateDeviceType);
-    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const pageRef = useRef<HTMLElement>(null);
@@ -328,8 +317,6 @@ export default function VashiDenmark() {
   }, [centerNodeIndex, currentCenterData, isSectionActive, deviceType]);
 
   useLayoutEffect(() => {
-    if (!isSectionActive) return;
-
     const didIndexChange = previousStartIndexRef.current !== startIndex;
     const direction = slideDirection.current;
 
@@ -455,7 +442,7 @@ export default function VashiDenmark() {
     }
 
     previousStartIndexRef.current = startIndex;
-  }, [startIndex, deviceType, visibleCount, totalNodes, isSectionActive]);
+  }, [startIndex, deviceType, visibleCount, totalNodes]);
 
   return (
     <main ref={pageRef} className={styles.page}>
