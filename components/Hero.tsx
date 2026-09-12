@@ -40,7 +40,7 @@ export default function Hero() {
         onCanPlayThrough={() => setCanPlay(true)}
         className="h-full w-full object-cover"
       >
-        <source src="/videos/intro-mob.webp" type="video/webm" media="(max-width: 480px)" />
+        <source src="/videos/intro-mob.webm" type="video/webm" media="(max-width: 480px)" />
         <source src="/videos/intro-desktop.webm" type="video/webm" />
       </video>
 
