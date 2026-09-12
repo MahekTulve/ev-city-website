@@ -1,7 +1,12 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
-import { MeshGradient } from "@paper-design/shaders-react";
+import React, { Suspense, lazy, useEffect, useRef, useState } from "react";
+
+const MeshGradient = lazy(() =>
+  import("@paper-design/shaders-react").then((module) => ({
+    default: module.MeshGradient,
+  })),
+);
 
 type ParticleLayout = "full" | "text";
 type ParticleType = "tiny" | "small" | "glow" | "medium" | "large";
@@ -511,7 +516,9 @@ export function OptimizedShader({
       }}
     >
       {isVisible && !preferStaticGradient && (
-        <MeshGradient className={className} colors={colors} speed={speed} />
+        <Suspense fallback={null}>
+          <MeshGradient className={className} colors={colors} speed={speed} />
+        </Suspense>
       )}
 
       {preferStaticGradient && (

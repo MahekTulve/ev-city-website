@@ -2,8 +2,6 @@
 
 import React, { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 import styles from "./Navbar.module.css";
 
 export const Navbar: React.FC = () => {
@@ -12,27 +10,34 @@ export const Navbar: React.FC = () => {
   const navRef = useRef<HTMLDivElement>(null);
   const highlightRef = useRef<HTMLDivElement>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const scrolledRef = useRef(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // 1. Monitor Scroll State
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 5) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      const nextScrolled = window.scrollY > 5;
+      if (scrolledRef.current === nextScrolled) return;
+
+      scrolledRef.current = nextScrolled;
+      setIsScrolled(nextScrolled);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useGSAP(
-    () => {
-      const container = navRef.current;
-      if (!container) return;
+  useEffect(() => {
+    const container = navRef.current;
+    if (!container || !window.matchMedia("(min-width: 769px)").matches) return;
 
+    let cancelled = false;
+    let cleanup = () => {};
+
+    void import("gsap").then((module) => {
+      if (cancelled) return;
+
+      const gsap = module.gsap ?? module.default;
       const links = container.querySelectorAll(`.${styles.lnNavbarLink}`);
       const highlight = highlightRef.current;
       const logo = container.querySelector(`.${styles.lnNavbarLogo}`);
@@ -44,61 +49,70 @@ export const Navbar: React.FC = () => {
 
       if (!links.length || !highlight || !navBarInner) return;
 
-      const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+      const linkHandlers = new Map<Element, EventListener>();
+      const context = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: "power4.out" } });
+        const targetsToHide: Element[] = [];
 
-      const targetsToHide = [];
-      if (logo) targetsToHide.push(logo);
-      if (divider) targetsToHide.push(divider);
-      if (links.length) targetsToHide.push(...Array.from(links));
-      if (rightSideElements.length)
+        if (logo) targetsToHide.push(logo);
+        if (divider) targetsToHide.push(divider);
+        targetsToHide.push(...Array.from(links));
         targetsToHide.push(...Array.from(rightSideElements));
 
-      if (targetsToHide.length) gsap.set(targetsToHide, { opacity: 0, y: -15 });
-      gsap.set(navBarInner, { scaleX: 0.9, opacity: 0 });
-      gsap.set(highlight, { opacity: 0, scale: 0.85 });
+        if (targetsToHide.length) {
+          gsap.set(targetsToHide, { opacity: 0, y: -15 });
+        }
 
-      tl.to(navBarInner, { scaleX: 1, opacity: 1, duration: 0.8 });
+        gsap.set(navBarInner, { scaleX: 0.9, opacity: 0 });
+        gsap.set(highlight, { opacity: 0, scale: 0.85 });
 
-      if (logo) {
-        tl.to(logo, { opacity: 1, y: 0, duration: 0.5 }, "-=0.4");
-      }
-      if (divider) {
-        tl.to(divider, { opacity: 0.3, y: 0, duration: 0.3 }, "-=0.3");
-      }
+        tl.to(navBarInner, { scaleX: 1, opacity: 1, duration: 0.8 });
 
-      tl.to(
-        Array.from(links),
-        { opacity: 0.75, y: 0, duration: 0.5, stagger: 0.08 },
-        "-=0.3",
-      );
+        if (logo) {
+          tl.to(logo, { opacity: 1, y: 0, duration: 0.5 }, "-=0.4");
+        }
 
-      if (rightSideElements.length) {
+        if (divider) {
+          tl.to(divider, { opacity: 0.3, y: 0, duration: 0.3 }, "-=0.3");
+        }
+
         tl.to(
-          Array.from(rightSideElements),
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 },
-          "-=0.4",
+          Array.from(links),
+          { opacity: 0.75, y: 0, duration: 0.5, stagger: 0.08 },
+          "-=0.3",
         );
-      }
 
-      links.forEach((link) => {
-        link.addEventListener("mouseenter", (e) => {
-          const target = e.currentTarget as HTMLElement;
-          const { offsetLeft, offsetWidth, offsetHeight } = target;
+        if (rightSideElements.length) {
+          tl.to(
+            Array.from(rightSideElements),
+            { opacity: 1, y: 0, duration: 0.5, stagger: 0.05 },
+            "-=0.4",
+          );
+        }
 
-          gsap.to(highlight, {
-            x: offsetLeft,
-            width: offsetWidth,
-            height: offsetHeight,
-            opacity: 1,
-            scale: 1,
-            duration: 0.35,
-            ease: "power3.out",
-            overwrite: "auto",
-          });
+        links.forEach((link) => {
+          const handleMouseEnter: EventListener = (event) => {
+            const target = event.currentTarget as HTMLElement;
+            const { offsetLeft, offsetWidth, offsetHeight } = target;
+
+            gsap.to(highlight, {
+              x: offsetLeft,
+              width: offsetWidth,
+              height: offsetHeight,
+              opacity: 1,
+              scale: 1,
+              duration: 0.35,
+              ease: "power3.out",
+              overwrite: "auto",
+            });
+          };
+
+          linkHandlers.set(link, handleMouseEnter);
+          link.addEventListener("mouseenter", handleMouseEnter);
         });
-      });
+      }, container);
 
-      container.addEventListener("mouseleave", () => {
+      const handleMouseLeave = () => {
         gsap.to(highlight, {
           opacity: 0,
           scale: 0.85,
@@ -106,26 +120,24 @@ export const Navbar: React.FC = () => {
           ease: "power2.out",
           overwrite: "auto",
         });
-      });
-    },
-    { scope: navRef },
-  );
+      };
 
-  useEffect(() => {
-  if (!mobileMenuOpen || !mobileMenuRef.current) return;
+      container.addEventListener("mouseleave", handleMouseLeave);
 
-  gsap.fromTo(
-    mobileMenuRef.current,
-    {
-      x: "100%",
-    },
-    {
-      x: "0%",
-      duration: 0.5,
-      ease: "power4.out",
-    }
-  );
-}, [mobileMenuOpen]);
+      cleanup = () => {
+        linkHandlers.forEach((handler, link) => {
+          link.removeEventListener("mouseenter", handler);
+        });
+        container.removeEventListener("mouseleave", handleMouseLeave);
+        context.revert();
+      };
+    });
+
+    return () => {
+      cancelled = true;
+      cleanup();
+    };
+  }, []);
 
   return (
     <header

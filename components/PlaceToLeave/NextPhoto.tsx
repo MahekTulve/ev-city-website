@@ -53,7 +53,8 @@ export default function NextPhoto() {
                         src="/images/new_bootom_cut.webp"
                         alt="Background Landscape"
                         fill
-                        priority
+                        loading="lazy"
+                        fetchPriority="low"
                         className={styles.bgImage}
                         sizes="100vw"
                     />
