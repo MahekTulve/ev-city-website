@@ -119,6 +119,9 @@ export function OptimizedShader({
     let canvasWidth = 0;
     let canvasHeight = 0;
     let particles: Particle[] = [];
+    const lowPowerMode = window.matchMedia(
+      "(max-width: 768px), (prefers-reduced-motion: reduce)",
+    ).matches;
 
     const rgb = hexToRgb(particleColor);
 
@@ -278,7 +281,7 @@ export function OptimizedShader({
       canvasWidth = bounds.width;
       canvasHeight = bounds.height;
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, lowPowerMode ? 1 : 1.5);
       canvas.width = Math.round(canvasWidth * pixelRatio);
       canvas.height = Math.round(canvasHeight * pixelRatio);
       canvas.style.width = `${canvasWidth}px`;
@@ -362,11 +365,12 @@ export function OptimizedShader({
     };
 
     let lastFrameTime = 0;
-    const minFrameInterval = 1000 / 30;
+    const minFrameInterval = 1000 / (lowPowerMode ? 24 : 30);
 
     const render = (currentTime: number) => {
+      animationFrameId = 0;
+
       if (document.visibilityState !== "visible") {
-        animationFrameId = requestAnimationFrame(render);
         return;
       }
 
@@ -460,13 +464,21 @@ export function OptimizedShader({
       }
     };
 
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && !animationFrameId) {
+        animationFrameId = requestAnimationFrame(render);
+      }
+    };
+
     const resizeObserver = new ResizeObserver(resizeCanvas);
     resizeObserver.observe(container);
     resizeCanvas();
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     animationFrameId = requestAnimationFrame(render);
 
     return () => {
       resizeObserver.disconnect();
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       cancelAnimationFrame(animationFrameId);
       context.clearRect(0, 0, canvasWidth, canvasHeight);
     };

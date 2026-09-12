@@ -1,9 +1,10 @@
 'use client';
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 import type { CSSProperties } from "react";
 import styles from "./CopenhagenLoader.module.css";
 
 export const MIN_LOADER_MS = 2000;
+export const MOBILE_MIN_LOADER_MS = 1200;
 
 const HOUSES: { color: string; h: number; w: number; spire?: boolean; tower?: "round" | "spire" }[] = [
   { color: "#C9603B", h: 120, w: 64 },
@@ -97,29 +98,39 @@ function House({ x, house }: { x: number; house: (typeof HOUSES)[number] }) {
 }
 
 export default function CopenhagenLoader({ fading }: { fading: boolean }) {
-  const [progress, setProgress] = useState(0);
-  const [showLoadingBar, setShowLoadingBar] = useState(true);
+  const progressBarRef = useRef<HTMLDivElement>(null);
+  const progressLabelRef = useRef<HTMLDivElement>(null);
+  const progressWrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const duration = window.matchMedia("(max-width: 768px)").matches
+      ? MOBILE_MIN_LOADER_MS
+      : MIN_LOADER_MS;
     const start = performance.now();
-    const id = setInterval(() => {
+    let intervalId = 0;
+
+    const updateProgress = () => {
       const elapsed = performance.now() - start;
-      const t = elapsed / MIN_LOADER_MS;
-      
-      const currentProgress = Math.min(100, Math.round(t * 100));
-      setProgress(currentProgress);
+      const progress = Math.min(100, Math.round((elapsed / duration) * 100));
 
-      // Buildings ke screen par poore tarah aane ke baad (~1.2s) loading bar gayab ho jayega
-      if (elapsed >= 1200) {
-        setShowLoadingBar(false);
+      progressBarRef.current?.style.setProperty("--cp-progress", `${progress}%`);
+      if (progressLabelRef.current) {
+        progressLabelRef.current.textContent = `Loading ${progress}%`;
       }
 
-      if (t >= 1) {
-        clearInterval(id);
+      if (elapsed >= Math.min(1200, duration)) {
+        progressWrapRef.current?.classList.add(styles.progressWrapHidden);
       }
-    }, 40);
 
-    return () => clearInterval(id);
+      if (elapsed >= duration) {
+        window.clearInterval(intervalId);
+      }
+    };
+
+    updateProgress();
+    intervalId = window.setInterval(updateProgress, 100);
+
+    return () => window.clearInterval(intervalId);
   }, []);
 
   const totalW = HOUSES.reduce((s, h) => s + h.w + 8, -8);
@@ -178,11 +189,17 @@ export default function CopenhagenLoader({ fading }: { fading: boolean }) {
         </g>
       </svg>
 
-      <div className={`${styles['progressWrap']} ${!showLoadingBar ? styles['progressWrapHidden'] : ''}`}>
+      <div ref={progressWrapRef} className={styles['progressWrap']}>
         <div className={styles['track']}>
-          <div className={styles['bar']} style={{ "--cp-progress": `${progress}%` } as CSSProperties} />
+          <div
+            ref={progressBarRef}
+            className={styles['bar']}
+            style={{ "--cp-progress": "0%" } as CSSProperties}
+          />
         </div>
-        <div className={styles['progressLabel']}>Loading {progress}%</div>
+        <div ref={progressLabelRef} className={styles['progressLabel']}>
+          Loading 0%
+        </div>
       </div>
     </div>
   );
