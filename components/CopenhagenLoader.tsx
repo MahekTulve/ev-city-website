@@ -1,6 +1,4 @@
 'use client';
-import { useEffect, useState } from "react";
-import type { CSSProperties } from "react";
 import styles from "./CopenhagenLoader.module.css";
 
 export const MIN_LOADER_MS = 2000;
@@ -97,31 +95,6 @@ function House({ x, house }: { x: number; house: (typeof HOUSES)[number] }) {
 }
 
 export default function CopenhagenLoader({ fading }: { fading: boolean }) {
-  const [progress, setProgress] = useState(0);
-  const [showLoadingBar, setShowLoadingBar] = useState(true);
-
-  useEffect(() => {
-    const start = performance.now();
-    const id = setInterval(() => {
-      const elapsed = performance.now() - start;
-      const t = elapsed / MIN_LOADER_MS;
-      
-      const currentProgress = Math.min(100, Math.round(t * 100));
-      setProgress(currentProgress);
-
-      // Buildings ke screen par poore tarah aane ke baad (~1.2s) loading bar gayab ho jayega
-      if (elapsed >= 1200) {
-        setShowLoadingBar(false);
-      }
-
-      if (t >= 1) {
-        clearInterval(id);
-      }
-    }, 40);
-
-    return () => clearInterval(id);
-  }, []);
-
   const totalW = HOUSES.reduce((s, h) => s + h.w + 8, -8);
   const startX = (1200 - totalW) / 2;
   let cursor = startX;
@@ -178,11 +151,11 @@ export default function CopenhagenLoader({ fading }: { fading: boolean }) {
         </g>
       </svg>
 
-      <div className={`${styles['progressWrap']} ${!showLoadingBar ? styles['progressWrapHidden'] : ''}`}>
+      <div className={styles['progressWrap']}>
         <div className={styles['track']}>
-          <div className={styles['bar']} style={{ "--cp-progress": `${progress}%` } as CSSProperties} />
+          <div className={styles['bar']} />
         </div>
-        <div className={styles['progressLabel']}>Loading {progress}%</div>
+        <div className={styles['progressLabel']}>Loading</div>
       </div>
     </div>
   );

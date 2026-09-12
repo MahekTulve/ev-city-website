@@ -73,23 +73,11 @@ const elements: ConstructionElementConfig[] = [
     scaleRange: [0.7, 1.1],
     scrollRange: [0.1, 1],
   },
-  {
-    type: "frame",
-    hue: 0,
-    size: 140,
-    startX: "18vw",
-    endX: "50vw",
-    startY: 1320,
-    endY: 3050,
-    rotateRange: [-2, 2],
-    scaleRange: [0.65, 1.05],
-    scrollRange: [0.15, 1],
-  },
 ];
 
 function CraneIcon() {
   return (
-    <motion.svg viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", overflow: "visible" }}>
+    <svg viewBox="0 0 160 200" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", overflow: "visible" }}>
       <defs>
         <linearGradient id="craneSteel" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#5c6470" /><stop offset="45%" stopColor="#3a4149" /><stop offset="100%" stopColor="#22262c" /></linearGradient>
         <linearGradient id="craneBrass" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#d8bd83" /><stop offset="55%" stopColor="#af8c52" /><stop offset="100%" stopColor="#8a6c3c" /></linearGradient>
@@ -107,7 +95,7 @@ function CraneIcon() {
       ))}
       <rect x="79" y="27" width="28" height="17" rx="1.5" fill="url(#craneCab)" stroke="#181b1e" strokeWidth="1" />
       <rect x="83" y="30" width="10" height="9" rx="1" fill="url(#craneGlass)" opacity="0.9" />
-      <motion.g animate={{ rotate: [-1.2, 1.2, -1.2] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} style={{ transformOrigin: "80px 24px" }}>
+      <g>
         <line x1="80" y1="24" x2="152" y2="24" stroke="url(#craneBrass)" strokeWidth="4" strokeLinecap="round" />
         <line x1="80" y1="24" x2="42" y2="24" stroke="url(#craneBrass)" strokeWidth="4" strokeLinecap="round" />
         {[88, 100, 112, 124, 136].map((x) => (
@@ -119,8 +107,8 @@ function CraneIcon() {
         <line x1="80" y1="7" x2="80" y2="24" stroke="#7d8590" strokeWidth="0.9" />
         <line x1="140" y1="24" x2="140" y2="68" stroke="#2a2f35" strokeWidth="0.9" />
         <path d="M136 68 h8 v5 a4 4 0 0 1 -8 0 z" fill="url(#craneBrass)" stroke="#5a4526" strokeWidth="0.5" />
-      </motion.g>
-    </motion.svg>
+      </g>
+    </svg>
   );
 }
 
@@ -138,12 +126,12 @@ function MixerIcon() {
       <rect x="10" y="53" width="42" height="55" rx="3" fill="url(#mixerCab)" stroke="#8f8770" strokeWidth="1" />
       <rect x="16" y="61" width="20" height="15" rx="1.5" fill="url(#mixerGlass)" />
       <rect x="60" y="61" width="70" height="8" fill="url(#mixerChassis)" />
-      <motion.g animate={{ rotate: 360 }} transition={{ duration: 6, repeat: Infinity, ease: "linear" }} style={{ transformOrigin: "100px 60px" }}>
+      <g>
         <ellipse cx="100" cy="60" rx="42" ry="29" fill="url(#mixerDrum)" stroke="#4a2f1a" strokeWidth="1" />
         <path d="M62 60 a38 25 0 0 1 76 0" fill="none" stroke="#5c3a20" strokeWidth="1.6" opacity="0.6" />
         <path d="M68 45 l64 30" stroke="#5c3a20" strokeWidth="1.6" opacity="0.5" />
         <path d="M68 75 l64 -30" stroke="#5c3a20" strokeWidth="1.6" opacity="0.5" />
-      </motion.g>
+      </g>
       <circle cx="34" cy="112" r="14" fill="#1c1e21" />
       <circle cx="34" cy="112" r="5" fill="url(#wheelHub)" />
       <circle cx="130" cy="112" r="14" fill="#1c1e21" />
@@ -154,7 +142,7 @@ function MixerIcon() {
 
 function BlueprintIcon() {
   return (
-    <motion.svg viewBox="0 0 140 160" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", overflow: "visible" }} animate={{ rotate: [-1, 1, -1] }} transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}>
+    <svg viewBox="0 0 140 160" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", overflow: "visible" }}>
       <defs>
         <linearGradient id="blueprintPaper" x1="0" y1="0" x2="1" y2="0.2"><stop offset="0%" stopColor="#2c4c72" /><stop offset="55%" stopColor="#1f3a58" /><stop offset="100%" stopColor="#152A42" /></linearGradient>
       </defs>
@@ -166,34 +154,19 @@ function BlueprintIcon() {
         <line key={x} x1={x} y1="14" x2={x} y2="146" stroke="#c9a660" strokeWidth="0.4" opacity="0.28" />
       ))}
       <path d="M40 130 v-50 h16 v-14 h12 v14 h16 v50 z" fill="none" stroke="#e9dfc4" strokeWidth="1.4" strokeLinejoin="round" />
-    </motion.svg>
+    </svg>
   );
 }
 
 function HardHatIcon() {
   return (
-    <motion.svg viewBox="0 0 140 100" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", overflow: "visible" }}>
+    <svg viewBox="0 0 140 100" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", overflow: "visible" }}>
       <defs>
         <linearGradient id="hatBrim" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#d7bd86" /><stop offset="100%" stopColor="#a3833f" /></linearGradient>
         <radialGradient id="hatDome" cx="38%" cy="28%" r="80%"><stop offset="0%" stopColor="#eddcb2" /><stop offset="35%" stopColor="#d3ae6c" /><stop offset="100%" stopColor="#98773f" /></radialGradient>
       </defs>
       <ellipse cx="70" cy="66" rx="61" ry="13" fill="url(#hatBrim)" stroke="#6e5527" strokeWidth="1" />
       <path d="M18 62 a52 42 0 0 1 104 0 z" fill="url(#hatDome)" stroke="#6e5527" strokeWidth="1" />
-    </motion.svg>
-  );
-}
-
-function BuildingFrameIcon() {
-  return (
-    <svg viewBox="0 0 160 220" xmlns="http://www.w3.org/2000/svg" style={{ width: "100%", height: "100%", overflow: "visible" }}>
-      <g stroke="#6b7280" strokeWidth="2">
-        <line x1="30" y1="20" x2="30" y2="210" />
-        <line x1="80" y1="20" x2="80" y2="210" />
-        <line x1="130" y1="20" x2="130" y2="210" />
-        {[20, 55, 90, 125, 160, 195].map((y) => (
-          <line key={y} x1="30" y1={y} x2="130" y2={y} />
-        ))}
-      </g>
     </svg>
   );
 }
@@ -204,7 +177,7 @@ function renderIcon(type: ElementType) {
     case "mixer": return <MixerIcon />;
     case "blueprint": return <BlueprintIcon />;
     case "hardhat": return <HardHatIcon />;
-    // case "frame": return <BuildingFrameIcon />;
+    default: return null;
   }
 }
 
@@ -273,21 +246,14 @@ function Building({ config }: { config: BuildingConfig }) {
       <svg viewBox={`0 0 ${config.width} ${config.height}`} width={config.width} height={config.height}>
         <rect x="0" y="0" width={config.width} height={config.height} fill={config.color} />
         {windows.map(({ r, c, id }) => (
-          <motion.rect
+          <rect
             key={id}
             x={6 + c * winW}
             y={8 + r * winH}
             width={winW * 0.62}
             height={winH * 0.55}
             fill="#ffe9a8"
-            initial={{ opacity: 0.15 }}
-            animate={{ opacity: [0.15, 0.85, 0.15] }}
-            transition={{
-              duration: 4 + ((r + c) % 5),
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: (config.delay ?? 0) + (r + c) * 0.15,
-            }}
+            opacity={0.22 + ((r + c) % 4) * 0.1}
           />
         ))}
       </svg>
@@ -295,12 +261,9 @@ function Building({ config }: { config: BuildingConfig }) {
         <div className={styles.miniCrane}>
           <svg viewBox="0 0 60 40" width="60" height="40">
             <line x1="30" y1="6" x2="30" y2="36" stroke="#f4b400" strokeWidth="2.5" />
-            <motion.line
+            <line
               x1="8" y1="6" x2="54" y2="6"
               stroke="#f4b400" strokeWidth="2.5"
-              animate={{ rotate: [-4, 4, -4] }}
-              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-              style={{ transformOrigin: "30px 6px" }}
             />
           </svg>
         </div>
@@ -475,7 +438,7 @@ export default function DenmarkToVashi() {
             opacity: 1,
             scaleX: 1, // Curtain wipe open (parda khulega)
           }}
-          viewport={{ once: false, amount: 0.4 }}
+          viewport={{ once: true, amount: 0.4 }}
           transition={{
             duration: 0.85,
             ease: [0.25, 1, 0.5, 1], // Smooth Video Reveal Motion

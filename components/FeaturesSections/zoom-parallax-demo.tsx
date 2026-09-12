@@ -82,22 +82,22 @@ export default function ZoomParallaxDemo() {
   }, []);
 
 
-  useEffect(() => {
-    const lenis = new Lenis();
-    let frameId = 0;
+  // useEffect(() => {
+  //   const lenis = new Lenis();
+  //   let frameId = 0;
 
-    const raf = (time: number) => {
-      lenis.raf(time);
-      frameId = window.requestAnimationFrame(raf);
-    };
+  //   const raf = (time: number) => {
+  //     lenis.raf(time);
+  //     frameId = window.requestAnimationFrame(raf);
+  //   };
 
-    frameId = window.requestAnimationFrame(raf);
+  //   frameId = window.requestAnimationFrame(raf);
 
-    return () => {
-      window.cancelAnimationFrame(frameId);
-      lenis.destroy();
-    };
-  }, []);
+  //   return () => {
+  //     window.cancelAnimationFrame(frameId);
+  //     lenis.destroy();
+  //   };
+  // }, []);
 
   return (
     <main className="w-full">
