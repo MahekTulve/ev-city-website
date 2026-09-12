@@ -141,7 +141,7 @@ export default function CopenhagenLoader({ fading }: { fading: boolean }) {
       <div className={styles['frame']} />
 
       <div className={styles['title']}>
-        <span className={styles['titleText']}>København</span>
+        <span className={styles['titleText']}>Cøpenhagen</span>
         <div className={styles['rule']}>
           <span className={styles['ruleLine']} />
           <span className={styles['ruleDiamond']} />

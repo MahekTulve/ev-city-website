@@ -4,7 +4,7 @@
   --paper: #FFFFF7;
   --ink: #1d1c1a;
   --gold: #b1904f;
-  --gold-soft: #734d00;
+  --gold-soft: #A78154;
   --muted: #1d1b18;
   --line: #ddd5c6;
   background: var(--paper);
@@ -20,10 +20,13 @@
   gap: 1rem;
   max-width: 1520px;
   margin: 0 auto;
-  padding: 3rem 3vw 2rem 3vw;
+  padding: 3rem 2vw 2rem 1.5vw;
 }
 
 .left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   z-index: 1;
   padding-left: 3.5rem;
@@ -36,61 +39,95 @@
   z-index: 2;
 }
 
-.title {
-  font-family: "Bodoni Moda", serif;
-  font-weight: 400;
-  font-size: clamp(2.6rem, 5.1vw, 5.1rem);
-  line-height: 0.98;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  margin: 0;
+.starttext {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.title span {
-  font-size: clamp(3rem, 6.5vw, 6.5rem);
+.title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-family: var(--font-cormorant);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 6vw, 6rem);
+  line-height: 0.98;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  margin: 0;
+  z-index: 2;
+  color: #1F201B;
 
+}
+
+.zeroHero {
+  position: relative;
+  /* Line ko iske andar place karne ke liye */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.zeroHero::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 45%;
+  background-color: var(--gold-soft, #D4AF37);
+  pointer-events: none;
+}
+
+.letterC {
+  font-size: clamp(3rem, 7vw, 7rem);
 }
 
 .titleGold {
-  width: 100%;
-  display: flex;
-  color: var(--gold);
-  text-align: center;
-  font-size: clamp(0.5rem, 2vw, 2rem);
+  color: var(--gold-soft);
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  font-family: var(--font-amsterdam);
+  word-spacing: 1rem;
+  margin-bottom: -2%;
+  z-index: 5;
 
-}
-
-.ruleRow {
-  margin: 1rem 0 1.1rem;
 }
 
 .rule {
-  display: block;
-  width: 48px;
+  display: flex;
+  width: 320px;
   height: 1.5px;
   background: var(--gold-soft);
 }
 
 .blockRow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   position: relative;
   margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 
 .kicker {
   margin: 0;
   font-size: 0.92rem;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.34em;
   text-transform: uppercase;
   color: var(--ink);
+  font-family: var(--font-cormorant);
+
 }
 
 .kickerSub {
-  margin: 0.5rem 0 0;
-  font-size: 0.8rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--gold);
+  width: 50px;
+  height: 2px;
+  background-color: var(--gold-soft);
+  margin-top: 1rem;
 }
 
 .iconRow {
@@ -140,19 +177,31 @@
 
 }
 
-.body,
-.bodyStrong {
+.body {
+  text-align: center;
   margin: 0 0 1.2rem;
-  font-size: 0.92rem;
+  font-size: 1.2rem;
   line-height: 1.75;
   color: var(--ink);
-  font-weight: 400;
+  font-weight: 500;
+  font-family: var(--font-cormorant);
+}
+
+.bodyStrong {
+  text-align: left;
+  font-family: var(--font-cormorant);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.01rem;
+
+
 }
 
 .bodyStrong em {
-  font-style: italic;
+  font-size: 2rem;
   color: var(--gold);
   font-weight: 500;
+  font-family: var(--font-amsterdam);
 
 }
 
@@ -212,7 +261,7 @@
 .dotted {
   fill: none;
   stroke: var(--gold-soft);
-  stroke-width: 1.2;
+  stroke-width: 2.5;
   stroke-dasharray: 1 13;
   stroke-linecap: round;
   opacity: 0.85;
@@ -232,25 +281,24 @@
   gap: 0.15rem;
   color: var(--muted);
   pointer-events: none;
-  margin-top: 9%;
-  margin-right: 55%;
+  margin-top: 1%;
+  margin-right: 20%;
 }
 
 .big5 {
-  font-family: "Source Serif 4", serif;
-  font-size: clamp(4.5rem, 13vw, 13rem);
-  line-height: 0.85;
+  font-family: var(--Montez);
+  font-size: clamp(4.5rem, 12vw, 12rem);
+  line-height: 0rem;
   color: var(--gold);
-  font-weight: 540;
+  font-weight: 400;
 }
 
 .minutes {
-  margin-top: 0.1rem;
+  margin-top: -5%;
   font-size: 1.1rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
   color: var(--ink);
-  margin-left: -8%;
+  margin-left: 15%;
+  font-family: var(--font-amsterdam);
 }
 
 .walkBike {
@@ -287,6 +335,8 @@
   gap: 0.55rem;
   transform: translate(-50%, -50%);
   white-space: nowrap;
+  font-family: var(--font-cormorant);
+  font-weight: 700;
 
 }
 
@@ -298,13 +348,15 @@
   align-items: center;
   gap: 0.55rem;
   white-space: nowrap;
-  left: -11%;
-  top: 20%;
+  left: 3%;
+  top: 25%;
+    font-family: var(--font-cormorant);
+  font-weight: 700;
 }
 
 .WellnessIcon {
-  top: 50%;
-  left: -16%;
+  top: 58%;
+  left: 1%;
 
 }
 
@@ -313,10 +365,10 @@
   place-items: center;
   width: 38px;
   height: 38px;
-  border: 1px solid var(--line);
+  border: 2px solid #8f5c1e;
   border-radius: 50%;
   background: var(--paper);
-  color: var(--muted);
+  color: #8f5c1e;
   flex: none;
 }
 

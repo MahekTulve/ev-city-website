@@ -6,12 +6,12 @@ type Slide =
   | { kind: "credit"; small: string; big: string };
 
 const SLIDES: Slide[] = [
-  { kind: "title", small: "EV Homes", text: "EV Homes Presents" },
+  { kind: "title", small: "", text: "EV Homes Presents" },
   { kind: "credit", small: "An Original Vision", big: "THE FUTURE OF" },
   { kind: "credit", small: "Featuring", big: "CONNECTED LIVING" },
   { kind: "credit", small: "A World Where", big: "EVERYTHING YOU NEED" },
   { kind: "credit", small: "Is Just", big: "FIVE MINUTES AWAY" },
-  { kind: "title", small: "Coming Soon", text: "EV HOMES" },
+  { kind: "title", small: "Coming Soon", text: "EV CITY" },
 ];
 
 const SLIDE_MS = 3000;

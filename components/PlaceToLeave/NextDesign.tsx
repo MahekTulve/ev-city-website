@@ -24,68 +24,74 @@ import styles from "./NextDesign.module.css";
 
 const CX = 250;
 const CY = 300;
-const R_OUT = 296;
-const R_IN = 108;
+const R_OUT = 310
+const I_OUT = 210
+
+const R_IN = 100;
 
 function polar(angleDeg: number, r: number): [number, number] {
   const a = (angleDeg * Math.PI) / 180;
   return [CX + r * Math.sin(a), CY - r * Math.cos(a)];
 }
 
-function wedgePath(a0: number, a1: number): string {
-  const [x0, y0] = polar(a0, R_OUT);
-  const [x1, y1] = polar(a1, R_OUT);
-  const [x2, y2] = polar(a1, R_IN);
-  const [x3, y3] = polar(a0, R_IN);
+function wedgePath(a0: number, a1: number, rIn = R_IN, rOut = R_OUT): string {
+  const [x0, y0] = polar(a0, rOut);
+  const [x1, y1] = polar(a1, rOut);
+  const [x2, y2] = polar(a1, rIn);
+  const [x3, y3] = polar(a0, rIn);
   const large = a1 - a0 > 180 ? 1 : 0;
-  return `M ${x0} ${y0} A ${R_OUT} ${R_OUT} 0 ${large} 1 ${x1} ${y1} L ${x2} ${y2} A ${R_IN} ${R_IN} 0 ${large} 0 ${x3} ${y3} Z`;
+  return `M ${x0} ${y0} A ${rOut} ${rOut} 0 ${large} 1 ${x1} ${y1} L ${x2} ${y2} A ${rIn} ${rIn} 0 ${large} 0 ${x3} ${y3} Z`;
 }
 
-const WEDGE_SIZE = 38;
+const WEDGE_SIZE = 42;
 const WEDGE_GAP = 4;
-const WEDGE_START = -17;
+const WEDGE_START = -25;
 const IMG_BOX = 320;
 
 const wedgeData = [
   {
     img: wedgePark,
     alt: "People relaxing in a sunlit Copenhagen park",
-    label: { icon: TreePine, text: "Parks & Nature", pos: { top: "-2%", left: "38%" }, line: "120px", mobline: "60px" },
+    label: { icon: TreePine, text: "Parks & Nature", pos: { top: "-4%", left: "33%" }, line: "150px", mobline: "60px" },
   },
   {
-    img: wedgeCafe,
+    img: wedgeCafe, // Index 1
     alt: "Warm café interior with guests at wooden tables",
-    label: { icon: Coffee, text: "Cafés & Restaurants", pos: { top: "11%", left: "68%" }, line: "40px", mobline: "20px" },
+    label: { icon: Coffee, text: "Cafés & Restaurants", pos: { top: "5%", left: "72%" }, line: "40px", mobline: "20px" },
   },
   {
     img: wedgeCulture,
     alt: "Cobblestone street with pedestrians and bicycles",
-    label: { icon: Users, text: "Culture & Community", pos: { top: "41%", left: "82%" }, line: "10px", mobline: "5px" },
+    label: { icon: Users, text: "Culture & Community", pos: { top: "43%", left: "84%" }, line: "5px", mobline: "5px" },
   },
   {
-    img: wedgeWork,
+    img: wedgeWork, // Index 3
     alt: "Bright coworking space with people working",
-    label: { icon: Laptop2, text: "Workspaces", pos: { top: "72%", left: "72%" }, line: "34px", mobline: "17px" },
+    label: { icon: Laptop2, text: "Workspaces", pos: { top: "81%", left: "73%" }, line: "34px", mobline: "17px" },
   },
   {
     img: wedgeRetail,
     alt: "Glowing boutique storefront at dusk",
-    label: { icon: ShoppingBag, text: "Retail & Services", pos: { top: "89%", left: "44%" }, line: "34px", mobline: "17px" },
+    label: { icon: ShoppingBag, text: "Retail & Services", pos: { top: "91%", left: "38%" }, line: "130px", mobline: "17px" },
   },
-
 ].map((w, i) => {
   const a0 = WEDGE_START + i * (WEDGE_SIZE + WEDGE_GAP);
-  const [mx, my] = polar(a0 + WEDGE_SIZE / 2, (R_IN + R_OUT) / 2);
+
+  // wedgeCafe (i === 1) aur wedgeWork (i === 3) ke liye condition
+  const isTargetWedge = i === 1 || i === 3;
+  const currentRIn = isTargetWedge ? R_IN + 20 : R_IN;   // Center circle se padding
+  const currentROut = isTargetWedge ? R_OUT + 35 : R_OUT; // Outside border se bahar nikalna
+
+  const [mx, my] = polar(a0 + WEDGE_SIZE / 2, (currentRIn + currentROut) / 2);
 
   return {
     ...w,
     id: `wedge-${i}`,
-    d: wedgePath(a0, a0 + WEDGE_SIZE),
+    d: wedgePath(a0, a0 + WEDGE_SIZE, currentRIn, currentROut),
     ix: Math.round(mx * 100) / 100 - IMG_BOX / 2,
     iy: Math.round(my * 100) / 100 - IMG_BOX / 2,
   };
 });
-
 const extraIcons = [
   {
     id: "school",
@@ -234,54 +240,35 @@ export default function NextDesign() {
           viewport={{ amount: 0.3, once: false }}
           variants={leftContainerVariants}
         >
-          <motion.div variants={titleVariants} >
-            <p className={styles["titleGold"]}>Inspirad By</p>
+          <motion.div variants={titleVariants} className={styles["starttext"]}>
+            <p className={styles["titleGold"]}>Inspired By</p>
             <h1 className={styles["title"]} >
-              <span>C</span>OPENHAGEN
-
+              <span className={styles["letterC"]}>C</span><span className={styles["zeroHero"]}>O</span>PENHAGEN
             </h1>
-
           </motion.div>
-
-          {/* 2. Gold Separator Line */}
           <motion.div className={styles["ruleRow"]} variants={ruleVariants} style={{ originX: 0 }}>
             <span className={styles["rule"]} />
           </motion.div>
 
-          {/* 3. Kicker Text */}
           <motion.div className={styles["blockRow"]} variants={fadeRightVariants}>
-            <div>
-              <p className={styles["kicker"]}>Copenhagen&rsquo;s 5-minute city</p>
-              <p className={styles["kickerSub"]}>Everything you need, within minutes.</p>
-            </div>
+            <p className={styles["kicker"]}>A 5 - MINUTE CITY, REIMAGINED FOR VASHI</p>
+            <p className={styles["kickerSub"]}></p>
           </motion.div>
 
-          {/* 4. Icon List (Horizontal items animate 1-by-1) */}
-
-          {/* 5. Subtitle & Body Paragraphs */}
           <motion.div className={styles["blockRow"]} variants={fadeRightVariants}>
             <div>
-              <h2 className={styles["subTitle"]}>
-                Less travel.
-                <br />
-                More <span>life.</span>
-              </h2>
+
               <p className={styles["body"]}>
-                A city designed for people.
-                <br />
-                Where daily life, nature
-                <br />
-                and community are
-                <br />
-                always close.
+                Thoughtfully planned, inspired by Copenhagen's
+                <br /> 5-minute city philosophy where life, nature and
+                <br />community are always within reach.
               </p>
-              <p className={styles["bodyStrong"]}>
-                That is the inspiration
-                <br />
-                we bring to <em>Vashi.</em>
-              </p>
+
             </div>
           </motion.div>
+          <p className={styles["bodyStrong"]}>
+            THIS IS WHAT WE BRING TO <em>Vashi..!</em>
+          </p>
         </motion.div>
 
         {/* ------ right column : the wheel ------ */}
@@ -296,7 +283,7 @@ export default function NextDesign() {
                 ))}
               </defs>
 
-              <circle cx={CX} cy={CY} r={R_OUT + 16} className={styles["dotted"]} />
+              <circle cx={CX} cy={CY} r={I_OUT + 15} className={styles["dotted"]} />
 
               {/* Wedge Images */}
               {wedgeData.map((w, index) => (
@@ -331,11 +318,11 @@ export default function NextDesign() {
               viewport={{ amount: 0.5, once: false }}
               variants={medallionVariants}
             >
-              <span className={styles["big5"]}>5&prime;</span>
+              <span className={styles["big5"]}>5'</span>
               <span className={styles["minutes"]}>Minutes</span>
-              <span className={styles["walkBike"]}>Walk or bike</span>
-              <Footprints strokeWidth={1.2} className={styles["walkicon"]} />
-              <div className={styles["walkunder"]} />
+              {/* <span className={styles["walkBike"]}>Walk or bike</span>
+              <Footprints strokeWidth={1.2} className={styles["walkicon"]} /> */}
+              {/* <div className={styles["walkunder"]} /> */}
             </motion.div>
 
             {wedgeData.map(({ id, label: { icon: Icon, text, pos, line, mobline } }, index) => (
@@ -350,7 +337,7 @@ export default function NextDesign() {
                 variants={itemPairVariants}
               >
                 <span className={styles["labelChip"]}>
-                  <Icon size={16} strokeWidth={1.3} />
+                  <Icon size={16} strokeWidth={2} />
                 </span>
                 <span className={styles["labelText"]}>{text}</span>
                 <span className={styles["mobilelabelLine"]} style={{ width: mobline }} />
@@ -369,7 +356,7 @@ export default function NextDesign() {
                 variants={itemPairVariants}
               >
                 <span className={styles["labelChip"]}>
-                  <Icon size={16} strokeWidth={1.3} />
+                  <Icon size={16} strokeWidth={2} />
                 </span>
                 <span className={styles["labelText"]}>{text}</span>
               </motion.div>
