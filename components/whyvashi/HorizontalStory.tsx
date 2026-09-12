@@ -120,27 +120,125 @@ function useMediaQuery(query: string) {
 
 export default function HorizontalStory() {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const routeStageRef = useRef<HTMLDivElement>(null);
+  const routeClipRectRef = useRef<SVGRectElement>(null);
+  const timelineDotRefs = useRef<Array<SVGCircleElement | null>>([]);
+  const stopItemRefs = useRef<Array<HTMLDivElement | null>>([]);
+  const cloudVeilRef = useRef<HTMLDivElement>(null);
+  const cloudsRef = useRef<HTMLDivElement>(null);
   const isPhone = useMediaQuery(`(max-width: ${MOBILE_BREAKPOINT}px)`);
 
   const generatedId = useId();
   const routeClipId = `route-clip-${generatedId.replace(/:/g, "")}`;
 
   useEffect(() => {
+    const wrapper = wrapperRef.current;
+    const track = trackRef.current;
+    const routeStage = routeStageRef.current;
+    const clipRect = routeClipRectRef.current;
+    const cloudVeil = cloudVeilRef.current;
+    const clouds = cloudsRef.current;
+
+    if (!wrapper || !track || !routeStage || !clipRect || !cloudVeil || !clouds) {
+      return;
+    }
+
+    const horizontalEnd = isPhone ? MOBILE_HORIZONTAL_END : HORIZONTAL_END;
+    const denmarkReach = isPhone ? MOBILE_DENMARK_REACH : DENMARK_REACH;
+    const denmarkHoldEnd = isPhone
+      ? MOBILE_DENMARK_HOLD_END
+      : DENMARK_HOLD_END;
+    const timelineStart = isPhone
+      ? MOBILE_TIMELINE_START
+      : TIMELINE_START;
+    const timelineEnd = isPhone ? MOBILE_TIMELINE_END : TIMELINE_END;
+    const cloudStart = isPhone ? MOBILE_CLOUD_START : CLOUD_START;
+
     let targetProgress = 0;
     let displayedProgress = 0;
     let animationFrame = 0;
     let initialized = false;
+    let isNearViewport = false;
+
+    const applyProgress = (progress: number) => {
+      const shift =
+        progress <= denmarkReach
+          ? mapProgress(progress, 0, denmarkReach) * 100
+          : progress <= denmarkHoldEnd
+            ? 100
+            : 100 + mapProgress(progress, denmarkHoldEnd, horizontalEnd) * 100;
+
+      const timelineProgress = mapProgress(
+        progress,
+        timelineStart,
+        timelineEnd,
+      );
+      const cloudProgress = mapProgress(progress, cloudStart, 1);
+      const routeRevealProgress = isPhone
+        ? Math.max(0.23, timelineProgress)
+        : timelineProgress;
+      const routeRevealWidth =
+        routeRevealProgress >= 0.999
+          ? PATH_WIDTH
+          : Math.min(PATH_WIDTH, PATH_WIDTH * routeRevealProgress + 2);
+      const mobileRouteX =
+        MOBILE_ROUTE_START_X_VW -
+        timelineProgress * MOBILE_ROUTE_TRAVEL_VW;
+
+      track.style.transform = `translate3d(-${shift}vw, 0, 0)`;
+      routeStage.style.setProperty("--mobile-route-x", `${mobileRouteX}vw`);
+      clipRect.setAttribute("width", String(routeRevealWidth));
+      cloudVeil.style.opacity = String(cloudProgress);
+      clouds.style.opacity = String(cloudProgress);
+
+      STOPS.forEach((_, index) => {
+        const dotRevealPoint = isPhone
+          ? index <= 1
+            ? 0
+            : ((index - 1) / (STOPS.length - 2)) * 0.88
+          : (index / (STOPS.length - 1)) * 0.94;
+
+        const dotProgress =
+          isPhone && index <= 1
+            ? 1
+            : mapProgress(
+                timelineProgress,
+                dotRevealPoint,
+                Math.min(1, dotRevealPoint + (isPhone ? 0.05 : 0.055)),
+              );
+
+        const dot = timelineDotRefs.current[index];
+        if (dot) {
+          dot.style.opacity = String(dotProgress);
+          dot.style.transform = `scale(${0.25 + dotProgress * 0.75})`;
+        }
+
+        const stopRevealPoint = isPhone
+          ? index <= 1
+            ? 0
+            : ((index - 1) / (STOPS.length - 2)) * 0.88
+          : (index / (STOPS.length - 1)) * 0.9;
+
+        const stopProgress =
+          isPhone && index <= 1
+            ? 1
+            : mapProgress(
+                timelineProgress,
+                stopRevealPoint,
+                Math.min(1, stopRevealPoint + (isPhone ? 0.055 : 0.065)),
+              );
+
+        const stopItem = stopItemRefs.current[index];
+        if (stopItem) {
+          stopItem.style.opacity = String(stopProgress);
+          stopItem.style.transform = `translateX(-50%) translateY(${(1 - stopProgress) * 20}px) scale(${0.9 + stopProgress * 0.1})`;
+        }
+      });
+    };
 
     const measureProgress = () => {
-      const wrapper = wrapperRef.current;
-
-      if (!wrapper) {
-        return 0;
-      }
-
       const rect = wrapper.getBoundingClientRect();
-
       const scrollableDistance = wrapper.offsetHeight - window.innerHeight;
 
       if (scrollableDistance <= 0) {
@@ -157,7 +255,7 @@ export default function HorizontalStory() {
         displayedProgress = targetProgress;
       }
 
-      setProgress(displayedProgress);
+      applyProgress(displayedProgress);
 
       if (displayedProgress !== targetProgress) {
         animationFrame = window.requestAnimationFrame(animateToTarget);
@@ -166,13 +264,17 @@ export default function HorizontalStory() {
       }
     };
 
-    const updateTarget = () => {
+    const updateTarget = (force = false) => {
+      if (!isNearViewport && !force) {
+        return;
+      }
+
       targetProgress = measureProgress();
 
       if (!initialized) {
         initialized = true;
         displayedProgress = targetProgress;
-        setProgress(displayedProgress);
+        applyProgress(displayedProgress);
         return;
       }
 
@@ -181,52 +283,45 @@ export default function HorizontalStory() {
       }
     };
 
-    updateTarget();
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => {
+        isNearViewport = entry.isIntersecting;
 
-    window.addEventListener("scroll", updateTarget, {
-      passive: true,
-    });
+        if (isNearViewport) {
+          updateTarget(true);
+        } else if (animationFrame) {
+          window.cancelAnimationFrame(animationFrame);
+          animationFrame = 0;
+        }
+      },
+      {
+        rootMargin: "150% 0px",
+        threshold: 0,
+      },
+    );
 
-    window.addEventListener("resize", updateTarget);
+    const handleScroll = () => updateTarget(false);
+    const handleResize = () => updateTarget(isNearViewport);
+
+    visibilityObserver.observe(wrapper);
+    applyProgress(0);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener("scroll", updateTarget);
-
-      window.removeEventListener("resize", updateTarget);
+      visibilityObserver.disconnect();
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
 
       if (animationFrame) {
         window.cancelAnimationFrame(animationFrame);
       }
     };
-  }, []);
+  }, [isPhone]);
 
-  const horizontalEnd = isPhone ? MOBILE_HORIZONTAL_END : HORIZONTAL_END;
-  const denmarkReach = isPhone ? MOBILE_DENMARK_REACH : DENMARK_REACH;
-  const denmarkHoldEnd = isPhone ? MOBILE_DENMARK_HOLD_END : DENMARK_HOLD_END;
-  const timelineStart = isPhone ? MOBILE_TIMELINE_START : TIMELINE_START;
-  const timelineEnd = isPhone ? MOBILE_TIMELINE_END : TIMELINE_END;
-  const cloudStart = isPhone ? MOBILE_CLOUD_START : CLOUD_START;
-  const shift =
-    progress <= denmarkReach
-      ? mapProgress(progress, 0, denmarkReach) * 100
-      : progress <= denmarkHoldEnd
-        ? 100
-        : 100 + mapProgress(progress, denmarkHoldEnd, horizontalEnd) * 100;
-
-  const timelineProgress = mapProgress(progress, timelineStart, timelineEnd);
-  const cloudProgress = mapProgress(progress, cloudStart, 1);
-
-  const routeRevealProgress = isPhone
-    ? Math.max(0.23, timelineProgress)
-    : timelineProgress;
-
-  const routeRevealWidth =
-    routeRevealProgress >= 0.999
-      ? PATH_WIDTH
-      : Math.min(PATH_WIDTH, PATH_WIDTH * routeRevealProgress + 2);
-
-  const mobileRouteX =
-    MOBILE_ROUTE_START_X_VW - timelineProgress * MOBILE_ROUTE_TRAVEL_VW;
+  const initialRouteWidth = isPhone ? PATH_WIDTH * 0.23 + 2 : 2;
+  const initialMobileRouteX = MOBILE_ROUTE_START_X_VW;
 
   return (
     <div
@@ -237,53 +332,16 @@ export default function HorizontalStory() {
       }}
     >
       <div className={styles.sticky}>
-        <div
-          className={styles.track}
-          style={{
-            transform: `translate3d(-${shift}vw, 0, 0)`,
-          }}
-        >
+        <div ref={trackRef} className={styles.track}>
           <div className={styles.panel}>
             <ConceptSection hideChrome />
           </div>
 
           <div className={`${styles.panel} ${styles.golden}`}>
             <VashiDenmark />
-
-            {/* <h2 className={styles.goldenType}>
-              <span>THE 5</span>
-              <span>MINUTE</span>
-              <span>CITY</span>
-            </h2>
-
-            <span className={styles.spain}>Vashi</span>
-
-         
-
-            <div className={styles.caption}>
-              <p className={styles.captionTitle}>
-                Between Mumbai and Navi Mumbai
-              </p>
-
-              <p className={styles.captionBody}>
-                Surrounded by beaches, golf courses, wellness clubs and
-                established neighbourhoods on Marbella&apos;s THE 5 Minute City.
-              </p>
-            </div> */}
           </div>
 
           <div className={`${styles.panel} ${styles.coast}`}>
-            {/* <video
-              className={styles.coastFlower}
-              src="/videos/flower-2.webm"
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="auto"
-              aria-hidden="true"
-            /> */}
-
             <div className={styles.coastHeadingWrap}>
               <span className={styles.coastOrnament} aria-hidden="true">
                 ✥
@@ -301,10 +359,11 @@ export default function HorizontalStory() {
             <div className={styles.timeline}>
               <div className={styles.timelineViewport}>
                 <div
+                  ref={routeStageRef}
                   className={styles.routeStage}
                   style={
                     {
-                      "--mobile-route-x": `${mobileRouteX}vw`,
+                      "--mobile-route-x": `${initialMobileRouteX}vw`,
                     } as CSSProperties
                   }
                 >
@@ -317,9 +376,10 @@ export default function HorizontalStory() {
                     <defs>
                       <clipPath id={routeClipId} clipPathUnits="userSpaceOnUse">
                         <rect
+                          ref={routeClipRectRef}
                           x="0"
                           y="-10"
-                          width={routeRevealWidth}
+                          width={initialRouteWidth}
                           height={PATH_HEIGHT + 20}
                         />
                       </clipPath>
@@ -338,26 +398,13 @@ export default function HorizontalStory() {
                     />
 
                     {STOPS.map((stop, index) => {
-                      const revealPoint = isPhone
-                        ? index <= 1
-                          ? 0
-                          : ((index - 1) / (STOPS.length - 2)) * 0.88
-                        : (index / (STOPS.length - 1)) * 0.94;
-
-                      const dotProgress =
-                        isPhone && index <= 1
-                          ? 1
-                          : mapProgress(
-                              timelineProgress,
-                              revealPoint,
-                              Math.min(
-                                1,
-                                revealPoint + (isPhone ? 0.05 : 0.055),
-                              ),
-                            );
+                      const initiallyVisible = isPhone && index <= 1;
 
                       return (
                         <circle
+                          ref={(element) => {
+                            timelineDotRefs.current[index] = element;
+                          }}
                           className={styles.timelineDot}
                           key={stop.name}
                           cx={stop.x}
@@ -367,8 +414,8 @@ export default function HorizontalStory() {
                           }
                           fill="currentColor"
                           style={{
-                            opacity: dotProgress,
-                            transform: `scale(${0.25 + dotProgress * 0.75})`,
+                            opacity: initiallyVisible ? 1 : 0,
+                            transform: `scale(${initiallyVisible ? 1 : 0.25})`,
                           }}
                         />
                       );
@@ -376,40 +423,24 @@ export default function HorizontalStory() {
                   </svg>
 
                   {STOPS.map((stop, index) => {
-                    const revealPoint = isPhone
-                      ? index <= 1
-                        ? 0
-                        : ((index - 1) / (STOPS.length - 2)) * 0.88
-                      : (index / (STOPS.length - 1)) * 0.9;
-
-                    const stopProgress =
-                      isPhone && index <= 1
-                        ? 1
-                        : mapProgress(
-                            timelineProgress,
-                            revealPoint,
-                            Math.min(
-                              1,
-                              revealPoint + (isPhone ? 0.055 : 0.065),
-                            ),
-                          );
-
                     const xPercentage = (stop.x / PATH_WIDTH) * 100;
-
-                    const dotBottomRatio = (PATH_HEIGHT - stop.y) / PATH_HEIGHT;
+                    const dotBottomRatio =
+                      (PATH_HEIGHT - stop.y) / PATH_HEIGHT;
+                    const initiallyVisible = isPhone && index <= 1;
 
                     return (
                       <div
+                        ref={(element) => {
+                          stopItemRefs.current[index] = element;
+                        }}
                         className={styles.stopItem}
                         key={stop.name}
                         data-stop-index={index}
                         style={{
                           left: `${xPercentage}%`,
                           bottom: `calc(var(--route-height) * ${dotBottomRatio} + var(--stop-gap))`,
-                          opacity: stopProgress,
-                          transform: `translateX(-50%) translateY(${
-                            (1 - stopProgress) * 20
-                          }px) scale(${0.9 + stopProgress * 0.1})`,
+                          opacity: initiallyVisible ? 1 : 0,
+                          transform: `translateX(-50%) translateY(${initiallyVisible ? 0 : 20}px) scale(${initiallyVisible ? 1 : 0.9})`,
                         }}
                       >
                         <span className={styles.stopArtwork}>
@@ -424,6 +455,7 @@ export default function HorizontalStory() {
                             src={stop.image}
                             alt={`${stop.name} building`}
                             loading="lazy"
+                            decoding="async"
                           />
 
                           <a
@@ -445,8 +477,6 @@ export default function HorizontalStory() {
                         </span>
 
                         <span className={styles.stopName}>{stop.name}</span>
-
-                        {/* <span className={styles.stopTime}>{stop.time}</span> */}
                       </div>
                     );
                   })}
@@ -457,15 +487,17 @@ export default function HorizontalStory() {
         </div>
 
         <div
+          ref={cloudVeilRef}
           className={styles.cloudVeil}
           aria-hidden="true"
-          style={{ opacity: cloudProgress }}
+          style={{ opacity: 0 }}
         />
 
         <div
+          ref={cloudsRef}
           className={styles.clouds}
           aria-hidden="true"
-          style={{ opacity: cloudProgress }}
+          style={{ opacity: 0 }}
         >
           <div className={styles.cloudCore} />
 
@@ -492,6 +524,8 @@ export default function HorizontalStory() {
                                 : styles.cloudImageA
                         }`}
                         draggable={false}
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                   );

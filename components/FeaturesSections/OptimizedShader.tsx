@@ -92,6 +92,18 @@ export function OptimizedShader({
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [preferStaticGradient, setPreferStaticGradient] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(
+      "(max-width: 767px), (prefers-reduced-motion: reduce)",
+    );
+    const update = () => setPreferStaticGradient(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -115,12 +127,14 @@ export function OptimizedShader({
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    let animationFrameId = 0;
     let canvasWidth = 0;
     let canvasHeight = 0;
     let particles: Particle[] = [];
 
     const rgb = hexToRgb(particleColor);
+    const effectiveParticleCount = preferStaticGradient
+      ? Math.min(particleCount, 14)
+      : particleCount;
 
     const getParticleSize = (): {
       type: ParticleType;
@@ -268,7 +282,7 @@ export function OptimizedShader({
 
     const createParticles = () => {
       const currentTime = performance.now();
-      particles = Array.from({ length: particleCount }, () =>
+      particles = Array.from({ length: effectiveParticleCount }, () =>
         createParticle(currentTime, true),
       );
     };
@@ -278,7 +292,9 @@ export function OptimizedShader({
       canvasWidth = bounds.width;
       canvasHeight = bounds.height;
 
-      const pixelRatio = Math.min(window.devicePixelRatio || 1, 1.5);
+      const pixelRatio = preferStaticGradient
+        ? 1
+        : Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.round(canvasWidth * pixelRatio);
       canvas.height = Math.round(canvasHeight * pixelRatio);
       canvas.style.width = `${canvasWidth}px`;
@@ -361,20 +377,21 @@ export function OptimizedShader({
       context.restore();
     };
 
-    let lastFrameTime = 0;
-    const minFrameInterval = 1000 / 30;
+    const frameInterval = preferStaticGradient ? 1000 / 20 : 1000 / 30;
+    let timerId = 0;
+
+    const scheduleNext = (delay = frameInterval) => {
+      window.clearTimeout(timerId);
+      timerId = window.setTimeout(() => {
+        render(performance.now());
+      }, delay);
+    };
 
     const render = (currentTime: number) => {
       if (document.visibilityState !== "visible") {
-        animationFrameId = requestAnimationFrame(render);
+        scheduleNext(500);
         return;
       }
-
-      if (currentTime - lastFrameTime < minFrameInterval) {
-        animationFrameId = requestAnimationFrame(render);
-        return;
-      }
-      lastFrameTime = currentTime;
 
       context.clearRect(0, 0, canvasWidth, canvasHeight);
       let hasPendingParticles = false;
@@ -456,18 +473,18 @@ export function OptimizedShader({
       });
 
       if (continuous || hasPendingParticles) {
-        animationFrameId = requestAnimationFrame(render);
+        scheduleNext();
       }
     };
 
     const resizeObserver = new ResizeObserver(resizeCanvas);
     resizeObserver.observe(container);
     resizeCanvas();
-    animationFrameId = requestAnimationFrame(render);
+    scheduleNext(0);
 
     return () => {
       resizeObserver.disconnect();
-      cancelAnimationFrame(animationFrameId);
+      window.clearTimeout(timerId);
       context.clearRect(0, 0, canvasWidth, canvasHeight);
     };
   }, [
@@ -477,6 +494,7 @@ export function OptimizedShader({
     particleColor,
     particleCount,
     particleLayout,
+    preferStaticGradient,
     showParticles,
   ]);
 
@@ -492,8 +510,19 @@ export function OptimizedShader({
         ...style,
       }}
     >
-      {isVisible && (
+      {isVisible && !preferStaticGradient && (
         <MeshGradient className={className} colors={colors} speed={speed} />
+      )}
+
+      {preferStaticGradient && (
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: `radial-gradient(circle at 28% 28%, ${colors[2] ?? colors[0]} 0%, transparent 46%), radial-gradient(circle at 72% 66%, ${colors[3] ?? colors[1] ?? colors[0]} 0%, transparent 50%), ${colors[0]}`,
+          }}
+        />
       )}
 
       <canvas
