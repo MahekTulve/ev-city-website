@@ -5,6 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import styles from './PlaceToLive.module.css';
 import NextPhoto from './NextPhoto';
+import { useMediaQuery } from '../performance/useMediaQuery';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,20 +69,31 @@ const PlaceToLive = () => {
     const galleryRef = useRef<HTMLDivElement>(null);
 
     const [showText, setShowText] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
+    const [isNearViewport, setIsNearViewport] = useState(false);
+    const showTextRef = useRef(false);
+    const isMobile = useMediaQuery('(max-width: 1000px)');
 
     useEffect(() => {
-        const checkMobile = () => {
-            setIsMobile(window.innerWidth <= 1000);
-        };
+        const el = containerRef.current;
+        if (!el) return;
 
-        checkMobile();
-        window.addEventListener('resize', checkMobile);
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setIsNearViewport(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: '900px 0px', threshold: 0 },
+        );
 
-        return () => window.removeEventListener('resize', checkMobile);
+        observer.observe(el);
+        return () => observer.disconnect();
     }, []);
 
     useEffect(() => {
+        if (!isNearViewport) return;
+
         const el = containerRef.current;
         if (!el) return;
 
@@ -95,7 +107,11 @@ const PlaceToLive = () => {
                     pin: true,
                     anticipatePin: 1,
                     onUpdate: (self) => {
-                        setShowText(self.progress > 0.9);
+                        const nextShowText = self.progress > 0.9;
+                        if (nextShowText === showTextRef.current) return;
+
+                        showTextRef.current = nextShowText;
+                        setShowText(nextShowText);
                     },
                 },
             });
@@ -131,7 +147,7 @@ const PlaceToLive = () => {
         }, el);
 
         return () => ctx.revert();
-    }, []);
+    }, [isNearViewport]);
 
     const masterImage = isMobile
         ? '/images/den_mobile_top.png'

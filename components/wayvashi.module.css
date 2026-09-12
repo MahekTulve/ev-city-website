@@ -154,7 +154,7 @@
   z-index: 0;
   pointer-events: none;
   background-color: #10172f;
-  background-image: url("/images/vashi_cut_top.png");
+  background-image: none;
   background-size: 100% auto;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -162,6 +162,10 @@
   transform: scale(1);
   transform-origin: 50% 100%;
   will-change: transform;
+}
+
+.domeBackgroundLoaded {
+  background-image: url("/images/vashi_cut_top.png");
 }
 
 .curvedText {
@@ -864,9 +868,13 @@
 
   .domeBackground {
     background-color: #10172f;
-    background-image: url("/images/cut1mobile.png");
+    background-image: none;
     background-size: 100% auto;
     background-position: center bottom;
+  }
+
+  .domeBackgroundLoaded {
+    background-image: url("/images/cut1mobile.png");
   }
 
 

@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import styles from "./Footer.module.css";
 
@@ -21,11 +22,14 @@ const FooterSection = () => {
         <div className={styles.top}>
           {/* Brand Column */}
           <div className={styles.brand}>
-            <img
+            <Image
               src="/images/logo.png"
               alt="E V Group Logo"
+              width={96}
+              height={72}
+              sizes="96px"
+              quality={60}
               loading="lazy"
-              decoding="async"
             />
             <p className={styles.footerText}>
               Luxury waterfront living crafted for comfort, elegance, and modern lifestyles.

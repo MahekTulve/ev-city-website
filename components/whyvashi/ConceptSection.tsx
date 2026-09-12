@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./ConceptSection.module.css";
 
 /**
@@ -67,11 +68,16 @@ export default function ConceptSection({
           landscaping and carefully curated spaces.
         </p>
 
-        <img
+        <Image
           className={styles.ornament}
           src="/images/logo.png"
           alt=""
           aria-hidden="true"
+          width={64}
+          height={48}
+          sizes="64px"
+          quality={55}
+          loading="lazy"
         />
       </div>
     </section>
