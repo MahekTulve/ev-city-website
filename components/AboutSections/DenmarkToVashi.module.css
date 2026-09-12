@@ -670,3 +670,19 @@
     font-size: 0.75rem;
   }
 }
+/* Performance: let the browser skip paint/layout work for sections far outside the viewport. */
+.section {
+  content-visibility: auto;
+  contain-intrinsic-size: 100vh;
+}
+
+@media (max-width: 768px) {
+  .floatingElement {
+    opacity: 0.55 !important;
+  }
+
+  .heroBadge,
+  .scrollPill {
+    backdrop-filter: none;
+  }
+}
