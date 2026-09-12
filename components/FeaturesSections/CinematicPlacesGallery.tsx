@@ -54,7 +54,7 @@ type ResponsiveLayout = {
 const VIDEOS: VideoItem[] = [
   {
     id: 1,
-    src: "/images/square-1.mp4",
+    src: "/images/square-1.webm",
     poster: "",
     ariaLabel: "Ocean-facing luxury interior",
   },
@@ -67,31 +67,31 @@ const VIDEOS: VideoItem[] = [
   },
   {
     id: 3,
-    src: "/images/rectangle-1.mp4",
+    src: "/images/rectangle-1.webm",
     poster: "",
     ariaLabel: "Winter landscape interior",
   },
   {
     id: 4,
-    src: "/images/vid1.mp4",
+    src: "/images/vid1.webm",
     poster: "",
     ariaLabel: "Garden house interior",
   },
   {
     id: 5,
-    src: "/images/16x9.mp4",
+    src: "/images/16x9.webm",
     poster: "",
     ariaLabel: "Vintage plant-filled interior",
   },
   {
     id: 6,
-    src: "/images/square-2.mp4",
+    src: "/images/square-2.webm",
     poster: "",
     ariaLabel: "Bright modern living room",
   },
   {
     id: 7,
-    src: "/images/rectangle-2.mp4",
+    src: "/images/rectangle-2.webm",
     poster: "",
     ariaLabel: "Minimal Zen-inspired interior",
   },
