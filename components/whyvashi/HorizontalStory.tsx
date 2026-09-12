@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useId, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
 import VashiDenmark from "../AboutSections/Vashidenmark";
@@ -102,9 +102,6 @@ const clamp = (value: number, min = 0, max = 1) =>
 const mapProgress = (value: number, start: number, end: number) =>
   clamp((value - start) / (end - start));
 
-const MemoConceptSection = memo(ConceptSection);
-const MemoVashiDenmark = memo(VashiDenmark);
-
 function useMediaQuery(query: string) {
   const [matches, setMatches] = useState(false);
 
@@ -137,43 +134,36 @@ export default function HorizontalStory() {
 
     const measureProgress = () => {
       const wrapper = wrapperRef.current;
-      if (!wrapper) return 0;
+
+      if (!wrapper) {
+        return 0;
+      }
 
       const rect = wrapper.getBoundingClientRect();
+
       const scrollableDistance = wrapper.offsetHeight - window.innerHeight;
-      if (scrollableDistance <= 0) return 0;
+
+      if (scrollableDistance <= 0) {
+        return 0;
+      }
 
       return clamp(-rect.top / scrollableDistance);
     };
 
-    const commitProgress = (nextProgress: number) => {
-      setProgress((currentProgress) =>
-        Math.abs(currentProgress - nextProgress) < 0.0015
-          ? currentProgress
-          : nextProgress,
-      );
-    };
-
-    const animateDesktopToTarget = () => {
+    const animateToTarget = () => {
       displayedProgress += (targetProgress - displayedProgress) * 0.12;
 
       if (Math.abs(targetProgress - displayedProgress) < 0.0001) {
         displayedProgress = targetProgress;
       }
 
-      commitProgress(displayedProgress);
+      setProgress(displayedProgress);
 
       if (displayedProgress !== targetProgress) {
-        animationFrame = window.requestAnimationFrame(animateDesktopToTarget);
+        animationFrame = window.requestAnimationFrame(animateToTarget);
       } else {
         animationFrame = 0;
       }
-    };
-
-    const commitMobileFrame = () => {
-      animationFrame = 0;
-      displayedProgress = targetProgress;
-      commitProgress(displayedProgress);
     };
 
     const updateTarget = () => {
@@ -182,30 +172,33 @@ export default function HorizontalStory() {
       if (!initialized) {
         initialized = true;
         displayedProgress = targetProgress;
-        commitProgress(displayedProgress);
+        setProgress(displayedProgress);
         return;
       }
 
-      if (animationFrame) return;
-
-      animationFrame = window.requestAnimationFrame(
-        isPhone ? commitMobileFrame : animateDesktopToTarget,
-      );
+      if (!animationFrame) {
+        animationFrame = window.requestAnimationFrame(animateToTarget);
+      }
     };
 
     updateTarget();
-    window.addEventListener("scroll", updateTarget, { passive: true });
+
+    window.addEventListener("scroll", updateTarget, {
+      passive: true,
+    });
+
     window.addEventListener("resize", updateTarget);
 
     return () => {
       window.removeEventListener("scroll", updateTarget);
+
       window.removeEventListener("resize", updateTarget);
 
       if (animationFrame) {
         window.cancelAnimationFrame(animationFrame);
       }
     };
-  }, [isPhone]);
+  }, []);
 
   const horizontalEnd = isPhone ? MOBILE_HORIZONTAL_END : HORIZONTAL_END;
   const denmarkReach = isPhone ? MOBILE_DENMARK_REACH : DENMARK_REACH;
@@ -251,11 +244,11 @@ export default function HorizontalStory() {
           }}
         >
           <div className={styles.panel}>
-            <MemoConceptSection hideChrome />
+            <ConceptSection hideChrome />
           </div>
 
           <div className={`${styles.panel} ${styles.golden}`}>
-            <MemoVashiDenmark />
+            <VashiDenmark />
 
             {/* <h2 className={styles.goldenType}>
               <span>THE 5</span>
@@ -431,7 +424,6 @@ export default function HorizontalStory() {
                             src={stop.image}
                             alt={`${stop.name} building`}
                             loading="lazy"
-                            decoding="async"
                           />
 
                           <a
@@ -500,8 +492,6 @@ export default function HorizontalStory() {
                                 : styles.cloudImageA
                         }`}
                         draggable={false}
-                        loading="lazy"
-                        decoding="async"
                       />
                     </div>
                   );

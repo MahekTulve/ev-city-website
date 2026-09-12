@@ -3,7 +3,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./LandingPage.module.css";
 import { motion, type Variants } from "framer-motion";
-import { useMediaQuery } from "./performance/useMediaQuery";
 
 interface LandingPageProps {
   isNight: boolean;
@@ -34,6 +33,19 @@ function Glyph({ className }: { className?: string | undefined }) {
       <circle cx="24" cy="24" r="2.6" fill="currentColor" />
     </svg>
   );
+}
+
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  return isMobile;
 }
 
 interface TypewriterTextProps {
@@ -83,7 +95,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   const introRef = useRef<HTMLDivElement>(null);
   const archRef = useRef<HTMLDivElement>(null);
-  const isMobile = useMediaQuery("(max-width: 768px)");
+  const isMobile = useIsMobile();
   const [isNearViewport, setIsNearViewport] = useState(false);
 
   useEffect(() => {
@@ -105,8 +117,6 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   }, []);
 
   useLayoutEffect(() => {
-    if (!isNearViewport) return;
-
     const ctx = gsap.context(() => {
       const isMobileDevice = () => window.innerWidth <= 768;
 
@@ -159,7 +169,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
     }, introRef);
 
     return () => ctx.revert();
-  }, [isNearViewport]);
+  }, []);
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },

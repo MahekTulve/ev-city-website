@@ -244,8 +244,6 @@ export default function WayVashi({
   const [isStageNear, setIsStageNear] = useState(false);
 
   useLayoutEffect(() => {
-    if (!isStageNear) return;
-
     const ctx = gsap.context(() => {
       const intro = `.${styles.domeIntro}`;
       const introCrown = `.${styles.introCrown}`;
@@ -497,7 +495,7 @@ export default function WayVashi({
     }, rootRef);
 
     return () => ctx.revert();
-  }, [isStageNear]);
+  }, []);
 
   useEffect(() => {
     const stage = stageRef.current;

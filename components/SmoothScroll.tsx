@@ -37,23 +37,12 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     setLenis(instance);
     document.documentElement.classList.add("lenis");
 
-    let rafId = 0;
-
+    let rafId: number;
     function raf(time: number) {
-      rafId = 0;
-      if (document.visibilityState !== "visible") return;
-
       instance.raf(time);
       rafId = requestAnimationFrame(raf);
     }
 
-    const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible" && !rafId) {
-        rafId = requestAnimationFrame(raf);
-      }
-    };
-
-    document.addEventListener("visibilitychange", handleVisibilityChange);
     rafId = requestAnimationFrame(raf);
 
     const handleAnchorClick = (e: MouseEvent) => {
@@ -77,10 +66,9 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
     // Cleanup
     return () => {
       document.removeEventListener("click", handleAnchorClick);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
       document.documentElement.classList.remove("lenis");
       instance.destroy();
-      if (rafId) cancelAnimationFrame(rafId);
+      cancelAnimationFrame(rafId);
       setLenis(null);
     };
   }, []);
