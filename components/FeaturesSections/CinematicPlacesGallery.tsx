@@ -411,7 +411,6 @@ export default function CinematicPlacesGallery() {
 
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [shouldWarmVideos, setShouldWarmVideos] = useState(false);
-  const [hasScrollIntent, setHasScrollIntent] = useState(false);
   const [sidePlaybackEnabled, setSidePlaybackEnabled] = useState(true);
   const [isMainVideoPaused, setIsMainVideoPaused] = useState(false);
   const [isMainVideoExpanded, setIsMainVideoExpanded] = useState(false);
@@ -424,7 +423,7 @@ export default function CinematicPlacesGallery() {
     // The gallery begins loading only when it actually starts entering view.
     const preloadObserver = new IntersectionObserver(
       ([entry]) => setShouldWarmVideos(entry.isIntersecting),
-      { rootMargin: "0px", threshold: 0.01 },
+      { rootMargin: isMobile ? "500px 0px" : "800px 0px", threshold: 0.01 },
     );
 
     const playbackObserver = new IntersectionObserver(
@@ -439,28 +438,7 @@ export default function CinematicPlacesGallery() {
       preloadObserver.disconnect();
       playbackObserver.disconnect();
     };
-  }, []);
-
-  useEffect(() => {
-    const warmMainVideo = () => setHasScrollIntent(true);
-
-    window.addEventListener("wheel", warmMainVideo, { passive: true, once: true });
-    window.addEventListener("touchmove", warmMainVideo, { passive: true, once: true });
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (["ArrowDown", "PageDown", " ", "End"].includes(event.key)) {
-        warmMainVideo();
-      }
-    };
-
-    window.addEventListener("keydown", handleKeyDown, { once: true });
-
-    return () => {
-      window.removeEventListener("wheel", warmMainVideo);
-      window.removeEventListener("touchmove", warmMainVideo);
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
+  }, [isMobile]);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -761,7 +739,7 @@ const titleExitRotateX = useTransform(
   const mainVideoSrc =
     isSmallMobile && mainVideo.mobileSrc ? mainVideo.mobileSrc : mainVideo.src;
 
-  const shouldLoadMain = hasScrollIntent || shouldWarmVideos || isNearViewport;
+  const shouldLoadMain = shouldWarmVideos || isNearViewport;
   const shouldLoadSides = shouldWarmVideos || isNearViewport;
   const shouldPlayMain = isNearViewport && isPageVisible && !isMainVideoPaused;
   const shouldPlaySides =

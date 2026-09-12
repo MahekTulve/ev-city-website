@@ -1,50 +1,53 @@
 'use client';
-import { useEffect, useRef, useState } from "react";
+
+import { useEffect, useState } from "react";
 import CopenhagenLoader, { MIN_LOADER_MS } from "@/components/CopenhagenLoader";
 
+const LOADER_FADE_MS = 850;
+
 export default function Hero() {
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [canPlay, setCanPlay] = useState(false);
-  const [minTimeDone, setMinTimeDone] = useState(false);
+  const [loaderFading, setLoaderFading] = useState(false);
+  const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    const t = setTimeout(() => {
-      setMinTimeDone(true);
+    const fadeTimer = window.setTimeout(() => {
+      setLoaderFading(true);
     }, MIN_LOADER_MS);
-    return () => clearTimeout(t);
-  }, []);
 
-  useEffect(() => {
-    if (videoRef.current && videoRef.current.readyState >= 3) {
-      setCanPlay(true);
-    }
-  }, []);
+    const removeTimer = window.setTimeout(() => {
+      setShowLoader(false);
+    }, MIN_LOADER_MS + LOADER_FADE_MS);
 
-  useEffect(() => {
-    const t = setTimeout(() => setCanPlay(true), 8000);
-    return () => clearTimeout(t);
+    return () => {
+      window.clearTimeout(fadeTimer);
+      window.clearTimeout(removeTimer);
+    };
   }, []);
-
-  const ready = canPlay && minTimeDone;
 
   return (
-    <div data-section className="relative h-screen w-full overflow-hidden" id="vidiosection">
+    <div
+      data-section
+      className="relative h-screen w-full overflow-hidden"
+      id="vidiosection"
+    >
       <video
-        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
         preload="auto"
-        poster="images/vashicityDayOne.webp"
-        onCanPlayThrough={() => setCanPlay(true)}
+        poster="/images/vashicityDayOne.webp"
         className="h-full w-full object-cover"
       >
-        <source src="/videos/intro-mob.webm" type="video/webm" media="(max-width: 480px)" />
+        <source
+          src="/videos/intro-mob.webm"
+          type="video/webm"
+          media="(max-width: 480px)"
+        />
         <source src="/videos/intro-desktop.webm" type="video/webm" />
       </video>
 
-      <CopenhagenLoader fading={ready} />
+      {showLoader && <CopenhagenLoader fading={loaderFading} />}
     </div>
   );
 }

@@ -68,6 +68,7 @@ const PlaceToLive = () => {
     const galleryRef = useRef<HTMLDivElement>(null);
 
     const [showText, setShowText] = useState(false);
+    const showTextRef = useRef(false);
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
@@ -95,7 +96,11 @@ const PlaceToLive = () => {
                     pin: true,
                     anticipatePin: 1,
                     onUpdate: (self) => {
-                        setShowText(self.progress > 0.9);
+                        const nextShowText = self.progress > 0.9;
+                        if (showTextRef.current !== nextShowText) {
+                            showTextRef.current = nextShowText;
+                            setShowText(nextShowText);
+                        }
                     },
                 },
             });
