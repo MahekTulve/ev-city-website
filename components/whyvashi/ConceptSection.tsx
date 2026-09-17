@@ -1,10 +1,53 @@
+"use client";
+
+import { motion, Variants } from "framer-motion";
 import styles from "./ConceptSection.module.css";
 
-/**
- * Drop-in section for a Next.js (or any React) project.
- * Requires: /public/videos/flower-1.webm and /public/videos/flower2.webm
- * (transparent-alpha VP9 WebM). Serif font: Playfair Display.
- */
+// Parent Container Variant (Controls overall sequence & children delay)
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.25,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+// Content Children Variant (Text & Image entry animation)
+const fadeInUpVariants: Variants = {
+  hidden: { opacity: 0, y: 35 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.8,
+      ease: [0.25, 0.1, 0.25, 1],
+    },
+  },
+};
+
+// Side Chrome Rail Variant
+const railVariants: Variants = {
+  hidden: { opacity: 0, x: -30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
+// Side Chrome Nav Variant
+const navVariants: Variants = {
+  hidden: { opacity: 0, x: 30 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.8, ease: "easeOut" },
+  },
+};
+
 export default function ConceptSection({
   hideChrome = false,
 }: {
@@ -12,68 +55,106 @@ export default function ConceptSection({
 }) {
   return (
     <section className={styles["section"]}>
-      {/* <video
-        className={`${styles["flower"]} ${styles["flowerTopLeft"]}`}
-        src="/videos/flower-2.webm"
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      /> */}
-      {/* <video
-        className={`${styles["flower"]} ${styles["flowerBottomRight"]}`}
-        src=""
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        aria-hidden="true"
-      /> */}
+      {/* Background Floating Elements */}
+      <motion.div
+        className={`${styles.flower} ${styles.flowerTopLeft}`}
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease: "easeOut" }}
+      />
+      <motion.div
+        className={`${styles.flower} ${styles.flowerBottomRight}`}
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.4, ease: "easeOut", delay: 0.2 }}
+      />
 
       {!hideChrome && (
         <>
-          <div className={styles["rail"]}>
+          {/* Left Rail */}
+          <motion.div
+            className={styles["rail"]}
+            variants={railVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }} // once: false har baar animation trigger karega
+          >
             <span className={styles["railNumber"]}>26</span>
             <span className={styles["railLabel"]}>Scroll</span>
-            <span className={styles["railLine"]} />
-          </div>
+            <motion.span
+              className={styles["railLine"]}
+              initial={{ scaleY: 0 }}
+              whileInView={{ scaleY: 1 }}
+              transition={{ duration: 0.9, delay: 0.4 }}
+              style={{ originY: 0 }}
+            />
+          </motion.div>
 
-          <div className={styles["nav"]}>
+          {/* Top-Right Nav */}
+          <motion.div
+            className={styles["nav"]}
+            variants={navVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3 }} // once: false
+          >
             <span className={styles["navPrimary"]}>
               Select
               <br />
               an Apartment
             </span>
             <div className={styles["navLinks"]}>
-              <a href="#book">Book a call</a>
-              <a href="#contact">Contact</a>
+              <motion.a 
+                href="#book"
+                whileHover={{ x: -4 }} 
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                Book a call
+              </motion.a>
+              <motion.a 
+                href="#contact"
+                whileHover={{ x: -4 }} 
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                Contact
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
         </>
       )}
 
-      <div className={styles["content"]}>
-        <p className={styles["eyebrow"]}>The Concept</p>
-        <h2 className={styles["headline"]}>
+      {/* Main Content (Parent Container for Stagger Effect) */}
+      <motion.div
+        className={styles["content"]}
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3 }} // once: false har baar replay karega
+      >
+        <motion.p className={styles["eyebrow"]} variants={fadeInUpVariants}>
+          The Concept
+        </motion.p>
+
+        <motion.h2 className={styles["headline"]} variants={fadeInUpVariants}>
           In today’s evolving era EV HOMES has made sure Vashi shows the
           timeless development, a city which defines the term “One Stop Shop”
-        </h2>
-        <p className={styles["body"]}>
-          Inspired by the atmosphere of Marbella&apos;s golden era, the project
-          combines contemporary architecture with warm materials, natural
-          landscaping and carefully curated spaces.
-        </p>
+        </motion.h2>
 
-        <img
+        <motion.p className={styles["body"]} variants={fadeInUpVariants}>
+          Inspired by Copenhagen’s (Denmark) approach to connected urban living,
+          the project asks a simple question: what if everything that makes life better was just five minutes away?
+        </motion.p>
+
+        <motion.img
           className={styles.ornament}
           src="/images/logo.png"
           alt=""
           aria-hidden="true"
+          variants={fadeInUpVariants}
+          whileHover={{ scale: 1.08, rotate: 3 }}
+          transition={{ type: "spring", stiffness: 300 }}
         />
-      </div>
+      </motion.div>
     </section>
   );
 }

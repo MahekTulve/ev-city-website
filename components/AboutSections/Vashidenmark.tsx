@@ -474,11 +474,11 @@ export default function VashiDenmark() {
             <h1 className={styles.title}>
               LIFE AT <span className={styles.big}>VASHI</span>
             </h1>
-            <p className={styles.subtitle}>
+            {/* <p className={styles.subtitle}>
               At Denmark, every essential is just minutes away.
               <br />
               Live a life of unmatched convenience and connectivity.
-            </p>
+            </p> */}
           </aside>
         </div>
 
@@ -491,9 +491,9 @@ export default function VashiDenmark() {
             >
               <defs>
                 <linearGradient id="arcGrad" x1="0" x2="1">
-                  <stop offset="0" stopColor="#d4af370f" stopOpacity="0" />
-                  <stop offset="0.5" stopColor="#fed167" stopOpacity="0.9" />
-                  <stop offset="1" stopColor="#d4af370a" stopOpacity="0" />
+                  <stop offset="0" stopColor="#5a4003" stopOpacity="0" />
+                  <stop offset="0.5" stopColor="#b3810b" stopOpacity="0.9" />
+                  <stop offset="1" stopColor="#5a4003" stopOpacity="0" />
                 </linearGradient>
               </defs>
 
