@@ -1,5 +1,4 @@
 "use client";
-import { createFileRoute } from "@tanstack/react-router";
 import { motion, Variants } from "framer-motion";
 import {
   Footprints,
@@ -52,7 +51,7 @@ const wedgeData = [
   {
     img: wedgePark,
     alt: "People relaxing in a sunlit Copenhagen park",
-    label: { icon: TreePine, text: "Parks & Nature", pos: { top: "-4%", left: "33%" }, line: "150px", mobline: "60px" },
+    label: { icon: TreePine, text: "Parks & Nature", pos: { top: "-6%", left: "33%" }, line: "150px", mobline: "60px" },
   },
   {
     img: wedgeCafe, // Index 1
@@ -62,7 +61,7 @@ const wedgeData = [
   {
     img: wedgeCulture,
     alt: "Cobblestone street with pedestrians and bicycles",
-    label: { icon: Users, text: "Culture & Community", pos: { top: "43%", left: "84%" }, line: "5px", mobline: "5px" },
+    label: { icon: Users, text: "Culture & Community", pos: { top: "43%", left: "82%" }, line: "5px", mobline: "5px" },
   },
   {
     img: wedgeWork, // Index 3
@@ -72,7 +71,7 @@ const wedgeData = [
   {
     img: wedgeRetail,
     alt: "Glowing boutique storefront at dusk",
-    label: { icon: ShoppingBag, text: "Retail & Services", pos: { top: "91%", left: "38%" }, line: "130px", mobline: "17px" },
+    label: { icon: ShoppingBag, text: "Retail & Services", pos: { top: "91%", left: "38%" }, line: "130px", mobline: "35px" },
   },
 ].map((w, i) => {
   const a0 = WEDGE_START + i * (WEDGE_SIZE + WEDGE_GAP);

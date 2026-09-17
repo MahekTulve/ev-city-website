@@ -1,5 +1,5 @@
 import localFont from 'next/font/local';
-import { Cormorant_Garamond, Libre_Baskerville, Montez } from 'next/font/google';
+import { Cormorant_Garamond, Jura, Libre_Baskerville, Montez } from 'next/font/google';
 import './globals.css';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
@@ -22,6 +22,12 @@ const libreBaskerville = Montez({
   style: ['normal'],
   variable: '--Montez',
 });
+const jurafont = Jura({
+  subsets: ['latin'],
+  weight: ['400','500','600'],
+  style: ['normal',],
+  variable: '--font-jura',
+});
 
 export const metadata = {
   title: 'EV City Website',
@@ -42,7 +48,7 @@ export default function RootLayout({
         <body
           suppressHydrationWarning={true}
           /* Dono font variables pass kar diye */
-          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable}`}
+          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable}`}
           style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}
         >
           <main>

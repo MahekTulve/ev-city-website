@@ -43,12 +43,21 @@ const pillars = [
 export default function WhyCopenhagen() {
   return (
     <div className={styles["page"]} data-section>
+
       <section className={styles["why"]} id="why">
+        <div className={styles["starttext"]} >
+          <p>
+            A MORE MEANINGFUL
+          </p>
+          <p className={styles["Everyday"]} >
+            Everyday
+          </p>
+        </div>
         <div className={styles["blush"]} />
 
         <img
           className={styles["skechImage"]}
-          src={"images/waybgimage.png"}
+          src={"images/way_bg_example.png"}
           alt="skech"
           loading="lazy"
           decoding="async"
@@ -89,9 +98,8 @@ export default function WhyCopenhagen() {
               <SwiperSlide key={p.title}>
                 {({ isActive }) => (
                   <div
-                    className={`${styles["pillar"]} ${
-                      isActive ? styles["activeCenter"] : ""
-                    }`}
+                    className={`${styles["pillar"]} ${isActive ? styles["activeCenter"] : ""
+                      }`}
                   >
                     <div className={styles["iconWrap"]}>{p.icon}</div>
                     <h3 className={styles["pillarTitle"]}>{p.title}</h3>
@@ -103,13 +111,13 @@ export default function WhyCopenhagen() {
           </Swiper>
         </div>
 
-        <div className={styles["closingQuote"]} id="impact">
-          <span className={styles["bigQuote"]}>&ldquo;</span>
+        <div className={styles["Lasttext"]} >
           <p>
-            A city isn&rsquo;t just its buildings, it&rsquo;s its{" "}
-            <em className={styles["italicGold"]}>beliefs in action.</em>
+            A city isn't just its buildings, it's
           </p>
-          <span className={styles["bigQuote"]}>&rdquo;</span>
+          <p className={styles["lastdesign"]} >
+            its beliefs in action.
+          </p>
         </div>
       </section>
     </div>
