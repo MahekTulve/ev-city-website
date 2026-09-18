@@ -159,7 +159,7 @@
 .lockupEra {
   font-size: clamp(3rem, 6vw, 6rem);
   opacity: 0;
-  
+
 }
 
 .lockupResidence {
@@ -174,10 +174,10 @@
   font-size: clamp(3.4rem, 9vw, 9vw);
 
 }
+
 .citycs,
 .Minutecs,
-.fivenum 
-.lockupEra {
+.fivenum .lockupEra {
 
   -webkit-text-fill-color: transparent;
   filter: drop-shadow(0 2px 5px #faf3e375);
@@ -185,6 +185,7 @@
   -webkit-background-clip: text;
   background-clip: text;
 }
+
 .lockupScript {
   display: block;
   font-family: "Pinyon Script", cursive;
@@ -291,7 +292,7 @@
 }
 
 .heroEra {
-  font-family: "Cinzel", serif;
+  font-family: var(--font-cormorant);
   font-size: clamp(4rem, 8.5vw, 8.5rem);
   font-weight: 500;
   line-height: 0.9;
@@ -324,7 +325,7 @@
 }
 
 .subHeaderGold {
-  font-family: "Cinzel", serif;
+  font-family: var(--font-cormorant);
   font-size: clamp(0.85rem, 1.5vw, 1.5rem);
   letter-spacing: 0.35em;
   -webkit-text-fill-color: transparent;
@@ -372,7 +373,7 @@
 }
 
 .subHeaderGoldBottom {
-  font-family: "Cinzel", serif;
+  font-family: var(--font-cormorant);
   font-size: clamp(0.85rem, 1.5vw, 1.5rem);
   letter-spacing: 0.35em;
   -webkit-text-fill-color: transparent;
@@ -381,10 +382,11 @@
   -webkit-background-clip: text;
   background-clip: text;
   text-transform: uppercase;
-  word-spacing: 0.5rem;
   display: inline-block;
   will-change: transform, opacity;
   padding-left: 2%;
+  font-weight: 700;
+
 }
 
 .heroResidence {
@@ -403,12 +405,12 @@
 }
 
 .subHeaderGoldRight {
-  font-family: "Cinzel", serif;
+  font-family: var(--font-cormorant);
   font-size: clamp(0.85rem, 1.5vw, 1.5rem);
   letter-spacing: 0.35em;
   background-image: linear-gradient(10deg, #b98f2c 0%, #b98f2c 35%, #fcea93 50%, #b98f2c 70%, #b98f2c 100%);
-  -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 1px 1px #faf3e375);
+  -webkit-background-clip: text;
+  filter: drop-shadow(0 1px 1px #f6cc6c75);
   -webkit-background-clip: text;
   background-clip: text;
   text-transform: uppercase;
@@ -417,7 +419,7 @@
 }
 
 .secondaryTitleLarge {
-  font-family: "Cinzel", serif;
+  font-family: var(--font-cormorant);
   font-size: clamp(4rem, 7vw, 7.5rem);
   font-weight: 500;
   line-height: 0.95;
@@ -446,8 +448,9 @@
   display: flex;
   gap: 0.8rem;
   align-items: center;
-  font-family: "Pinyon Script", cursive;
-  font-size: clamp(1.2rem, 2.2vw, 2.2rem);
+  font-family: var(--font-cormorant);
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.8vw, 1.8rem);
   margin-top: 0.5rem;
   padding-left: 1.5rem;
   overflow: hidden;
@@ -1034,7 +1037,7 @@
     font-size: clamp(2.5rem, 8vw, 8vw);
     text-align: left;
     margin-bottom: 10px;
-    margin-left: 15px;
+    margin-left: 5px;
 
   }
 
@@ -1243,7 +1246,7 @@
   }
 
   .fivenum {
-    margin-left: 5px;
+    margin-left: 15px;
 
   }
 

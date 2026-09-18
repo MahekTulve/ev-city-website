@@ -73,7 +73,7 @@
     border: 1px solid rgba(212, 175, 55, 0.25);
     backdrop-filter: blur(12px);
     border-radius: 100px;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-jura);
     font-size: 0.72rem;
     letter-spacing: 0.35em;
     text-transform: uppercase;
@@ -87,6 +87,7 @@
     border-radius: 50%;
     background: #d4af37;
     box-shadow: 0 0 8px #d4af37;
+
 }
 
 /* Header Title Wrapper & Particles */
@@ -99,17 +100,14 @@
 
 }
 
-.particleTitle {
-    font-family: 'Cinzel', serif;
 
-}
 
 .particleTitle {
     display: block;
     margin-inline: auto !important;
     font-size: clamp(3.2rem, 7.5vw, 6.8rem);
     line-height: 1.05;
-    font-family: 'Cinzel', serif;
+    /* font-family: 'Cinzel', serif; */
     font-weight: 600;
     letter-spacing: -0.01em;
     text-align: center;
@@ -145,9 +143,9 @@
     color: rgba(245, 245, 247, 0.8);
     line-height: 1.55;
     font-weight: 300;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
     margin: 0 auto;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: var(--font-cormorant);
 
 }
 
@@ -162,7 +160,7 @@
 }
 
 .scrollHint {
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-jura);
     font-size: 0.65rem;
     letter-spacing: 0.45em;
     color: rgba(212, 175, 55, 0.75);
@@ -286,7 +284,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
-    font-family: 'Space Grotesk', sans-serif;
+    font-family: var(--font-jura);
     font-size: 0.72rem;
     letter-spacing: 0.38em;
     text-transform: uppercase;
@@ -296,7 +294,7 @@
 }
 
 .italicGold {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-cormorant);
     font-style: italic;
     background: linear-gradient(135deg, #fceabb 0%, #d4af37 50%, #af8c52 100%);
     -webkit-background-clip: text;
@@ -315,6 +313,7 @@
 .amenityHeaderCenter {
     text-align: center;
     margin-bottom: 5rem;
+    font-family: var(--font-cormorant);
 }
 
 .zigzagTimeline {
@@ -370,13 +369,14 @@
     padding: 2rem 2.5rem;
     backdrop-filter: blur(20px);
     transition: all 0.2s ease;
-        will-change: clip-path, opacity, transform;
+    will-change: clip-path, opacity, transform;
 }
 
 .zigzagRow {
     display: flex;
     width: 100%;
-    overflow: visible; /* Make sure clipped children stay in bounds */
+    overflow: visible;
+    /* Make sure clipped children stay in bounds */
 }
 
 .amenityCardLuxury:hover {
@@ -403,36 +403,39 @@
     border-radius: 8px;
     transition: all 0.3s ease;
 }
+
 .cardNumber {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: rgba(212, 175, 55, 0.35);
-  letter-spacing: -0.02em;
-  transition: color 0.3s ease;
+    font-family: var(--font-jura);
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: rgba(212, 175, 55, 0.35);
+    letter-spacing: -0.02em;
+    transition: color 0.3s ease;
 }
 
 .amenityCardLuxury:hover .cardNumber {
-  color: #d4af37;
+    color: #d4af37;
 }
+
 .amenityCardLuxury:hover .iconBadge {
     background: rgba(212, 175, 55, 0.15);
     border-color: #d4af37;
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
 }
+
 .titleUnderline {
-  width: 35px;
-  height: 1.5px;
-  background: #d4af37;
-  margin-bottom: 0.4rem;
-  transition: width 0.4s ease;
+    width: 35px;
+    height: 1.5px;
+    background: #d4af37;
+    margin-bottom: 0.4rem;
+    transition: width 0.4s ease;
 }
 
 .amenityCardLuxury:hover .titleUnderline {
-  width: 70px;
+    width: 70px;
 }
+
 .cardNumber {
-    font-family: 'Space Grotesk', sans-serif;
     font-size: 0.95rem;
     color: #d4af37;
 }
@@ -498,7 +501,7 @@
 }
 
 .cardTitle {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-cormorant);
     font-size: 1.5rem;
     color: #ffffff;
     font-weight: 400;
@@ -506,18 +509,21 @@
 }
 
 .cardDesc {
- font-size: 0.98rem;
-  color: rgba(245, 245, 247, 0.65);
-  line-height: 1.75;
-  font-weight: 300;
+    font-size: 1.2rem;
+    color: rgba(245, 245, 247, 0.65);
+    line-height: 1.75;
+    font-weight: 300;
+    font-family: var(--font-cormorant);
+
 }
 
 .editorialHeading {
-    font-family: 'Cinzel', serif;
+    font-family: var(--font-cormorant);
     font-size: 3rem;
     font-weight: 400;
     color: #ffffff;
     line-height: 1.25;
+    text-transform: uppercase;
 }
 
 /* ============================================================
@@ -532,9 +538,10 @@
     }
 
     .subtitle {
-        font-size: 0.8rem; /* Smaller font size for mobile contrast */
+        font-size: 0.8rem;
+        /* Smaller font size for mobile contrast */
         line-height: 1.45;
-       
+
     }
 
     .amenityContainer {
@@ -556,12 +563,14 @@
 
     /* Keep section titles bold and large on mobile */
     .editorialHeading {
-        font-size: 2.5rem; /* Larger prominent title */
+        font-size: 2.5rem;
+        /* Larger prominent title */
         line-height: 1.2;
     }
 
     .editorialSubheading {
-        font-size: 1rem; /* Smaller contrast subtitle */
+        font-size: 1rem;
+        /* Smaller contrast subtitle */
         line-height: 1.5;
         margin-top: 0.5rem;
     }
@@ -591,12 +600,14 @@
     }
 
     .cardTitle {
-        font-size: 1.15rem; /* Card heading */
+        font-size: 1.15rem;
+        /* Card heading */
         margin-bottom: 0.4rem;
     }
 
     .cardDesc {
-        font-size: 0.82rem; /* Card subtitle / description */
+        font-size: 0.82rem;
+        /* Card subtitle / description */
         line-height: 1.5;
     }
 }
@@ -651,38 +662,40 @@
 }
 
 .glowingTitle {
-  margin: 0;
-  font-family: "Cinzel", serif;
-  font-weight: 500;
-  font-size: 6vw;
-  text-transform: uppercase;
-  letter-spacing: -0.03em;
-  line-height: 1;
-  white-space: nowrap;
+    margin: 0;
+    /* font-family: "Cinzel", serif; */
+    font-family: var(--font-cormorant);
+    font-weight: 500;
+    font-size: 6vw;
+    text-transform: uppercase;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    white-space: nowrap;
 }
 
 @media (max-width: 768px) {
-  .glowingTitle {
-    font-size: 9vw;
-  }
+    .glowingTitle {
+        font-size: 9vw;
+    }
 
-  .subtitle {
-    font-size: 0.75rem;
-  }
+    .subtitle {
+        font-size: 0.75rem;
+    }
 }
+
 /* Performance: let the browser skip paint/layout work for sections far outside the viewport. */
 .section {
-  content-visibility: auto;
-  contain-intrinsic-size: 100vh;
+    content-visibility: auto;
+    contain-intrinsic-size: 100vh;
 }
 
 @media (max-width: 768px) {
-  .floatingElement {
-    opacity: 0.55 !important;
-  }
+    .floatingElement {
+        opacity: 0.55 !important;
+    }
 
-  .heroBadge,
-  .scrollPill {
-    backdrop-filter: none;
-  }
+    .heroBadge,
+    .scrollPill {
+        backdrop-filter: none;
+    }
 }

@@ -20,7 +20,7 @@
   letter-spacing: 0.11em;
   font-size: 12px;
   font-weight: 600;
-  font-family: "Helvetica", Arial, sans-serif;
+  font-family: var(--font-jura);
   margin-bottom: 8px;
   color: #16213b;
   -webkit-text-fill-color: currentColor;
@@ -42,7 +42,7 @@
   text-align: center;
   font-size: 64px;
   letter-spacing: 0.09em;
-  font-weight: 400;
+  font-weight: 600;
   margin: 0;
   line-height: 1.05;
   background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
@@ -50,11 +50,12 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
+  font-family: var(--font-cormorant);
+
 }
 
 .title .big {
   background-image: linear-gradient(70deg, #01051aef, #230b5ae3);
-  font-family: "Times New Roman", Times, serif;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -229,10 +230,10 @@
 
 .nodeTime {
   margin-bottom: 2px;
-  font-size: 22px;
+  font-size: 20px;
   line-height: 1;
   font-weight: 600;
-  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-family: var(--font-jura);
   letter-spacing: 0.02em;
   color: #14213d;
 }
@@ -293,7 +294,7 @@
   font-size: 0.7rem;
   line-height: 1.25;
   letter-spacing: 0;
-  font-weight: 400;
+  font-weight: 600;
   color: rgba(14, 23, 45, 0.82);
   -webkit-text-fill-color: currentColor;
   background: none;
@@ -341,13 +342,15 @@
   line-height: 1;
   letter-spacing: 0.03em;
   font-weight: 500;
-  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-family: var(--font-cormorant);
   color: #fff2d0;
   -webkit-text-fill-color: currentColor;
   background: none;
   text-shadow: 0 1px 12px rgba(232, 185, 85, 0.14);
 }
-
+.centerName span{
+font-family: var(--font-jura);
+}
 .centerCity {
   margin-top: 7px;
   max-width: 130px;
@@ -355,9 +358,9 @@
   font-size: 0.7rem;
   line-height: 1.15;
   letter-spacing: 0.04em;
-  font-weight: 700;
+  font-weight: 600;
   color: #fff2d0;
-  font-family: "Helvetica", Arial, sans-serif;
+  font-family: var(--font-cormorant);
 }
 
 .dragBar {
@@ -373,15 +376,15 @@
   gap: 13px;
   min-height: 48px;
   padding: 4px 10px;
-  border: 1px solid rgba(224, 177, 66, 0.88);
+  border: 1px solid #ffffff;
   border-radius: 999px;
   width: max-content;
-  color: #e7b64c;
-  font-family: "Helvetica", Arial, sans-serif;
+  color: #ffffff;
+  font-family: var(--font-cormorant);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.06em;
-  background: linear-gradient(180deg, rgba(15, 29, 59, 0.96), rgba(5, 14, 32, 0.96));
+  background: linear-gradient(180deg, rgba(15, 29, 59, 0.751), rgba(5, 14, 32, 0.751));
   box-shadow:
     0 12px 30px rgba(5, 13, 31, 0.22),
     inset 0 0 0 1px rgba(255, 223, 147, 0.05);
@@ -394,9 +397,9 @@
   height: 42px;
   flex: 0 0 42px;
   border-radius: 50%;
-  border: 1px solid #d9a83e;
+  border: 1px solid #ffffff;
   background: linear-gradient(145deg, #12203f 0%, #071127 100%);
-  color: #e8b64b;
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -415,7 +418,7 @@
   background: transparent;
   cursor: pointer;
   border: none;
-  color: #e1ad3e;
+  color: #ffffff;
   transition:
     opacity 0.2s ease,
     background-color 0.2s ease,
@@ -428,7 +431,7 @@
 }
 
 .dragBar>span {
-  color: #e4b14a;
+  color: #ffffff;
   white-space: nowrap;
 }
 
