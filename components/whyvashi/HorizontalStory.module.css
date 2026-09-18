@@ -278,7 +278,7 @@
   margin: 0;
 
   color: #8a641e;
-  font-family: var(--concept-serif);
+  font-family: var(--font-cormorant);
   font-size: clamp(2.15rem, 3.55vw, 4.1rem);
   font-weight: 400;
   line-height: 0.98;
@@ -714,7 +714,7 @@
   max-width: 100%;
 
   color: #8b6727;
-  font-family: "Jost", "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-jura);
   font-size: 0.9vw;
   font-weight: 500;
 

@@ -2,8 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import styles from "./CinematicText.module.css";
 
 type Slide =
-  | { kind: "title"; small?: string; text: string }
-  | { kind: "credit"; small: string; big: string };
+  | { kind: "title"; small?: string; text: string; duration?: number }
+  | { kind: "credit"; small: string; big: string; duration?: number };
+
+const DEFAULT_SLIDE_MS = 3000;
+// Last slide ke liye zyada duration (e.g., 6000ms ya 6 seconds)
+const LAST_SLIDE_MS = 6000;
 
 const SLIDES: Slide[] = [
   { kind: "title", small: "", text: "EV Homes Presents" },
@@ -11,10 +15,8 @@ const SLIDES: Slide[] = [
   { kind: "credit", small: "Featuring", big: "CONNECTED LIVING" },
   { kind: "credit", small: "A World Where", big: "EVERYTHING YOU NEED" },
   { kind: "credit", small: "Is Just", big: "FIVE MINUTES AWAY" },
-  { kind: "title", small: "Coming Soon", text: "EV CITY" },
+  { kind: "title", small: "Coming Soon", text: "EV CITY", duration: LAST_SLIDE_MS },
 ];
-
-const SLIDE_MS = 3000;
 
 export default function CinematicTrailer() {
   const stageRef = useRef<HTMLDivElement>(null);
@@ -38,16 +40,18 @@ export default function CinematicTrailer() {
   useEffect(() => {
     if (!isVisible || document.visibilityState !== "visible") return;
 
+    // Slide ke specific duration ke hisab se timeout set karna
+    const currentDuration = SLIDES[i].duration || DEFAULT_SLIDE_MS;
+
     const t = setTimeout(() => {
       setI((prevI) => {
-        // Agar last slide par pohench gaye hain, toh wapas 0 se start karein
         if (prevI >= SLIDES.length - 1) {
-          setRunKey((k) => k + 1); // Key update hone se animation restart hoga
+          setRunKey((k) => k + 1);
           return 0;
         }
         return prevI + 1;
       });
-    }, SLIDE_MS);
+    }, currentDuration);
 
     return () => clearTimeout(t);
   }, [i, runKey, isVisible]);
@@ -61,7 +65,9 @@ export default function CinematicTrailer() {
         {SLIDES.map((s, idx) => (
           <div
             key={`${runKey}-${idx}`}
-            className={`${styles.slide} ${idx === i ? styles.slideActive : ""}`}
+            className={`${styles.slide} ${idx === i ? styles.slideActive : ""} ${
+              idx === SLIDES.length - 1 ? styles.lastSlide : ""
+            }`}
             aria-hidden={idx !== i}
           >
             <div className={styles.block}>

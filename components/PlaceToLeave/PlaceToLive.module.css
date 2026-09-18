@@ -315,7 +315,7 @@
 
 .copehe h2 {
     font-size: 12.5vw;
-    font-family: "Cinzel", serif;
+    font-family: var(--font-cormorant);
     font-weight: 600;
     color: #680000;
     text-align: center;
@@ -331,9 +331,13 @@
     gap: 10px;
     font-size: 3.5vw;
     font-family: "Cinzel", serif;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 10px;
     color: #680000;
+    font-family: var(--font-cormorant);
+      text-transform: uppercase;
+
+
 }
 
 .denma span {

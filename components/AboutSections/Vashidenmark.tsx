@@ -109,13 +109,13 @@ const ALL_NODES: NodeData[] = [
 ];
 
 const DESKTOP_ARC_POSITIONS = [
-  { x: 7, y: 60 },
+  { x: 3, y: 60 },
   { x: 20, y: 36 },
   { x: 34, y: 24 },
   { x: 50, y: 10 },
   { x: 66, y: 24 },
   { x: 80, y: 36 },
-  { x: 92, y: 60 },
+  { x: 95, y: 60 },
 ];
 
 const TABLET_ARC_POSITIONS = [
@@ -491,9 +491,9 @@ export default function VashiDenmark() {
             >
               <defs>
                 <linearGradient id="arcGrad" x1="0" x2="1">
-                  <stop offset="0" stopColor="#5a4003" stopOpacity="0" />
-                  <stop offset="0.5" stopColor="#b3810b" stopOpacity="0.9" />
-                  <stop offset="1" stopColor="#5a4003" stopOpacity="0" />
+                  <stop offset="0" stopColor="#ffffff" stopOpacity="0.3" />
+                  <stop offset="0.5" stopColor="#ffffff" stopOpacity="0.9" />
+                  <stop offset="1" stopColor="#ffffff" stopOpacity="0.3" />
                 </linearGradient>
               </defs>
 
@@ -525,7 +525,9 @@ export default function VashiDenmark() {
                       </div>
 
                       <div className={styles.centerName}>
-                        {currentCenterData.time} MINS
+                        <span>
+                          {currentCenterData.time}
+                        </span> MINS
                       </div>
 
                       <div className={styles.centerCity}>
