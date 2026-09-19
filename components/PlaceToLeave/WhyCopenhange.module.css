@@ -359,12 +359,11 @@
     z-index: 1;
     width: 100%;
     height: 100vh;
-    bottom: -10px;
-    left: 1px;
-    /* opacity: 0.3; */
+    left: 0px;
+
     object-fit: cover;
-    /* -webkit-mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%);
-    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1) 60%, rgba(0, 0, 0, 0) 100%); */
+    bottom: 0px;
+    object-position: bottom center;
 }
 
 .mobilePillars {
@@ -375,6 +374,14 @@
 
 .desktopPillars {
     display: grid;
+}
+
+.desktopImage {
+    display: block;
+}
+
+.mobileImage {
+    display: none;
 }
 
 @media (max-width: 1024px) {
@@ -474,6 +481,16 @@
 }
 
 @media (max-width: 480px) {
+    .desktopImage {
+        display: none;
+    }
+
+    .mobileImage {
+        display: block;
+    }
+
+   
+
     .iconWrap {
         width: 65px;
         height: 65px;
@@ -493,7 +510,7 @@
     }
 
     .starttext {
-        margin-top: 3rem;
+        margin-top: 1.5rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -512,12 +529,15 @@
     .Lasttext {
         display: flex;
         flex-direction: column;
-        font-size: clamp(1.1rem, 1.5vw, 1.5rem);
-        margin-left: 1%;
-        margin-top: 5%;
+        width: 100%;
+        font-size: clamp(1rem, 1.5vw, 1.5rem);
+        left: 3%;
+        bottom: 27%;
+        position: absolute;
     }
 
     .lastdesign {
+        
         margin-left: 40%;
         margin-top: -1.5%;
 

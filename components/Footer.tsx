@@ -5,18 +5,6 @@ import styles from "./Footer.module.css";
 const FooterSection = () => {
   return (
     <footer className={styles.footer}>
-      <div className={styles.footerVideoBackground}>
-        {/* Un-comment when video assets are ready
-        <video autoPlay muted loop playsInline preload="none" className={`${styles.footerVideo} ${styles.desktopVideo}`}>
-          <source src="images/footer_two.mp4" type="video/mp4" />
-        </video>
-        <video autoPlay muted loop playsInline preload="none" className={`${styles.footerVideo} ${styles.mobileVideo}`}>
-          <source src="images/foooter1.mp4" type="video/mp4" />
-        </video> 
-        */}
-        <div className={styles.videoOverlay}></div>
-      </div>
-
       <div className={styles.container}>
         <div className={styles.top}>
           {/* Brand Column */}
@@ -86,7 +74,7 @@ const FooterSection = () => {
           </div>
 
           {/* Location Map Column */}
-          <div>
+          <div className={styles.mapSection}>
             <h4 className={styles.colTitle}>Location</h4>
             <div
               className={styles.footerMap}

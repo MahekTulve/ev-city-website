@@ -501,7 +501,7 @@ export default function VashiDenmark() {
                 d="M 0 50 Q 50 5 100 50"
                 fill="none"
                 stroke="url(#arcGrad)"
-                strokeWidth="0.3"
+                strokeWidth="0.2"
               />
             </svg>
 
