@@ -166,9 +166,18 @@ export default function ZoomParallaxDemo() {
                   "#12161e",
                   "#020202",
                 ]}
+                mobileColors={[
+                  "#03050f",
+                  "#0e1420",
+                  "#222737",
+                  "#222d46",
+                  "#12161e",
+                  "#020202",
+                ]}
                 speed={0.7}
                 showParticles={isCinematicVisible}
                 particleColor="#e6c88d"
+                mobileParticleColor="#34d399"
                 particleCount={48}
                 particleLayout="text"
                 continuous={true}
@@ -244,9 +253,18 @@ export default function ZoomParallaxDemo() {
                       "#12161e",
                       "#020202",
                     ]}
+                    mobileColors={[
+                      "#03050f",
+                      "#0e1420",
+                      "#222737",
+                      "#222d46",
+                      "#12161e",
+                      "#020202",
+                    ]}
                     speed={0.7}
                     showParticles={isCinematicVisible}
                     particleColor="#e6c88d"
+                    mobileParticleColor="#34d399"
                     particleCount={48}
                     particleLayout="text"
                     continuous={true}

@@ -14,23 +14,17 @@ type ParticleType = "tiny" | "small" | "glow" | "medium" | "large";
 interface OptimizedShaderProps {
   className?: string;
   colors: string[];
+  mobileColors?: string[]; // 👈 Naya Prop: Mobile Shader Colors
   speed?: number;
   style?: React.CSSProperties;
 
   showParticles?: boolean;
   particleColor?: string;
+  mobileParticleColor?: string; // 👈 Naya Prop: Mobile Particle Color
   particleCount?: number;
 
-  /**
-   * Change this value whenever a new text slide becomes active.
-   * The canvas will generate a fresh sparkle burst.
-   */
   burstKey?: number;
-
-  /** "text" keeps particles clustered around the centre headline. */
   particleLayout?: ParticleLayout;
-
-  /** false creates one burst; true continuously respawns particles. */
   continuous?: boolean;
 }
 
@@ -85,10 +79,12 @@ const hexToRgb = (hexColor: string) => {
 export function OptimizedShader({
   className,
   colors,
+  mobileColors, // 👈 Destructure
   speed = 0.4,
   style,
   showParticles = true,
   particleColor = "#e8cf97",
+  mobileParticleColor, // 👈 Destructure
   particleCount = 38,
   burstKey = 0,
   particleLayout = "full",
@@ -98,6 +94,16 @@ export function OptimizedShader({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [preferStaticGradient, setPreferStaticGradient] = useState(false);
+  const [isMobile, setIsMobile] = useState(false); // 👈 Mobile state detect karne ke liye
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(mediaQuery.matches);
+
+    update();
+    mediaQuery.addEventListener("change", update);
+    return () => mediaQuery.removeEventListener("change", update);
+  }, []);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(
@@ -109,6 +115,11 @@ export function OptimizedShader({
     mediaQuery.addEventListener("change", update);
     return () => mediaQuery.removeEventListener("change", update);
   }, []);
+
+  // 🔴 Active Colors Decision (Mobile vs Desktop)
+  const activeColors = isMobile && mobileColors ? mobileColors : colors;
+  const activeParticleColor =
+    isMobile && mobileParticleColor ? mobileParticleColor : particleColor;
 
   useEffect(() => {
     const container = containerRef.current;
@@ -136,7 +147,7 @@ export function OptimizedShader({
     let canvasHeight = 0;
     let particles: Particle[] = [];
 
-    const rgb = hexToRgb(particleColor);
+    const rgb = hexToRgb(activeParticleColor);
     const effectiveParticleCount = preferStaticGradient
       ? Math.min(particleCount, 14)
       : particleCount;
@@ -167,7 +178,6 @@ export function OptimizedShader({
 
         if (chance < 0.87) {
           return {
-            // This replaces the old plus-shaped star with a blurred glow dot.
             type: "glow",
             radius: random(2.2, 4.2),
             opacity: random(0.16, 0.38),
@@ -225,7 +235,6 @@ export function OptimizedShader({
         const centreX = canvasWidth * 0.5;
         const centreY = canvasHeight * 0.5;
 
-        // Spread particles across the complete headline region.
         const textWidth = Math.min(canvasWidth * 0.85, 900);
         const textHeight = Math.min(canvasHeight * 0.45, 320);
 
@@ -493,10 +502,10 @@ export function OptimizedShader({
       context.clearRect(0, 0, canvasWidth, canvasHeight);
     };
   }, [
+    activeParticleColor,
     burstKey,
     continuous,
     isVisible,
-    particleColor,
     particleCount,
     particleLayout,
     preferStaticGradient,
@@ -517,7 +526,11 @@ export function OptimizedShader({
     >
       {isVisible && !preferStaticGradient && (
         <Suspense fallback={null}>
-          <MeshGradient className={className} colors={colors} speed={speed} />
+          <MeshGradient
+            className={className}
+            colors={activeColors}
+            speed={speed}
+          />
         </Suspense>
       )}
 
@@ -527,7 +540,7 @@ export function OptimizedShader({
           style={{
             position: "absolute",
             inset: 0,
-            background: `radial-gradient(circle at 28% 28%, ${colors[2] ?? colors[0]} 0%, transparent 46%), radial-gradient(circle at 72% 66%, ${colors[3] ?? colors[1] ?? colors[0]} 0%, transparent 50%), ${colors[0]}`,
+            background: `radial-gradient(circle at 28% 28%, ${activeColors[2] ?? activeColors[0]} 0%, transparent 46%), radial-gradient(circle at 72% 66%, ${activeColors[3] ?? activeColors[1] ?? activeColors[0]} 0%, transparent 50%), ${activeColors[0]}`,
           }}
         />
       )}
