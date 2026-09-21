@@ -139,8 +139,8 @@ const PlaceToLive = () => {
     }, []);
 
     const masterImage = isMobile
-        ? '/images/den_mobile_top.png'
-        : '/images/new_cut_example.png';
+        ? '/images/mobil_denmark_top.webp'
+        : '/images/new_cut_example.webp';
 
     // Text structure element
     const TextOverlay = () => (
