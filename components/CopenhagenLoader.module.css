@@ -191,7 +191,7 @@
 /* Glassmorphic Header HUD */
 .headerHud {
   position: absolute;
-  top: 15%;
+  top: 12%;
   left: 0;
   right: 0;
   display: flex;
@@ -263,13 +263,10 @@
   animation: goldShine 4s linear infinite;
   filter: drop-shadow(0 4px 15px rgba(52, 211, 153, 0.25));
   font-family: var(--font-cormorant);
-
-
 }
 
 .titleText span {
   font-family: var(--Montez);
-
 }
 
 @keyframes goldShine {
@@ -331,67 +328,50 @@
 }
 
 /* Skyline & Buildings */
+/* Realism Enhanced Shadows and Glows */
 .skyline {
   width: min(100%, 1180px);
   display: block;
-  filter: drop-shadow(0 -8px 25px rgba(52, 211, 153, 0.18));
+  filter: drop-shadow(0 -10px 20px rgba(7, 29, 46, 0.9)) drop-shadow(0 -2px 8px rgba(52, 211, 153, 0.2));
   z-index: 2;
 }
 
 .house {
-  animation: rise 0.8s cubic-bezier(0.25, 1, 0.5, 1) both;
+  animation: rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
   transform-origin: bottom center;
   transform-box: fill-box;
   will-change: transform, opacity;
 }
 
-.house:nth-of-type(1) {
-  animation-delay: 50ms;
+/* Dynamic Reflection Filter */
+.reflect {
+  animation: shimmer 2.6s ease-in-out infinite;
+  transform-origin: top center;
+  filter: blur(2px);
+  opacity: 0.35;
 }
 
-.house:nth-of-type(2) {
-  animation-delay: 100ms;
+@keyframes shimmer {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scaleY(0.9);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scaleY(1.1);
+  }
 }
 
-.house:nth-of-type(3) {
-  animation-delay: 150ms;
-}
-
-.house:nth-of-type(4) {
-  animation-delay: 200ms;
-}
-
-.house:nth-of-type(5) {
-  animation-delay: 250ms;
-}
-
-.house:nth-of-type(6) {
-  animation-delay: 300ms;
-}
-
-.house:nth-of-type(7) {
-  animation-delay: 350ms;
-}
-
-.house:nth-of-type(8) {
-  animation-delay: 400ms;
-}
-
-.house:nth-of-type(9) {
-  animation-delay: 450ms;
-}
-
-.house:nth-of-type(10) {
-  animation-delay: 500ms;
-}
-
-.house:nth-of-type(11) {
-  animation-delay: 550ms;
-}
-
-.house:nth-of-type(12) {
-  animation-delay: 600ms;
-}
+.house:nth-of-type(1) { animation-delay: 50ms; }
+.house:nth-of-type(2) { animation-delay: 100ms; }
+.house:nth-of-type(3) { animation-delay: 150ms; }
+.house:nth-of-type(4) { animation-delay: 200ms; }
+.house:nth-of-type(5) { animation-delay: 250ms; }
+.house:nth-of-type(6) { animation-delay: 300ms; }
+.house:nth-of-type(7) { animation-delay: 350ms; }
+.house:nth-of-type(8) { animation-delay: 400ms; }
+.house:nth-of-type(9) { animation-delay: 450ms; }
+.house:nth-of-type(10) { animation-delay: 500ms; }
 
 @keyframes rise {
   from {
@@ -410,9 +390,7 @@
 }
 
 @keyframes windowGlow {
-
-  0%,
-  100% {
+  0%, 100% {
     opacity: 0.75;
   }
 
@@ -437,72 +415,19 @@
   }
 }
 
-.reflect {
-  animation: shimmer 2.6s ease-in-out infinite;
-  transform-origin: top center;
-}
 
-.reflect:nth-of-type(1) {
-  animation-delay: 0ms;
-}
+.reflect:nth-of-type(1) { animation-delay: 0ms; }
+.reflect:nth-of-type(2) { animation-delay: 140ms; }
+.reflect:nth-of-type(3) { animation-delay: 280ms; }
+.reflect:nth-of-type(4) { animation-delay: 420ms; }
+.reflect:nth-of-type(5) { animation-delay: 560ms; }
+.reflect:nth-of-type(6) { animation-delay: 700ms; }
+.reflect:nth-of-type(7) { animation-delay: 840ms; }
+.reflect:nth-of-type(8) { animation-delay: 980ms; }
+.reflect:nth-of-type(9) { animation-delay: 1120ms; }
+.reflect:nth-of-type(10) { animation-delay: 1260ms; }
 
-.reflect:nth-of-type(2) {
-  animation-delay: 140ms;
-}
 
-.reflect:nth-of-type(3) {
-  animation-delay: 280ms;
-}
-
-.reflect:nth-of-type(4) {
-  animation-delay: 420ms;
-}
-
-.reflect:nth-of-type(5) {
-  animation-delay: 560ms;
-}
-
-.reflect:nth-of-type(6) {
-  animation-delay: 700ms;
-}
-
-.reflect:nth-of-type(7) {
-  animation-delay: 840ms;
-}
-
-.reflect:nth-of-type(8) {
-  animation-delay: 980ms;
-}
-
-.reflect:nth-of-type(9) {
-  animation-delay: 1120ms;
-}
-
-.reflect:nth-of-type(10) {
-  animation-delay: 1260ms;
-}
-
-.reflect:nth-of-type(11) {
-  animation-delay: 1400ms;
-}
-
-.reflect:nth-of-type(12) {
-  animation-delay: 1540ms;
-}
-
-@keyframes shimmer {
-
-  0%,
-  100% {
-    opacity: 0.12;
-    transform: scaleY(0.95);
-  }
-
-  50% {
-    opacity: 0.4;
-    transform: scaleY(1.05);
-  }
-}
 
 /* Glassmorphism Progress Footer HUD */
 .progressWrap {
@@ -562,54 +487,79 @@
   font-weight: 600;
 }
 
-@media (max-width:800px) {
+/* ===================================================
+   MOBILE & TABLET RESPONSIVE FIXES
+====================================================== */
+@media (max-width: 800px) {
   .headerHud {
-    position: absolute;
-    top: 25%;
+    top: 15%;
   }
 }
 
+/* ===================================================
+   ONLY MOBILE & TABLET RESPONSIVE FIXES
+====================================================== */
 @media (max-width: 768px) {
-  .skyline {
-    width: 180%;
-    max-width: none;
-    transform: scale(1.35);
-    transform-origin: bottom center;
-    margin-bottom: -10px;
+  .frame {
+    inset: 10px;
   }
 
+  
+  .moon {
+    width: 55px;
+    height: 55px;
+    top: 5%;
+    right: 6%;
+  }
+
+  .titleText {
+    font-size: clamp(22px, 5vw, 32px);
+    letter-spacing: 0.2em;
+  }
+
+  .ruleLine {
+    width: 40px;
+  }
+}
+
+@media (max-width: 475px) {
+
+  .house:nth-of-type(2),
+  .house:nth-of-type(9),
+  .house:nth-of-type(10),
+  .reflect:nth-of-type(2),
+  .reflect:nth-of-type(9),
+  .reflect:nth-of-type(10) {
+    display: none ;
+  }
   .moon {
     width: 70px;
     height: 70px;
+    top: 10%;
+    right: 10%;
   }
-
-  .titleText {
-    font-size: clamp(24px, 6vw, 36px);
-    letter-spacing: 0.15em;
-    font-weight: 600;
-  }
-}
-
-@media (max-width: 425px) {
   .skyline {
-    width: 200%;
-    transform: scale(1.55);
-    transform-origin: bottom center;
-    margin-bottom: -15px;
+    width: 180%;
+    max-width: 180%;
+    transform: scaleY(1.5) translateY(-25px);
   }
 
   .titleText {
- 
-    max-width: 300px;
+    max-width: 280px;
+    font-size: 20px;
   }
 
   .subtitle {
-    letter-spacing: 0.3em;
-    font-size: 10px;
+    letter-spacing: 0.25em;
+    font-size: 9px;
   }
 
   .progressWrap {
-    bottom: 16px;
-    padding: 10px 16px;
+    bottom: 18px;
+    padding: 8px 14px;
+    width: 85vw;
+  }
+    .headerHud {
+    top: 25%;
   }
 }

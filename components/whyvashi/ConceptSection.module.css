@@ -209,6 +209,9 @@
     right: -20%;
     bottom: -6%;
   }
+  .eyebrow {
+  font-size: 0.8rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

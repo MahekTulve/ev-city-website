@@ -1245,6 +1245,11 @@
     margin-bottom: 7%;
   }
 
+  .preloaderFoot {
+    bottom: 2rem;
+    font-size: 0.6rem;
+  }
+
   .fivenum {
     margin-left: 15px;
 

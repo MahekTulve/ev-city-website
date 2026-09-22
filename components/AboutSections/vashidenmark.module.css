@@ -753,6 +753,7 @@ font-family: var(--font-jura);
 @media (max-width: 600px) {
   .cardrow {
     margin-bottom: 0;
+    margin-top: 10%;
   }
 
   .desktopVideo {
@@ -771,7 +772,7 @@ font-family: var(--font-jura);
   }
 
   .topLabel {
-    font-size: 10px;
+    font-size: 12px;
     letter-spacing: 0.08em;
   }
 
@@ -855,7 +856,7 @@ font-family: var(--font-jura);
   }
 
   .nodeSub {
-    font-size: 8.5px;
+    font-size: 9px;
     white-space: normal;
     line-height: 1.2;
   }
@@ -867,7 +868,7 @@ font-family: var(--font-jura);
     transform: translateX(-50%);
     gap: 8px;
     padding: 4px 10px;
-    font-size: 10px;
+    font-size: 12px;
     width: max-content;
   }
 
