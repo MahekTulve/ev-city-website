@@ -669,6 +669,19 @@
   .schoolIcon {
     left: -2;
   }
+
+  .body {
+    font-size: 14px;
+  }
+
+  .kicker {
+    font-weight: 600;
+
+  }
+
+  .bodyStrong {
+    font-size: 0.92rem;
+  }
 }
 
 @media (max-width: 375px) {
@@ -715,4 +728,14 @@
     letter-spacing: 0.15em;
 
   }
+
+  .kicker {
+    text-align: center;
+  }
+
+  .bodyStrong em {
+    font-size: 2rem;
+
+  }
+
 }

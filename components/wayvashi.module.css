@@ -1141,6 +1141,15 @@
     top: 97vh;
   }
 
+  .taglineWord {
+    font-size: 0.9rem;
+  }
+
+  .dayNightButtonContainer {
+
+    right: -10%;
+  }
+
   .introCrown {
     width: min(220px, 64vw);
     gap: 0.45rem;
@@ -1151,7 +1160,7 @@
   }
 
   .introEyebrow {
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 0.28em;
   }
 
@@ -1165,7 +1174,7 @@
   }
 
   .introNext {
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 0.24em;
   }
 
@@ -1174,7 +1183,7 @@
   }
 
   .introSubtitle {
-    font-size: 1rem;
+    font-size: 1.15rem;
     line-height: 1.22;
   }
 
@@ -1194,7 +1203,7 @@
 
   .recordSubtitle,
   .subtitleHighlight {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   .subtitleHighlightRow {

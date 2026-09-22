@@ -530,7 +530,7 @@
         display: flex;
         flex-direction: column;
         width: 100%;
-        font-size: clamp(1rem, 1.5vw, 1.5rem);
+        font-size: clamp(1.1rem, 1.5vw, 1.5rem);
         left: 3%;
         bottom: 27%;
         position: absolute;
