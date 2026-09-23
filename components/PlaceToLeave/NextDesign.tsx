@@ -11,6 +11,9 @@ import {
   Coffee,
   ShoppingBag,
   Laptop2,
+  Dumbbell,
+  Utensils,
+  Sparkles,
 } from "lucide-react";
 import { PiUsersThreeLight } from "react-icons/pi";
 
@@ -91,6 +94,17 @@ const wedgeData = [
     iy: Math.round(my * 100) / 100 - IMG_BOX / 2,
   };
 });
+const places = [
+  { image: wedgePark, label: "Parks & Nature", icon: TreePine },
+  { image: wedgeCafe, label: "Cafés & Restaurants", icon: Coffee },
+  { image: wedgeCulture, label: "Culture & Community", icon: Users },
+  { image: wedgeWork, label: "Workspaces", icon: Laptop2 },
+  { image: wedgeRetail, label: "Retail & Services", icon: ShoppingBag },
+  { image: wedgeCulture, label: "Fitness & Sports", icon: Dumbbell },
+  { image: wedgePark, label: "Fine Dining", icon: Utensils },
+  { image: wedgeWork, label: "Entertainment", icon: Sparkles },
+
+];
 const extraIcons = [
   {
     id: "school",
@@ -364,7 +378,85 @@ export default function NextDesign() {
 
 
         </div>
+        <div className={styles["mobile-experience"]} aria-label="Five-minute neighborhood">
+          <div className={styles["mobile-wheel"]}>
+            <div className={styles["mobile-orbit"]}>
+              <svg viewBox="0 0 640 640" className={styles["mobileSvg"]}>
+                <defs>
+                  {places.map((_, index) => {
+                    const angleSize = 360 / places.length;
+                    const a0 = index * angleSize - 90;
+                    const a1 = a0 + angleSize - 5;
+                    const rIn = 130;
+                    const rOut = 315;
+
+                    const p = (deg: number, r: number) => {
+                      const rad = (deg * Math.PI) / 180;
+                      return [320 + r * Math.sin(rad), 320 - r * Math.cos(rad)];
+                    };
+
+                    const [x0, y0] = p(a0, rOut);
+                    const [x1, y1] = p(a1, rOut);
+                    const [x2, y2] = p(a1, rIn);
+                    const [x3, y3] = p(a0, rIn);
+                    const large = a1 - a0 > 180 ? 1 : 0;
+
+                    const pathD = `M ${x0} ${y0} A ${rOut} ${rOut} 0 ${large} 1 ${x1} ${y1} L ${x2} ${y2} A ${rIn} ${rIn} 0 ${large} 0 ${x3} ${y3} Z`;
+
+                    return (
+                      <clipPath key={`mobile-clip-${index}`} id={`mobile-wedge-${index}`}>
+                        <path d={pathD} />
+                      </clipPath>
+                    );
+                  })}
+                </defs>
+
+                {places.map(({ image, label }, index) => (
+                  <g key={`mobile-img-${index}`}>
+                    <image
+                      href={typeof image === "string" ? image : image.src}
+                      x={0}
+                      y={0}
+                      width={640}
+                      height={640}
+                      preserveAspectRatio="xMidYMid slice"
+                      clipPath={`url(#mobile-wedge-${index})`}
+                    />
+                  </g>
+                ))}
+              </svg>
+
+              {/* Rotating Icons, Connecting Dashed Line & Labels */}
+              {places.map(({ label, icon: Icon }, index) => {
+                const angle = (360 / places.length) * index;
+                return (
+                  <div
+                    className={styles["mobile-place"]}
+                    style={{ "--item-angle": `${angle}deg` } as React.CSSProperties}
+                    key={label}
+                  >
+                    <div className={styles["mobile-place-upright"]}>
+                      <div className={styles["mobile-label-wrapper"]}>
+                        <span className={styles["place-icon"]}>
+                          <Icon size={14} strokeWidth={1.8} />
+                        </span>
+                        <span className={styles["mobile-label-line"]} />
+                        <span className={styles["mobile-label-text"]}>{label}</span>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            <div className={styles["medallion"]}>
+              <span className={styles["big5"]}>5'</span>
+              <span className={styles["minutes"]}>Minutes</span>
+            </div>
+          </div>
+        </div>
       </section>
+
     </main>
   );
 }
