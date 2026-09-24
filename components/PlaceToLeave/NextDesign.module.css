@@ -716,7 +716,16 @@
   .bodyStrong {
     font-size: 0.92rem;
   }
+
+  .body,
+  .bodyStrong {
+    margin: 0 0 0.1rem;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
 }
+
 @media (max-width: 425px) {
   .hero {
     gap: 1px;
@@ -731,10 +740,31 @@
     margin-right: 32%;
   }
 
+  .body {
+    font-size: 13px;
+    line-height: 1rem;
+  }
+
+  @keyframes mobile-image-counter-spin {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(-360deg);
+    }
+  }
+
+  .mobile-image-content {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: mobile-image-counter-spin 50s linear infinite;
+  }
+
   .mobile-experience {
     position: relative;
     display: block;
-    height: 55vh;
+    height: 70vh;
     overflow: hidden;
   }
 
@@ -757,36 +787,42 @@
   .mobile-orbit {
     position: absolute;
     inset: 0;
-    animation: orbit-spin 30s linear infinite;
+    animation: orbit-spin 50s linear infinite;
   }
 
-  /* Items Positioning along Radius */
   .mobile-place {
     position: absolute;
     top: 50%;
     left: 50%;
     width: 0;
     height: 0;
-    transform: rotate(var(--item-angle)) translateY(-230px);
+    transform: rotate(var(--item-angle)) translateY(-240px);
   }
 
   .mobile-place-upright {
     position: absolute;
-    transform: translate(-50%, -50%);
-    animation: keep-upright 30s linear infinite;
+    transform: translate(-60%, -50%);
   }
 
-  /* Label, Icon & Dashed Line Row */
   .mobile-label-wrapper {
     display: flex;
+    flex-direction: row;
     align-items: center;
     gap: 0.35rem;
     white-space: nowrap;
   }
 
+  .mobile-label-rotate {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(270deg);
+    transform-origin: center center;
+  }
+
   .mobile-label-wrapper .place-icon {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     border: 1.5px solid var(--gold-soft, #b1904f);
     border-radius: 50%;
     background: #fff;
@@ -799,19 +835,24 @@
   }
 
   .mobile-label-line {
-    width: 25px;
-    /* Dashed line link length */
+    width: 15px;
     height: 1px;
+    border: 0;
     border-top: 1px dashed var(--gold-soft, #b1904f);
     flex-shrink: 0;
   }
 
   .mobile-label-text {
-    font-size: 0.55rem;
+    font-size: 0.52rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: var(--muted, #1d1b18);
+
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+    width: 70px;
   }
 
   .big5 {
@@ -822,6 +863,36 @@
   .minutes {
     font-size: 0.9rem;
     margin-right: 2%;
+
+  }
+
+  .title {
+    font-size: 2.1rem;
+  }
+
+  .titleGold {
+    font-size: 1.2rem;
+
+  }
+
+  .ruleRow {
+    margin: 0.1rem 0 0.1rem;
+  }
+
+  .kicker {
+    font-size: 0.7rem;
+  }
+
+  .blockRow {
+    margin-bottom: 0.3rem;
+  }
+
+  .bodyStrong {
+    font-size: 0.85rem;
+  }
+
+  .bodyStrong em {
+    font-size: 1.3rem;
 
   }
 }
@@ -836,13 +907,20 @@
 
 @media (max-width: 375px) {
   .mobile-experience {
-    height: 50vh;
+    height: 60vh;
+  }
+ .mobile-place {
+    transform: rotate(var(--item-angle)) translateY(-220px);
+  }
+  .title {
+    font-size: 1.8rem;
   }
 
   .mobile-wheel {
     width: 350px;
     height: 350px;
   }
+
   .wheel {
     margin-right: 7%;
     margin-left: -1%;
@@ -889,9 +967,6 @@
     text-align: center;
   }
 
-  .bodyStrong em {
-    font-size: 2rem;
 
-  }
 
 }
