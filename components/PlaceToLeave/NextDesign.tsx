@@ -233,7 +233,6 @@ const iconItemVariants: Variants = {
   },
 };
 
-// Bottom Nyhavn Image Animation (Fade Up from Bottom)
 const imageVariants: Variants = {
   hidden: { opacity: 0, y: 50 },
   visible: {
@@ -411,37 +410,61 @@ export default function NextDesign() {
                   })}
                 </defs>
 
-                {places.map(({ image, label }, index) => (
-                  <g key={`mobile-img-${index}`}>
-                    <image
-                      href={typeof image === "string" ? image : image.src}
-                      x={0}
-                      y={0}
-                      width={640}
-                      height={640}
-                      preserveAspectRatio="xMidYMid slice"
+                {places.map(({ image, label }, index) => {
+                  const angleSize = 360 / places.length;
+                  const angle = index * angleSize - 90 + (angleSize - 5) / 2;
+
+                  const rad = (angle * Math.PI) / 180;
+
+                  const imageSize = 320;
+                  const radius = 222;
+
+                  const centerX = 320 + radius * Math.sin(rad);
+                  const centerY = 320 - radius * Math.cos(rad);
+
+                  return (
+                    <g
+                      key={`mobile-img-${index}`}
                       clipPath={`url(#mobile-wedge-${index})`}
-                    />
-                  </g>
-                ))}
+                    >
+                      <g className={styles["mobile-image-content"]}>
+                        <image
+                          href={typeof image === "string" ? image : image.src}
+                          x={centerX - imageSize / 2}
+                          y={centerY - imageSize / 2}
+                          width={imageSize}
+                          height={imageSize}
+                          preserveAspectRatio="xMidYMid slice"
+                        />
+                      </g>
+                    </g>
+                  );
+                })}
               </svg>
 
-              {/* Rotating Icons, Connecting Dashed Line & Labels */}
               {places.map(({ label, icon: Icon }, index) => {
-                const angle = (360 / places.length) * index;
+                const angleSize = 360 / places.length;
+                const midAngle = index * angleSize + angleSize / 2;
+
                 return (
                   <div
                     className={styles["mobile-place"]}
-                    style={{ "--item-angle": `${angle}deg` } as React.CSSProperties}
+                    style={{ "--item-angle": `${midAngle}deg` } as React.CSSProperties}
                     key={label}
                   >
                     <div className={styles["mobile-place-upright"]}>
-                      <div className={styles["mobile-label-wrapper"]}>
-                        <span className={styles["place-icon"]}>
-                          <Icon size={14} strokeWidth={1.8} />
-                        </span>
-                        <span className={styles["mobile-label-line"]} />
-                        <span className={styles["mobile-label-text"]}>{label}</span>
+                      <div className={styles["mobile-label-rotate"]}>
+                        <div className={styles["mobile-label-wrapper"]}>
+                          <span className={styles["place-icon"]}>
+                            <Icon size={14} strokeWidth={1.8} />
+                          </span>
+
+                          <span className={styles["mobile-label-line"]} />
+
+                          <span className={styles["mobile-label-text"]}>
+                            {label}
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
