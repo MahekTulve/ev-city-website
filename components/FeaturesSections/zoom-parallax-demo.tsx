@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import styles from "./FeaturesSection.module.css";
+import EvCityHero from "../EvCityHero";
 
 const CinematicText = lazy(() => import("../AboutSections/cinematicTex"));
 const DenmarkToVashi = lazy(() => import("../AboutSections/DenmarkToVashi"));
@@ -278,6 +279,10 @@ export default function ZoomParallaxDemo() {
             <div className={styles.sharedSequenceContent} data-section>
               <DenmarkToVashi />
             </div>
+            <div data-section>
+              <EvCityHero />
+            </div>
+
           </section>
         </SlideOverStack>
       </DeferredMount>

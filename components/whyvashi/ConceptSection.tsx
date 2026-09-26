@@ -137,7 +137,7 @@ export default function ConceptSection({
 
         <motion.h2 className={styles["headline"]} variants={fadeInUpVariants}>
           In today’s evolving era EV HOMES has made sure Vashi shows the
-          timeless development, a city which defines the term “One Stop Shop”
+          timeless development, a city which defines the term <br/> “One Stop Shop”
         </motion.h2>
 
         <motion.p className={styles["body"]} variants={fadeInUpVariants}>

@@ -397,11 +397,11 @@ export default function LandingPage({ isNight }: LandingPageProps) {
 
         <motion.span className={styles['preloaderRule']} {...getPreloaderMotionProps(0.5)} />
 
-        <motion.p className={styles['preloaderFoot']} {...getPreloaderMotionProps(0.6)}>
+        {/* <motion.p className={styles['preloaderFoot']} {...getPreloaderMotionProps(0.6)}>
           ev homes
           <br />
           A place to return to.
-        </motion.p>
+        </motion.p> */}
 
         <div className={styles['arch']} ref={archRef}>
           <div className={styles['archInnerWrapper']}>{renderMainSections()}</div>
