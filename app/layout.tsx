@@ -9,7 +9,11 @@ const amsterdamFont = localFont({
   variable: '--font-amsterdam',
   display: 'swap',
 });
-
+const amsterdamFontFour = localFont({
+  src: '../public/fonts/AmsterdamFourSlantTtf-4B4yl.ttf',
+  variable: '--font-amsterdamFour',
+  display: 'swap',
+});
 // variable create karein
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -48,7 +52,7 @@ export default function RootLayout({
         <body
           suppressHydrationWarning={true}
           /* Dono font variables pass kar diye */
-          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable}`}
+          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable} ${amsterdamFontFour.variable}`}
           style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}
         >
           <main>

@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import styles from "./DenmarkToVashi.module.css";
 import GlowingTextReveal from "../ev-city/GlowingReveal";
+import { Baby, Building2, Dumbbell, Flower2, Footprints, Gamepad2, Heart, House, Palmtree, ShoppingBag, Sparkles, Trees, Users, Waves } from "lucide-react";
 
 type ElementType = "crane" | "mixer" | "blueprint" | "hardhat" | "frame";
 
@@ -295,32 +296,32 @@ function AmenityIcon({ type }: { type: string }) {
       );
     case "03": // live
       return (
-       <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-        <polyline points="9 22 9 12 15 12 15 22" />
-      </svg>
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
       );
     case "04": // work
       return (
         <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-        <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
-      </svg>
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+        </svg>
       );
     case "05": // belong
       return (
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-        <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-      </svg>
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+          <circle cx="9" cy="7" r="4" />
+          <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+          <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+        </svg>
       );
     case "06": // unwind
       return (
-     <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-    </svg>
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#d4af37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
+        </svg>
       );
     default:
       return null;
@@ -341,19 +342,49 @@ export default function DenmarkToVashi() {
     offset: ["start start", "end end"],
   });
 
-  const amenitiesData = [
-    { num: "01", title: "WALK", copy: "Everyday destinations within easy reach.", align: "left" },
-    { num: "02", title: "CONNECT", copy: "Spaces that bring people together.", align: "right" },
-    { num: "03", title: "LIVE", copy: "Homes designed around everyday comfort.", align: "left" },
-    { num: "04", title: "WORK", copy: "Less time commuting. More time living.", align: "right" },
-    { num: "05", title: "BELONG", copy: "A neighbourhood with a sense of community.", align: "left" },
-    { num: "06", title: "THRIVE", copy: "Wellness amenities built for a healthy lifestyle." },
+const amenitiesData = [
+    {
+      num: "01", image: "/images/clubhouse-lobby.jpg", imageAlt: "lobby", title: "Elevated Amenities",
+      copy: "Rooftop gardens, infinity pools and sky-level sports terraces offer elevated greenery, recreation and resort-style relaxation.",
+      align: "left",
+     
+    },
+    {
+      num: "02", image: "/images/clubhouse-pool.jpg", imageAlt: "pool", title: "Clubhouse Experiences",
+      copy: "Resort-style clubhouses with plush lounges, recreation zones and fitness spaces crafted for effortless relaxation and connection",
+      align: "right",
+     
+    },
+    {
+      num: "03", image: "/images/sky-gym.jpg", imageAlt: "gym", title: "Everyday Ease",
+      copy: "A refined setting where convenience, comfort and connectivity align to deliver an effortless daily experience. Homes designed around everyday comfort.",
+      align: "left",
+     
+    },
+    {
+      num: "04", image: "/images/township.jpg", imageAlt: "township", title: "A Thriving Township",
+      copy: "A vibrant mix of residential, retail and commercial spaces designed for a complete, connected lifestyle.",
+      align: "right",
+     
+    },
+    {
+      num: "05", image: "/images/holistic-wellness.jpg", imageAlt: "wellness center", title: "Holistic Wellness",
+      copy: "Dedicated spaces for mind, body, and soul designed to restore balance with tranquil yoga decks and hydrotherapy spa facilities.",
+      align: "left",
+      
+    },
+    {
+      num: "06", image: "/images/kids-play-zone.jpg", imageAlt: "kids area", title: "Young Explorers",
+      copy: "Safe, immersive, and vibrant environments thoughtfully designed for kids to learn, play, and spark creative curiosity.",
+      align: "right",
+     
+    },
+
   ];
 
   return (
     <div ref={containerRef} className={styles.cityscape}>
 
-      {/* 1. GRAND CENTER-ALIGNED DESIGNER HERO SECTION */}
       <section className={`${styles.section} ${styles.hero}`}>
         <div className={styles.heroContentWrapper}>
 
@@ -432,8 +463,10 @@ export default function DenmarkToVashi() {
                   key={item.num}
                   className={`${styles.zigzagRow} ${isLeft ? styles.rowLeft : styles.rowRight}`}
                 >
+
                   <motion.div
-                    className={styles.amenityCardLuxury}
+                    className={`${styles.amenityCardLuxury} ${isLeft ? styles.CardLuxuryLeft : styles.CardLuxuryRight}`}
+
                     style={{
                       // Left card left side se open hoga, Right card right side se
                       transformOrigin: isLeft ? "left center" : "right center",
@@ -452,27 +485,23 @@ export default function DenmarkToVashi() {
                       ease: [0.25, 1, 0.5, 1], // Smooth Video Reveal Motion
                     }}
                   >
-                    <div className={styles.cornerTL} />
-                    <div className={styles.cornerBR} />
+                    <img
+                      className={styles.image}
+                      src={item.image}
+                      alt={item.imageAlt}
+                      width={1536}
+                      height={768}
 
-                    {/* Background Glow */}
-                    <div className={styles.cardGlowOverlay} />
-
-                    {/* Card Header */}
-                    <div className={styles.cardHeader}>
-                      <div className={styles.iconBadge}>
-                        <AmenityIcon type={item.num} />
-                      </div>
-                      <span className={styles.cardNumber}>{item.num}</span>
+                    />
+                    <div
+                      className={`${styles.copyPanel} ${isLeft ? styles.copyPanelLeft : styles.copyPanelRight}`}>
+                      <span className={styles.number}>{item.num}</span>
+                      <h2 className={styles.heading}>{item.title}</h2>
+                      <p className={styles.description}>{item.copy}</p>
+                      
                     </div>
 
-                    {/* Card Content */}
-                    <div className={styles.cardBody}>
-                      <h3 className={styles.cardTitle}>{item.title}</h3>
-                      <div className={styles.titleUnderline} />
-                      <p className={styles.cardDesc}>{item.copy}</p>
-                    </div>
-
+                  
                   </motion.div>
                 </div>
               );
@@ -493,12 +522,12 @@ export default function DenmarkToVashi() {
       </div>
 
       {/* SKYLINE */}
-      <div className={styles.skyline}>
+      {/* <div className={styles.skyline}>
         {skylineBuildings.map((config, i) => (
           <Building key={i} config={config} />
         ))}
         <div className={styles.ground} />
-      </div>
+      </div> */}
     </div>
   );
 }

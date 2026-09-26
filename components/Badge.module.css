@@ -141,7 +141,9 @@
   border-bottom: 1px solid #b98f2c;
   rotate: 45deg;
 }
-
+.railArrowUp {
+  transform: rotate(180deg);
+}
 @media screen and (max-width: 768px) {
   .badge {
     width: 3.5rem;

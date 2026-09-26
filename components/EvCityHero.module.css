@@ -1,0 +1,291 @@
+.hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: oklch(0.99 0.012 88);
+    color: oklch(0.23 0.035 266);
+}
+
+.landscape {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+}
+
+.topbar {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 36px 3.55% 0;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-weight: 600;
+}
+
+.wordmark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    letter-spacing: .37em;
+    white-space: nowrap;
+}
+
+.brandRule,
+.locationRule {
+    display: inline-block;
+    height: 1px;
+    width: 80px;
+    background: oklch(0.73 0.1 75 / 55%);
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: oklch(0.95 0.018 75);
+    font-family: var(--font-jura);
+    font-size: 7px;
+    font-weight: 600;
+    letter-spacing: .44em;
+    white-space: nowrap;
+}
+
+.locationRule {
+    width: 40px;
+    background: oklch(1 0 0 / 37%);
+}
+
+.content {
+    position: relative;
+    width: 100%;
+    padding: 3rem 7rem;
+}
+
+.headline {
+    margin: 0;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(44px, 4.3vw, 68px);
+    font-weight: 400;
+    line-height: .98;
+    letter-spacing: -.018em;
+    white-space: nowrap;
+    margin-top: 2%;
+}
+
+.headline span {
+    display: block;
+}
+
+.headline .secondLine {
+    margin-left: 6.5%;
+}
+
+.headline em {
+    color: oklch(0.48 0.065 65);
+    font-style: normal;
+}
+
+.shortRule {
+    display: block;
+    width: 62px;
+    height: 1px;
+    margin: 10px 0 25px 11.1%;
+    background: oklch(0.56 0.07 65);
+}
+
+.intro {
+    margin-left: 12px;
+}
+
+.intro p {
+    margin: 0;
+    font-family: var(--font-jura);
+    font-size: clamp(13px, 1.12vw, 16px);
+    font-weight: 500;
+    letter-spacing: .055em;
+    line-height: 1.56;
+}
+
+.poem {
+    display: flex;
+    flex-direction: column;
+    margin-top: -12px;
+    color: oklch(0.48 0.065 65);
+    font-family: var(--font-amsterdamFour);
+    letter-spacing: 0.2rem;
+    font-size: 2.2rem;
+    line-height: 2.5rem;
+    /* transform: rotate(-3deg); */
+    transform-origin: top left;
+    margin-left: 14%;
+}
+
+.poem span {
+    display: block;
+}
+
+.signoff {
+    margin-top: 45px;
+    margin-left: 12px;
+}
+
+.signoff p {
+    margin: 0;
+    font-family: var(--font-cormorant);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .35em;
+}
+
+.signature {
+    /* margin: 5px 0 -19px 4px; */
+    font-family: var(--font-amsterdamFour);
+    font-size: 2.5rem;
+    line-height: 7rem;
+    letter-spacing: 0.2rem;
+}
+
+.signatureRule {
+    display: block;
+    width: 80px;
+    height: 1px;
+    margin-left: 76px;
+    background: oklch(0.73 0.1 75 / 55%);
+}
+
+@media (max-width: 900px) {
+    .landscape {
+        object-position: 62% center;
+    }
+
+    .hero::after {
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        content: "";
+        background: linear-gradient(90deg, oklch(0.99 0.012 88) 0%, oklch(0.99 0.012 88 / 82%) 50%, transparent 100%);
+    }
+
+    .headline {
+        font-size: clamp(33px, 5.1vw, 48px);
+    }
+
+    .content {
+        padding-top: 14vh;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        min-height: 100svh;
+    }
+
+    .landscape {
+        object-position: 61% center;
+    }
+
+    .hero::after {
+        background: linear-gradient(90deg, oklch(0.99 0.012 88) 0%, oklch(0.99 0.012 88 / 82%) 67%, transparent 130%);
+    }
+
+    .topbar {
+        padding: 26px 6% 0;
+    }
+
+    .wordmark {
+        font-size: 12px;
+        letter-spacing: .28em;
+    }
+
+    .brandRule {
+        width: 26px;
+    }
+
+    .location {
+        font-size: 6px;
+        letter-spacing: .16em;
+    }
+
+    .locationRule {
+        display: none;
+    }
+
+    .content {
+        padding: clamp(82px, 14vh, 132px) 6% 48px;
+    }
+
+    .headline {
+        font-size: clamp(33px, 9vw, 47px);
+        line-height: 1.02;
+        white-space: normal;
+    }
+
+    .headline span {
+        max-width: 95%;
+    }
+
+    .headline .secondLine {
+        margin: 5px 0 0 11%;
+    }
+
+    .shortRule {
+        margin: 22px 0 25px 25%;
+    }
+
+    .intro {
+        margin-left: 2%;
+    }
+
+    .intro p {
+        font-size: 13px;
+        letter-spacing: .02em;
+    }
+
+    .poem {
+        font-size: 39px;
+        margin-top: 22px;
+    }
+
+    .signoff {
+        margin: 58px 0 0 2%;
+    }
+
+    .signoff p {
+        font-size: 9px;
+        letter-spacing: .28em;
+    }
+
+    .signature {
+        font-size: 76px;
+    }
+}
+
+@media (max-width: 370px) {
+    .location {
+        max-width: 120px;
+        text-align: right;
+        line-height: 1.5;
+        white-space: normal;
+    }
+
+    .headline {
+        font-size: 31px;
+    }
+
+    .intro p {
+        font-size: 12px;
+    }
+
+    .poem {
+        font-size: 35px;
+    }
+
+    .signoff {
+        margin-top: 35px;
+    }
+}

@@ -34,7 +34,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
       if (cancelled) return;
 
       instance = new LenisConstructor({
-        duration: 5,
+        duration: 3,
         easing: (t) => (t === 1 ? 1 : 1 - Math.pow(2, -10 * t)),
         smoothWheel: true,
         touchMultiplier: 1.8,

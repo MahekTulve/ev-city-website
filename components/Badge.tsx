@@ -7,6 +7,8 @@ export default function Badge() {
   const ringRef = useRef<SVGSVGElement | null>(null);
   const badgeContainerRef = useRef<HTMLDivElement | null>(null);
   const railProgressRef = useRef<HTMLDivElement | null>(null);
+  const railRef = useRef<HTMLDivElement | null>(null);
+  const hideTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [activeSection, setActiveSection] = useState("00");
   const [totalSections, setTotalSections] = useState(0);
 
@@ -60,6 +62,22 @@ export default function Badge() {
 
       if (delta !== 0) {
         currentDirection = delta < 0 ? -1 : 1;
+        if (railRef.current) {
+          railRef.current.style.opacity = "1";
+          railRef.current.style.pointerEvents = "auto";
+        }
+
+        // Reset 3-second hide timer
+        if (hideTimerRef.current) {
+          clearTimeout(hideTimerRef.current);
+        }
+
+        hideTimerRef.current = setTimeout(() => {
+          if (railRef.current) {
+            railRef.current.style.opacity = "0";
+            railRef.current.style.pointerEvents = "none";
+          }
+        }, 1000);
         const velocity = (Math.abs(delta) / elapsed) * 1000;
         const speedBoost = Math.min(1 + velocity / 450, 2.5);
         ringAnimation.playbackRate = currentDirection * speedBoost;
@@ -124,21 +142,21 @@ export default function Badge() {
     const footer = document.querySelector("footer");
     const footerObserver = footer
       ? new IntersectionObserver(
-          ([entry]) => {
-            if (!badgeContainerRef.current) return;
+        ([entry]) => {
+          if (!badgeContainerRef.current) return;
 
-            const shouldHide = entry.isIntersecting;
-            badgeContainerRef.current.style.opacity = shouldHide ? "0" : "1";
-            badgeContainerRef.current.style.pointerEvents = shouldHide
-              ? "none"
-              : "auto";
-          },
-          {
-            root: null,
-            rootMargin: "0px 0px -20% 0px",
-            threshold: 0,
-          },
-        )
+          const shouldHide = entry.isIntersecting;
+          badgeContainerRef.current.style.opacity = shouldHide ? "0" : "1";
+          badgeContainerRef.current.style.pointerEvents = shouldHide
+            ? "none"
+            : "auto";
+        },
+        {
+          root: null,
+          rootMargin: "0px 0px -20% 0px",
+          threshold: 0,
+        },
+      )
       : null;
 
     if (footer && footerObserver) {
@@ -175,7 +193,7 @@ export default function Badge() {
   const currentIndex = parseInt(activeSection, 10);
   const isLastSection = totalSections > 0 && currentIndex >= totalSections - 1;
   const nextSection = isLastSection
-    ? "END"
+    ? ""
     : String(currentIndex + 1).padStart(2, "0");
 
   const handleBadgeClick = () => {
@@ -213,14 +231,17 @@ export default function Badge() {
         />
       </div>
 
-      <div className={Style.rail} aria-hidden="true">
+      <div ref={railRef} className={Style.rail} aria-hidden="true">
         <span className={Style.railCount}>{activeSection}</span>
         <div className={Style.railLine}>
           <div ref={railProgressRef} className={Style.railLineProgress} />
         </div>
         <span className={Style.nextnum}>{nextSection}</span>
         <span className={Style.railLabel}>Scroll</span>
-        <span className={Style.railArrow} />
+        <span
+          className={`${Style.railArrow} ${isLastSection ? Style.railArrowUp : ""
+            }`}
+        />
       </div>
     </div>
   );
