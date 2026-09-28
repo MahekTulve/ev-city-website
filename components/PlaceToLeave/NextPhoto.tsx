@@ -72,12 +72,42 @@ export default function NextPhoto() {
                     viewport={{ once: false, amount: 0.3 }}
                     variants={containerVariants}
                 >
-                    <motion.h3
+                    <motion.div
                         className={styles.parabottom}
                         variants={itemVariants}
                     >
-                        One city changed the way we think about distance..
-                    </motion.h3>
+                        <p className={styles.oneCity}>
+                            <span className={styles.oneCitySPan}>
+                                One city
+                            </span>
+
+                            <span className={styles.changed}>
+                                changed
+                            </span>
+                        </p>
+                        <p className={styles.paradist}>
+                            the way we think about
+                            <span> Distance...</span>
+                        </p>
+                    </motion.div>
+                    <motion.div
+                        className={styles.parabottomMobile}
+                        variants={itemVariants}
+                    >
+                        <div className={styles.mobileWrapper}>
+                            <div className={styles.oneCityMobil}>
+                                <p>One City</p>
+                                <div className={styles.linedev}></div>
+                            </div>
+                            <h1 className={styles.changedMobile}>
+                                changed
+                            </h1>
+                        </div>
+                        <p className={styles.paradistmobile}>
+                            the way we think about
+                            <span> Distance...</span>
+                        </p>
+                    </motion.div>
                 </motion.div>
             </section>
 

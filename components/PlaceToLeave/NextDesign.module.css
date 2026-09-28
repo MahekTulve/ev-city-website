@@ -741,8 +741,8 @@
   }
 
   .body {
-    font-size: 13px;
-    line-height: 1rem;
+    font-size: 16px;
+    line-height: 1.1rem;
   }
 
   @keyframes mobile-image-counter-spin {
@@ -758,13 +758,13 @@
   .mobile-image-content {
     transform-box: fill-box;
     transform-origin: center;
-    animation: mobile-image-counter-spin 50s linear infinite;
+    animation: mobile-image-counter-spin 30s linear infinite;
   }
 
   .mobile-experience {
     position: relative;
     display: block;
-    height: 70vh;
+    height: 60vh;
     overflow: hidden;
   }
 
@@ -772,8 +772,8 @@
     position: absolute;
     top: 50%;
     left: 0;
-    width: 400px;
-    height: 400px;
+    width: 380px;
+    height: 380px;
     transform: translate(-45%, -50%);
     border-radius: 50%;
   }
@@ -787,7 +787,7 @@
   .mobile-orbit {
     position: absolute;
     inset: 0;
-    animation: orbit-spin 50s linear infinite;
+    animation: orbit-spin 30s linear infinite;
   }
 
   .mobile-place {
@@ -867,12 +867,12 @@
   }
 
   .title {
-    font-size: 2.1rem;
+    font-size: 2.9rem;
   }
 
   .titleGold {
-    font-size: 1.2rem;
-
+    font-size: 1.4rem;
+    margin-bottom: -1%;
   }
 
   .ruleRow {
@@ -880,7 +880,7 @@
   }
 
   .kicker {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 
   .blockRow {
@@ -889,6 +889,8 @@
 
   .bodyStrong {
     font-size: 0.85rem;
+    margin-top: 4%;
+    margin-bottom: 4%;
   }
 
   .bodyStrong em {
@@ -909,11 +911,20 @@
   .mobile-experience {
     height: 60vh;
   }
- .mobile-place {
+ .kicker {
+    font-size: 0.7rem;
+  }
+  .body {
+    font-size: 14px;
+    line-height: 1rem;
+  }
+
+  .mobile-place {
     transform: rotate(var(--item-angle)) translateY(-220px);
   }
+
   .title {
-    font-size: 1.8rem;
+    font-size: 2.5rem;
   }
 
   .mobile-wheel {
@@ -936,7 +947,7 @@
   .big5 {
     font-size: clamp(7rem, 5vw, 5rem);
     margin-top: 2%;
-    margin-right: 12%;
+    margin-right: 9%;
   }
 
   .schoolIcon {

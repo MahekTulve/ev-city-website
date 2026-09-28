@@ -102,7 +102,7 @@ const places = [
   { image: wedgeRetail, label: "Retail & Services", icon: ShoppingBag },
   { image: wedgeCulture, label: "Fitness & Sports", icon: Dumbbell },
   { image: wedgePark, label: "Fine Dining", icon: Utensils },
-  { image: wedgeWork, label: "Entertainment", icon: Sparkles },
+  { image: wedgeWork, label: "Leisure & Social", icon: Sparkles },
 
 ];
 const extraIcons = [
