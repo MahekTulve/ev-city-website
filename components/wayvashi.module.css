@@ -145,13 +145,15 @@
   right: 0;
   bottom: 0;
   top: auto;
-  height: calc(148vh + 16px);
+  /* height: calc(148vh + 16px); */
+  height: 100vh;
+  width: 100vw;
 
   z-index: 0;
   pointer-events: none;
   background-color: #10172f;
   background-image: url("/images/vashi_cut_top.png");
-  background-size: 100% auto;
+  background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
 
@@ -868,9 +870,11 @@
   }
 
   .domeBackground {
-    background-color: #10172f;
+    /* background-color: #10172f; */
     background-image: url("/images/cut1mobile.png");
-    background-size: 100% auto;
+    /* background-size: 100% auto; */
+    height: 100vh;
+    background-size: cover;
     background-position: center bottom;
   }
 
@@ -1138,7 +1142,7 @@
 
 @media (max-width: 480px) {
   .domeIntro {
-    top: 97vh;
+    top: 80vh;
   }
 
   .taglineWord {
