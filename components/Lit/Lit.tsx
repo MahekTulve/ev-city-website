@@ -73,17 +73,53 @@ function IntegratedIcon() {
       fill="none"
       aria-hidden="true"
     >
-      <circle cx="36" cy="36" r="8" stroke="currentColor" strokeWidth="1.4" />
+      <circle
+        cx="36"
+        cy="36"
+        r="8"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
 
-      <circle cx="36" cy="11" r="4" stroke="currentColor" strokeWidth="1.4" />
+      <circle
+        cx="36"
+        cy="11"
+        r="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
 
-      <circle cx="60" cy="27" r="4" stroke="currentColor" strokeWidth="1.4" />
+      <circle
+        cx="60"
+        cy="27"
+        r="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
 
-      <circle cx="54" cy="57" r="4" stroke="currentColor" strokeWidth="1.4" />
+      <circle
+        cx="54"
+        cy="57"
+        r="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
 
-      <circle cx="18" cy="57" r="4" stroke="currentColor" strokeWidth="1.4" />
+      <circle
+        cx="18"
+        cy="57"
+        r="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
 
-      <circle cx="12" cy="27" r="4" stroke="currentColor" strokeWidth="1.4" />
+      <circle
+        cx="12"
+        cy="27"
+        r="4"
+        stroke="currentColor"
+        strokeWidth="1.4"
+      />
 
       <path
         d="M36 15V28"
@@ -229,6 +265,21 @@ function DrawLetter({
         } as CSSProperties
       }
     >
+      <defs>
+        <linearGradient
+          id={`vashiGoldGrad-${letter}`}
+          x1="0%"
+          y1="0%"
+          x2="0%"
+          y2="100%"
+        >
+          <stop offset="0%" stopColor="#fff0a7" />
+          <stop offset="40%" stopColor="#fcea93" />
+          <stop offset="75%" stopColor="#d9a43f" />
+          <stop offset="100%" stopColor="#b98f2c" />
+        </linearGradient>
+      </defs>
+
       <path
         className={s.drawLetterPath}
         pathLength="1"
@@ -244,9 +295,20 @@ function DrawLetter({
   );
 }
 
-function DrawDot({ delay }: { delay: number }) {
+function DrawDot({
+  delay,
+  letter,
+}: {
+  delay: number;
+  letter: "L" | "I";
+}) {
   return (
-    <span className={s.litDotWrap} aria-hidden="true">
+    <span
+      className={`${s.litDotWrap} ${
+        letter === "L" ? s.litDotL : s.litDotI
+      }`}
+      aria-hidden="true"
+    >
       <svg
         className={s.drawDot}
         viewBox="0 0 20 20"
@@ -307,8 +369,6 @@ export default function Lit() {
       ref={sectionRef}
       className={`${s.wrapper} ${animate ? s.animate : ""}`}
     >
-      {/* Background-only overlays.
-          They sit above a3-cut.jpeg but below every LIT text/card layer. */}
       <div className={s.backgroundOverlay} aria-hidden="true" />
       <div className={s.bottomOverlay} aria-hidden="true" />
 
@@ -340,7 +400,9 @@ export default function Lit() {
                   className={s.eyebrowLetter}
                   style={
                     {
-                      "--eyebrow-letter-delay": `${560 + index * 110}ms`,
+                      "--eyebrow-letter-delay": `${
+                        560 + index * 110
+                      }ms`,
                     } as CSSProperties
                   }
                 >
@@ -354,55 +416,79 @@ export default function Lit() {
             className={s.lit}
             aria-label="L.I.T — Largest Integrated Township"
           >
-          <span className={s.litGroup}>
-  <span
-    className={s.heroLetterRow}
-    style={{ "--zoom-delay": "100ms" } as CSSProperties}
-  >
-    <DrawLetter letter="L" delay={100} />
-    <DrawDot delay={1420} />
-  </span>
+            <span className={s.litGroup}>
+              <span
+                className={s.heroLetterRow}
+                style={
+                  {
+                    "--zoom-delay": "100ms",
+                  } as CSSProperties
+                }
+              >
+                <DrawLetter letter="L" delay={100} />
+                <DrawDot letter="L" delay={1420} />
+              </span>
 
-  <span
-    className={s.heroWord}
-    style={{ "--word-delay": "450ms" } as CSSProperties}
-  >
-    LARGEST
-  </span>
-</span>
+              <span
+                className={s.heroWord}
+                style={
+                  {
+                    "--word-delay": "450ms",
+                  } as CSSProperties
+                }
+              >
+                LARGEST
+              </span>
+            </span>
 
-<span className={s.litGroup}>
-  <span
-    className={s.heroLetterRow}
-    style={{ "--zoom-delay": "2000ms" } as CSSProperties}
-  >
-    <DrawLetter letter="I" delay={2000} />
-    <DrawDot delay={3320} />
-  </span>
+            <span className={s.litGroup}>
+              <span
+                className={s.heroLetterRow}
+                style={
+                  {
+                    "--zoom-delay": "2000ms",
+                  } as CSSProperties
+                }
+              >
+                <DrawLetter letter="I" delay={2000} />
+                <DrawDot letter="I" delay={3320} />
+              </span>
 
-  <span
-    className={s.heroWord}
-    style={{ "--word-delay": "2350ms" } as CSSProperties}
-  >
-    INTEGRATED
-  </span>
-</span>
+              <span
+                className={s.heroWord}
+                style={
+                  {
+                    "--word-delay": "2350ms",
+                  } as CSSProperties
+                }
+              >
+                INTEGRATED
+              </span>
+            </span>
 
-<span className={s.litGroup}>
-  <span
-    className={s.heroLetterRow}
-    style={{ "--zoom-delay": "3900ms" } as CSSProperties}
-  >
-    <DrawLetter letter="T" delay={3900} />
-  </span>
+            <span className={s.litGroup}>
+              <span
+                className={s.heroLetterRow}
+                style={
+                  {
+                    "--zoom-delay": "3900ms",
+                  } as CSSProperties
+                }
+              >
+                <DrawLetter letter="T" delay={3900} />
+              </span>
 
-  <span
-    className={s.heroWord}
-    style={{ "--word-delay": "4250ms" } as CSSProperties}
-  >
-    TOWNSHIP
-  </span>
-</span>
+              <span
+                className={s.heroWord}
+                style={
+                  {
+                    "--word-delay": "4250ms",
+                  } as CSSProperties
+                }
+              >
+                TOWNSHIP
+              </span>
+            </span>
           </h1>
         </div>
       </div>
@@ -427,7 +513,6 @@ export default function Lit() {
 
               <div className={s.cardBody}>
                 <h3>{title}</h3>
-
                 <p>{copy}</p>
               </div>
             </article>
@@ -439,3 +524,4 @@ export default function Lit() {
     </section>
   );
 }
+

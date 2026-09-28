@@ -106,10 +106,28 @@ const SIDE_POSITIONS = [
   { className: styles.bottomCenter, exitX: 0, exitY: 38 },
 ] as const;
 
+/*
+ * SCROLL TIMELINE
+ *
+ * 0.00 ───────────── Initial gallery
+ * 0.20 ───────────── Expansion starts
+ * 0.63 ───────────── Video reaches fullscreen
+ *
+ * 0.63 ───────────────────────────── 0.90
+ *              FULLSCREEN HOLD
+ *
+ * 0.90 ───────────── Exit starts
+ * 0.98 ───────────── Exit finished
+ * 1.00 ───────────── Sticky section releases
+ */
 const EXPAND_START = 0.2;
 const EXPAND_END = 0.63;
-const EXIT_START = 0.72;
-const EXIT_END = 0.94;
+
+const FULLSCREEN_HOLD_END = 0.9;
+
+const EXIT_START = FULLSCREEN_HOLD_END;
+const EXIT_END = 0.98;
+
 const SIDE_VIDEO_PAUSE_POINT = 0.69;
 
 const TITLE_LINES = ["Explore", "Places"] as const;
@@ -120,12 +138,18 @@ function useMediaQuery(query: string) {
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(query);
-    const updateMatch = () => setMatches(mediaQuery.matches);
+
+    const updateMatch = () => {
+      setMatches(mediaQuery.matches);
+    };
 
     updateMatch();
+
     mediaQuery.addEventListener("change", updateMatch);
 
-    return () => mediaQuery.removeEventListener("change", updateMatch);
+    return () => {
+      mediaQuery.removeEventListener("change", updateMatch);
+    };
   }, [query]);
 
   return matches;
@@ -135,10 +159,17 @@ function usePageVisible() {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    const update = () => setIsVisible(document.visibilityState === "visible");
+    const update = () => {
+      setIsVisible(document.visibilityState === "visible");
+    };
+
     update();
+
     document.addEventListener("visibilitychange", update);
-    return () => document.removeEventListener("visibilitychange", update);
+
+    return () => {
+      document.removeEventListener("visibilitychange", update);
+    };
   }, []);
 
   return isVisible;
@@ -166,26 +197,24 @@ function AutoPlayVideo({
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [hasFrame, setHasFrame] = useState(false);
 
-  /*
-   * Do not make every decorative MP4 download at page mount. The main video is
-   * allowed to preload immediately; side videos are warmed up shortly before
-   * this section reaches the viewport. This avoids a large network + decoder
-   * spike on phones and high-DPI laptops.
-   */
   useEffect(() => {
     const video = videoRef.current;
+
     if (!video || !shouldLoad) return;
 
     let cancelled = false;
     let loadTimer: ReturnType<typeof setTimeout> | undefined;
 
     setHasFrame(false);
+
     video.muted = true;
     video.defaultMuted = true;
     video.preload = preload;
 
     const markReady = () => {
-      if (!cancelled) setHasFrame(true);
+      if (!cancelled) {
+        setHasFrame(true);
+      }
     };
 
     video.addEventListener("loadeddata", markReady);
@@ -193,8 +222,7 @@ function AutoPlayVideo({
 
     const beginLoad = () => {
       if (cancelled) return;
-      // Setting src in JSX already schedules a load in most browsers. Calling
-      // load() here makes Safari/Chromium start predictably after our stagger.
+
       video.load();
 
       if (video.readyState >= HTMLMediaElement.HAVE_CURRENT_DATA) {
@@ -210,7 +238,11 @@ function AutoPlayVideo({
 
     return () => {
       cancelled = true;
-      if (loadTimer) clearTimeout(loadTimer);
+
+      if (loadTimer) {
+        clearTimeout(loadTimer);
+      }
+
       video.removeEventListener("loadeddata", markReady);
       video.removeEventListener("canplay", markReady);
     };
@@ -218,13 +250,16 @@ function AutoPlayVideo({
 
   useEffect(() => {
     const video = videoRef.current;
+
     if (!video) return;
 
     let cancelled = false;
     let playTimer: ReturnType<typeof setTimeout> | undefined;
 
     const pauseVideo = () => {
-      if (!video.paused) video.pause();
+      if (!video.paused) {
+        video.pause();
+      }
     };
 
     const playVideo = () => {
@@ -239,15 +274,17 @@ function AutoPlayVideo({
       }
 
       const promise = video.play();
+
       if (promise !== undefined) {
-        void promise.catch(() => {
-          // canplay/loadeddata will retry once enough data is available.
-        });
+        void promise.catch(() => {});
       }
     };
 
     const queuePlay = () => {
-      if (playTimer) clearTimeout(playTimer);
+      if (playTimer) {
+        clearTimeout(playTimer);
+      }
+
       if (playDelayMs > 0) {
         playTimer = setTimeout(playVideo, playDelayMs);
       } else {
@@ -261,21 +298,37 @@ function AutoPlayVideo({
     };
 
     const handleVisibilityChange = () => {
-      if (document.visibilityState === "visible") queuePlay();
-      else pauseVideo();
+      if (document.visibilityState === "visible") {
+        queuePlay();
+      } else {
+        pauseVideo();
+      }
     };
 
     video.addEventListener("canplay", handleCanPlay);
-    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    document.addEventListener(
+      "visibilitychange",
+      handleVisibilityChange,
+    );
 
     queuePlay();
 
     return () => {
       cancelled = true;
-      if (playTimer) clearTimeout(playTimer);
+
+      if (playTimer) {
+        clearTimeout(playTimer);
+      }
+
       pauseVideo();
+
       video.removeEventListener("canplay", handleCanPlay);
-      document.removeEventListener("visibilitychange", handleVisibilityChange);
+
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange,
+      );
     };
   }, [playDelayMs, shouldLoad, shouldPlay, src]);
 
@@ -328,13 +381,12 @@ function RevealLetter({
   const start = staggerStart + index * step;
   const end = Math.min(start + letterDuration, 1);
 
-  const opacity = useTransform(progress, [start, end], [0, 1]);
+  const opacity = useTransform(
+    progress,
+    [start, end],
+    [0, 1],
+  );
 
-  /*
-   * Keep each glyph in its final layout position and animate opacity only.
-   * Translating/filtering individually background-clipped letters can produce
-   * detached/stacked glyph textures on mobile Chromium while scrolling.
-   */
   return (
     <motion.span
       className={styles.titleLetter}
@@ -378,14 +430,25 @@ function SideVideoCard({
 
   const opacity = useTransform(
     progress,
-    [0, 0.48, EXPAND_END, SIDE_VIDEO_PAUSE_POINT, 1],
+    [
+      0,
+      0.48,
+      EXPAND_END,
+      SIDE_VIDEO_PAUSE_POINT,
+      1,
+    ],
     [1, 1, 0.36, 0, 0],
   );
 
   return (
     <motion.div
       className={`${styles.sideCard} ${className}`}
-      style={{ x, y, scale, opacity }}
+      style={{
+        x,
+        y,
+        scale,
+        opacity,
+      }}
     >
       <AutoPlayVideo
         item={item}
@@ -405,30 +468,51 @@ export default function CinematicPlacesGallery() {
 
   const isMobile = useMediaQuery("(max-width: 700px)");
   const isSmallMobile = useMediaQuery("(max-width: 480px)");
-  const isTablet = useMediaQuery("(min-width: 701px) and (max-width: 1100px)");
-  const isLargeDesktop = useMediaQuery("(min-width: 1401px)");
+  const isTablet = useMediaQuery(
+    "(min-width: 701px) and (max-width: 1100px)",
+  );
   const isPageVisible = usePageVisible();
 
   const [isNearViewport, setIsNearViewport] = useState(false);
   const [shouldWarmVideos, setShouldWarmVideos] = useState(false);
   const [sidePlaybackEnabled, setSidePlaybackEnabled] = useState(true);
   const [isMainVideoPaused, setIsMainVideoPaused] = useState(false);
-  const [isMainVideoExpanded, setIsMainVideoExpanded] = useState(false);
+  const [isMainVideoExpanded, setIsMainVideoExpanded] =
+    useState(false);
 
+  /*
+   * Keep the section active for a much longer physical scroll
+   * distance. The sticky viewport itself remains 100svh.
+   *
+   * This is the important difference from the previous version:
+   * the fullscreen phase now has enough physical scroll distance
+   * to feel like a dedicated scene rather than a quick transition.
+   */
   useEffect(() => {
     const section = sectionRef.current;
+
     if (!section) return;
 
-    // Do not preload decorative MP4s while the intro/LCP content is on screen.
-    // The gallery begins loading only when it actually starts entering view.
     const preloadObserver = new IntersectionObserver(
-      ([entry]) => setShouldWarmVideos(entry.isIntersecting),
-      { rootMargin: isMobile ? "500px 0px" : "800px 0px", threshold: 0.01 },
+      ([entry]) => {
+        setShouldWarmVideos(entry.isIntersecting);
+      },
+      {
+        rootMargin: isMobile
+          ? "500px 0px"
+          : "800px 0px",
+        threshold: 0.01,
+      },
     );
 
     const playbackObserver = new IntersectionObserver(
-      ([entry]) => setIsNearViewport(entry.isIntersecting),
-      { rootMargin: "0px", threshold: 0.01 },
+      ([entry]) => {
+        setIsNearViewport(entry.isIntersecting);
+      },
+      {
+        rootMargin: "0px",
+        threshold: 0.01,
+      },
     );
 
     preloadObserver.observe(section);
@@ -446,7 +530,6 @@ export default function CinematicPlacesGallery() {
   });
 
   const smoothProgress = useSpring(scrollYProgress, {
-    // Mobile should track the finger more closely instead of trailing behind.
     stiffness: isMobile ? 145 : 90,
     damping: isMobile ? 28 : 27,
     mass: isMobile ? 0.24 : 0.4,
@@ -455,42 +538,60 @@ export default function CinematicPlacesGallery() {
   const sidePlaybackEnabledRef = useRef(true);
   const mainVideoExpandedRef = useRef(false);
 
-  useMotionValueEvent(smoothProgress, "change", (latest) => {
-    // As the main card grows, give its decoder/GPU surface priority. Paused
-    // decorative cards keep their current frame, so the composition stays the
-    // same without several invisible videos continuing to decode.
-    // Keep side videos running until they are almost fully faded out.
-    // The old aggressive device-specific pause points could make videos look
-    // frozen while they were still visibly on screen.
-    const pausePoint = SIDE_VIDEO_PAUSE_POINT;
-    const nextValue = latest < pausePoint;
+  useMotionValueEvent(
+    smoothProgress,
+    "change",
+    (latest) => {
+      /*
+       * Side videos disappear before fullscreen and stay paused
+       * throughout the fullscreen hold.
+       */
+      const nextSidePlayback =
+        latest < SIDE_VIDEO_PAUSE_POINT;
 
-    if (sidePlaybackEnabledRef.current !== nextValue) {
-      sidePlaybackEnabledRef.current = nextValue;
-      setSidePlaybackEnabled(nextValue);
-    }
+      if (
+        sidePlaybackEnabledRef.current !==
+        nextSidePlayback
+      ) {
+        sidePlaybackEnabledRef.current =
+          nextSidePlayback;
 
-    // Hide the center-video control once the card has expanded to cover the
-    // screen. If the user pauses manually, the control is still shown so the
-    // video can always be resumed.
-    const expanded = latest >= EXPAND_END - 0.015 && latest <= EXIT_START + 0.015;
-    if (mainVideoExpandedRef.current !== expanded) {
-      mainVideoExpandedRef.current = expanded;
-      setIsMainVideoExpanded(expanded);
-    }
-  });
+        setSidePlaybackEnabled(nextSidePlayback);
+      }
 
-  const { scrollYProgress: titleScrollYProgress } = useScroll({
+      /*
+       * The main video is considered expanded for the entire
+       * fullscreen hold.
+       */
+      const expanded =
+        latest >= EXPAND_END - 0.015 &&
+        latest <= EXIT_START + 0.015;
+
+      if (
+        mainVideoExpandedRef.current !== expanded
+      ) {
+        mainVideoExpandedRef.current = expanded;
+
+        setIsMainVideoExpanded(expanded);
+      }
+    },
+  );
+
+  const {
+    scrollYProgress: titleScrollYProgress,
+  } = useScroll({
     target: sectionRef,
     offset: ["start 88%", "start 28%"],
   });
 
-  const smoothTitleProgress = useSpring(titleScrollYProgress, {
-    // Keep the Explore Places reveal in sync with the faster mobile section.
-    stiffness: isMobile ? 150 : 105,
-    damping: isMobile ? 27 : 24,
-    mass: isMobile ? 0.22 : 0.35,
-  });
+  const smoothTitleProgress = useSpring(
+    titleScrollYProgress,
+    {
+      stiffness: isMobile ? 150 : 105,
+      damping: isMobile ? 27 : 24,
+      mass: isMobile ? 0.22 : 0.35,
+    },
+  );
 
   const layout = useMemo<ResponsiveLayout>(() => {
     if (isMobile) {
@@ -501,6 +602,7 @@ export default function CinematicPlacesGallery() {
           width: "42%",
           height: "36%",
         },
+
         exit: {
           top: "8%",
           left: "12%",
@@ -521,6 +623,7 @@ export default function CinematicPlacesGallery() {
           width: "46.8%",
           height: "34%",
         },
+
         exit: {
           top: "8%",
           left: "34%",
@@ -540,6 +643,7 @@ export default function CinematicPlacesGallery() {
         width: "46.8%",
         height: "34%",
       },
+
       exit: {
         top: "8%",
         left: "29%",
@@ -552,10 +656,18 @@ export default function CinematicPlacesGallery() {
     };
   }, [isMobile, isTablet]);
 
+  /*
+   * Scene remains completely fullscreen until EXIT_START.
+   */
   const sceneHeight = useTransform(
     smoothProgress,
     [0, EXIT_START, EXIT_END, 1],
-    ["100%", "100%", layout.exit.sceneHeight, layout.exit.sceneHeight],
+    [
+      "100%",
+      "100%",
+      layout.exit.sceneHeight,
+      layout.exit.sceneHeight,
+    ],
   );
 
   const sceneBottomLeftRadius = useTransform(
@@ -586,9 +698,27 @@ export default function CinematicPlacesGallery() {
     [0, 0, 0.28, 0.28],
   );
 
+  /*
+   * Main video:
+   *
+   * Initial card
+   *     ↓
+   * Expands to 100%
+   *     ↓
+   * HOLDS at 100%
+   *     ↓
+   * Exit happens only from 90% onward
+   */
   const mainTop = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
     [
       layout.start.top,
       layout.start.top,
@@ -601,7 +731,14 @@ export default function CinematicPlacesGallery() {
 
   const mainLeft = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
     [
       layout.start.left,
       layout.start.left,
@@ -614,7 +751,14 @@ export default function CinematicPlacesGallery() {
 
   const mainWidth = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
     [
       layout.start.width,
       layout.start.width,
@@ -627,7 +771,14 @@ export default function CinematicPlacesGallery() {
 
   const mainHeight = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
     [
       layout.start.height,
       layout.start.height,
@@ -640,19 +791,54 @@ export default function CinematicPlacesGallery() {
 
   const mainTopLeftRadius = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
-    ["9px", "9px", "0px", "0px", "0px", "0px"],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
+    [
+      "9px",
+      "9px",
+      "0px",
+      "0px",
+      "0px",
+      "0px",
+    ],
   );
 
   const mainTopRightRadius = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
-    ["9px", "9px", "0px", "0px", "0px", "0px"],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
+    [
+      "9px",
+      "9px",
+      "0px",
+      "0px",
+      "0px",
+      "0px",
+    ],
   );
 
   const mainBottomLeftRadius = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
     [
       "9px",
       "9px",
@@ -665,7 +851,14 @@ export default function CinematicPlacesGallery() {
 
   const mainBottomRightRadius = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
     [
       "9px",
       "9px",
@@ -678,8 +871,22 @@ export default function CinematicPlacesGallery() {
 
   const mainVideoScale = useTransform(
     smoothProgress,
-    [0, EXPAND_START, EXPAND_END, EXIT_START, EXIT_END, 1],
-    [1, 1, 1.06, 1.1, 1.02, 1.02],
+    [
+      0,
+      EXPAND_START,
+      EXPAND_END,
+      EXIT_START,
+      EXIT_END,
+      1,
+    ],
+    [
+      1,
+      1,
+      1.06,
+      1.1,
+      1.02,
+      1.02,
+    ],
   );
 
   const backgroundOpacity = useTransform(
@@ -688,11 +895,17 @@ export default function CinematicPlacesGallery() {
     [1, 1, 0.42, 0.18, 0.18],
   );
 
-const titleEntranceRotateX = useTransform(
-  smoothTitleProgress,
-  [0, 0.22, 1],
-  isMobile ? [0, 0, 0] : [76, 76, 0],
-);
+  /*
+   * Title entrance remains independent from the long
+   * fullscreen hold.
+   */
+  const titleEntranceRotateX = useTransform(
+    smoothTitleProgress,
+    [0, 0.22, 1],
+    isMobile
+      ? [0, 0, 0]
+      : [76, 76, 0],
+  );
 
   const titleEntranceY = useTransform(
     smoothTitleProgress,
@@ -712,11 +925,13 @@ const titleEntranceRotateX = useTransform(
     ["0vh", "0vh", "-18vh"],
   );
 
-const titleExitRotateX = useTransform(
-  smoothProgress,
-  [0, 0.46, 0.61],
-  isMobile ? [0, 0, 0] : [0, 0, -45],
-);
+  const titleExitRotateX = useTransform(
+    smoothProgress,
+    [0, 0.46, 0.61],
+    isMobile
+      ? [0, 0, 0]
+      : [0, 0, -45],
+  );
 
   const titleExitScale = useTransform(
     smoothProgress,
@@ -731,55 +946,94 @@ const titleExitRotateX = useTransform(
   );
 
   const mainVideo = VIDEOS[1];
-  const sideVideos = VIDEOS.filter((video) => video.id !== mainVideo.id).slice(
-    0,
-    6,
-  );
+
+  const sideVideos = VIDEOS.filter(
+    (video) => video.id !== mainVideo.id,
+  ).slice(0, 6);
 
   const mainVideoSrc =
-    isSmallMobile && mainVideo.mobileSrc ? mainVideo.mobileSrc : mainVideo.src;
+    isSmallMobile && mainVideo.mobileSrc
+      ? mainVideo.mobileSrc
+      : mainVideo.src;
 
-  const shouldLoadMain = shouldWarmVideos || isNearViewport;
-  const shouldLoadSides = shouldWarmVideos || isNearViewport;
-  const shouldPlayMain = isNearViewport && isPageVisible && !isMainVideoPaused;
+  const shouldLoadMain =
+    shouldWarmVideos || isNearViewport;
+
+  const shouldLoadSides =
+    shouldWarmVideos || isNearViewport;
+
+  const shouldPlayMain =
+    isNearViewport &&
+    isPageVisible &&
+    !isMainVideoPaused;
+
   const shouldPlaySides =
-    isNearViewport && isPageVisible && sidePlaybackEnabled;
+    isNearViewport &&
+    isPageVisible &&
+    sidePlaybackEnabled;
 
-  // Play every visible side video. Loading/playback is still staggered below
-  // so the browser does not initialize all MP4 decoders on the exact same frame.
-  const sidePlaybackPriority = [0, 4, 5, 2, 1, 3];
+  const sidePlaybackPriority = [
+    0,
+    4,
+    5,
+    2,
+    1,
+    3,
+  ];
 
   const visibleSideEntries = sideVideos
-    .map((item, index) => ({ item, index, position: SIDE_POSITIONS[index] }))
-    // These two cards are display:none in your mobile CSS. Do not mount or
-    // decode their MP4s when they cannot be seen.
-    .filter(({ index }) => !isMobile || (index !== 1 && index !== 3));
+    .map((item, index) => ({
+      item,
+      index,
+      position: SIDE_POSITIONS[index],
+    }))
+    .filter(
+      ({ index }) =>
+        !isMobile ||
+        (index !== 1 && index !== 3),
+    );
 
   return (
-    <section ref={sectionRef} className={styles.section}>
+    <section
+      ref={sectionRef}
+      className={styles.section}
+    >
       <div className={styles.stickyContainer}>
-        <div className={styles.exitSurface} aria-hidden="true" />
+        <div
+          className={styles.exitSurface}
+          aria-hidden="true"
+        />
 
         <motion.div
           className={styles.sceneClip}
           style={{
             height: sceneHeight,
-            borderBottomLeftRadius: sceneBottomLeftRadius,
-            borderBottomRightRadius: sceneBottomRightRadius,
+            borderBottomLeftRadius:
+              sceneBottomLeftRadius,
+            borderBottomRightRadius:
+              sceneBottomRightRadius,
           }}
         >
           <div className={styles.sceneCanvas}>
             <motion.div
               className={styles.sceneShadow}
-              style={{ opacity: sceneShadowOpacity }}
+              style={{
+                opacity: sceneShadowOpacity,
+              }}
               aria-hidden="true"
             />
 
             <motion.div
-              className={styles.backgroundDecoration}
-              style={{ opacity: backgroundOpacity }}
+              className={
+                styles.backgroundDecoration
+              }
+              style={{
+                opacity: backgroundOpacity,
+              }}
             >
-              <div className={styles.backgroundGlow} />
+              <div
+                className={styles.backgroundGlow}
+              />
             </motion.div>
 
             <motion.div
@@ -796,53 +1050,106 @@ const titleExitRotateX = useTransform(
                 style={{
                   y: titleEntranceY,
                   scale: titleEntranceScale,
-                  rotateX: titleEntranceRotateX,
+                  rotateX:
+                    titleEntranceRotateX,
                 }}
               >
-                <h2 className={styles.galleryTitle} aria-label="Explore Places">
-                  {TITLE_LINES.map((line, lineIndex) => {
-                    const lineOffset = TITLE_LINES.slice(0, lineIndex).reduce(
-                      (total, currentLine) => total + currentLine.length,
-                      0,
-                    );
+                <h2
+                  className={
+                    styles.galleryTitle
+                  }
+                  aria-label="Explore Places"
+                >
+                  {TITLE_LINES.map(
+                    (line, lineIndex) => {
+                      const lineOffset =
+                        TITLE_LINES.slice(
+                          0,
+                          lineIndex,
+                        ).reduce(
+                          (
+                            total,
+                            currentLine,
+                          ) =>
+                            total +
+                            currentLine.length,
+                          0,
+                        );
 
-                    return (
-                      <span
-                        key={line}
-                        className={styles.titleLine}
-                        aria-hidden="true"
-                      >
-                        {Array.from(line).map((character, characterIndex) => (
-                          <RevealLetter
-                            key={`${line}-${characterIndex}`}
-                            character={character}
-                            index={lineOffset + characterIndex}
-                            progress={smoothTitleProgress}
-                          />
-                        ))}
-                      </span>
-                    );
-                  })}
+                      return (
+                        <span
+                          key={line}
+                          className={
+                            styles.titleLine
+                          }
+                          aria-hidden="true"
+                        >
+                          {Array.from(
+                            line,
+                          ).map(
+                            (
+                              character,
+                              characterIndex,
+                            ) => (
+                              <RevealLetter
+                                key={`${line}-${characterIndex}`}
+                                character={
+                                  character
+                                }
+                                index={
+                                  lineOffset +
+                                  characterIndex
+                                }
+                                progress={
+                                  smoothTitleProgress
+                                }
+                              />
+                            ),
+                          )}
+                        </span>
+                      );
+                    },
+                  )}
                 </h2>
               </motion.div>
             </motion.div>
 
             <div className={styles.gallery}>
-              {visibleSideEntries.map(({ item, index, position }) => (
-                <SideVideoCard
-                  key={item.id}
-                  item={item}
-                  src={item.src}
-                  className={position.className}
-                  progress={smoothProgress}
-                  exitX={position.exitX}
-                  exitY={position.exitY}
-                  shouldLoad={shouldLoadSides}
-                  shouldPlay={shouldPlaySides}
-                  loadDelayMs={sidePlaybackPriority.indexOf(index) * 90}
-                  playDelayMs={sidePlaybackPriority.indexOf(index) * 45}
-                />
-              ))}
+              {visibleSideEntries.map(
+                ({
+                  item,
+                  index,
+                  position,
+                }) => (
+                  <SideVideoCard
+                    key={item.id}
+                    item={item}
+                    src={item.src}
+                    className={
+                      position.className
+                    }
+                    progress={smoothProgress}
+                    exitX={position.exitX}
+                    exitY={position.exitY}
+                    shouldLoad={
+                      shouldLoadSides
+                    }
+                    shouldPlay={
+                      shouldPlaySides
+                    }
+                    loadDelayMs={
+                      sidePlaybackPriority.indexOf(
+                        index,
+                      ) * 90
+                    }
+                    playDelayMs={
+                      sidePlaybackPriority.indexOf(
+                        index,
+                      ) * 45
+                    }
+                  />
+                ),
+              )}
 
               <motion.div
                 className={styles.mainCard}
@@ -851,49 +1158,106 @@ const titleExitRotateX = useTransform(
                   left: mainLeft,
                   width: mainWidth,
                   height: mainHeight,
-                  borderTopLeftRadius: mainTopLeftRadius,
-                  borderTopRightRadius: mainTopRightRadius,
-                  borderBottomLeftRadius: mainBottomLeftRadius,
-                  borderBottomRightRadius: mainBottomRightRadius,
+                  borderTopLeftRadius:
+                    mainTopLeftRadius,
+                  borderTopRightRadius:
+                    mainTopRightRadius,
+                  borderBottomLeftRadius:
+                    mainBottomLeftRadius,
+                  borderBottomRightRadius:
+                    mainBottomRightRadius,
                 }}
               >
                 <motion.div
-                  className={styles.mainVideoWrapper}
-                  style={{ scale: mainVideoScale }}
+                  className={
+                    styles.mainVideoWrapper
+                  }
+                  style={{
+                    scale: mainVideoScale,
+                  }}
                 >
                   <AutoPlayVideo
                     item={mainVideo}
                     src={mainVideoSrc}
-                    className={styles.mainVideo}
-                    shouldLoad={shouldLoadMain}
-                    shouldPlay={shouldPlayMain}
+                    className={
+                      styles.mainVideo
+                    }
+                    shouldLoad={
+                      shouldLoadMain
+                    }
+                    shouldPlay={
+                      shouldPlayMain
+                    }
                     preload="auto"
                   />
                 </motion.div>
 
-                <div className={styles.mainVideoOverlay} />
+                <div
+                  className={
+                    styles.mainVideoOverlay
+                  }
+                />
 
                 <button
                   type="button"
                   className={[
                     styles.mainVideoControl,
-                    !isMainVideoExpanded || isMainVideoPaused
+                    !isMainVideoExpanded ||
+                    isMainVideoPaused
                       ? styles.mainVideoControlVisible
                       : styles.mainVideoControlHidden,
                   ].join(" ")}
-                  onClick={() => setIsMainVideoPaused((paused) => !paused)}
-                  aria-label={isMainVideoPaused ? "Play center video" : "Pause center video"}
-                  aria-pressed={isMainVideoPaused}
+                  onClick={() =>
+                    setIsMainVideoPaused(
+                      (paused) => !paused,
+                    )
+                  }
+                  aria-label={
+                    isMainVideoPaused
+                      ? "Play center video"
+                      : "Pause center video"
+                  }
+                  aria-pressed={
+                    isMainVideoPaused
+                  }
                 >
-                  <span className={styles.mainVideoControlIcon} aria-hidden="true">
+                  <span
+                    className={
+                      styles.mainVideoControlIcon
+                    }
+                    aria-hidden="true"
+                  >
                     {isMainVideoPaused ? (
-                      <svg viewBox="0 0 24 24" focusable="false">
-                        <path d="M8 5.5v13l10-6.5-10-6.5Z" fill="currentColor" />
+                      <svg
+                        viewBox="0 0 24 24"
+                        focusable="false"
+                      >
+                        <path
+                          d="M8 5.5v13l10-6.5-10-6.5Z"
+                          fill="currentColor"
+                        />
                       </svg>
                     ) : (
-                      <svg viewBox="0 0 24 24" focusable="false">
-                        <rect x="7" y="5" width="3.5" height="14" rx="1" fill="currentColor" />
-                        <rect x="13.5" y="5" width="3.5" height="14" rx="1" fill="currentColor" />
+                      <svg
+                        viewBox="0 0 24 24"
+                        focusable="false"
+                      >
+                        <rect
+                          x="7"
+                          y="5"
+                          width="3.5"
+                          height="14"
+                          rx="1"
+                          fill="currentColor"
+                        />
+                        <rect
+                          x="13.5"
+                          y="5"
+                          width="3.5"
+                          height="14"
+                          rx="1"
+                          fill="currentColor"
+                        />
                       </svg>
                     )}
                   </span>

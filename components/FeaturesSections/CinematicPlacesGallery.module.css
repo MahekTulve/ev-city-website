@@ -1,15 +1,18 @@
 .section {
   --gallery-next-bg: #f3eee4;
-
-  /* Video playback is managed in React. Avoid content-visibility here because
-     it can delay first-frame painting for sticky video descendants. */
   --gallery-scene-bg: #0b0d0b;
 
   position: relative;
   width: 100%;
-  height: 240vh;
+
+  /*
+   * IMPORTANT:
+   * The larger section creates the physical scroll distance.
+   * The sticky viewport stays fixed while this section scrolls.
+   */
+  height: 320vh;
+
   background: transparent;
-  /* padding-top: 150px; */
 }
 
 .stickyContainer {
@@ -17,20 +20,21 @@
   top: 0;
   width: 100%;
   height: 100svh;
-  /* min-height: 650px; */
+
   overflow: hidden;
   isolation: isolate;
+
   background: transparent;
 }
 
-/* Second scroll phase: reveal the following section instead of releasing immediately. */
 .exitSurface {
   position: absolute;
   inset: 0;
   z-index: 0;
+
   pointer-events: none;
-  background:
-   transparent;
+
+  background: transparent;
 }
 
 .sceneClip {
@@ -38,9 +42,12 @@
   top: 0;
   left: 0;
   right: 0;
+
   z-index: 1;
+
   overflow: hidden;
   isolation: isolate;
+
   background: transparent;
 }
 
@@ -48,9 +55,12 @@
   position: absolute;
   top: 0;
   left: 0;
+
   width: 100%;
   height: 100svh;
+
   min-height: 650px;
+
   overflow: hidden;
 }
 
@@ -59,107 +69,148 @@
   left: 0;
   right: 0;
   bottom: 0;
+
   z-index: 50;
+
   height: 70px;
+
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.32));
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 0, 0, 0.32)
+    );
 }
 
-.sharedSequence{
-    position:relative;
+.sharedSequence {
+  position: relative;
 }
 
-.sharedSequence::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    z-index:1;
+.sharedSequence::after {
+  content: "";
 
-    background:
-        radial-gradient(circle at top,
-            rgba(255,255,255,.04),
-            transparent 45%),
-        linear-gradient(
-            to bottom,
-            rgba(0,0,0,.08),
-            transparent 30%,
-            transparent 70%,
-            rgba(0,0,0,.12)
-        );
+  position: absolute;
+  inset: 0;
+
+  pointer-events: none;
+  z-index: 1;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(255, 255, 255, 0.04),
+      transparent 45%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.08),
+      transparent 30%,
+      transparent 70%,
+      rgba(0, 0, 0, 0.12)
+    );
 }
 
 .shaderBackgroundContainer {
   position: absolute;
   inset: 0;
+
   z-index: 0;
+
   pointer-events: none;
+
   overflow: hidden;
 }
 
 .shaderCanvas {
   width: 100%;
   height: 100%;
+
   opacity: 0.85;
+
   transform: translateZ(0);
 }
 
 .backgroundDecoration {
   position: absolute;
   inset: 0;
+
   z-index: 0;
+
   pointer-events: none;
+
   will-change: opacity;
 }
 
 .backgroundGlow {
   position: absolute;
   inset: 0;
-   opacity:.25;
-    mix-blend-mode:screen;
-}
 
-/* =========================================
-   OBSIDIAN-STYLE EXPLORE PLACES HEADING
-========================================= */
+  opacity: 0.25;
+
+  mix-blend-mode: screen;
+}
 
 .titleStage {
   position: absolute;
   inset: 0;
+
   z-index: 1;
+
   pointer-events: none;
+
   overflow: hidden;
+
   transform-origin: 50% 8%;
+
   transform-style: preserve-3d;
+
   will-change: transform, opacity;
+
+  perspective: 1200px;
 }
 
 .titleEntrance {
   position: absolute;
   inset: 0;
+
   transform-origin: 50% 8%;
+
   transform-style: preserve-3d;
+
   will-change: transform;
 }
 
 .titleOrbit {
   position: absolute;
+
   top: -49%;
   left: 4%;
+
   width: 92%;
   height: 100%;
+
   border: 1px solid rgba(126, 82, 53, 0.34);
+
   border-radius: 50%;
+
   transform: rotate(-17deg);
+
   opacity: 0.7;
 }
 
 .galleryTitle {
   position: absolute;
+
   left: 40%;
+
   width: 100%;
+
   margin: 0;
+
   padding-top: 0.1em;
+
   transform: translateX(-50%);
 
   font-family:
@@ -170,28 +221,37 @@
     Didot,
     "Times New Roman",
     serif;
+
   font-size: 7vw;
+
   font-weight: 400;
-  line-height: 0.85; /* Increased from 0.6 to fit ascenders */
+
+  line-height: 0.85;
+
   letter-spacing: -0.05em;
+
   text-align: center;
+
   white-space: nowrap;
-  
-  /* The gradient belongs to .titleLetter only. Keeping background-clip/text-fill
-     on this parent as well creates a second composited text layer and can show
-     stale/stacked glyphs during the reveal on mobile Chromium. */
+
   color: inherit;
+
   filter: none;
 
   text-rendering: geometricPrecision;
+
   -webkit-font-smoothing: antialiased;
 }
 
 .titleLine {
   display: block;
+
   width: fit-content;
+
   margin-inline: auto;
+
   overflow: clip;
+
   perspective: 900px;
 }
 
@@ -205,41 +265,54 @@
 
 .titleLetter {
   display: inline-block;
+
   transform-origin: 50% 100%;
+
   will-change: opacity;
 
   color: transparent;
-  background: linear-gradient(
-    180deg,
-    #f4efe6 0%,
-    #ebe5dc 38%,
-    rgba(224, 216, 205, 0.72) 65%,
-    rgba(137, 126, 115, 0.18) 88%,
-    rgba(16, 16, 16, 0) 100%
-  );
+
+  background:
+    linear-gradient(
+      180deg,
+      #f4efe6 0%,
+      #ebe5dc 38%,
+      rgba(224, 216, 205, 0.72) 65%,
+      rgba(137, 126, 115, 0.18) 88%,
+      rgba(16, 16, 16, 0) 100%
+    );
+
   background-clip: text;
+
   -webkit-background-clip: text;
+
   -webkit-text-fill-color: transparent;
 
-  /* Prevent a glyph texture from leaking outside its own inline box while the
-     sticky parent is being transformed. */
   backface-visibility: hidden;
+
   -webkit-backface-visibility: hidden;
 }
 
 .gallerySubtitle {
   position: absolute;
+
   top: clamp(178px, 29vh, 258px);
   left: 50%;
+
   z-index: 2;
+
   margin: 0;
+
   transform: translateX(-50%);
 
   display: flex;
+
   flex-direction: column;
+
   align-items: center;
 
   color: rgba(244, 239, 231, 0.95);
+
   font-family:
     var(--font-editorial-new),
     var(--font-cormorant),
@@ -248,73 +321,100 @@
     Didot,
     "Times New Roman",
     serif;
+
   font-size: clamp(27px, 2.6vw, 48px);
+
   font-weight: 400;
+
   line-height: 0.78;
+
   letter-spacing: -0.045em;
+
   text-align: center;
-  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+
+  text-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.35);
+
   will-change: transform, opacity;
 }
 
 .gallerySubtitle span:first-child {
   font-size: 0.7em;
+
   margin-bottom: 0.14em;
 }
 
 .gallery {
   position: relative;
+
   z-index: 2;
+
   width: 100%;
   height: 100%;
+
   max-width: 1800px;
+
   margin-inline: auto;
 }
 
-/* Side videos */
-
 .sideCard {
   position: absolute;
+
   z-index: 1;
+
   overflow: hidden;
+
   border-radius: 9px;
-   background: rgba(255,255,255,.02);
-  /* Removed backdrop-filter: blur(2px) - it re-samples the backdrop behind six
-     cards on every animation frame while videos are decoding. */
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.16);
+
+  background: rgba(255, 255, 255, 0.02);
+
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.16);
+
   transform-origin: center;
+
   will-change: transform, opacity;
+
   transform: translateZ(0);
+
   contain: layout paint style;
 }
 
 .sideCard::after {
   content: "";
+
   position: absolute;
   inset: 0;
+
   z-index: 2;
+
   pointer-events: none;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.04),
-    transparent 38%
-  );
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.04),
+      transparent 38%
+    );
 }
 
 .sideCard video {
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   pointer-events: none;
+
   user-select: none;
 }
-
-/* Side Card Layout Grid */
 
 .topLeft {
   top: 19.3%;
   left: 2.8%;
+
   width: 22.2%;
   height: 33.5%;
 }
@@ -322,6 +422,7 @@
 .bottomLeft {
   left: 2.8%;
   bottom: 23.3%;
+
   width: 22.2%;
   height: 21%;
 }
@@ -329,6 +430,7 @@
 .topCenter {
   top: 10%;
   left: 58.5%;
+
   width: 15.1%;
   height: 15.8%;
 }
@@ -336,6 +438,7 @@
 .topRight {
   top: 19.3%;
   right: 2.8%;
+
   width: 22.2%;
   height: 24.9%;
 }
@@ -343,6 +446,7 @@
 .rightBottom {
   right: 2.8%;
   bottom: 17.8%;
+
   width: 22.2%;
   height: 35.3%;
 }
@@ -350,81 +454,109 @@
 .bottomCenter {
   left: 26.6%;
   bottom: 14.4%;
+
   width: 23.4%;
   height: 21%;
 }
 
-/* GPU Accelerated Center Video Expansion */
-
 .mainCardWrapper {
   position: absolute;
+
   top: 28%;
   left: 26.6%;
+
   width: 46.8%;
   height: 34%;
+
   z-index: 10;
 }
 
 .sharedSequenceContent {
-    position: relative;
-    z-index: 2;
+  position: relative;
+
+  z-index: 2;
 }
 
-.sharedSequenceContent::before{
-    content:"";
-    position:absolute;
-    left:0;
-    right:0;
-    top:55vh;
-    height:30vh;
+.sharedSequenceContent::before {
+  content: "";
 
-    background:linear-gradient(
-        to bottom,
-        transparent,
-        rgba(0,0,0,.18),
-        transparent
+  position: absolute;
+
+  left: 0;
+  right: 0;
+
+  top: 55vh;
+
+  height: 30vh;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      rgba(0, 0, 0, 0.18),
+      transparent
     );
 
-    pointer-events:none;
+  pointer-events: none;
 }
 
 .mainCard {
   position: absolute;
+
   inset: 0;
+
   z-index: 10;
+
   overflow: hidden;
+
   background: transparent;
-  /* Keep shadow static. Animating a large blurred shadow on every scroll frame
-     is expensive and can steal time from video compositing. */
-  box-shadow: 0 18px 52px rgba(0, 0, 0, 0.22);
+
+  box-shadow:
+    0 18px 52px rgba(0, 0, 0, 0.22);
+
   transform-origin: center center;
+
   will-change: transform;
+
   transform: translateZ(0);
+
   contain: layout paint style;
 }
 
 .mainVideoWrapper {
   position: absolute;
+
   inset: 0;
+
   transform-origin: center;
+
   will-change: transform;
+
   transform: translateZ(0);
 }
 
 .mainVideo {
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   pointer-events: none;
+
   user-select: none;
 }
 
 .mainVideoOverlay {
   position: absolute;
+
   inset: 0;
+
   z-index: 2;
+
   pointer-events: none;
+
   background:
     linear-gradient(
       90deg,
@@ -441,54 +573,79 @@
     );
 }
 
-/* Center video play / pause control. It is visible while the card is in its
-   gallery size, disappears during the full-screen scroll phase, and is forced
-   visible whenever the user has paused the video. */
 .mainVideoControl {
   position: absolute;
+
   top: 50%;
   left: 50%;
+
   z-index: 4;
-width: clamp(56px, 5.2vw, 76px);
+
+  width: clamp(56px, 5.2vw, 76px);
   height: clamp(56px, 5.2vw, 76px);
+
   padding: 0;
-  border: 1px solid rgba(255, 255, 255, 0.62);
+
+  border:
+    1px solid rgba(255, 255, 255, 0.62);
+
   border-radius: 999px;
+
   display: grid;
+
   place-items: center;
+
   color: #fff;
+
   background: rgba(8, 10, 9, 0.85);
-  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+
+  box-shadow:
+    0 8px 28px rgba(0, 0, 0, 0.2);
+
   cursor: pointer;
-  transform: translate(-50%, -50%);
+
+  transform:
+    translate(-50%, -50%);
+
   transition:
     opacity 180ms ease,
     transform 180ms ease,
     background-color 180ms ease,
     border-color 180ms ease;
+
   -webkit-tap-highlight-color: transparent;
 }
 
 .mainVideoControlVisible {
   opacity: 1;
+
   pointer-events: auto;
-  transform: translate(-50%, -50%) scale(1);
+
+  transform:
+    translate(-50%, -50%)
+    scale(1);
 }
 
 .mainVideoControlHidden {
   opacity: 0;
+
   pointer-events: none;
-  transform: translate(-50%, -50%) scale(0.86);
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.86);
 }
 
 .mainVideoControlIcon {
   width: 42%;
   height: 42%;
+
   display: block;
 }
 
 .mainVideoControlIcon svg {
   display: block;
+
   width: 100%;
   height: 100%;
 }
@@ -496,25 +653,36 @@ width: clamp(56px, 5.2vw, 76px);
 @media (hover: hover) and (pointer: fine) {
   .mainVideoControl:hover {
     background: rgba(8, 10, 9, 0.85);
-    border-color: rgba(255, 255, 255, 0.9);
+
+    border-color:
+      rgba(255, 255, 255, 0.9);
   }
 }
 
 .mainVideoControl:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.96);
+  outline:
+    2px solid rgba(255, 255, 255, 0.96);
+
   outline-offset: 4px;
 }
 
 .titleStage {
   perspective: 1200px;
+
   transform-style: preserve-3d;
 }
 
-/* Tablet */
+/* =========================================================
+   TABLET / SMALL DESKTOP
+   ========================================================= */
 
 @media (min-width: 701px) and (max-width: 1400px) {
   .section {
-    height: 255vh;
+    /*
+     * Previously 255vh.
+     * More physical distance = longer fullscreen hold.
+     */
+    height: 340vh;
   }
 
   .stickyContainer,
@@ -526,33 +694,45 @@ width: clamp(56px, 5.2vw, 76px);
     max-width: 100%;
   }
 
-  /* Keep the two title lines centered and fully visible on iPad/tablet. */
-.galleryTitle {
+  .galleryTitle {
     top: clamp(20px, 4svh, 42px);
+
     left: 40%;
+
     width: calc(100% - 32px);
+
     box-sizing: border-box;
-    padding: 0 0.08em 0.12em;
-    font-size: clamp(78px, 12.5vw, 136px);
+
+    padding:
+      0 0.08em 0.12em;
+
+    font-size:
+      clamp(78px, 12.5vw, 136px);
+
     line-height: 0.72;
+
     letter-spacing: -0.055em;
   }
 
   .titleLine {
     max-width: 100%;
+
     padding-inline: 0.08em;
+
     overflow: clip;
   }
 
   .gallerySubtitle {
     top: clamp(145px, 23vh, 195px);
-    font-size: clamp(24px, 3.6vw, 38px);
+
+    font-size:
+      clamp(24px, 3.6vw, 38px);
   }
 
-  /* Balanced tablet composition around the 60%-wide center video. */
   .topLeft {
     top: 19.3%;
     left: 2.8%;
+
     width: 22.2%;
     height: 33.5%;
   }
@@ -560,14 +740,15 @@ width: clamp(56px, 5.2vw, 76px);
   .bottomLeft {
     left: 2.8%;
     bottom: 23.3%;
+
     width: 22.2%;
     height: 21%;
   }
 
-  /* Repositioned Top Center Container to match Desktop alignment */
   .topCenter {
     top: 10%;
     left: 58.5%;
+
     width: 15.1%;
     height: 14%;
   }
@@ -575,6 +756,7 @@ width: clamp(56px, 5.2vw, 76px);
   .topRight {
     top: 19.3%;
     right: 2.8%;
+
     width: 22.2%;
     height: 24.9%;
   }
@@ -582,39 +764,55 @@ width: clamp(56px, 5.2vw, 76px);
   .rightBottom {
     right: 2.8%;
     bottom: 17.8%;
+
     width: 22.2%;
     height: 35.3%;
   }
 
   .bottomCenter {
     bottom: 4%;
+
     left: 26.6%;
+
     width: 23.4%;
     height: 20%;
+
     top: 65%;
   }
 
   .galleryTitle {
     top: 70px;
-    font-size: clamp(66px, 2vw, 106px);
+
+    font-size:
+      clamp(66px, 2vw, 106px);
+
     line-height: 0.68;
   }
 
   .topCenter {
     top: 10%;
+
     height: 14%;
   }
 
   .bottomCenter {
     bottom: 4%;
+
     height: 17%;
   }
 }
 
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
 @media (max-width: 700px) {
   .section {
-    /* Faster mobile scroll: shorter sticky animation distance. */
-    height: 215vh;
+    /*
+     * Previously 215vh.
+     * Mobile gets enough distance for the fullscreen phase too.
+     */
+    height: 280vh;
   }
 
   .stickyContainer,
@@ -624,32 +822,46 @@ width: clamp(56px, 5.2vw, 76px);
 
   .titleStage {
     z-index: 3;
+
     transform-origin: 50% 10%;
   }
 
   .titleOrbit {
     top: -22%;
+
     left: -34%;
+
     width: 168%;
     height: 75%;
+
     opacity: 0.48;
   }
 
   .galleryTitle {
     top: clamp(15px, 3svh, 30px);
-    /* left: 50%; */
+
     width: calc(100% - 24px);
+
     box-sizing: border-box;
-    padding: 0 0.06em 0.12em;
-    font-size: clamp(32px, 7vw, 48px);
+
+    padding:
+      0 0.06em 0.12em;
+
+    font-size:
+      clamp(32px, 7vw, 48px);
+
     line-height: 0.8;
+
     letter-spacing: -0.045em;
+
     white-space: nowrap;
   }
 
   .titleLine {
     max-width: 100%;
+
     padding-inline: 0.1em;
+
     overflow: clip;
   }
 
@@ -660,69 +872,85 @@ width: clamp(56px, 5.2vw, 76px);
 
   .gallerySubtitle {
     top: clamp(110px, 18vh, 150px);
-    font-size: clamp(18px, 4vw, 24px);
+
+    font-size:
+      clamp(18px, 4vw, 24px);
+
     line-height: 0.82;
   }
 
-  /* 1. MAIN CENTER CARD (Portrait / Vertical in Center) */
   .mainCardWrapper {
     top: 32%;
+
     left: 29%;
+
     width: 42%;
     height: 36%;
   }
 
-  /* 2. TOP CARD (Wide Landscape Card Above Main Card) */
   .topCenter {
     top: 17%;
+
     left: 29%;
     right: auto;
+
     width: 42%;
     height: 13%;
+
     display: block;
   }
 
-  /* 3. BOTTOM CARD (Wide Landscape Card Below Main Card) */
   .bottomCenter {
     top: 70%;
+
     bottom: auto;
+
     left: 29%;
+
     width: 42%;
     height: 13%;
+
     display: block;
   }
 
-  /* 4. LEFT CARD (Vertical Card on Left Side - Shifted slightly up) */
   .topLeft {
     top: 32%;
+
     left: 5%;
+
     width: 21%;
     height: 25%;
+
     display: block;
   }
 
-  /* 5. RIGHT CARD (Vertical Card on Right Side - Shifted slightly down) */
   .rightBottom {
     top: 42%;
+
     bottom: auto;
+
     right: 5%;
     left: auto;
+
     width: 21%;
     height: 25%;
+
     display: block;
   }
 
-  /* Hide unused remaining cards on small mobile layout */
   .bottomLeft,
   .topRight {
     display: none;
   }
 }
 
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
 @media (max-width: 480px) {
   .section {
-    /* Keep narrow phones even snappier. */
-    height: 205vh;
+    height: 265vh;
   }
 
   .stickyContainer,
@@ -732,9 +960,11 @@ width: clamp(56px, 5.2vw, 76px);
 
   .galleryTitle {
     top: clamp(12px, 3.5svh, 28px);
-    /* left: 50%; */
+
     width: calc(100% - 18px);
+
     font-size: 11vw;
+
     line-height: 0.72;
   }
 
@@ -742,42 +972,55 @@ width: clamp(56px, 5.2vw, 76px);
     top: clamp(100px, 16vh, 130px);
   }
 
-  /* Fine-tuning for narrow mobile screens */
   .mainCardWrapper {
     top: 31%;
+
     left: 27%;
+
     width: 46%;
     height: 38%;
   }
 
   .topCenter {
     top: 17%;
+
     left: 27%;
+
     width: 55%;
     height: 14%;
   }
 
   .bottomCenter {
     top: 69%;
+
     left: 27%;
+
     width: 55%;
     height: 18%;
   }
 
   .topLeft {
     top: 31%;
+
     left: 3%;
+
     width: 24%;
     height: 27%;
   }
 
   .rightBottom {
     top: 40%;
+
     right: 3%;
+
     width: 24%;
     height: 27%;
   }
 }
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
 
 @media (prefers-reduced-motion: reduce) {
   .titleStage,
@@ -792,17 +1035,19 @@ width: clamp(56px, 5.2vw, 76px);
   }
 }
 
+/* =========================================================
+   GENERAL VIDEO / CARD PERFORMANCE
+   ========================================================= */
 
-
-/* Keep decorative paint work cheap on devices where video decode/GPU bandwidth
-   is usually the bottleneck. The geometry/layout remains unchanged. */
 @media (max-width: 1100px) {
   .sideCard {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    box-shadow:
+      0 8px 20px rgba(0, 0, 0, 0.12);
   }
 
   .mainCard {
-    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.18);
+    box-shadow:
+      0 12px 34px rgba(0, 0, 0, 0.18);
   }
 
   .videoElement {
@@ -816,27 +1061,32 @@ width: clamp(56px, 5.2vw, 76px);
   }
 
   .mainCard {
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.14);
+    box-shadow:
+      0 8px 24px rgba(0, 0, 0, 0.14);
   }
 }
 
-/* =========================================
-   VIDEO PLAYBACK PERFORMANCE
-========================================= */
-
 .videoElement {
   display: block;
+
   width: 100%;
   height: 100%;
+
   object-fit: cover;
+
   pointer-events: none;
+
   user-select: none;
+
   opacity: 0;
+
   background: #0b0d0b;
-  transition: opacity 120ms linear;
-  /* The moving card wrapper already owns the composited layer. Promoting every
-     <video> separately increases GPU memory/bandwidth, especially on Retina. */
+
+  transition:
+    opacity 120ms linear;
+
   transform: none;
+
   backface-visibility: visible;
 }
 
@@ -844,25 +1094,23 @@ width: clamp(56px, 5.2vw, 76px);
   opacity: 1;
 }
 
-/* The shared class above owns sizing; retain these selectors only for
-   component-specific behavior without repeating expensive declarations. */
 .sideCard video,
 .mainVideo {
   object-fit: cover;
 }
 
-/* =========================================
-   LARGE DESKTOP PERFORMANCE (1401px+)
-   Keep the wrappers composited, but do not create a second GPU texture/layer
-   for every individual video. On 1600/1920/2560px screens that can exhaust
-   GPU bandwidth and make MP4 playback look choppy even when it is buffered.
-========================================= */
+/* =========================================================
+   LARGE DESKTOP
+   ========================================================= */
+
 @media (min-width: 1401px) {
   .videoElement {
     transform: none;
+
     backface-visibility: visible;
-    /* Avoid an extra compositor animation on seven large video surfaces. */
-    transition: opacity 120ms linear;
+
+    transition:
+      opacity 120ms linear;
   }
 
   .sideCard,
@@ -871,21 +1119,18 @@ width: clamp(56px, 5.2vw, 76px);
     backface-visibility: hidden;
   }
 
-  /* The moving card already owns the composited layer. The video should stay
-     a normal child texture instead of being promoted independently. */
   .sideCard video,
   .mainVideo {
     transform: none;
+
     will-change: auto;
   }
 
-  /* Large soft shadows over several moving videos are expensive to repaint. */
   .sideCard {
-    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.18);
+    box-shadow:
+      0 14px 38px rgba(0, 0, 0, 0.18);
   }
 
-  /* Text blur competes for GPU time during the same part of the scroll where
-     the center video is expanding. The TSX also disables that blur >1400px. */
   .titleLetter {
     backface-visibility: hidden;
   }
