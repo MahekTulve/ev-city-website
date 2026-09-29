@@ -330,11 +330,8 @@ export default function NextDesign() {
               viewport={{ amount: 0.5, once: false }}
               variants={medallionVariants}
             >
-              <span className={styles["big5"]}>5'</span>
-              <span className={styles["minutes"]}>Minutes</span>
-              {/* <span className={styles["walkBike"]}>Walk or bike</span>
-              <Footprints strokeWidth={1.2} className={styles["walkicon"]} /> */}
-              {/* <div className={styles["walkunder"]} /> */}
+              <span className={styles["big5"]}>5</span>
+              <span className={styles["minutes"]}>minutes</span>
             </motion.div>
 
             {wedgeData.map(({ id, label: { icon: Icon, text, pos, line, mobline } }, index) => (
@@ -473,7 +470,7 @@ export default function NextDesign() {
             </div>
 
             <div className={styles["medallion"]}>
-              <span className={styles["big5"]}>5'</span>
+              <span className={styles["big5"]}>5</span>
               <span className={styles["minutes"]}>Minutes</span>
             </div>
           </div>

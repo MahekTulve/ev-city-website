@@ -102,11 +102,12 @@ export default function NextPhoto() {
                             <h1 className={styles.changedMobile}>
                                 changed
                             </h1>
-                        </div>
-                        <p className={styles.paradistmobile}>
-                            the way we think about
+                            <p className={styles.paradistmobile}>
+                            the way we <br/> think about
                             <span> Distance...</span>
                         </p>
+                        </div>
+                        
                     </motion.div>
                 </motion.div>
             </section>
