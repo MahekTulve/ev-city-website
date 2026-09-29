@@ -240,7 +240,7 @@ export default function ZoomParallaxDemo() {
         }
       >
         <SlideOverStack previous={<WhyCopenhagen />}>
-          <section className={styles.sharedSequence}>
+          {/* <section className={styles.sharedSequence}>
             <div className={styles.sharedShaderTrack} aria-hidden="true">
               <div className={styles.sharedShaderSticky}>
                 <Suspense fallback={null}>
@@ -283,7 +283,11 @@ export default function ZoomParallaxDemo() {
               <EvCityHero />
             </div>
 
-          </section>
+          </section> */}
+           <div data-section>
+              <EvCityHero />
+            </div>
+
         </SlideOverStack>
       </DeferredMount>
     </main>
