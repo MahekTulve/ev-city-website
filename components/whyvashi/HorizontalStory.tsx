@@ -3,21 +3,17 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
-import VashiDenmark from "../AboutSections/Vashidenmark";
+// import VashiDenmark from "../AboutSections/Vashidenmark";
 
 const SCROLL_LENGTH_VH = 650;
-const DENMARK_REACH = 0.24;
-const DENMARK_HOLD_END = 0.54;
-const HORIZONTAL_END = 0.72;
-const TIMELINE_START = HORIZONTAL_END;
+const HORIZONTAL_END = 0.85;
+const TIMELINE_START = 0.6;
 const TIMELINE_END = 0.92;
 const CLOUD_START = 0.91;
 const MOBILE_BREAKPOINT = 520;
 const MOBILE_SCROLL_LENGTH_VH = 750;
-const MOBILE_DENMARK_REACH = 0.23;
-const MOBILE_DENMARK_HOLD_END = 0.49;
-const MOBILE_HORIZONTAL_END = 0.67;
-const MOBILE_TIMELINE_START = MOBILE_HORIZONTAL_END;
+const MOBILE_HORIZONTAL_END = 0.8;
+const MOBILE_TIMELINE_START = 0.55;
 const MOBILE_TIMELINE_END = 0.94;
 const MOBILE_CLOUD_START = 0.92;
 const MOBILE_ROUTE_START_X_VW = 18;
@@ -145,13 +141,7 @@ export default function HorizontalStory() {
     }
 
     const horizontalEnd = isPhone ? MOBILE_HORIZONTAL_END : HORIZONTAL_END;
-    const denmarkReach = isPhone ? MOBILE_DENMARK_REACH : DENMARK_REACH;
-    const denmarkHoldEnd = isPhone
-      ? MOBILE_DENMARK_HOLD_END
-      : DENMARK_HOLD_END;
-    const timelineStart = isPhone
-      ? MOBILE_TIMELINE_START
-      : TIMELINE_START;
+    const timelineStart = isPhone ? MOBILE_TIMELINE_START : TIMELINE_START;
     const timelineEnd = isPhone ? MOBILE_TIMELINE_END : TIMELINE_END;
     const cloudStart = isPhone ? MOBILE_CLOUD_START : CLOUD_START;
 
@@ -162,12 +152,8 @@ export default function HorizontalStory() {
     let isNearViewport = false;
 
     const applyProgress = (progress: number) => {
-      const shift =
-        progress <= denmarkReach
-          ? mapProgress(progress, 0, denmarkReach) * 100
-          : progress <= denmarkHoldEnd
-            ? 100
-            : 100 + mapProgress(progress, denmarkHoldEnd, horizontalEnd) * 100;
+      // 2 panels: Concept -> Coast. Total horizontal travel = 100vw
+      const shift = mapProgress(progress, 0, horizontalEnd) * 100;
 
       const timelineProgress = mapProgress(
         progress,
@@ -337,9 +323,10 @@ export default function HorizontalStory() {
             <ConceptSection hideChrome />
           </div>
 
-          <div className={`${styles.panel} ${styles.golden}`}>
+          {/* VashiDenmark section commented out */}
+          {/* <div className={`${styles.panel} ${styles.golden}`}>
             <VashiDenmark />
-          </div>
+          </div> */}
 
           <div className={`${styles.panel} ${styles.coast}`}>
             <div className={styles.coastHeadingWrap}>
@@ -477,6 +464,7 @@ export default function HorizontalStory() {
                         </span>
 
                         <span className={styles.stopName}>{stop.name}</span>
+                        <span className={styles.stopTime}>{stop.time}</span>
                       </div>
                     );
                   })}
