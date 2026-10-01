@@ -124,8 +124,8 @@ export default function LandingPage({ isNight }: LandingPageProps) {
         scrollTrigger: {
           trigger: introRef.current,
           start: "top top",
-          end: () => (isMobileDevice() ? "+=220%" : "+=300%"),
-          scrub: 0.5,
+          end: () => (isMobileDevice() ? "+=150%" : "+=200%"),
+           scrub: 0.5,
           pin: true,
           anticipatePin: 1,
           fastScrollEnd: true,

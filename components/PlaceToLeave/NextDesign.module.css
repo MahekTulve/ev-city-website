@@ -56,7 +56,7 @@
   letter-spacing: 0.01em;
   text-transform: uppercase;
   margin: 0;
-  z-index: 2;
+  z-index: 6;
   color: #1F201B;
 
 }
@@ -891,12 +891,12 @@
   }
 
   .title {
-    font-size: 2.9rem;
+    font-size: 3rem;
   }
 
   .titleGold {
-    font-size: 1.4rem;
-    margin-bottom: -1%;
+    font-size: 1.7rem;
+    margin-bottom: -6%;
   }
 
   .ruleRow {
@@ -918,7 +918,8 @@
   }
 
   .bodyStrong em {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
+    font-weight: 500;
 
   }
 }
@@ -1004,6 +1005,10 @@
     text-align: center;
   }
 
+
+  .titleGold {
+    font-size: 1.4rem;
+  }
 
 
 }
