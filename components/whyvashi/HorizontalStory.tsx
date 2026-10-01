@@ -5,17 +5,19 @@ import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
 // import VashiDenmark from "../AboutSections/Vashidenmark";
 
-const SCROLL_LENGTH_VH = 650;
-const HORIZONTAL_END = 0.85;
-const TIMELINE_START = 0.6;
-const TIMELINE_END = 0.92;
-const CLOUD_START = 0.91;
+const SCROLL_LENGTH_VH = 280;
+const HORIZONTAL_END = 0.42;
+const TIMELINE_START = 0.38;
+const TIMELINE_END = 0.88;
+const CLOUD_START = 0.88;
+
+// Mobile
+const MOBILE_SCROLL_LENGTH_VH = 400;
+const MOBILE_HORIZONTAL_END = 0.45;
+const MOBILE_TIMELINE_START = 0.4;
+const MOBILE_TIMELINE_END = 0.9;
+const MOBILE_CLOUD_START = 0.9;
 const MOBILE_BREAKPOINT = 520;
-const MOBILE_SCROLL_LENGTH_VH = 750;
-const MOBILE_HORIZONTAL_END = 0.8;
-const MOBILE_TIMELINE_START = 0.55;
-const MOBILE_TIMELINE_END = 0.94;
-const MOBILE_CLOUD_START = 0.92;
 const MOBILE_ROUTE_START_X_VW = 18;
 const MOBILE_ROUTE_TRAVEL_VW = 232;
 const PATH_WIDTH = 1480;
@@ -235,7 +237,7 @@ export default function HorizontalStory() {
     };
 
     const animateToTarget = () => {
-      displayedProgress += (targetProgress - displayedProgress) * 0.12;
+      displayedProgress += (targetProgress - displayedProgress) * 0.18;
 
       if (Math.abs(targetProgress - displayedProgress) < 0.0001) {
         displayedProgress = targetProgress;

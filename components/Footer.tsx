@@ -1,5 +1,12 @@
 import React from "react";
-import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import {
+  FaFacebookF,
+  FaInstagram,
+  FaLinkedinIn,
+  FaYoutube,
+  FaPhoneAlt,
+  FaEnvelope,
+} from "react-icons/fa";
 import styles from "./Footer.module.css";
 
 const FooterSection = () => {
@@ -16,19 +23,40 @@ const FooterSection = () => {
               decoding="async"
             />
             <p className={styles.footerText}>
-              Luxury waterfront living crafted for comfort, elegance, and modern lifestyles.
+              Luxury waterfront living crafted for comfort, elegance, and modern
+              lifestyles.
             </p>
             <div className={styles.socials}>
-              <a href="https://www.facebook.com/evgindia" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <a
+                href="https://www.facebook.com/evgindia"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+              >
                 <FaFacebookF />
               </a>
-              <a href="https://www.instagram.com/evhomesofficial" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+              <a
+                href="https://www.instagram.com/evhomesofficial"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+              >
                 <FaInstagram />
               </a>
-              <a href="https://www.linkedin.com/company/ev-homes" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+              <a
+                href="https://www.linkedin.com/company/ev-homes"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
                 <FaLinkedinIn />
               </a>
-              <a href="https://www.youtube.com/@evhomes3892" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+              <a
+                href="https://www.youtube.com/@evhomes3892"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+              >
                 <FaYoutube />
               </a>
             </div>
@@ -38,10 +66,20 @@ const FooterSection = () => {
           <div>
             <h4 className={styles.colTitle}>Quick Links</h4>
             <ul className={styles.linkList}>
-              <li><a href="#evHomes">About Us</a></li>
-              <li><a href="https://app.monstercampaigns.com/c/suwgu4evn9yahzpkw5hq/">Contact</a></li>
-              <li><a href="#privacy">Privacy Policy</a></li>
-              <li><a href="#terms">Terms & Conditions</a></li>
+              <li>
+                <a href="#evHomes">About Us</a>
+              </li>
+              <li>
+                <a href="https://app.monstercampaigns.com/c/suwgu4evn9yahzpkw5hq/">
+                  Contact
+                </a>
+              </li>
+              <li>
+                <a href="#privacy">Privacy Policy</a>
+              </li>
+              <li>
+                <a href="#terms">Terms & Conditions</a>
+              </li>
             </ul>
           </div>
 
@@ -50,13 +88,21 @@ const FooterSection = () => {
             <h4 className={styles.colTitle}>Get in Touch</h4>
             <div className={styles.contactItem}>
               <span className={styles.contactLabel}>For Bookings</span>
-              <a href="https://wa.me/918291668777" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://wa.me/918291668777"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 +91 82916 68777
               </a>
             </div>
             <div className={styles.contactItem}>
               <span className={styles.contactLabel}>Official Website</span>
-              <a href="https://www.evgroup.in/home.html" target="_blank" rel="noopener noreferrer">
+              <a
+                href="https://www.evgroup.in/home.html"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 www.evgroup.in
               </a>
             </div>
@@ -66,10 +112,45 @@ const FooterSection = () => {
           <div>
             <h4 className={styles.colTitle}>Our Projects</h4>
             <ul className={styles.linkList}>
-              <li><a href="#marina">EV 10 Marina Bay</a></li>
-              <li><a href="#malibu">EV 23 Malibu West</a></li>
-              <li><a href="#square">EV 9 Square</a></li>
-              <li><a href="#solaries">Solaries</a></li>
+              <li>
+                <a
+                  href="https://10marinabay.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  EV 10 Marina Bay
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://ev23malibuwest.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  EV 23 Malibu West
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://9square.co.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  EV 9 Square
+                </a>
+              </li>
+
+              <li>
+                <a
+                  href="https://solariskharghar.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Solaris
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -97,7 +178,8 @@ const FooterSection = () => {
 
             <div className={styles.addressContainer}>
               <p>
-                2nd Floor, Office No A-212, Vardhaman Chambers, Sector-17, Vashi, Navi Mumbai, 400703.
+                2nd Floor, Office No A-212, Vardhaman Chambers, Sector-17,
+                Vashi, Navi Mumbai, 400703.
               </p>
             </div>
           </div>
@@ -105,12 +187,14 @@ const FooterSection = () => {
 
         {/* Bottom Section */}
         <div className={styles.bottom}>
-          <div>© {new Date().getFullYear()} E V Group. All rights reserved.</div>
-          <nav>
+          <div>
+            © {new Date().getFullYear()} E V Group. All rights reserved.
+          </div>
+          {/* <nav>
             <a href="#privacy">Privacy</a>
             <a href="#terms">Terms</a>
             <a href="#sitemap">Sitemap</a>
-          </nav>
+          </nav> */}
         </div>
       </div>
     </footer>
