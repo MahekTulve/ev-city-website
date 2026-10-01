@@ -426,14 +426,14 @@ export default function Lit() {
                 }
               >
                 <DrawLetter letter="L" delay={100} />
-                <DrawDot letter="L" delay={1420} />
+                <DrawDot letter="L" delay={1020} />
               </span>
 
               <span
                 className={s.heroWord}
                 style={
                   {
-                    "--word-delay": "450ms",
+                    "--word-delay": "350ms",
                   } as CSSProperties
                 }
               >
@@ -446,19 +446,19 @@ export default function Lit() {
                 className={s.heroLetterRow}
                 style={
                   {
-                    "--zoom-delay": "2000ms",
+                    "--zoom-delay": "1000ms",
                   } as CSSProperties
                 }
               >
-                <DrawLetter letter="I" delay={2000} />
-                <DrawDot letter="I" delay={3320} />
+                <DrawLetter letter="I" delay={1000} />
+                <DrawDot letter="I" delay={2020} />
               </span>
 
               <span
                 className={s.heroWord}
                 style={
                   {
-                    "--word-delay": "2350ms",
+                    "--word-delay": "1550ms",
                   } as CSSProperties
                 }
               >
@@ -471,18 +471,18 @@ export default function Lit() {
                 className={s.heroLetterRow}
                 style={
                   {
-                    "--zoom-delay": "3900ms",
+                    "--zoom-delay": "2000ms",
                   } as CSSProperties
                 }
               >
-                <DrawLetter letter="T" delay={3900} />
+                <DrawLetter letter="T" delay={2900} />
               </span>
 
               <span
                 className={s.heroWord}
                 style={
                   {
-                    "--word-delay": "4250ms",
+                    "--word-delay": "3550ms",
                   } as CSSProperties
                 }
               >
@@ -495,7 +495,7 @@ export default function Lit() {
 
       <div className={s.cards}>
         {cards.map(({ letter, title, copy, Icon }, index) => {
-          const cardRevealDelays = [450, 2350, 4250];
+          const cardRevealDelays = [450, 1350, 3250];
 
           return (
             <article

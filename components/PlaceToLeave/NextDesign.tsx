@@ -244,7 +244,7 @@ const imageVariants: Variants = {
 export default function NextDesign() {
   return (
     <main className={styles["page"]}>
-      <section className={styles["hero"]}>
+      <section id="evHomes" className={styles["hero"]}>
         <motion.div
           className={styles["left"]}
           initial="hidden"

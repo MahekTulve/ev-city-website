@@ -381,10 +381,10 @@
 
 .animate .drawLetterPath {
   animation:
-    traceLetter 1250ms cubic-bezier(0.55, 0, 0.2, 1) var(--draw-delay, 0ms)
-      forwards,
-    fillLetter 380ms cubic-bezier(0.2, 0.72, 0.22, 1)
-      calc(var(--draw-delay, 0ms) + 1250ms) forwards;
+    traceLetter 650ms cubic-bezier(0.55, 0, 0.2, 1)
+      var(--draw-delay, 0ms) forwards,
+    fillLetter 220ms cubic-bezier(0.2, 0.72, 0.22, 1)
+      calc(var(--draw-delay, 0ms) + 650ms) forwards;
 }
 
 @keyframes traceLetter {
