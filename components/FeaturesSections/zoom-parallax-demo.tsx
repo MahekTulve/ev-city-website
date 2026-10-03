@@ -11,6 +11,7 @@ import {
 import styles from "./FeaturesSection.module.css";
 import EvCityHero from "../EvCityHero";
 import VashiDenmark from "../AboutSections/Vashidenmark";
+import HorizontalSequence from "../HorizontalSequence";
 
 const CinematicText = lazy(() => import("../AboutSections/cinematicTex"));
 const DenmarkToVashi = lazy(() => import("../AboutSections/DenmarkToVashi"));
@@ -280,18 +281,15 @@ export default function ZoomParallaxDemo() {
             <div className={styles.sharedSequenceContent} data-section>
               <DenmarkToVashi />
             </div>
-            <div data-section>
-              <EvCityHero />
-            </div>
-
-          </section> */}
+          </section>
           <div data-section>
             <VashiDenmark />
-          </div>
+          </div> */}
+             <HorizontalSequence />
           <div data-section>
             <EvCityHero />
           </div>
-
+       
         </SlideOverStack>
       </DeferredMount>
     </main>
