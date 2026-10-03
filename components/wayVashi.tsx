@@ -181,7 +181,7 @@ function FeatureIcon({ type }: { type: FeatureIconType }) {
     return (
       <svg viewBox="0 0 48 48" aria-hidden="true">
         <path d="M10 38V24h9v14M19 38V15h11v23M30 38V20h8v18" />
-        <path d="M23 15V9h4v6M13 28h3M13 32h3M23 20h3M23 25h3M33 25h2M33 30h2" />
+        <path d="M23 15V9h4v6M13 28h3M13 32h3M23 20h3M23 25h3M23 30h3M33 25h2M33 30h2" />
         <path d="M7 38h34" />
       </svg>
     );
@@ -237,6 +237,8 @@ export default function WayVashi({
   const [slide, setSlide] = useState(0);
   const [night, setNight] = useState<boolean>(initialIsNight);
 
+  // Enabled on every fresh page load.
+  // Any manual arrow click disables autoplay until the next refresh.
   const [autoPlayEnabled, setAutoPlayEnabled] = useState(true);
   const [isStageVisible, setIsStageVisible] = useState(false);
   const [isStageNear, setIsStageNear] = useState(false);
@@ -262,7 +264,9 @@ export default function WayVashi({
         y: 0,
       });
 
-      // Initial states for the cinematic intro
+      // Initial states for the cinematic intro.
+      // Each line/ornament starts differently so the composition does not
+      // feel like one generic fade-up animation.
       gsap.set(introCrown, { autoAlpha: 0, scaleX: 0.72 });
       gsap.set(introCrownLines, { scaleX: 0, transformOrigin: "center center" });
       gsap.set(introCrownBars, { scaleY: 0, transformOrigin: "center bottom" });
@@ -287,15 +291,13 @@ export default function WayVashi({
         y: 90,
       });
 
-      // Timeline now plays forward when entering down, and reverses while pinned when entering up
       const tl = gsap.timeline({
-        paused: true,
         scrollTrigger: {
           trigger: stageRef.current,
           start: "top top",
           end: "+=180%",
+          scrub: 0.5,
           pin: true,
-          toggleActions: "play none reverse reverse", // Ensures reverse plays while section stays pinned on return
           anticipatePin: 1,
           invalidateOnRefresh: true,
           fastScrollEnd: true,
@@ -305,17 +307,27 @@ export default function WayVashi({
 
       tl.fromTo(
         domeRef.current,
-        { height: "0vh" },
-        { height: "148vh", duration: 0.9, ease: "power2.out" }
+        {
+          height: "0vh",
+        },
+        {
+          height: "148vh",
+          duration: 1.2,
+          ease: "none",
+        },
       );
 
+      // -------------------------------------------------------------
+      // CINEMATIC INTRO ENTRANCE
+      // Background zoom begins here and then continues slowly until
+      // the exact end of the pinned WayVashi section.
+      // -------------------------------------------------------------
       tl.addLabel("backgroundZoomStart");
 
-      // Crown entrance
       tl.to(introCrown, {
         autoAlpha: 1,
         scaleX: 1,
-        duration: 0.22,
+        duration: 0.18,
         ease: "power2.out",
       });
 
@@ -327,7 +339,7 @@ export default function WayVashi({
           stagger: 0.04,
           ease: "power3.out",
         },
-        "<0.02"
+        "<0.02",
       );
 
       tl.to(
@@ -338,54 +350,56 @@ export default function WayVashi({
           stagger: 0.025,
           ease: "back.out(1.8)",
         },
-        "<0.02"
+        "<0.02",
       );
 
-      // "WHAT MAKES" Eyebrow
       tl.to(
-        introEyebrow,
-        {
-          autoAlpha: 1,
-          y: 0,
-          duration: 0.28,
-          ease: "power3.out",
-        },
-        "<0.08"
-      );
+  [
+    introEyebrow,
+    introVashi,
+    introNextRow,
+    introNext,
+    introAddress,
+  ],
+  {
+    autoAlpha: 1,
+    y: 0,
+    scale: 1,
+    duration: 0.45,
+    ease: "power3.out",
+  },
+  "<0.09",
+);
 
-      // "VASHI" Title
-      tl.to(
-        introVashi,
-        {
-          autoAlpha: 1,
-          y: 0,
-          scale: 1,
-          duration: 0.42,
-          ease: "back.out(1.35)",
-        },
-        "<0.1"
-      );
+tl.to(
+  introRules,
+  {
+    scaleX: 1,
+    duration: 0.45,
+    ease: "power3.out",
+  },
+  "<",
+);
 
-      // "THE NEXT" Row
       tl.to(
         introNextRow,
         {
           autoAlpha: 1,
-          duration: 0.18,
+          duration: 0.12,
           ease: "power1.out",
         },
-        "<0.15"
+        "<0.18",
       );
 
       tl.to(
         introRules,
         {
           scaleX: 1,
-          duration: 0.32,
+          duration: 0.34,
           stagger: 0.035,
           ease: "power3.inOut",
         },
-        "<"
+        "<",
       );
 
       tl.to(
@@ -397,39 +411,36 @@ export default function WayVashi({
           duration: 0.3,
           ease: "power3.out",
         },
-        "<0.05"
+        "<0.05",
       );
 
-      // "BIG ADDRESS" Title
       tl.to(
         introAddress,
         {
           autoAlpha: 1,
           y: 0,
           scale: 1,
-          duration: 0.42,
+          duration: 0.48,
           ease: "back.out(1.35)",
         },
-        "<0.1"
+        "<0.10",
       );
 
-      // Subtitle line
       tl.to(
         introSubtitle,
         {
           autoAlpha: 1,
           y: 0,
           clipPath: "inset(0 0 0% 0)",
-          duration: 0.4,
+          duration: 0.42,
           ease: "power3.out",
         },
-        "<0.12"
+        "<0.14",
       );
 
-      // Readable hold duration before transitioning out
-      tl.to({}, { duration: 1.0 });
+      // Give the completed title a short readable hold before it exits.
+      tl.to({}, { duration: 0.34 });
 
-      // Outro sequence for the main title
       tl.to(intro, {
         autoAlpha: 0,
         y: -35,
@@ -441,26 +452,34 @@ export default function WayVashi({
         curvedText,
         {
           autoAlpha: 0,
-          duration: 0.18,
+          duration: 0.15,
           ease: "power1.out",
         },
-        "<"
+        "<",
       );
 
-      tl.to({}, { duration: 0.12 });
+      tl.to({}, { duration: 0.16 });
 
-      // Reveal inner slider content
       tl.to(domeInner, {
         autoAlpha: 1,
         y: 0,
-        duration: 0.65,
+        duration: 0.7,
         ease: "power3.out",
       });
 
-      // Background camera scale animation
+      // Camera-style zoom:
+      // 1. Starts when domeIntro begins.
+      // 2. Keeps the BOTTOM-CENTER point locked so the picture does not drift.
+      // 3. Finishes before the section ends.
+      // 4. Holds the final crop until the pin releases, making the transition
+      //    into the next section feel like one continuous picture.
       const zoomStart = tl.labels.backgroundZoomStart;
       const sectionEnd = tl.duration();
       const availableZoomTime = Math.max(sectionEnd - zoomStart, 0.001);
+
+      // Keep the camera movement extremely gradual.
+      // The final ~10% stays locked at the exact same crop.
+      const zoomDuration = availableZoomTime * 0.90;
 
       tl.fromTo(
         domeBackgroundRef.current,
@@ -471,12 +490,12 @@ export default function WayVashi({
         {
           scale: CUTOUT_ZOOM_SCALE,
           transformOrigin: "50% 100%",
-          duration: availableZoomTime,
-          ease: "power1.out",
+          duration: zoomDuration,
+          ease: "none",
           immediateRender: false,
           force3D: true,
         },
-        zoomStart
+        zoomStart,
       );
     }, rootRef);
 
@@ -494,7 +513,7 @@ export default function WayVashi({
           preloadObserver.disconnect();
         }
       },
-      { rootMargin: "1000px 0px", threshold: 0 }
+      { rootMargin: "1000px 0px", threshold: 0 },
     );
 
     preloadObserver.observe(stage);
@@ -503,17 +522,23 @@ export default function WayVashi({
 
   useEffect(() => {
     const stage = stageRef.current;
+
     if (!stage) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsStageVisible(entry.isIntersecting);
       },
-      { threshold: 0.25 }
+      {
+        threshold: 0.25,
+      },
     );
 
     observer.observe(stage);
-    return () => observer.disconnect();
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -540,11 +565,15 @@ export default function WayVashi({
 
   const goPrevious = () => {
     stopAutoPlay();
-    setSlide((value) => (value === 0 ? RECORDS.length - 1 : value - 1));
+
+    setSlide((value) =>
+      value === 0 ? RECORDS.length - 1 : value - 1,
+    );
   };
 
   const goNext = () => {
     stopAutoPlay();
+
     setSlide((value) => (value + 1) % RECORDS.length);
   };
 
@@ -565,10 +594,20 @@ export default function WayVashi({
           }`}
         />
 
+
+
         <div className={styles.dayNightButtonContainer}>
           <div className={styles.heroTagline}>
             <span className={styles.taglineWord}>See It Differently</span>
-            <DayNightButton isNight={night} onToggle={handleToggle} />
+
+            <DayNightButton
+              isNight={night}
+              onToggle={handleToggle}
+            />
+
+            {/* <span className={styles.taglineWord}>
+               Day and Night
+            </span> */}
           </div>
         </div>
 
@@ -591,8 +630,12 @@ export default function WayVashi({
               d="M 40 340 A 560 320 0 0 1 1160 340"
               fill="none"
             />
+
             <text textAnchor="middle">
-              <textPath href="#archCurve" startOffset="50%" />
+              <textPath
+                href="#archCurve"
+                startOffset="50%"
+              />
             </text>
           </svg>
 
@@ -638,7 +681,9 @@ export default function WayVashi({
                   }`}
                   aria-hidden={index !== slide}
                 >
-                  <h2 className={styles.bigTitle}>{record.title}</h2>
+                  <h2 className={styles.bigTitle}>
+                    {record.title}
+                  </h2>
 
                   <RecordSubtitle
                     subtitle={record.subtitle}
@@ -658,12 +703,34 @@ export default function WayVashi({
                   decoding="async"
                   width={1280}
                   height={720}
-                  className={`${styles.slide} ${
-                    index === slide ? styles.slideActive : ""
-                  }`}
+                  className={`${styles.slide} ${index === slide
+                      ? styles.slideActive
+                      : ""
+                    }`}
                 />
               ))}
             </div>
+
+            {/* <div
+              className={styles.featureRow}
+              key={`features-${slide}`}
+            >
+              {activeRecord.features.map((feature) => (
+                <div
+                  className={styles.featureItem}
+                  key={`${feature.line1}-${feature.line2}`}
+                >
+                  <span className={styles.featureIcon}>
+                    <FeatureIcon type={feature.icon} />
+                  </span>
+
+                  <p className={styles.featureText}>
+                    <span>{feature.line1}</span>
+                    <strong>{feature.line2}</strong>
+                  </p>
+                </div>
+              ))}
+            </div> */}
 
             <div className={styles.sliderNav}>
               <button
@@ -682,7 +749,8 @@ export default function WayVashi({
                 <span
                   className={styles.sliderProgress}
                   style={{
-                    width: `${((slide + 1) / RECORDS.length) * 100}%`,
+                    width: `${((slide + 1) / RECORDS.length) * 100
+                      }%`,
                   }}
                 />
               </span>
@@ -702,7 +770,9 @@ export default function WayVashi({
           </div>
         </div>
 
-        <h2 className="sr-only">Three reasons to choose Vashi</h2>
+        <h2 className="sr-only">
+          Three reasons to choose Vashi
+        </h2>
       </section>
 
       <Lit />
