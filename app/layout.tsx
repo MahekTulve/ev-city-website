@@ -1,5 +1,5 @@
 import localFont from 'next/font/local';
-import { Cormorant_Garamond, Jura, Libre_Baskerville, Montez } from 'next/font/google';
+import { Bodoni_Moda, Cormorant_Garamond, Jura, Montez } from 'next/font/google';
 import './globals.css';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
@@ -9,28 +9,40 @@ const amsterdamFont = localFont({
   variable: '--font-amsterdam',
   display: 'swap',
 });
+
 const amsterdamFontFour = localFont({
   src: '../public/fonts/AmsterdamFourSlantTtf-4B4yl.ttf',
   variable: '--font-amsterdamFour',
   display: 'swap',
 });
-// variable create karein
+
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
   weight: ['400', '600', '700'], 
   variable: '--font-cormorant',
 });
+
 const libreBaskerville = Montez({
   subsets: ['latin'],
   weight: ['400'],
   style: ['normal'],
   variable: '--Montez',
 });
+
 const jurafont = Jura({
   subsets: ['latin'],
-  weight: ['400','500','600'],
-  style: ['normal',],
+  weight: ['400', '500', '600'],
+  style: ['normal'],
   variable: '--font-jura',
+});
+
+// FIXED: Bodoni_Moda configuration
+const bodoni = Bodoni_Moda({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  variable: '--font-bodoni',
+  display: 'swap',
 });
 
 export const metadata = {
@@ -51,13 +63,10 @@ export default function RootLayout({
       <SmoothScroll>
         <body
           suppressHydrationWarning={true}
-          /* Dono font variables pass kar diye */
-          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable} ${amsterdamFontFour.variable}`}
+          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable} ${amsterdamFontFour.variable} ${bodoni.variable}`}
           style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}
         >
-          <main>
-            {children}
-          </main>
+          <main>{children}</main>
           <Footer />
         </body>
       </SmoothScroll>

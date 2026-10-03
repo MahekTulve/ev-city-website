@@ -1,27 +1,21 @@
-
-
-
-
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap');
 
 .cityscape {
     position: relative;
     width: 100%;
-    overflow: hidden;
     min-height: 100vh;
-
     color: #f5f5f7;
-    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    overflow: hidden;
 }
 
-.cityscape::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background-size: 100px 100px;
-    pointer-events: none;
-    z-index: 0;
+.hero {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    padding: 3rem 1.5rem;
 }
 
 .section {
@@ -48,15 +42,10 @@
 }
 
 .heroContentWrapper {
-    width: 100%;
-    max-width: 62rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 2rem;
     position: relative;
-    z-index: 3;
+    width: min(72rem, calc(100% - 2rem));
+    text-align: center;
+    z-index: 2;
 }
 
 /* Designer Glass Badge */
@@ -217,6 +206,7 @@
         line-height: 1.45;
 
     }
+
     .editorialSubheading {
         font-size: 1rem;
         line-height: 1.5;
@@ -236,26 +226,202 @@
     white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-    .glowingTitle {
-        font-size: 9vw;
-    }
-
-    .subtitle {
-        font-size: 0.95rem;
-    }
+.orbitTop,
+.orbitBottom {
+    position: absolute;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: 50%;
+    padding: 1.5px;
+    background: conic-gradient(from 120deg,
+            transparent 0deg,
+            rgba(226, 194, 117, 0.85) 80deg,
+            rgba(185, 143, 44, 0.4) 120deg,
+            transparent 230deg);
+    -webkit-mask:
+        linear-gradient(#fff 0 0) content-box,
+        linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
 }
 
-.section {
-    content-visibility: auto;
-    contain-intrinsic-size: 100vh;
+/* Right Top Golden Arc */
+.orbitTop {
+    top: 5%;
+    right: 1%;
+    width: 32rem;
+    height: 32rem;
+    transform: rotate(-140deg);
 }
 
-@media (max-width: 768px) {
-   
+/* Left Bottom Golden Arc */
+.orbitBottom {
+    bottom: 8%;
+    left: 15%;
+    width: 20rem;
+    height: 20rem;
+    transform: rotate(40deg);
 
-    .heroBadge,
-    .scrollPill {
-        backdrop-filter: none;
+}
+
+/* ============================================================
+   MAIN TYPOGRAPHY & LAYOUT
+   ============================================================ */
+.heading {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 64rem;
+    font-family: 'Cinzel', serif;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+/* Top Small Badge 'THE' */
+.the {
+    display: block;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    color: #8b8370;
+    margin-bottom: 0.2rem;
+    margin-left: 0.2rem;
+}
+
+.danish {
+    display: block;
+    font-size: clamp(3.8rem, 11vw, 11rem);
+    font-weight: 600;
+    line-height: 0.9;
+    background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+    font-family: var(--font-cormorant);
+}
+
+.secondRow {
+    display: flex;
+    align-items: baseline;
+    justify-content: flex-end;
+    gap: 1.5rem;
+    margin-top: -0.5rem;
+    flex-wrap: wrap;
+}
+
+.artOf {
+    font-family: var(--font-cormorant);
+    font-style: italic;
+    font-size: clamp(1.8rem, 4vw, 4rem);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-transform: none;
+    padding-right: 0.2em; 
+    display: inline-block; 
+    
+}
+
+.living {
+    font-size: clamp(3.8rem, 8vw, 8rem);
+    font-weight: 600;
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    background: linear-gradient(180deg, #ffffff 0%, #e2e4e9 25%, #9fa3ac 65%, #ffffff 90%, #787c85 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+}
+
+/* Middle Line: REIMAGINED FOR */
+.reimagined {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    margin: 2.5rem auto 0;
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.75rem, 1.5vw, 1.05rem);
+    font-weight: 400;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #fcea93, #c9a852, #e2c275);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.reimagined::before,
+.reimagined::after {
+    content: "";
+    flex: 1;
+    max-width: 9rem;
+    height: 1px;
+}
+
+.reimagined::before {
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 82, 0.8));
+}
+
+.reimagined::after {
+    background: linear-gradient(90deg, rgba(201, 168, 82, 0.8), transparent);
+}
+
+/* Bottom Title: VASHI. */
+.vashi {
+    margin: 0.2rem 0 0;
+    font-family: 'Cinzel', serif;
+    font-size: clamp(4.5rem, 11vw, 10.5rem);
+    font-weight: 700;
+    line-height: 0.85;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #fff3b3 0%, #e2c275 30%, #b98f2c 70%, #684f13 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.8));
+}
+
+/* Description paragraph */
+.description {
+    max-width: 38rem;
+    margin: 2.2rem auto 0;
+    color: rgba(220, 225, 235, 0.75);
+    font-family: 'Montserrat', sans-serif;
+    font-size: clamp(0.65rem, 1.1vw, 0.78rem);
+    line-height: 1.85;
+    letter-spacing: 0.12em;
+    font-weight: 300;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .secondRow {
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .reimagined::before,
+    .reimagined::after {
+        max-width: 3rem;
+    }
+
+    .orbitTop {
+        width: 18rem;
+        height: 18rem;
+        right: -4rem;
+    }
+
+    .orbitBottom {
+        width: 16rem;
+        height: 16rem;
+        left: -4rem;
     }
 }
