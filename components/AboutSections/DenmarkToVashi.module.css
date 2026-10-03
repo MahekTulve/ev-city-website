@@ -1,13 +1,14 @@
+
+
+
+
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@200;300;400;500&display=swap');
 
-/* ============================================================
-   CANVAS & ROOT CONTAINER
-   ============================================================ */
 .cityscape {
     position: relative;
     width: 100%;
     overflow: hidden;
-    min-height: 350vh;
+    min-height: 100vh;
 
     color: #f5f5f7;
     font-family: 'Plus Jakarta Sans', sans-serif;
@@ -144,7 +145,6 @@
 
 }
 
-/* Minimalist Center Scroll Indicator */
 .scrollHintContainer {
     display: inline-flex;
     flex-direction: column;
@@ -163,33 +163,6 @@
     text-transform: uppercase;
 }
 
-.scrollLineTrack {
-    width: 1.5px;
-    height: 48px;
-    background: rgba(212, 175, 55, 0.15);
-    position: relative;
-    overflow: hidden;
-}
-
-.scrollLineBar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(180deg, #d4af37, transparent);
-    animation: slideTrackVertical 2.2s infinite ease-in-out;
-}
-
-@keyframes slideTrackVertical {
-    0% {
-        transform: translateY(-100%);
-    }
-
-    100% {
-        transform: translateY(100%);
-    }
-}
 
 .scrollPill {
     width: 24px;
@@ -224,7 +197,6 @@
 
     50% {
         height: 14px;
-        /* Stretch effect while moving down */
         opacity: 0.8;
     }
 
@@ -235,385 +207,6 @@
     }
 }
 
-.scrollTargetTrack {
-    width: 1px;
-    height: 54px;
-    background: linear-gradient(180deg, rgba(212, 175, 55, 0.4), transparent);
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-.targetRing {
-    width: 11px;
-    height: 11px;
-    border: 1px solid #d4af37;
-    border-radius: 50%;
-    position: absolute;
-    top: 0;
-    background: #060606;
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
-    animation: ringSlide 2.4s infinite cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-@keyframes ringSlide {
-    0% {
-        top: 0%;
-        opacity: 0;
-        transform: scale(0.6);
-    }
-
-    30% {
-        opacity: 1;
-        transform: scale(1);
-    }
-
-    100% {
-        top: 85%;
-        opacity: 0;
-        transform: scale(0.6);
-    }
-}
-
-.eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-family: var(--font-jura);
-    font-size: 0.72rem;
-    letter-spacing: 0.38em;
-    text-transform: uppercase;
-    color: #d4af37;
-    margin-bottom: 1.5rem;
-    font-weight: 500;
-}
-
-.italicGold {
-    font-family: var(--font-cormorant);
-    font-style: italic;
-    background: linear-gradient(135deg, #fceabb 0%, #d4af37 50%, #af8c52 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-/* ============================================================
-   2. SECTION 2 STRUCTURE (Zig-Zag Alternate Cards Layout)
-   ============================================================ */
-.amenityContainer {
-    width: 100%;
-    max-width: 85rem;
-    padding-bottom: 380px;
-}
-
-.amenityHeaderCenter {
-    text-align: center;
-    margin-bottom: 5rem;
-    font-family: var(--font-cormorant);
-}
-
-.zigzagTimeline {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    position: relative;
-}
-
-.zigzagRow {
-    display: flex;
-    min-height: 280px;
-    width: 100%;
-
-}
-
-.rowLeft {
-    justify-content: flex-start;
-}
-
-.rowRight {
-    justify-content: flex-end;
-}
-
-
-.amenityCardLuxury {
-    position: relative;
-    width: 100%;
-    max-width: 70rem;
-    background: rgba(14, 13, 11, 0.85);
-    transition: all 0.2s ease;
-    will-change: clip-path, opacity, transform;
-}
-
-.zigzagRow {
-    display: flex;
-    width: 100%;
-    overflow: visible;
-    /* Make sure clipped children stay in bounds */
-}
-
-
-.image {
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    object-fit: cover;
-    z-index: 1;
-}
-
-.CardLuxuryLeft::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-
-    background: linear-gradient(90deg,
-            oklch(9.581% 0.0534 292.552) 0%,
-            oklch(25.789% 0.06505 248.061 / 0.951) 40%,
-            rgba(10, 20, 35, 0.30) 80%,
-            rgba(10, 20, 35, 0) 100%);
-}
-
-.CardLuxuryRight::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 50%;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-
-    background: linear-gradient(270deg,
-            oklch(9.581% 0.0534 292.552) 0%,
-            oklch(25.789% 0.06505 248.061 / 0.951) 40%,
-            rgba(10, 20, 35, 0.30) 80%,
-            rgba(10, 20, 35, 0) 100%);
-}
-
-.copyPanel {
-
-    position: absolute;
-    z-index: 3;
-    padding: 36px 34px 30px;
-    height: 100%;
-    width: 22rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: oklch(0.94 0.018 210);
-    top: 0;
-}
-
-.copyPanelLeft {
-
-    left: 0;
-}
-
-.copyPanelRight {
-    right: 0;
-}
-
-.number {
-    margin-bottom: 18px;
-    font-family: "Montserrat", Arial, sans-serif;
-    font-size: 0.72rem;
-    color: oklch(0.81 0.035 217);
-}
-
-.number::after {
-    content: "";
-    display: inline-block;
-    width: 42px;
-    height: 1px;
-    margin-left: 10px;
-    vertical-align: middle;
-    background: oklch(0.67 0.07 214);
-}
-
-.heading {
-    margin: 0 0 12px;
-    font-family: "Cormorant Garamond", Georgia, serif;
-    font-size: clamp(1.65rem, 3vw, 2.75rem);
-    font-weight: 400;
-    line-height: 0.97;
-    letter-spacing: 0;
-    text-transform: uppercase;
-}
-
-.description {
-    margin: 0;
-    max-width: 33ch;
-    font-family: "Montserrat", Arial, sans-serif;
-    color: oklch(0.81 0.035 217);
-    font-size: 0.85rem;
-    line-height: 1.55;
-}
-
-.amenities {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    margin-top: 28px;
-}
-
-.amenity {
-    width: 80px;
-    color: oklch(0.94 0.018 210);
-    text-align: center;
-}
-
-.iconCircle {
-    width: 42px;
-    height: 42px;
-    margin: 0 auto 8px;
-    display: grid;
-    place-items: center;
-    border: 1px solid oklch(0.72 0.055 216 / 65%);
-    border-radius: 50%;
-}
-
-.iconCircle svg {
-    width: 18px;
-    height: 18px;
-    stroke-width: 1.35;
-}
-
-.amenity span {
-    display: block;
-    font-family: "Montserrat", Arial, sans-serif;
-    font-size: 0.52rem;
-    font-weight: 600;
-    line-height: 1.25;
-    text-transform: uppercase;
-}
-
-.cardHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1.5rem;
-}
-
-.iconBadge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    background: rgba(212, 175, 55, 0.06);
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.cardNumber {
-    font-family: var(--font-jura);
-    font-size: 1.8rem;
-    font-weight: 600;
-    color: rgba(212, 175, 55, 0.35);
-    letter-spacing: -0.02em;
-    transition: color 0.3s ease;
-}
-
-
-.titleUnderline {
-    width: 35px;
-    height: 1.5px;
-    background: #d4af37;
-    margin-bottom: 0.4rem;
-    transition: width 0.4s ease;
-}
-
-
-
-.cardNumber {
-    font-size: 0.95rem;
-    color: #d4af37;
-}
-
-.cornerTL,
-.cornerBR {
-    position: absolute;
-    width: 12px;
-    height: 12px;
-    pointer-events: none;
-    transition: all 0.3s ease;
-}
-
-.cornerTL {
-    top: 0;
-    left: 0;
-    border-top: 2px solid #d4af37;
-    border-left: 2px solid #d4af37;
-}
-
-.cornerBR {
-    bottom: 0;
-    right: 0;
-    border-bottom: 2px solid #d4af37;
-    border-right: 2px solid #d4af37;
-}
-
-
-.cardNumber::before {
-    /* content: "N\00B0 "; */
-    opacity: 0.55;
-}
-
-.cardGlowOverlay {
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.08), transparent 50%);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-
-.cardAccentLine {
-    width: 40px;
-    height: 1px;
-    background: rgba(212, 175, 55, 0.3);
-}
-
-.cardTitle {
-    font-family: var(--font-cormorant);
-    font-size: 1.5rem;
-    color: #ffffff;
-    font-weight: 400;
-    margin-bottom: 0.75rem;
-}
-
-.cardDesc {
-    font-size: 1.2rem;
-    color: rgba(245, 245, 247, 0.65);
-    line-height: 1.75;
-    font-weight: 300;
-    font-family: var(--font-cormorant);
-
-}
-
-.editorialHeading {
-    font-family: var(--font-cormorant);
-    font-size: 3rem;
-    font-weight: 400;
-    color: #ffffff;
-    line-height: 1.25;
-    text-transform: uppercase;
-}
-
-/* ============================================================
-   RESPONSIVE ADJUSTMENTS
-   ============================================================ */
-/* ============================================================
-   RESPONSIVE ADJUSTMENTS (MOBILE LEFT-RIGHT ZIG-ZAG CARDS)
-   ============================================================ */
 @media (max-width: 768px) {
     .hero {
         padding: 1.5rem 1rem;
@@ -621,131 +214,19 @@
 
     .subtitle {
         font-size: 0.8rem;
-        /* Smaller font size for mobile contrast */
         line-height: 1.45;
 
     }
-
-    .amenityContainer {
-        padding-bottom: 200px;
-    }
-
-    .zigzagTimeline {
-        gap: 2rem;
-    }
-
-    /* Maintain Left & Right alignment on mobile */
-    .rowLeft {
-        justify-content: flex-start;
-    }
-
-    .rowRight {
-        justify-content: flex-end;
-    }
-
-    /* Keep section titles bold and large on mobile */
-    .editorialHeading {
-        font-size: 2.5rem;
-        /* Larger prominent title */
-        line-height: 1.2;
-    }
-
     .editorialSubheading {
         font-size: 1rem;
-        /* Smaller contrast subtitle */
         line-height: 1.5;
         margin-top: 0.5rem;
     }
 
-    /* Compact small cards for mobile view */
-    .amenityCardLuxury {
-        max-width: 75%;
-        padding: 1.25rem 1.25rem;
-    }
-
-    .cardHeader {
-        margin-bottom: 0.85rem;
-    }
-
-    .iconBadge {
-        width: 36px;
-        height: 36px;
-    }
-
-    .iconBadge svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    .cardNumber {
-        font-size: 0.85rem;
-    }
-
-    .cardTitle {
-        font-size: 1.15rem;
-        /* Card heading */
-        margin-bottom: 0.4rem;
-    }
-
-    .cardDesc {
-        font-size: 0.82rem;
-        /* Card subtitle / description */
-        line-height: 1.5;
-    }
-}
-
-/* ============================================================
-   BACKGROUND LAYERS (UNTOUCHED ANIMATION TARGETS)
-   ============================================================ */
-.elementLayer {
-    pointer-events: none;
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-}
-
-.floatingElement {
-    position: absolute;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-}
-
-.skyline {
-    pointer-events: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 240px;
-    z-index: 1;
-    opacity: 0.5;
-}
-
-.building {
-    position: absolute;
-    bottom: 0;
-}
-
-.miniCrane {
-    position: absolute;
-    top: -34px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-.ground {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2rem;
-    background: linear-gradient(180deg, transparent 0%, rgba(212, 175, 55, 0.12) 100%);
 }
 
 .glowingTitle {
     margin: 0;
-    /* font-family: "Cinzel", serif; */
     font-family: var(--font-cormorant);
     font-weight: 500;
     font-size: 6vw;
@@ -765,16 +246,13 @@
     }
 }
 
-/* Performance: let the browser skip paint/layout work for sections far outside the viewport. */
 .section {
     content-visibility: auto;
     contain-intrinsic-size: 100vh;
 }
 
 @media (max-width: 768px) {
-    .floatingElement {
-        opacity: 0.55 !important;
-    }
+   
 
     .heroBadge,
     .scrollPill {

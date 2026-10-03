@@ -1,0 +1,121 @@
+.scrollContainer {
+  width: 100vw;
+  height: 100vh;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
+}
+
+.scrollContainer::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+.scrollTrack {
+  display: flex;
+  flex-direction: row;
+  width: max-content;
+  height: 100vh;
+}
+
+.scrollSection {
+  width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  scroll-snap-align: start; /* Har screen par snap karega */
+}
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+  background-color: #000000;
+  color: #ffffff;
+}
+
+/* Screen par pinned rahega jab tak user niche scroll karega */
+.sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+.panel {
+  position: relative;
+  flex: 0 0 100vw;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+.sharedSequence {
+  position: relative;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  overflow: clip;
+  background: #000;
+  isolation: isolate;
+}
+.sharedShaderTrack {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+.sharedShaderSticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: #000;
+
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+.sharedShader {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.sharedShaderOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(0, 0, 0, 0.02) 0%,
+      rgba(0, 0, 0, 0.18) 45%,
+      rgba(0, 0, 0, 0.78) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.35) 0%,
+      transparent 25%,
+      transparent 75%,
+      rgba(0, 0, 0, 0.45) 100%
+    );
+}
+.sharedSequenceContent {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}

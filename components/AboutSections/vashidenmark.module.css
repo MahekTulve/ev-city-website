@@ -103,7 +103,7 @@
   z-index: 1;
   pointer-events: none;
 
-  background:
+  /* background:
     linear-gradient(180deg,
       rgba(246, 240, 231, 0.985) 0%,
       rgba(246, 240, 231, 0.94) 8%,
@@ -139,7 +139,25 @@
 
     radial-gradient(ellipse at center,
       rgba(248, 244, 202, 0.281) 0%,
-      rgba(243, 243, 236, 0.56) 85%);
+      rgba(243, 243, 236, 0.56) 85%); */
+  background:
+    linear-gradient(180deg,
+      #0a012f 0%,
+      #0a012fb9 10%,
+      #0a012f04 30%,
+      #0a012fd7 90%,
+      #0a012f 100%),
+    linear-gradient(90deg,
+      #0a012f 0%,
+      #0a012fb9 10%,
+      #0a012f04 30%,
+      #0a012fd7 90%,
+      #0a012f 100%),
+
+    radial-gradient(ellipse at center,
+      rgba(248, 244, 202, 0.099) 0%,
+      rgba(4, 13, 42, 0.962) 90%);
+
 }
 
 .layout {
@@ -348,9 +366,11 @@
   background: none;
   text-shadow: 0 1px 12px rgba(232, 185, 85, 0.14);
 }
-.centerName span{
-font-family: var(--font-jura);
+
+.centerName span {
+  font-family: var(--font-jura);
 }
+
 .centerCity {
   margin-top: 7px;
   max-width: 130px;
