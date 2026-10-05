@@ -2,7 +2,7 @@
     position: relative;
     overflow: hidden;
     isolation: isolate;
-    background: oklch(0.99 0.012 88);
+    background: #020202;
     color: oklch(0.23 0.035 266);
 }
 
@@ -14,6 +14,31 @@
     height: 100%;
     object-fit: cover;
     object-position: center center;
+}
+
+.EVOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+        linear-gradient(180deg,
+            #020202 0%,
+            #020202c5 10%,
+            #03050f00 30%,
+            #02020215 90%,
+            #020202 100%),
+        linear-gradient(to right,
+            #020202 0%,
+            rgba(5, 12, 24, 0.899) 15%,
+            rgba(5, 12, 24, 0.371) 40%,
+            rgba(5, 12, 24, 0) 70%),
+
+        radial-gradient(ellipse at right center,
+            #02020200 0%,
+            #020202 95%);
+    ;
+    pointer-events: none;
+
 }
 
 .topbar {
@@ -49,9 +74,9 @@
     gap: 10px;
     color: oklch(0.95 0.018 75);
     font-family: var(--font-jura);
-    font-size: 7px;
+    font-size: 10px;
     font-weight: 600;
-    letter-spacing: .44em;
+    letter-spacing: .4em;
     white-space: nowrap;
 }
 
@@ -68,13 +93,14 @@
 
 .headline {
     margin: 0;
-    font-family: "Cormorant Garamond", Georgia, serif;
+    font-family: var(--font-theSeasons);
     font-size: clamp(44px, 4.3vw, 68px);
     font-weight: 400;
     line-height: .98;
-    letter-spacing: -.018em;
+    letter-spacing: 0.1em;
     white-space: nowrap;
     margin-top: 2%;
+    color: oklch(0.95 0.018 75);
 }
 
 .headline span {
@@ -86,7 +112,10 @@
 }
 
 .headline em {
-    color: oklch(0.48 0.065 65);
+    background-image: linear-gradient(180deg, #fff3b3 0%, #e2c275 30%, #b98f2c 70%, #684f13 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
     font-style: normal;
 }
 
@@ -95,7 +124,7 @@
     width: 62px;
     height: 1px;
     margin: 10px 0 25px 11.1%;
-    background: oklch(0.56 0.07 65);
+    background-image: linear-gradient(180deg, #fff3b3 0%, #e2c275 30%, #b98f2c 70%, #684f13 100%);
 }
 
 .intro {
@@ -104,29 +133,42 @@
 
 .intro p {
     margin: 0;
-    font-family: var(--font-jura);
-    font-size: clamp(13px, 1.12vw, 16px);
-    font-weight: 500;
-    letter-spacing: .055em;
+    font-family: var(--font-theSeasons);
+
+    font-size: clamp(13px, 1.1vw, 1.1rem);
+    font-weight: 200;
+    letter-spacing: .085em;
     line-height: 1.56;
+    color: oklch(95.343% 0.0164 70.405);
+
 }
 
 .poem {
     display: flex;
     flex-direction: column;
     margin-top: -12px;
-    color: oklch(0.48 0.065 65);
     font-family: var(--font-amsterdamFour);
     letter-spacing: 0.2rem;
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     line-height: 2.5rem;
-    /* transform: rotate(-3deg); */
+    /* Standard line-height rakhein */
     transform-origin: top left;
     margin-left: 14%;
 }
 
 .poem span {
-    display: block;
+    display: inline-block;
+
+    padding-top: 15px;
+    padding-bottom: 18px;
+
+    margin-top: -12px;
+    margin-bottom: -15px;
+
+    background-image: linear-gradient(180deg, #fff3b3 0%, #e2c275 30%, #b98f2c 70%, #684f13 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .signoff {
@@ -137,9 +179,11 @@
 .signoff p {
     margin: 0;
     font-family: var(--font-cormorant);
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     letter-spacing: .35em;
+    color: oklch(88.962% 0.03316 74.729);
+
 }
 
 .signature {
@@ -148,6 +192,7 @@
     font-size: 2.5rem;
     line-height: 7rem;
     letter-spacing: 0.2rem;
+    color: oklch(88.962% 0.03316 74.729);
 }
 
 .signatureRule {
@@ -155,7 +200,7 @@
     width: 80px;
     height: 1px;
     margin-left: 76px;
-    background: oklch(0.73 0.1 75 / 55%);
+    background: #c99c76;
 }
 
 @media (max-width: 900px) {

@@ -1,113 +1,187 @@
-
-
 import { useRef } from "react";
-import {
-  motion,
-  useScroll,
-} from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 import styles from "./DenmarkToVashi.module.css";
-// import GlowingTextReveal from "../ev-city/GlowingReveal";
 
+// Individual letter animation variant
+const letterVariants: Variants = {
+  hidden: { opacity: 0, y: 10 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.04 },
+  },
+};
+
+// Component for rendering text letter-by-letter based on section visibility
+const AnimatedSequenceText = ({
+  text,
+  className,
+  isInView,
+  delay = 0,
+  staggerSpeed = 0.05,
+}: {
+  text: string;
+  className?: string;
+  isInView: boolean;
+  delay?: number;
+  staggerSpeed?: number;
+}) => {
+  const containerVariants: Variants = {
+    hidden: {},
+    visible: {
+      transition: {
+        delayChildren: delay,
+        staggerChildren: staggerSpeed,
+      },
+    },
+  };
+
+  return (
+    <motion.span
+      className={className}
+      style={{ display: "inline-block" }}
+      variants={containerVariants}
+      initial="hidden"
+      animate={isInView ? "visible" : "hidden"}
+    >
+      {text.split("").map((char, index) => (
+        <motion.span
+          key={index}
+          variants={letterVariants}
+          style={{ display: "inline-block", whiteSpace: char === " " ? "pre" : "normal" }}
+        >
+          {char === " " ? "\u00A0" : char}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+};
 
 export default function DenmarkToVashi() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  // const heroRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-  // const { scrollYProgress: heroProgress } = useScroll({
-  //   target: heroRef,
-  //   offset: ["start 80%", "end 30%"],
-  // });
+  // 20% section visible hone par trigger hoga (80% non-visible hote hi gayab ho jayega)
+  const isInView = useInView(sectionRef, { amount: 0.2, once: false });
+
+  // Exact Sequence Timing Delays (in seconds)
+  const theDelay = 0;
+  const danishDelay = 0.25;
+  const artOfLivingDelay = danishDelay + 0.45;
+  const reimaginedTextDelay = artOfLivingDelay + 0.75;
+  const linesDelay = reimaginedTextDelay + 0.75;
+  const vashiDelay = linesDelay + 0.5;
+  const descriptionDelay = vashiDelay + 0.65;
+  const orbitDelay = descriptionDelay + 0.6;
+
   return (
-    <div ref={containerRef} className={styles.cityscape}>
-
-      <section className={styles.hero}>
+    <div className={styles.cityscape}>
+      <section ref={sectionRef} className={styles.hero}>
         <div className={styles.heroContentWrapper}>
+          
+          {/* Circle (Orbit) - 20% visible hone par delay se aayega, exit par reset ho jayega */}
+          <motion.span
+            className={styles.orbitTop}
+            aria-hidden="true"
+            initial={{ opacity: 0, scale: 0.8, rotate: -180 }}
+            animate={
+              isInView
+                ? { opacity: 1, scale: 1, rotate: -160 }
+                : { opacity: 0, scale: 0.8, rotate: -180 }
+            }
+            transition={{ delay: isInView ? orbitDelay : 0, duration: 1.2, ease: "easeOut" }}
+          />
 
-          {/* <motion.div
-            className={styles.heroBadge}
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7 }}
-          >
-            <span className={styles.badgeDot} />
-            <span>Architectural Landmark</span>
-          </motion.div> */}
-
-          {/* <div ref={heroRef} className={styles.titleWrapper}>
-            <GlowingTextReveal
-              text="Denmark to Vashi"
-              progress={heroProgress}
-              color="#d4af37"
-              className={styles.particleTitle}
-              titleClassName={styles.glowingTitle}
-            />
-          </div> */}
-
-          {/* <motion.div
-            className={styles.centerDividerWrapper}
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-          >
-            <div className={styles.dividerLine} />
-            <div className={styles.dividerDiamond} />
-            <div className={styles.dividerLine} />
-          </motion.div> */}
-
-          {/* <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.45, duration: 0.8 }}
-            className={styles.subtitle}
-          >
-            Vashi encompasses every virtue of a globally benchmarked urban sanctuary — elite infrastructure, healthcare, education, and seamless connection.
-          </motion.p>
-
-          <motion.div
-            className={styles.scrollHintContainer}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.65, duration: 0.8 }}
-          >
-            <span className={styles.scrollHint}>Explore Experience</span>
-            <div className={styles.scrollPill}>
-              <div className={styles.scrollDot} />
-            </div>
-          </motion.div> */}
-          {/* Background Gradient Arc Rings */}
-          <span className={styles.orbitTop} aria-hidden="true" />
-          <span className={styles.orbitBottom} aria-hidden="true" />
-
-          {/* Main Title Section */}
           <header className={styles.heading}>
-            <span className={styles.the}>THE</span>
-            <span className={styles.danish}>DANISH</span>
+            {/* 1. "THE" */}
+            <AnimatedSequenceText
+              text="THE"
+              className={styles.the}
+              isInView={isInView}
+              delay={theDelay}
+              staggerSpeed={0.06}
+            />
+            <br />
+
+            {/* 2. "DANISH" */}
+            <AnimatedSequenceText
+              text="DANISH"
+              className={styles.danish}
+              isInView={isInView}
+              delay={danishDelay}
+              staggerSpeed={0.06}
+            />
+
+            {/* 3. "art of LIVING" */}
             <div className={styles.secondRow}>
-              <span className={styles.artOf}>art of</span>
-              <span className={styles.living}>LIVING</span>
+              <AnimatedSequenceText
+                text="art of "
+                className={styles.artOf}
+                isInView={isInView}
+                delay={artOfLivingDelay}
+                staggerSpeed={0.05}
+              />
+              <AnimatedSequenceText
+                text="LIVING"
+                className={styles.living}
+                isInView={isInView}
+                delay={artOfLivingDelay + 0.3}
+                staggerSpeed={0.05}
+              />
             </div>
           </header>
 
-          {/* Divider Subtitle Line */}
-          <div className={styles.reimagined}>
-            REIMAGINED FOR
+          {/* 4 & 5. REIMAGINED FOR Text and Aaju-Baju Lines */}
+          <div className={styles.reimaginedContainer}>
+            {/* Left Line */}
+            <motion.div
+              className={styles.lineLeft}
+              initial={{ scaleX: 0, originX: 1 }}
+              animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+              transition={{ delay: isInView ? linesDelay : 0, duration: 0.6, ease: "easeInOut" }}
+            />
+
+            {/* REIMAGINED FOR Text */}
+            <AnimatedSequenceText
+              text="REIMAGINED FOR"
+              className={styles.reimaginedText}
+              isInView={isInView}
+              delay={reimaginedTextDelay}
+              staggerSpeed={0.05}
+            />
+
+            {/* Right Line */}
+            <motion.div
+              className={styles.lineRight}
+              initial={{ scaleX: 0, originX: 0 }}
+              animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+              transition={{ delay: isInView ? linesDelay : 0, duration: 0.6, ease: "easeInOut" }}
+            />
           </div>
 
-          {/* Main Landmark Text */}
-          <h1 className={styles.vashi}>VASHI.</h1>
+          {/* 6. "VASHI." */}
+          <h1 style={{ margin: 0 }}>
+            <AnimatedSequenceText
+              text="VASHI."
+              className={styles.vashi}
+              isInView={isInView}
+              delay={vashiDelay}
+              staggerSpeed={0.08}
+            />
+          </h1>
 
-          {/* Bottom Subtitle / Description */}
-          <p className={styles.description}>
-            Denmark taught the world that luxury can be effortless.
-            <br />
-            EV City brings that philosophy to Vashi through considered design,
-            <br />
-            seamless connectivity and spaces created around the way you truly live.
-          </p>
+          {/* 7. Paragraph Description */}
+          <motion.p
+            className={styles.description}
+            initial={{ opacity: 0, y: 15 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
+            transition={{ delay: isInView ? descriptionDelay : 0, duration: 0.8 }}
+          >
+            Denmark taught the world that luxury can be effortless. EV City brings that philosophy to
+            Vashi through <br /> considered design, seamless connectivity and spaces created around the
+            way you truly live.
+          </motion.p>
         </div>
       </section>
-
     </div>
   );
 }
-

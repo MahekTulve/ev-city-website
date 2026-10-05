@@ -15,28 +15,6 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    padding: 3rem 1.5rem;
-}
-
-.section {
-    position: relative;
-    display: flex;
-    min-height: 100vh;
-    padding: 2rem;
-    z-index: 2;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ============================================================
-   1. GRAND CENTER-ALIGNED DESIGNER HERO HEADER
-   ============================================================ */
-.hero {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
     text-align: center;
     padding: 2rem 1.5rem;
 }
@@ -48,186 +26,7 @@
     z-index: 2;
 }
 
-/* Designer Glass Badge */
-.heroBadge {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.85rem;
-    padding: 0.6rem 1.4rem;
-    background: rgba(212, 175, 55, 0.05);
-    border: 1px solid rgba(212, 175, 55, 0.25);
-    backdrop-filter: blur(12px);
-    border-radius: 100px;
-    font-family: var(--font-jura);
-    font-size: 0.72rem;
-    letter-spacing: 0.35em;
-    text-transform: uppercase;
-    color: #d4af37;
-    box-shadow: 0 0 25px rgba(212, 175, 55, 0.08);
-}
-
-.badgeDot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: #d4af37;
-    box-shadow: 0 0 8px #d4af37;
-
-}
-
-/* Header Title Wrapper & Particles */
-.titleWrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    margin-top: 0.5rem;
-
-}
-
-
-
-.particleTitle {
-    display: block;
-    margin-inline: auto !important;
-    font-size: clamp(3.2rem, 7.5vw, 6.8rem);
-    line-height: 1.05;
-    /* font-family: 'Cinzel', serif; */
-    font-weight: 600;
-    letter-spacing: -0.01em;
-    text-align: center;
-}
-
-/* Designer Architectural Lines */
-.centerDividerWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.2rem;
-    width: 100%;
-    max-width: 28rem;
-}
-
-.dividerLine {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.6), transparent);
-}
-
-.dividerDiamond {
-    width: 7px;
-    height: 7px;
-    background: #d4af37;
-    transform: rotate(45deg);
-    box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
-}
-
-.subtitle {
-    max-width: 40rem;
-    font-size: clamp(1rem, 1.9vw, 1.15rem);
-    color: rgba(245, 245, 247, 0.8);
-    line-height: 1.55;
-    font-weight: 300;
-    letter-spacing: 0.03em;
-    margin: 0 auto;
-    font-family: var(--font-cormorant);
-
-}
-
-.scrollHintContainer {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-    cursor: pointer;
-}
-
-.scrollHint {
-    font-family: var(--font-jura);
-    font-size: 0.65rem;
-    letter-spacing: 0.45em;
-    color: rgba(212, 175, 55, 0.75);
-    font-weight: 500;
-    text-transform: uppercase;
-}
-
-
-.scrollPill {
-    width: 24px;
-    height: 42px;
-    border: 1.5px solid rgba(212, 175, 55, 0.4);
-    border-radius: 20px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    backdrop-filter: blur(8px);
-    background: rgba(212, 175, 55, 0.03);
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.1);
-}
-
-.scrollDot {
-    width: 4px;
-    height: 8px;
-    background: #d4af37;
-    border-radius: 4px;
-    position: absolute;
-    top: 8px;
-    box-shadow: 0 0 8px #d4af37;
-    animation: scrollPulse 2s infinite ease-in-out;
-}
-
-@keyframes scrollPulse {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-        height: 8px;
-    }
-
-    50% {
-        height: 14px;
-        opacity: 0.8;
-    }
-
-    100% {
-        transform: translateY(18px);
-        opacity: 0;
-        height: 6px;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero {
-        padding: 1.5rem 1rem;
-    }
-
-    .subtitle {
-        font-size: 0.8rem;
-        line-height: 1.45;
-
-    }
-
-    .editorialSubheading {
-        font-size: 1rem;
-        line-height: 1.5;
-        margin-top: 0.5rem;
-    }
-
-}
-
-.glowingTitle {
-    margin: 0;
-    font-family: var(--font-cormorant);
-    font-weight: 500;
-    font-size: 6vw;
-    text-transform: uppercase;
-    letter-spacing: -0.03em;
-    line-height: 1;
-    white-space: nowrap;
-}
-
-.orbitTop,
-.orbitBottom {
+.orbitTop {
     position: absolute;
     z-index: 0;
     pointer-events: none;
@@ -243,25 +42,11 @@
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-}
-
-/* Right Top Golden Arc */
-.orbitTop {
-    top: 5%;
-    right: 1%;
-    width: 32rem;
-    height: 32rem;
-    transform: rotate(-140deg);
-}
-
-/* Left Bottom Golden Arc */
-.orbitBottom {
-    bottom: 8%;
-    left: 15%;
-    width: 20rem;
-    height: 20rem;
-    transform: rotate(40deg);
-
+    top: 3rem;
+    right: -3rem;
+    width: 34rem;
+    height: 34rem;
+    transform: rotate(-160deg);
 }
 
 /* ============================================================
@@ -277,59 +62,56 @@
     text-transform: uppercase;
 }
 
-/* Top Small Badge 'THE' */
 .the {
     display: block;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
+    font-family: var(--font-theSeasons);
+    font-size: 2.5rem;
     font-weight: 400;
     letter-spacing: 0.25em;
-    color: #8b8370;
-    margin-bottom: 0.2rem;
+    color: #fff7e5;
+    margin-bottom: 0.1rem;
     margin-left: 0.2rem;
 }
 
 .danish {
     display: block;
-    font-size: clamp(3.8rem, 11vw, 11rem);
-    font-weight: 600;
+    font-size: 9.5rem;
+    font-weight: 500;
     line-height: 0.9;
     background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
-    font-family: var(--font-cormorant);
+    font-family: var(--font-theSeasons);
 }
 
 .secondRow {
     display: flex;
     align-items: baseline;
     justify-content: flex-end;
-    gap: 1.5rem;
-    margin-top: -0.5rem;
+    gap: 1rem;
+    margin-top: -3.5rem;
     flex-wrap: wrap;
+    margin-right: -1.3rem;
 }
 
 .artOf {
-    font-family: var(--font-cormorant);
-    font-style: italic;
-    font-size: clamp(1.8rem, 4vw, 4rem);
+    font-family: var(--font-theSeasons);
+    font-size: 3rem;
     font-weight: 500;
     letter-spacing: 0.1em;
     background-image: linear-gradient(#707072 0%, #dedfe5 10%, #fcfcfe 60%, #d9dbe1 70%, #959699 80%, #a1a1a3 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-transform: none;
-    padding-right: 0.2em; 
-    display: inline-block; 
-    
+    display: inline-block;
+    text-transform: uppercase;
 }
 
 .living {
-    font-size: clamp(3.8rem, 8vw, 8rem);
-    font-weight: 600;
+    font-size: 9.5rem;
+    font-weight: 500;
     line-height: 0.9;
     letter-spacing: 0.02em;
     background: linear-gradient(180deg, #ffffff 0%, #e2e4e9 25%, #9fa3ac 65%, #ffffff 90%, #787c85 100%);
@@ -337,48 +119,51 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+    font-family: var(--font-theSeasons);
 }
 
-/* Middle Line: REIMAGINED FOR */
-.reimagined {
+/* REIMAGINED FOR CONTAINER & ANIMATED LINES */
+.reimaginedContainer {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 1.2rem;
-    margin: 2.5rem auto 0;
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(0.75rem, 1.5vw, 1.05rem);
+    margin: 0.1rem auto 0;
+}
+
+.reimaginedText {
+    font-family: var(--font-theSeasons);
+    font-size: 3.5rem;
     font-weight: 400;
-    letter-spacing: 0.45em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    background: linear-gradient(90deg, #fcea93, #c9a852, #e2c275);
+    background-image: linear-gradient(180deg, #fff3b3 0%, #e2c275 30%, #b98f2c 70%, #684f13 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
-.reimagined::before,
-.reimagined::after {
-    content: "";
+.lineLeft,
+.lineRight {
     flex: 1;
-    max-width: 9rem;
+    max-width: 15rem;
     height: 1px;
 }
 
-.reimagined::before {
-    background: linear-gradient(90deg, transparent, rgba(201, 168, 82, 0.8));
+.lineLeft {
+    background-image: linear-gradient(90deg, #684f1300 0%, #b98f2c 30%, #e2c275 70%, #fff3b3 100%);
 }
 
-.reimagined::after {
-    background: linear-gradient(90deg, rgba(201, 168, 82, 0.8), transparent);
+.lineRight {
+    background-image: linear-gradient(90deg, #fff3b3 0%, #e2c275 30%, #b98f2c 70%, #684f1300 100%);
 }
 
-/* Bottom Title: VASHI. */
 .vashi {
-    margin: 0.2rem 0 0;
-    font-family: 'Cinzel', serif;
-    font-size: clamp(4.5rem, 11vw, 10.5rem);
-    font-weight: 700;
+    display: inline-block;
+    margin-top: -0.5rem;
+    padding-top: 0.5rem;
+    font-size: 9.5rem;
+    font-weight: 500;
     line-height: 0.85;
     letter-spacing: 0.03em;
     text-transform: uppercase;
@@ -387,29 +172,27 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 4px 15px rgba(0, 0, 0, 0.8));
+    font-family: var(--font-theSeasons);
 }
 
-/* Description paragraph */
 .description {
-    max-width: 38rem;
-    margin: 2.2rem auto 0;
-    color: rgba(220, 225, 235, 0.75);
-    font-family: 'Montserrat', sans-serif;
-    font-size: clamp(0.65rem, 1.1vw, 0.78rem);
+    margin: 2rem auto 0;
+    color: rgba(251, 252, 255, 0.932);
+    font-family: var(--font-jura);
+    font-size: 0.9rem;
     line-height: 1.85;
     letter-spacing: 0.12em;
     font-weight: 300;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .secondRow {
         justify-content: center;
         gap: 0.5rem;
     }
 
-    .reimagined::before,
-    .reimagined::after {
+    .lineLeft,
+    .lineRight {
         max-width: 3rem;
     }
 
@@ -417,11 +200,5 @@
         width: 18rem;
         height: 18rem;
         right: -4rem;
-    }
-
-    .orbitBottom {
-        width: 16rem;
-        height: 16rem;
-        left: -4rem;
     }
 }
