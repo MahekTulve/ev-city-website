@@ -15,6 +15,11 @@ const amsterdamFontFour = localFont({
   variable: '--font-amsterdamFour',
   display: 'swap',
 });
+const theseasonsReg = localFont({
+  src: '../public/fonts/Fontspring-DEMO-theseasons-reg.otf',
+  variable: '--font-theSeasons',
+  display: 'swap',
+});
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
@@ -63,7 +68,8 @@ export default function RootLayout({
       <SmoothScroll>
         <body
           suppressHydrationWarning={true}
-          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable} ${amsterdamFontFour.variable} ${bodoni.variable}`}
+          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable} ${amsterdamFontFour.variable} ${bodoni.variable} ${theseasonsReg.variable}`}
+          
           style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}
         >
           <main>{children}</main>

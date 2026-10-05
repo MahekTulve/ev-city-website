@@ -3,7 +3,8 @@ import styles from "./EvCityHero.module.css";
 export default function EvCityHero() {
   return (
     <main className={styles["hero"]}>
-      <img className={styles["landscape"]} src={'/images/ev-city-panorama.jpg'} alt="Sunset over a coastal city, its waterfront and a sweeping bridge" />
+      <img className={styles["landscape"]} src={'/images/lastSection.png'} alt="Sunset over a coastal city, its waterfront and a sweeping bridge" />
+      <div className={styles["EVOverlay"]} />
 
       <header className={styles["topbar"]}>
         <div className={styles["wordmark"]}></div>

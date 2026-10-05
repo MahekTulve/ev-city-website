@@ -4,11 +4,14 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  background: #08090a;
+  background: linear-gradient(to bottom,
+      #020202 0%,
+      #000207 40%,
+      #00030b 60%,
+      #00030a 85%);
   color: #e2e8f0;
   font-family: 'Plus Jakarta Sans', sans-serif;
   box-sizing: border-box;
-  border-top: 1px solid rgba(197, 160, 89, 0.25);
 }
 
 .footerText {
@@ -22,7 +25,6 @@
 
 
 .container {
-  background: #08090a;
   position: relative;
   width: 100%;
   max-width: 1400px;
@@ -425,8 +427,9 @@
     height: 60px;
     margin-bottom: 7px;
   }
+
   .bottom {
-  padding-top: 5px;
-  font-size: 13px;
-}
+    padding-top: 5px;
+    font-size: 13px;
+  }
 }

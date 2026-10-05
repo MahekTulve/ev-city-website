@@ -306,7 +306,17 @@ export default function VashiDenmark() {
         setIsButtonDisabled(false);
       },
     });
+    gsap.set(nextVideo, { xPercent: nextStartPos, zIndex: 2 });
 
+    // 3. Phir 'tl' use karein
+    tl.to(currentVideo, {
+      xPercent: currentExitPos
+    }, 0);
+
+    tl.to(nextVideo, {
+      xPercent: 0,
+      clearProps: "transform"
+    }, 0);
     gsapTimelineRef.current = tl;
 
     tl.to(currentVideo, { xPercent: currentExitPos }, 0).to(
