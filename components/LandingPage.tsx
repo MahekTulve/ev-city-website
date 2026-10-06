@@ -120,12 +120,17 @@ export default function LandingPage({ isNight }: LandingPageProps) {
     const ctx = gsap.context(() => {
       const isMobileDevice = () => window.innerWidth <= 768;
 
+      // First load flash ko completely fix karne ke liye initial GSAP state
+      if (archRef.current) {
+        gsap.set(archRef.current, { scaleX: 0, scaleY: 0, autoAlpha: 1 });
+      }
+
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: introRef.current,
           start: "top top",
           end: () => (isMobileDevice() ? "+=150%" : "+=200%"),
-           scrub: 0.5,
+          scrub: 0.5,
           pin: true,
           anticipatePin: 1,
           fastScrollEnd: true,
@@ -144,7 +149,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
           .to(`.${styles['watermark']}`, { opacity: 1, duration: 0.5 }, "-=0.25")
           .to(`.${styles['preloaderFrame']}`, { opacity: 1, duration: 0.5 }, "-=0.25")
           .to(`.${styles['preloaderRule']}`, { opacity: 1, duration: 0.4 }, "-=0.25")
-          .to(`.${styles['preloaderFoot']}`, { opacity: 1, duration: 0.4 }, "-=0.25");
+          // .to(`.${styles['preloaderFoot']}`, { opacity: 1, duration: 0.4 }, "-=0.25");
       }
 
       tl.to(`.${styles['lockup']}`, { opacity: 0, scale: 1.08, duration: 0.7 }, "+=0.1")
@@ -220,13 +225,12 @@ export default function LandingPage({ isNight }: LandingPageProps) {
     },
   };
 
-  // --- MOBILE SEQUENTIAL WORD ANIMATION VARIANTS ---
   const mobileSequentialContainer: Variants = {
     hidden: { opacity: 1 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.4, // Har ek WORD ke aane ke beech ka gap (0.4s)
+        staggerChildren: 0.4,
         delayChildren: 0.1,
       },
     },
@@ -313,10 +317,6 @@ export default function LandingPage({ isNight }: LandingPageProps) {
         <motion.span className={styles['preloaderFrame']} {...getPreloaderMotionProps(0.1)} />
         <motion.span className={styles['watermark']} {...getPreloaderMotionProps(0.2)}>Vashi</motion.span>
 
-        {/* <motion.div {...getPreloaderMotionProps(0.2)}>
-          <Glyph className={styles['preloaderGlyph']} />
-        </motion.div> */}
-
         {isMobile ? (
           <motion.div
             variants={mobileSequentialContainer}
@@ -327,19 +327,16 @@ export default function LandingPage({ isNight }: LandingPageProps) {
           >
             <div className={styles['preloaderRow']}>
               <div className={styles['lockup']}>
-                {/* Word 1: THe */}
                 <motion.span className={styles['lockupEra']} variants={wordChildVariant}>
                   THe
                 </motion.span>
 
                 <div className={styles['lockupResidence']}>
-                  {/* Word 2: 5 */}
                   <motion.span className={styles['fivenum']} variants={wordChildVariant}>
                     5
                   </motion.span>
 
                   <div className={styles['colum']}>
-                    {/* Word 3: Minute */}
                     <motion.span className={styles['Minutecs']} variants={wordChildVariant}>
                       Minute
                     </motion.span>
@@ -363,7 +360,6 @@ export default function LandingPage({ isNight }: LandingPageProps) {
 
           </motion.div>
         ) : (
-          /* DESKTOP ORIGINAL CODE */
           <>
             <div className={styles['watermarkdo']}>
               <span>V</span>
@@ -396,12 +392,6 @@ export default function LandingPage({ isNight }: LandingPageProps) {
         )}
 
         <motion.span className={styles['preloaderRule']} {...getPreloaderMotionProps(0.5)} />
-
-        {/* <motion.p className={styles['preloaderFoot']} {...getPreloaderMotionProps(0.6)}>
-          ev homes
-          <br />
-          A place to return to.
-        </motion.p> */}
 
         <div className={styles['arch']} ref={archRef}>
           <div className={styles['archInnerWrapper']}>{renderMainSections()}</div>
