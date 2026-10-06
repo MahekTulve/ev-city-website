@@ -161,7 +161,7 @@ export default function DenmarkToVashi() {
           {/* 6. "VASHI." */}
           <h1 style={{ margin: 0 }}>
             <AnimatedSequenceText
-              text="VASHI."
+              text="VASHI"
               className={styles.vashi}
               isInView={isInView}
               delay={vashiDelay}
