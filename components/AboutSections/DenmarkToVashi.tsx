@@ -60,7 +60,6 @@ const AnimatedSequenceText = ({
 export default function DenmarkToVashi() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  // 20% section visible hone par trigger hoga (80% non-visible hote hi gayab ho jayega)
   const isInView = useInView(sectionRef, { amount: 0.2, once: false });
 
   // Exact Sequence Timing Delays (in seconds)
@@ -78,7 +77,6 @@ export default function DenmarkToVashi() {
       <section ref={sectionRef} className={styles.hero}>
         <div className={styles.heroContentWrapper}>
           
-          {/* Circle (Orbit) - 20% visible hone par delay se aayega, exit par reset ho jayega */}
           <motion.span
             className={styles.orbitTop}
             aria-hidden="true"
@@ -177,7 +175,7 @@ export default function DenmarkToVashi() {
             transition={{ delay: isInView ? descriptionDelay : 0, duration: 0.8 }}
           >
             Denmark taught the world that luxury can be effortless. EV City brings that philosophy to
-            Vashi through <br /> considered design, seamless connectivity and spaces created around the
+            Vashi through considered design, seamless connectivity and spaces created around the
             way you truly live.
           </motion.p>
         </div>

@@ -183,22 +183,222 @@
     line-height: 1.85;
     letter-spacing: 0.12em;
     font-weight: 300;
+    max-width: 60rem;
 }
 
-@media (max-width: 768px) {
-    .secondRow {
-        justify-content: center;
-        gap: 0.5rem;
+@media (max-width: 1250px) {
+
+    .the {
+        font-size: 2rem;
+    }
+
+    .danish {
+        font-size: 7.5rem;
+    }
+
+    .artOf {
+        font-size: 2rem;
+    }
+
+    .living {
+        font-size: 7.5rem;
+    }
+
+    .reimaginedText {
+        font-size: 2.5rem;
     }
 
     .lineLeft,
     .lineRight {
-        max-width: 3rem;
+        max-width: 10rem;
+    }
+
+    .vashi {
+        font-size: 7.5rem;
+    }
+
+    .heroContentWrapper {
+        width: min(50.5rem, calc(100% - 2rem))
+    }
+
+    .secondRow {
+        gap: 0.1rem;
+        margin-top: -3rem;
+    }
+
+    .orbitTop {
+        top: 1rem;
+        right: -5.5rem;
+        width: 31rem;
+        height: 31rem;
+    }
+
+}
+
+@media (max-width: 990px) {
+
+    .the {
+        font-size: 1.7rem;
+    }
+
+    .danish {
+        font-size: 6rem;
+    }
+
+    .artOf {
+        font-size: 1.7rem;
+    }
+
+    .living {
+        font-size: 6rem;
+    }
+
+    .reimaginedText {
+        font-size: 2rem;
+    }
+
+    .lineLeft,
+    .lineRight {
+        max-width: 8rem;
+    }
+
+    .vashi {
+        font-size: 6rem;
+    }
+
+    .heroContentWrapper {
+        width: min(40rem, calc(100% - 2rem))
+    }
+
+    .description {
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .secondRow {
+        gap: 0rem;
+        margin-top: -2.5rem;
+    }
+
+    .orbitTop {
+        top: 1rem;
+        right: -4.2rem;
+        width: 25rem;
+        height: 25rem;
+    }
+
+}
+
+@media (max-width: 780px) {
+    .the {
+        font-size: 1.5rem;
+    }
+
+    .danish {
+        font-size: 4.5rem;
+    }
+
+    .artOf {
+        font-size: 1.5rem;
+    }
+
+    .living {
+        font-size: 4.5rem;
+    }
+
+    .reimaginedContainer {
+        gap: 0.5rem;
+    }
+
+    .reimaginedText {
+        font-size: 1.7rem;
+    }
+
+    .lineLeft,
+    .lineRight {
+        max-width: 7rem;
+    }
+
+    .vashi {
+        font-size: 4.5rem;
+    }
+
+    .heroContentWrapper {
+        width: min(30rem, calc(100% - 2rem))
+    }
+
+    .description {
+        font-size: 0.75rem;
+        line-height: 1.5;
+    }
+
+    .secondRow {
+        gap: 0rem;
+        margin-top: -2rem;
+    }
+
+    .orbitTop {
+        width: 21rem;
+        height: 21rem;
+    }
+
+}
+
+@media (max-width: 620px) {
+    .hero {
+        margin-right: 2.8rem;
+    }
+
+    .description {
+        font-size: 0.75rem;
+        line-height: 1.3;
+    }
+}
+
+@media (max-width: 600px) {
+    .the {
+        font-size: 1.2rem;
+    }
+
+    .danish {
+        font-size: 4rem;
+    }
+
+    .artOf {
+        font-size: 1.2rem;
+    }
+
+    .living {
+        font-size: 4rem;
+    }
+
+    .reimaginedText {
+        font-size: 1.5rem;
+    }
+
+    .lineLeft,
+    .lineRight {
+        max-width: 5rem;
+    }
+
+    .vashi {
+        font-size: 4rem;
+    }
+
+    .heroContentWrapper {
+        width: min(26.5rem, calc(100% - 2rem))
     }
 
     .orbitTop {
         width: 18rem;
         height: 18rem;
-        right: -4rem;
+        top: 1rem;
+        right: -4.4rem;
+    }
+
+}
+@media (max-width: 545px) {
+    .hero {
+        margin-left: -1rem;
     }
 }
