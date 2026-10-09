@@ -17,11 +17,11 @@ import {
 } from "lucide-react";
 import { PiUsersThreeLight } from "react-icons/pi";
 
-import wedgePark from "@/public/images/wedge-park.jpg";
-import wedgeCafe from "@/public/images/wedge-cafe.jpg";
-import wedgeCulture from "@/public/images/wedge-culture.jpg";
-import wedgeWork from "@/public/images/wedge-work.jpg";
-import wedgeRetail from "@/public/images/wedge-retail.jpg";
+import wedgePark from "@/public/images/wedge-park.webp";
+import wedgeCafe from "@/public/images/wedge-cafe.webp";
+import wedgeCulture from "@/public/images/wedge-culture.webp";
+import wedgeWork from "@/public/images/wedge-work.webp";
+import wedgeRetail from "@/public/images/wedge-retail.webp";
 import styles from "./NextDesign.module.css";
 
 const CX = 250;

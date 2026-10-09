@@ -1,30 +1,60 @@
 import styles from "./EvCityHero.module.css";
+import { SlBadge, SlHeart, SlLayers, SlLocationPin } from "react-icons/sl";
 
 export default function EvCityHero() {
+  const poemData = [
+    { icon: <SlLocationPin className={styles["IconInner"]} />, title: "a location.", desc: "Connected to what matters." },
+    { icon: <SlLayers className={styles["IconInner"]} />, title: "a shape.", desc: "Build for a smarter tomorrow." },
+    { icon: <SlHeart className={styles["IconInner"]} />, title: "a heartbeat.", desc: "Powered by people and purpose." },
+    { icon: <SlBadge className={styles["IconInner"]} />, title: "a meaning.", desc: "A better way of living." },
+  ];
   return (
     <main className={styles["hero"]}>
-      <img className={styles["landscape"]} src={'/images/lastSection.png'} alt="Sunset over a coastal city, its waterfront and a sweeping bridge" />
-      <div className={styles["EVOverlay"]} />
+      <picture className={styles["landscapePicture"]}>
+        <source media="(max-width: 768px)" srcSet="/images/EVHeroMobile.webp" />
+        <img
+          className={styles["landscape"]}
+          src="/images/lastSection.webp"
+          alt="Sunset over a coastal city, its waterfront and a sweeping bridge"
+        />
+      </picture>      <div className={styles["EVOverlay"]} />
 
       <header className={styles["topbar"]}>
-        <div className={styles["wordmark"]}></div>
-        <div className={styles["location"]}>A SMARTER NAVI MUMBAI<span className={styles["locationRule"]} /></div>
+        <div className={`${styles["location"]} ${styles["desktop"]}`}>A SMARTER NAVI MUMBAI<span className={styles["locationRule"]} /></div>
+        <div className={`${styles["location"]} ${styles["mobile"]}`}>NAVI MUMBAI<span className={styles["locationRule"]} /></div>
+
       </header>
 
       <div className={styles["content"]}>
-        <h1 className={styles["headline"]}>
+
+        <h1 className={`${styles["headline"]} ${styles["desktop"]}`}>
           <span>A CITY WITHIN <em>A CITY.</em></span>
           <span className={styles["secondLine"]}><em>A FUTURE</em> WITHIN REACH.</span>
+        </h1>
+        <h1 className={`${styles["headline"]} ${styles["mobile"]}`}>
+          <span><em>A CITY </em><br />WITHIN A CITY.</span>
+          <span className={styles["secondLine"]}><em>A FUTURE</em> <br />WITHIN REACH.</span>
         </h1>
         <span className={styles["shortRule"]} aria-hidden="true" />
 
         <div className={styles["intro"]}>
-          <p>Smart living isn’t just a place to live.It’s a <br />place to belong to the future. The next chapter <br />of Navi Mumbai has</p>
-          <div className={styles["poem"]}>
+          <p>Smart living isn’t just a place to live.It’s a <br />place to belong to the future. The next chapter <br />of Navi Mumbai has a new address.</p>
+          <div className={`${styles["poem"]} ${styles["desktop"]}`}>
             <span>a location.</span>
             <span>a shape.</span>
             <span>a heartbeat.</span>
             <span>a meaning.</span>
+          </div>
+          <div className={`${styles["poemMob"]} ${styles["mobile"]}`}>
+            {poemData.map((item, index) => (
+              <div key={index} className={styles["introPoem"]}>
+                <div className={styles["introIcon"]}>{item.icon}</div>
+                <div className={styles["intrlabel"]}>
+                  <h1>{item.title}</h1>
+                  <p>{item.desc}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
