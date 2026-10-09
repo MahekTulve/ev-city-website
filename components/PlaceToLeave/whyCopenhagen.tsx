@@ -64,7 +64,7 @@ export default function WhyCopenhagen() {
         />
         <img
           className={`${styles["skechImage"]} ${styles["mobileImage"]}`}
-          src={"images/way_bg_mobile.png"} // Mobile wali image ka path yahan dalein
+          src={"images/way_bg_mobile.webp"} // Mobile wali image ka path yahan dalein
           alt="sketch mobile"
           loading="lazy"
           decoding="async"
