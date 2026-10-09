@@ -38,14 +38,14 @@ export default function EvCityHero() {
         <span className={styles["shortRule"]} aria-hidden="true" />
 
         <div className={styles["intro"]}>
-          <p>Smart living isn’t just a place to live.It’s a <br />place to belong to the future. The next chapter <br />of Navi Mumbai has a new address.</p>
-          <div className={`${styles["poem"]} ${styles["desktop"]}`}>
+          <p>Smart living isn’t just a place to live.It’s a <br />place to belong to the future. The next chapter <br />of Navi Mumbai has </p>
+          <div className={`${styles["poem"]} `}>
             <span>a location.</span>
             <span>a shape.</span>
             <span>a heartbeat.</span>
             <span>a meaning.</span>
           </div>
-          <div className={`${styles["poemMob"]} ${styles["mobile"]}`}>
+          {/* <div className={`${styles["poemMob"]} ${styles["mobile"]}`}>
             {poemData.map((item, index) => (
               <div key={index} className={styles["introPoem"]}>
                 <div className={styles["introIcon"]}>{item.icon}</div>
@@ -55,7 +55,7 @@ export default function EvCityHero() {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
 
         <div className={styles["signoff"]}>
