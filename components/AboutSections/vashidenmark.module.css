@@ -661,7 +661,9 @@
     height: 34px;
   }
 }
-
+@media (max-width: 767px){
+  
+}
 @media (min-width: 601px) and (max-width: 1024px) {
   .page {
     height: auto;
