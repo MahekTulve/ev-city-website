@@ -6,12 +6,17 @@ import DenmarkToVashi from "./AboutSections/DenmarkToVashi";
 import VashiDenmark from "./AboutSections/Vashidenmark";
 import { OptimizedShader } from "./FeaturesSections/OptimizedShader";
 
-const SCROLL_LENGTH_VH = 250;
+// Extra scroll while DenmarkToVashi stays fully visible, then horizontal transition,
+ // followed by the existing hold on VashiDenmark.
+const SCROLL_LENGTH_VH = 600;
+const INTRO_HOLD_VH = 100;
+const FORWARD_END_HOLD_VH = 150;
 
 const clamp = (value: number, min = 0, max = 1) =>
     Math.min(max, Math.max(min, value));
 
 export default function HorizontalSequence() {
+    const [shaderActive, setShaderActive] = useState(false);
     const wrapperRef = useRef<HTMLDivElement>(null);
     const trackRef = useRef<HTMLDivElement>(null);
 
@@ -27,21 +32,44 @@ export default function HorizontalSequence() {
         let initialized = false;
         let isNearViewport = false;
         const applyProgress = (progress: number) => {
+            track.style.transform = `translate3d(-${progress * 100}vw, 0, 0)`;
+        };
 
-            const shift = progress * 100;
-            track.style.transform = `translate3d(-${shift}vw, 0, 0)`;
+        const getScrollMetrics = () => {
+            const rect = wrapper.getBoundingClientRect();
+            const wrapperTop = window.scrollY + rect.top;
+            const scrollableDistance = Math.max(0, wrapper.offsetHeight - window.innerHeight);
+            const introHoldDistance = window.innerHeight * (INTRO_HOLD_VH / 100);
+            const endHoldDistance = window.innerHeight * (FORWARD_END_HOLD_VH / 100);
+            const horizontalAnimationDistance = Math.max(
+                1,
+                scrollableDistance - introHoldDistance - endHoldDistance
+            );
+            const scrollWithinWrapper = clamp(
+                window.scrollY - wrapperTop,
+                0,
+                scrollableDistance
+            );
+
+            return {
+                scrollableDistance,
+                introHoldDistance,
+                endHoldDistance,
+                horizontalAnimationDistance,
+                scrollWithinWrapper,
+            };
         };
 
         const measureProgress = () => {
-            const rect = wrapper.getBoundingClientRect();
-            const scrollableDistance = wrapper.offsetHeight - window.innerHeight;
+            const { introHoldDistance, horizontalAnimationDistance, scrollWithinWrapper } =
+                getScrollMetrics();
 
-            if (scrollableDistance <= 0) return 0;
-            return clamp(-rect.top / scrollableDistance);
+            // Keep DenmarkToVashi fixed for the first extra scroll.
+            return clamp((scrollWithinWrapper - introHoldDistance) / horizontalAnimationDistance);
         };
 
         const animateToTarget = () => {
-            displayedProgress += (targetProgress - displayedProgress) * 0.15;
+            displayedProgress += (targetProgress - displayedProgress) * 0.08;
 
             if (Math.abs(targetProgress - displayedProgress) < 0.0001) {
                 displayedProgress = targetProgress;
@@ -76,6 +104,7 @@ export default function HorizontalSequence() {
         const visibilityObserver = new IntersectionObserver(
             ([entry]) => {
                 isNearViewport = entry.isIntersecting;
+                setShaderActive(isNearViewport);
 
                 if (isNearViewport) {
                     updateTarget(true);
@@ -85,7 +114,7 @@ export default function HorizontalSequence() {
                 }
             },
             {
-                rootMargin: "100% 0px",
+                rootMargin: "150% 0px",
                 threshold: 0,
             }
         );
@@ -143,22 +172,21 @@ export default function HorizontalSequence() {
                                         speed={0.7}
                                         particleColor="#e6c88d"
                                         mobileParticleColor="#34d399"
-                                        particleCount={48}
+                                        particleCount={16}
                                         particleLayout="text"
-                                        continuous={true}
+                                        showParticles={shaderActive}
+                                        continuous={shaderActive}
                                     />
                                 </Suspense>
                                 <div className={styles.sharedShaderOverlay} />
                             </div>
                         </div>
 
-                        <div className={`${styles.sharedSequenceContent} $className={styles.panel}`} data-section>
+                        <div className={`${styles.sharedSequenceContent} ${styles.panel}`} data-section>
                             <DenmarkToVashi />
                         </div>
                     </section>
-                    {/* <div className={styles.panel}>
-            <DenmarkToVashi />
-          </div> */}
+            
                     <div className={styles.panel}>
                         <VashiDenmark />
                     </div>
