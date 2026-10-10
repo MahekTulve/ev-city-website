@@ -414,53 +414,6 @@
         max-width: 70vw;
     }
 
-    .poemMob {
-        display: flex;
-        flex-direction: column;
-        margin-top: 1.5rem;
-        gap: 0.8rem;
-    }
-
-    .introPoem {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    .introIcon {
-        padding: 0.4rem;
-        border-radius: 50%;
-        border: 1px solid #ffc05c;
-    }
-
-    .IconInner {
-        font-size: 15px;
-        color: #eedbca;
-    }
-
-    .intrlabel {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .intrlabel h1 {
-        color: #facf6a;
-        font-family: var(--font-cormorant);
-        text-transform: uppercase;
-        font-size: 13px;
-        letter-spacing: 0.1rem;
-        line-height: 0.8rem;
-    }
-
-    .intrlabel p {
-        font-size: 12px;
-        font-family: var(--font-cormorant);
-
-    }
-
     .poem {
         margin-left: 25%;
         margin-top: 12px;

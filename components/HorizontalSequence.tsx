@@ -10,7 +10,7 @@ import { OptimizedShader } from "./FeaturesSections/OptimizedShader";
  // followed by the existing hold on VashiDenmark.
 const SCROLL_LENGTH_VH = 600;
 const INTRO_HOLD_VH = 100;
-const FORWARD_END_HOLD_VH = 150;
+const FORWARD_END_HOLD_VH = 100;
 
 const clamp = (value: number, min = 0, max = 1) =>
     Math.min(max, Math.max(min, value));

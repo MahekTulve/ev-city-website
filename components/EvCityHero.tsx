@@ -1,13 +1,7 @@
 import styles from "./EvCityHero.module.css";
-import { SlBadge, SlHeart, SlLayers, SlLocationPin } from "react-icons/sl";
 
 export default function EvCityHero() {
-  const poemData = [
-    { icon: <SlLocationPin className={styles["IconInner"]} />, title: "a location.", desc: "Connected to what matters." },
-    { icon: <SlLayers className={styles["IconInner"]} />, title: "a shape.", desc: "Build for a smarter tomorrow." },
-    { icon: <SlHeart className={styles["IconInner"]} />, title: "a heartbeat.", desc: "Powered by people and purpose." },
-    { icon: <SlBadge className={styles["IconInner"]} />, title: "a meaning.", desc: "A better way of living." },
-  ];
+
   return (
     <main className={styles["hero"]}>
       <picture className={styles["landscapePicture"]}>
@@ -45,17 +39,7 @@ export default function EvCityHero() {
             <span>a heartbeat.</span>
             <span>a meaning.</span>
           </div>
-          {/* <div className={`${styles["poemMob"]} ${styles["mobile"]}`}>
-            {poemData.map((item, index) => (
-              <div key={index} className={styles["introPoem"]}>
-                <div className={styles["introIcon"]}>{item.icon}</div>
-                <div className={styles["intrlabel"]}>
-                  <h1>{item.title}</h1>
-                  <p>{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div> */}
+     
         </div>
 
         <div className={styles["signoff"]}>
