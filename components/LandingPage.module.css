@@ -43,6 +43,8 @@
   will-change: transform;
   backface-visibility: hidden;
   contain: paint;
+  will-change: transform, border-radius;
+  transform: translateZ(0);
   visibility: hidden; /* JS load aur GSAP init hone tak glitch hide rakhega */
 }
 

@@ -53,9 +53,10 @@ interface TypewriterTextProps {
   className?: string;
   letterVariants: Variants;
   delay?: number;
+  isEnabled: boolean;
 }
 
-const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letterVariants, delay = 0 }) => {
+const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letterVariants, delay = 0, isEnabled }) => {
   const letters = Array.from(text);
 
   const containerVariants: Variants = {
@@ -74,8 +75,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({ text, className, letter
       className={className}
       variants={containerVariants}
       initial="hidden"
-      whileInView="visible"
-      viewport={{ once: false, amount: 0.2 }}
+      animate={isEnabled ? "visible" : "hidden"}
       style={{ display: 'inline-block' }}
     >
       {letters.map((letter, index) => (
@@ -97,6 +97,40 @@ export default function LandingPage({ isNight }: LandingPageProps) {
   const archRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const [isNearViewport, setIsNearViewport] = useState(false);
+  const [isArchComplete, setIsArchComplete] = useState(false);
+
+  // Preload scene backgrounds and web fonts early. Intermittent stutter during
+  // a fast scroll can come from first-time image decoding/font swapping.
+  useEffect(() => {
+    let cancelled = false;
+    const imageUrls = [
+      "/images/vashicityDayOne.webp",
+      "/images/nightThemeOne.webp",
+      "/images/day_one_mobile.webp",
+      "/images/night_one_mobile.webp",
+    ];
+
+    const preloadImages = imageUrls.map((src) => {
+      const image = new Image();
+      image.src = src;
+      return typeof image.decode === "function"
+        ? image.decode().catch(() => undefined)
+        : new Promise<void>((resolve) => {
+            image.onload = () => resolve();
+            image.onerror = () => resolve();
+          });
+    });
+
+    const preloadFonts = document.fonts?.ready ?? Promise.resolve();
+
+    Promise.all([...preloadImages, preloadFonts]).then(() => {
+      if (!cancelled) ScrollTrigger.refresh();
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -124,17 +158,33 @@ export default function LandingPage({ isNight }: LandingPageProps) {
       if (archRef.current) {
         gsap.set(archRef.current, { scaleX: 0, scaleY: 0, autoAlpha: 1 });
       }
+      const lockup = introRef.current?.querySelector(`.${styles["lockup"]}`);
+      if (lockup) {
+        gsap.set(lockup, { opacity: 1, scale: 1, clearProps: "transform" });
+      }
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: introRef.current,
           start: "top top",
           end: () => (isMobileDevice() ? "+=150%" : "+=200%"),
-          scrub: 0.5,
+          // Direct scroll mapping: no smoothing catch-up lag on fast scrolling.
+          scrub: true,
           pin: true,
           anticipatePin: 1,
-          fastScrollEnd: true,
           invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const fullyOpen = self.progress >= 0.5;
+            setIsArchComplete((previous) =>
+              previous === fullyOpen ? previous : fullyOpen
+            );
+          },
+          onRefresh: (self) => {
+            const fullyOpen = self.progress >= 0.5;
+            setIsArchComplete((previous) =>
+              previous === fullyOpen ? previous : fullyOpen
+            );
+          },
         },
       });
 
@@ -159,6 +209,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
             scaleX: () => (isMobileDevice() ? 0.85 : 0.34),
             scaleY: () => (isMobileDevice() ? 0.7 : 0.78),
             duration: 1,
+            force3D: true,
             ease: "power1.inOut",
           },
           "-=0.45",
@@ -169,6 +220,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
           borderTopLeftRadius: "0% 0%",
           borderTopRightRadius: "0% 0%",
           duration: 1.2,
+          force3D: true,
           ease: "power2.out",
         });
     }, introRef);
@@ -268,8 +320,7 @@ export default function LandingPage({ isNight }: LandingPageProps) {
           className={`${styles['heroInner']} ${isNight ? styles['nightTheme'] : styles['dayTheme']}`}
           variants={containerVariants}
           initial="hidden"
-          whileInView="visible"
-          viewport={{ once: false, amount: 0.2 }}
+          animate={isArchComplete ? "visible" : "hidden"}
         >
           <motion.p className={styles['subHeaderGold']} variants={blockVariants}>
             THE FUTURE OF
@@ -301,9 +352,9 @@ export default function LandingPage({ isNight }: LandingPageProps) {
             />
 
             <div className={styles['momentsSubtitleRow']}>
-              <TypewriterText text="moments saved," letterVariants={letterVariants} delay={2.8} />
-              <TypewriterText text="moments shared," letterVariants={letterVariants} delay={3.4} />
-              <TypewriterText text="moments remembered." letterVariants={letterVariants} delay={4.0} />
+              <TypewriterText text="moments saved," letterVariants={letterVariants} delay={2.8} isEnabled={isArchComplete} />
+              <TypewriterText text="moments shared," letterVariants={letterVariants} delay={3.4} isEnabled={isArchComplete} />
+              <TypewriterText text="moments remembered." letterVariants={letterVariants} delay={4.0} isEnabled={isArchComplete} />
             </div>
           </div>
         </motion.div>
