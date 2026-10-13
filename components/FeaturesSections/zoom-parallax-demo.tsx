@@ -10,11 +10,9 @@ import {
 } from "react";
 import styles from "./FeaturesSection.module.css";
 import EvCityHero from "../EvCityHero";
-import VashiDenmark from "../AboutSections/Vashidenmark";
 import HorizontalSequence from "../HorizontalSequence";
 
 const CinematicText = lazy(() => import("../AboutSections/cinematicTex"));
-const DenmarkToVashi = lazy(() => import("../AboutSections/DenmarkToVashi"));
 const OptimizedShader = lazy(() =>
   import("./OptimizedShader").then((mod) => ({ default: mod.OptimizedShader })),
 );
@@ -242,54 +240,12 @@ export default function ZoomParallaxDemo() {
         }
       >
         <SlideOverStack previous={<WhyCopenhagen />}>
-          {/* <section className={styles.sharedSequence}>
-            <div className={styles.sharedShaderTrack} aria-hidden="true">
-              <div className={styles.sharedShaderSticky}>
-                <Suspense fallback={null}>
-                  <OptimizedShader
-                    className={styles.sharedShader}
-                    colors={[
-                      "#03050f",
-                      "#0e1420",
-                      "#10131b",
-                      "#1b2232",
-                      "#12161e",
-                      "#020202",
-                    ]}
-                    mobileColors={[
-                      "#03050f",
-                      "#0e1420",
-                      "#222737",
-                      "#222d46",
-                      "#12161e",
-                      "#020202",
-                    ]}
-                    speed={0.7}
-                    showParticles={isCinematicVisible}
-                    particleColor="#e6c88d"
-                    mobileParticleColor="#34d399"
-                    particleCount={48}
-                    particleLayout="text"
-                    continuous={true}
-                    burstKey={sparkleBurstKey}
-                  />
-                </Suspense>
-                <div className={styles.sharedShaderOverlay} />
-              </div>
-            </div>
 
-            <div className={styles.sharedSequenceContent} data-section>
-              <DenmarkToVashi />
-            </div>
-          </section>
-          <div data-section>
-            <VashiDenmark />
-          </div> */}
-             <HorizontalSequence />
+          <HorizontalSequence />
           <div data-section>
             <EvCityHero />
           </div>
-       
+
         </SlideOverStack>
       </DeferredMount>
     </main>

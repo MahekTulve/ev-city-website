@@ -1,8 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView, Variants } from "framer-motion";
 import styles from "./DenmarkToVashi.module.css";
-
-// Individual letter animation variant
 const letterVariants: Variants = {
   hidden: { opacity: 0, y: 10 },
   visible: {
@@ -12,7 +10,6 @@ const letterVariants: Variants = {
   },
 };
 
-// Component for rendering text letter-by-letter based on section visibility
 const AnimatedSequenceText = ({
   text,
   className,
@@ -62,7 +59,6 @@ export default function DenmarkToVashi() {
 
   const isInView = useInView(sectionRef, { amount: 0.2, once: false });
 
-  // Exact Sequence Timing Delays (in seconds)
   const theDelay = 0;
   const danishDelay = 0.25;
   const artOfLivingDelay = danishDelay + 0.45;
@@ -100,7 +96,6 @@ export default function DenmarkToVashi() {
             />
             <br />
 
-            {/* 2. "DANISH" */}
             <AnimatedSequenceText
               text="DANISH"
               className={styles.danish}
@@ -109,7 +104,6 @@ export default function DenmarkToVashi() {
               staggerSpeed={0.06}
             />
 
-            {/* 3. "art of LIVING" */}
             <div className={styles.secondRow}>
               <AnimatedSequenceText
                 text="art of "
@@ -128,9 +122,7 @@ export default function DenmarkToVashi() {
             </div>
           </header>
 
-          {/* 4 & 5. REIMAGINED FOR Text and Aaju-Baju Lines */}
           <div className={styles.reimaginedContainer}>
-            {/* Left Line */}
             <motion.div
               className={styles.lineLeft}
               initial={{ scaleX: 0, originX: 1 }}
@@ -138,7 +130,6 @@ export default function DenmarkToVashi() {
               transition={{ delay: isInView ? linesDelay : 0, duration: 0.6, ease: "easeInOut" }}
             />
 
-            {/* REIMAGINED FOR Text */}
             <AnimatedSequenceText
               text="REIMAGINED FOR"
               className={styles.reimaginedText}
@@ -147,7 +138,6 @@ export default function DenmarkToVashi() {
               staggerSpeed={0.05}
             />
 
-            {/* Right Line */}
             <motion.div
               className={styles.lineRight}
               initial={{ scaleX: 0, originX: 0 }}
@@ -156,7 +146,6 @@ export default function DenmarkToVashi() {
             />
           </div>
 
-          {/* 6. "VASHI." */}
           <h1 style={{ margin: 0 }}>
             <AnimatedSequenceText
               text="VASHI"
@@ -167,7 +156,6 @@ export default function DenmarkToVashi() {
             />
           </h1>
 
-          {/* 7. Paragraph Description */}
           <motion.p
             className={styles.description}
             initial={{ opacity: 0, y: 15 }}

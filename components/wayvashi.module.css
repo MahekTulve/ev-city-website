@@ -152,7 +152,7 @@
   z-index: 0;
   pointer-events: none;
   background-color: #10172f;
-  background-image: url("/images/vashi_cut_top.png");
+  background-image: url("/images/vashi_cut_top.webp");
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
@@ -871,7 +871,7 @@
 
   .domeBackground {
     /* background-color: #10172f; */
-    background-image: url("/images/cut1mobile.png");
+    background-image: url("/images/cut1mobile.webp");
     /* background-size: 100% auto; */
     height: 100vh;
     background-size: cover;
@@ -1142,7 +1142,7 @@
 
 @media (max-width: 480px) {
   .domeIntro {
-    top: 80vh;
+    top: 65%;
   }
 
   .taglineWord {
@@ -1241,7 +1241,11 @@
     width: 4rem;
   }
 }
-
+@media (max-width: 390px) {
+  .domeIntro {
+    top: 55%;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
 
   .slide,

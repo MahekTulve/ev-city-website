@@ -1,31 +1,4 @@
-.scrollContainer {
-  width: 100vw;
-  height: 100vh;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
-}
 
-.scrollContainer::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
-}
-
-.scrollTrack {
-  display: flex;
-  flex-direction: row;
-  width: max-content;
-  height: 100vh;
-}
-
-.scrollSection {
-  width: 100vw;
-  height: 100vh;
-  flex-shrink: 0;
-  scroll-snap-align: start; /* Har screen par snap karega */
-}
 .wrapper {
   position: relative;
   width: 100%;
