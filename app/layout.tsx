@@ -1,5 +1,5 @@
 import localFont from 'next/font/local';
-import { Bodoni_Moda, Cormorant_Garamond, Jura, Montez } from 'next/font/google';
+import { Cormorant_Garamond, Jura, Montez } from 'next/font/google';
 import './globals.css';
 import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
@@ -23,7 +23,7 @@ const theseasonsReg = localFont({
 
 const cormorant = Cormorant_Garamond({
   subsets: ['latin'],
-  weight: ['400', '600', '700'], 
+  weight: ['400', '600', '700'],
   variable: '--font-cormorant',
 });
 
@@ -41,14 +41,7 @@ const jurafont = Jura({
   variable: '--font-jura',
 });
 
-// FIXED: Bodoni_Moda configuration
-const bodoni = Bodoni_Moda({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
-  style: ['normal', 'italic'],
-  variable: '--font-bodoni',
-  display: 'swap',
-});
+
 
 export const metadata = {
   title: 'EV City Website',
@@ -68,8 +61,8 @@ export default function RootLayout({
       <SmoothScroll>
         <body
           suppressHydrationWarning={true}
-          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable} ${amsterdamFontFour.variable} ${bodoni.variable} ${theseasonsReg.variable}`}
-          
+          className={`${amsterdamFont.variable} ${cormorant.variable} ${libreBaskerville.variable} ${jurafont.variable} ${amsterdamFontFour.variable}  ${theseasonsReg.variable}`}
+
           style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', margin: 0 }}
         >
           <main>{children}</main>

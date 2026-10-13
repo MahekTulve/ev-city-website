@@ -4,7 +4,7 @@ export default function EvCityHero() {
 
   return (
     <main className={styles["hero"]}>
-      <picture className={styles["landscapePicture"]}>
+      <picture >
         <source media="(max-width: 768px)" srcSet="/images/EVHeroMobile.webp" />
         <img
           className={styles["landscape"]}

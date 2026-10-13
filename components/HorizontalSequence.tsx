@@ -6,8 +6,6 @@ import DenmarkToVashi from "./AboutSections/DenmarkToVashi";
 import VashiDenmark from "./AboutSections/Vashidenmark";
 import { OptimizedShader } from "./FeaturesSections/OptimizedShader";
 
-// Extra scroll while DenmarkToVashi stays fully visible, then horizontal transition,
- // followed by the existing hold on VashiDenmark.
 const SCROLL_LENGTH_VH = 600;
 const INTRO_HOLD_VH = 100;
 const FORWARD_END_HOLD_VH = 100;
@@ -64,7 +62,6 @@ export default function HorizontalSequence() {
             const { introHoldDistance, horizontalAnimationDistance, scrollWithinWrapper } =
                 getScrollMetrics();
 
-            // Keep DenmarkToVashi fixed for the first extra scroll.
             return clamp((scrollWithinWrapper - introHoldDistance) / horizontalAnimationDistance);
         };
 

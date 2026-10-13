@@ -50,16 +50,8 @@
     font-weight: 600;
 }
 
-.wordmark {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    font-size: 14px;
-    letter-spacing: .37em;
-    white-space: nowrap;
-}
 
-.brandRule,
+
 .locationRule {
     display: inline-block;
     height: 1px;

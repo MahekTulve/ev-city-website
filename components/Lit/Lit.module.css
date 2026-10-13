@@ -15,7 +15,7 @@
   font-family: "Inter", system-ui, sans-serif;
 
   background-color: #17233a;
-  background-image: url("/images/vashi_cut_bottom.png");
+  background-image: url("/images/vashi_cut_bottom.webp");
   background-size: var(--cutout-final-bg-size, 116%) auto;
   background-position: center top;
   background-repeat: no-repeat;
@@ -1036,7 +1036,7 @@
 
     background-color: #17233a;
 
-    background-image: url("/images/cut2mobile.png");
+    background-image: url("/images/cut2mobile.webp");
 
     background-size: var(--cutout-final-bg-size, 116%) auto;
 
@@ -1046,7 +1046,7 @@
   }
 
   .wrapper::before {
-    background-image: url("/images/cut2mobile.png");
+    background-image: url("/images/cut2mobile.webp");
 
     background-size: var(--cutout-final-bg-size, 116%) auto;
 
