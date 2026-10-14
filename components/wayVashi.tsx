@@ -11,13 +11,12 @@ import {
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./wayvashi.module.css";
-
+import Image from "next/image";
 import DayNightButton from "./DayNightButton";
 import Lit from "./Lit/Lit";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Keep both cutout halves on the exact same final camera scale.
 const CUTOUT_ZOOM_SCALE = 1.16;
 
 type FeatureIconType = "connectivity" | "ecosystem" | "momentum";
@@ -164,37 +163,6 @@ const RECORDS: SlideRecord[] = [
     ],
   },
 ];
-
-function FeatureIcon({ type }: { type: FeatureIconType }) {
-  if (type === "connectivity") {
-    return (
-      <svg viewBox="0 0 48 48" aria-hidden="true">
-        <rect x="14" y="8" width="20" height="27" rx="5" />
-        <path d="M18 14h12M17 26h14M19 35l-4 5M29 35l4 5" />
-        <circle cx="19" cy="30" r="1.5" />
-        <circle cx="29" cy="30" r="1.5" />
-      </svg>
-    );
-  }
-
-  if (type === "ecosystem") {
-    return (
-      <svg viewBox="0 0 48 48" aria-hidden="true">
-        <path d="M10 38V24h9v14M19 38V15h11v23M30 38V20h8v18" />
-        <path d="M23 15V9h4v6M13 28h3M13 32h3M23 20h3M23 25h3M23 30h3M33 25h2M33 30h2" />
-        <path d="M7 38h34" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 48 48" aria-hidden="true">
-      <path d="M10 38V28h7v10M21 38V22h7v16M32 38V14h7v24" />
-      <path d="M9 21l9-7 7 3 13-10" />
-      <path d="M32 7h6v6" />
-    </svg>
-  );
-}
 
 function RecordSubtitle({
   subtitle,
@@ -354,32 +322,32 @@ export default function WayVashi({
       );
 
       tl.to(
-  [
-    introEyebrow,
-    introVashi,
-    introNextRow,
-    introNext,
-    introAddress,
-  ],
-  {
-    autoAlpha: 1,
-    y: 0,
-    scale: 1,
-    duration: 0.45,
-    ease: "power3.out",
-  },
-  "<0.09",
-);
+        [
+          introEyebrow,
+          introVashi,
+          introNextRow,
+          introNext,
+          introAddress,
+        ],
+        {
+          autoAlpha: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.45,
+          ease: "power3.out",
+        },
+        "<0.09",
+      );
 
-tl.to(
-  introRules,
-  {
-    scaleX: 1,
-    duration: 0.45,
-    ease: "power3.out",
-  },
-  "<",
-);
+      tl.to(
+        introRules,
+        {
+          scaleX: 1,
+          duration: 0.45,
+          ease: "power3.out",
+        },
+        "<",
+      );
 
       tl.to(
         introNextRow,
@@ -589,9 +557,8 @@ tl.to(
     >
       <section className={styles.archStage} ref={stageRef}>
         <div
-          className={`${styles.archBgLayer} ${
-            isStageNear ? (night ? styles.nightStageBg : styles.dayStageBg) : ""
-          }`}
+          className={`${styles.archBgLayer} ${isStageNear ? (night ? styles.nightStageBg : styles.dayStageBg) : ""
+            }`}
         />
 
 
@@ -614,9 +581,8 @@ tl.to(
         <div className={styles.dome} ref={domeRef}>
           <div
             ref={domeBackgroundRef}
-            className={`${styles.domeBackground} ${
-              isStageNear ? styles.domeBackgroundLoaded : ""
-            }`}
+            className={`${styles.domeBackground} ${isStageNear ? styles.domeBackgroundLoaded : ""
+              }`}
             aria-hidden="true"
           />
           <div className={styles.domeOverlay} aria-hidden="true" />
@@ -676,9 +642,8 @@ tl.to(
               {RECORDS.map((record, index) => (
                 <div
                   key={record.title}
-                  className={`${styles.recordCopy} ${
-                    index === slide ? styles.recordCopyActive : ""
-                  }`}
+                  className={`${styles.recordCopy} ${index === slide ? styles.recordCopyActive : ""
+                    }`}
                   aria-hidden={index !== slide}
                 >
                   <h2 className={styles.bigTitle}>
@@ -695,42 +660,18 @@ tl.to(
 
             <div className={styles.sliderFrame}>
               {RECORDS.map((item, index) => (
-                <img
+                <Image
                   key={item.src}
                   src={item.src}
                   alt={item.alt}
-                  loading="lazy"
-                  decoding="async"
                   width={1280}
                   height={720}
-                  className={`${styles.slide} ${index === slide
-                      ? styles.slideActive
-                      : ""
+                  sizes="100vw"
+                  className={`${styles.slide} ${index === slide ? styles.slideActive : ""
                     }`}
                 />
               ))}
             </div>
-
-            {/* <div
-              className={styles.featureRow}
-              key={`features-${slide}`}
-            >
-              {activeRecord.features.map((feature) => (
-                <div
-                  className={styles.featureItem}
-                  key={`${feature.line1}-${feature.line2}`}
-                >
-                  <span className={styles.featureIcon}>
-                    <FeatureIcon type={feature.icon} />
-                  </span>
-
-                  <p className={styles.featureText}>
-                    <span>{feature.line1}</span>
-                    <strong>{feature.line2}</strong>
-                  </p>
-                </div>
-              ))}
-            </div> */}
 
             <div className={styles.sliderNav}>
               <button

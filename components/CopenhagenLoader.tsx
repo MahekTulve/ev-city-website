@@ -37,7 +37,7 @@ function House({ x, house, index }: { x: number; house: BuildingConfig; index: n
     <g className={`${styles['house']} ${styles[`house-${index}`]}`}>
       {/* Base Structure with Gradient & Glass Texture */}
       <rect x={x} y={y} width={w} height={h} fill={`url(#${colorGrad})`} rx={1} />
-      
+
       {/* Facade Textures for Realism */}
       {facadeType === "grid" && (
         <rect x={x} y={y} width={w} height={h} fill="url(#gridPattern)" opacity={0.45} />
@@ -111,7 +111,6 @@ function House({ x, house, index }: { x: number; house: BuildingConfig; index: n
 export default function CopenhagenLoader({ fading }: { fading: boolean }) {
   const totalW = HOUSES.reduce((s, h) => s + h.w + 10, -10);
   const startX = (1200 - totalW) / 2;
-  let cursor = startX;
 
   return (
     <div aria-hidden className={`${styles['loader']} ${fading ? styles['out'] : ""}`}>
@@ -185,10 +184,23 @@ export default function CopenhagenLoader({ fading }: { fading: boolean }) {
         {/* Buildings Render */}
         <g>
           {HOUSES.map((house, i) => {
-            const x = cursor;
-            cursor += house.w + 10;
-            return <House key={i} x={x} house={house} index={i} />;
+            const x =
+              startX +
+              HOUSES.slice(0, i).reduce(
+                (sum, previousHouse) => sum + previousHouse.w + 10,
+                0
+              );
+
+            return (
+              <House
+                key={i}
+                x={x}
+                house={house}
+                index={i}
+              />
+            );
           })}
+
         </g>
 
         {/* Ground Reflections */}

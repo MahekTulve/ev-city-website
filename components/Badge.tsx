@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import Style from "./Badge.module.css";
 
 export default function Badge() {
@@ -224,10 +225,13 @@ export default function Badge() {
             </textPath>
           </text>
         </svg>
-        <img
+        <Image
           className={Style.badgeLogo}
           src="/images/ev_city_logo.png"
           alt="EV Homes Logo"
+          width={100}
+          height={100}
+          priority
         />
       </div>
 

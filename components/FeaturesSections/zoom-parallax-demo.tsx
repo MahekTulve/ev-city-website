@@ -49,7 +49,7 @@ function DeferredMount({
     if (!host) return;
 
     if (!("IntersectionObserver" in window)) {
-      setShouldRender(true);
+      requestAnimationFrame(() => setShouldRender(true));
       return;
     }
 
