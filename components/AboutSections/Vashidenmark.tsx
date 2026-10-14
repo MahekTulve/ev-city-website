@@ -243,7 +243,7 @@ export default function VashiDenmark() {
         : currentCenterData?.video;
 
     if (!isSectionActive || !targetVideoSrc) {
-      setIsButtonDisabled(false);
+      requestAnimationFrame(() => setIsButtonDisabled(false));
       return;
     }
 
@@ -253,7 +253,7 @@ export default function VashiDenmark() {
       activeIndexRef.current === 1 ? videoRef2.current : videoRef1.current;
 
     if (!currentVideo || !nextVideo) {
-      setIsButtonDisabled(false);
+      requestAnimationFrame(() => setIsButtonDisabled(false));
       return;
     }
 
@@ -265,14 +265,15 @@ export default function VashiDenmark() {
       const initialPlay = currentVideo.play();
       if (initialPlay !== undefined) initialPlay.catch(() => { });
       hasInitializedVideoRef.current = true;
-      setIsButtonDisabled(false);
+      requestAnimationFrame(() => setIsButtonDisabled(false));
       return;
+
     }
 
     if (currentVideo.getAttribute("data-src") === targetVideoSrc) {
       const resumePlay = currentVideo.play();
       if (resumePlay !== undefined) resumePlay.catch(() => { });
-      setIsButtonDisabled(false);
+      requestAnimationFrame(() => setIsButtonDisabled(false));
       return;
     }
 

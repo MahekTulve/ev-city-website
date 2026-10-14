@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState, type CSSProperties } from "react";
 import ConceptSection from "./ConceptSection";
 import styles from "./HorizontalStory.module.css";
-// import VashiDenmark from "../AboutSections/Vashidenmark";
+import Image from "next/image";
 
 const SCROLL_LENGTH_VH = 280;
 const HORIZONTAL_END = 0.42;
@@ -191,10 +191,10 @@ export default function HorizontalStory() {
           isPhone && index <= 1
             ? 1
             : mapProgress(
-                timelineProgress,
-                dotRevealPoint,
-                Math.min(1, dotRevealPoint + (isPhone ? 0.05 : 0.055)),
-              );
+              timelineProgress,
+              dotRevealPoint,
+              Math.min(1, dotRevealPoint + (isPhone ? 0.05 : 0.055)),
+            );
 
         const dot = timelineDotRefs.current[index];
         if (dot) {
@@ -212,10 +212,10 @@ export default function HorizontalStory() {
           isPhone && index <= 1
             ? 1
             : mapProgress(
-                timelineProgress,
-                stopRevealPoint,
-                Math.min(1, stopRevealPoint + (isPhone ? 0.055 : 0.065)),
-              );
+              timelineProgress,
+              stopRevealPoint,
+              Math.min(1, stopRevealPoint + (isPhone ? 0.055 : 0.065)),
+            );
 
         const stopItem = stopItemRefs.current[index];
         if (stopItem) {
@@ -433,18 +433,18 @@ export default function HorizontalStory() {
                         }}
                       >
                         <span className={styles.stopArtwork}>
-                          <img
-                            className={`${styles.stopImage} ${
-                              stop.name === "9 VTC"
-                                ? styles.vtcImage
-                                : stop.name === "23 MALIBU WEST"
-                                  ? styles.malibuImage
-                                  : ""
-                            }`}
+                          <Image
+                            className={`${styles.stopImage} ${stop.name === "9 VTC"
+                              ? styles.vtcImage
+                              : stop.name === "23 MALIBU WEST"
+                                ? styles.malibuImage
+                                : ""
+                              }`}
                             src={stop.image}
                             alt={`${stop.name} building`}
-                            loading="lazy"
-                            decoding="async"
+                            width={500}
+                            height={700}
+                            sizes="(max-width: 520px) 45vw, 12vw"
                           />
 
                           <a
@@ -499,23 +499,22 @@ export default function HorizontalStory() {
 
                   return (
                     <div className={styles.cloudItem} key={itemIndex}>
-                      <img
+                      <Image
                         src="/images/cloud_5.avif"
                         alt=""
-                        className={`${styles.cloudImage} ${
-                          flipped ? styles.cloudImageFlipped : ""
-                        } ${
-                          itemIndex === 1
+                        width={1600}
+                        height={900}
+                        sizes="130vw"
+                        className={`${styles.cloudImage} ${flipped ? styles.cloudImageFlipped : ""
+                          } ${itemIndex === 1
                             ? styles.cloudImageB
                             : itemIndex === 2
                               ? styles.cloudImageC
                               : itemIndex === 3
                                 ? styles.cloudImageD
                                 : styles.cloudImageA
-                        }`}
+                          }`}
                         draggable={false}
-                        loading="lazy"
-                        decoding="async"
                       />
                     </div>
                   );

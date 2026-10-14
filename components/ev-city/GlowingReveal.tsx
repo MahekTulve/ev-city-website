@@ -1,6 +1,5 @@
 "use client";
 import { motion, useTransform, type MotionValue } from "framer-motion";
-import styles from "./GlowingReveal.module.css";
 
 interface GlowingTextRevealProps {
   text: string;

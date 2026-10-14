@@ -1,9 +1,6 @@
 "use client";
 import { motion, Variants } from "framer-motion";
 import {
-  Footprints,
-  Bike,
-  TrainFront,
   Users,
   BookOpen,
   Flower2,
@@ -15,7 +12,6 @@ import {
   Utensils,
   Sparkles,
 } from "lucide-react";
-import { PiUsersThreeLight } from "react-icons/pi";
 
 import wedgePark from "@/public/images/wedge-park.webp";
 import wedgeCafe from "@/public/images/wedge-cafe.webp";
@@ -128,12 +124,6 @@ const extraIcons = [
   },
 ];
 
-const iconRow = [
-  { icon: Footprints, label: "Walk" },
-  { icon: Bike, label: "Cycle" },
-  { icon: TrainFront, label: "Connect" },
-  { icon: PiUsersThreeLight, label: "Belong" },
-];
 
 const itemPairVariants: Variants = {
   hidden: {
@@ -213,34 +203,7 @@ const fadeRightVariants: Variants = {
   },
 };
 
-// Icon List Items Staggering
-const iconRowContainerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
 
-const iconItemVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.5, y: 15 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 100, damping: 12 },
-  },
-};
-
-const imageVariants: Variants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: {
-    opacity: 0.88, // Preserve original CSS opacity
-    y: 0,
-    transition: { duration: 0.8, ease: "easeOut" },
-  },
-};
 export default function NextDesign() {
   return (
     <main className={styles["page"]}>
@@ -271,7 +234,7 @@ export default function NextDesign() {
             <div>
 
               <p className={styles["body"]}>
-                Thoughtfully planned, inspired by Copenhagen's
+                Thoughtfully planned, inspired by Copenhagen&apos;s
                 <br /> 5-minute city philosophy where life, nature and
                 <br />community are always within reach.
               </p>
@@ -407,7 +370,7 @@ export default function NextDesign() {
                   })}
                 </defs>
 
-                {places.map(({ image, label }, index) => {
+                {places.map(({ image}, index) => {
                   const angleSize = 360 / places.length;
                   const angle = index * angleSize - 90 + (angleSize - 5) / 2;
 

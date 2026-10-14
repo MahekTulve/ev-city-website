@@ -6,7 +6,7 @@ import { IoIosBicycle } from "react-icons/io";
 import { LiaConnectdevelop } from "react-icons/lia";
 import { RiTreeLine } from "react-icons/ri";
 import { FaRegHeart } from "react-icons/fa";
-
+import Image from "next/image";
 // Swiper imports
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -55,20 +55,26 @@ export default function WhyCopenhagen() {
         </div>
         <div className={styles["blush"]} />
 
-        <img
+
+        <Image
           className={`${styles["skechImage"]} ${styles["desktopImage"]}`}
-          src={"images/way_bg.webp"}
+          src="/images/way_bg.webp"
           alt="sketch desktop"
-          loading="lazy"
-          decoding="async"
+          width={1920}
+          height={1080}
+          sizes="100vw"
         />
-        <img
+
+
+        <Image
           className={`${styles["skechImage"]} ${styles["mobileImage"]}`}
-          src={"images/way_bg_mobile.webp"} // Mobile wali image ka path yahan dalein
+          src="/images/way_bg_mobile.webp"
           alt="sketch mobile"
-          loading="lazy"
-          decoding="async"
+          width={750}
+          height={1334}
+          sizes="100vw"
         />
+
 
         {/* Desktop View Grid */}
         <div className={`${styles["pillars"]} ${styles["desktopPillars"]}`}>
@@ -120,7 +126,7 @@ export default function WhyCopenhagen() {
 
         <div className={styles["Lasttext"]} >
           <p>
-            A city isn't just its buildings, it's
+            A city isn&apos;t just its buildings, it&apos;s
           </p>
           <p className={styles["lastdesign"]} >
             its beliefs in action.

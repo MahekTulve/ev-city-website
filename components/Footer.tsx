@@ -4,11 +4,9 @@ import {
   FaInstagram,
   FaLinkedinIn,
   FaYoutube,
-  FaPhoneAlt,
-  FaEnvelope,
 } from "react-icons/fa";
 import styles from "./Footer.module.css";
-
+import Image from "next/image";
 const FooterSection = () => {
   return (
     <footer className={styles.footer}>
@@ -16,11 +14,11 @@ const FooterSection = () => {
         <div className={styles.top}>
           {/* Brand Column */}
           <div className={styles.brand}>
-            <img
+            <Image
               src="/images/logo.png"
               alt="E V Group Logo"
-              loading="lazy"
-              decoding="async"
+              width={180}
+              height={60}
             />
             <p className={styles.footerText}>
               Luxury waterfront living crafted for comfort, elegance, and modern
@@ -159,12 +157,12 @@ const FooterSection = () => {
             <h4 className={styles.colTitle}>Location</h4>
             <div
               className={styles.footerMap}
-              // onClick={() =>
-              //   window.open(
-              //     "https://www.google.com/maps/place/EV+-+10+Marina+Bay/@19.083533,72.996246,692m/data=!3m1!1e3!4m6!3m5!1s0x3be7c198d6327a0b:0xb7a8dd3bd3c83e8f!8m2!3d19.0831975!4d72.9992938!16s%2Fg%2F11j5g85dyg",
-              //     "_blank"
-              //   )
-              // }
+            // onClick={() =>
+            //   window.open(
+            //     "https://www.google.com/maps/place/EV+-+10+Marina+Bay/@19.083533,72.996246,692m/data=!3m1!1e3!4m6!3m5!1s0x3be7c198d6327a0b:0xb7a8dd3bd3c83e8f!8m2!3d19.0831975!4d72.9992938!16s%2Fg%2F11j5g85dyg",
+            //     "_blank"
+            //   )
+            // }
             >
               <iframe
                 src="https://www.google.com/maps?q=E.v+Homes+Vashi+Navi+Mumbai&z=15&output=embed"
