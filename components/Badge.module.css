@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Junge&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap');
 
 .badge {
   position: fixed;
@@ -20,7 +19,7 @@
 }
 
 .badgeRing text {
-  font-family: 'Junge', serif;
+  font-family: var(--font-jura);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.2em;

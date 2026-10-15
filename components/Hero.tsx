@@ -35,7 +35,7 @@ export default function Hero() {
         muted
         loop
         playsInline
-        preload="auto"
+        preload="metadata"
         poster="/images/vashicityDayOne.webp"
         className="h-full w-full object-cover"
       >

@@ -54,44 +54,44 @@ type ResponsiveLayout = {
 const VIDEOS: VideoItem[] = [
   {
     id: 1,
-    src: "/images/square-1.webm",
+    src: "/videos/square-1-comp.webm",
     poster: "",
     ariaLabel: "Ocean-facing luxury interior",
   },
   {
     id: 2,
-    src: "/videos/city-desktop.mp4",
-    mobileSrc: "/videos/city-mob.mp4",
+    src: "/videos/city-desktop-comp.webm",
+    mobileSrc: "/videos/city-mob-comp.webm",
     poster: "",
     ariaLabel: "Modern city view",
   },
   {
     id: 3,
-    src: "/images/rectangle-1.webm",
+    src: "/videos/rectangle-1-comp.webm",
     poster: "",
     ariaLabel: "Winter landscape interior",
   },
   {
     id: 4,
-    src: "/images/vid1.webm",
+    src: "/videos/vid1_comp.webm",
     poster: "",
     ariaLabel: "Garden house interior",
   },
   {
     id: 5,
-    src: "/images/16x9.webm",
+    src: "/videos/16x9-comp.webm",
     poster: "",
     ariaLabel: "Vintage plant-filled interior",
   },
   {
     id: 6,
-    src: "/images/square-2.webm",
+    src: "/videos/square-2-comp.webm",
     poster: "",
     ariaLabel: "Bright modern living room",
   },
   {
     id: 7,
-    src: "/images/rectangle-2.webm",
+    src: "/videos/rectangle-2-comp.webm",
     poster: "",
     ariaLabel: "Minimal Zen-inspired interior",
   },
@@ -276,7 +276,7 @@ function AutoPlayVideo({
       const promise = video.play();
 
       if (promise !== undefined) {
-        void promise.catch(() => {});
+        void promise.catch(() => { });
       }
     };
 
@@ -499,7 +499,7 @@ export default function CinematicPlacesGallery() {
       },
       {
         rootMargin: isMobile
-          ? "500px 0px"
+          ? "150px 0px"
           : "800px 0px",
         threshold: 0.01,
       },
@@ -1203,7 +1203,7 @@ export default function CinematicPlacesGallery() {
                   className={[
                     styles.mainVideoControl,
                     !isMainVideoExpanded ||
-                    isMainVideoPaused
+                      isMainVideoPaused
                       ? styles.mainVideoControlVisible
                       : styles.mainVideoControlHidden,
                   ].join(" ")}

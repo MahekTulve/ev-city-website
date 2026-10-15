@@ -49,8 +49,8 @@ const ALL_NODES: NodeData[] = [
     label: "NEXUS MALL",
     sub: "Shopping & Dining",
     icon: <ShoppingBag size={26} />,
-    video: "/videos/mall.webm",
-    mobileVideo: "/videos/mall_mobile.webm",
+    video: "/videos/mall-compr.webm",
+    mobileVideo: "/videos/mall_mobile-comp.webm",
   },
   {
     id: 3,
@@ -77,7 +77,7 @@ const ALL_NODES: NodeData[] = [
     sub: "Travel with Ease",
     icon: <Plane size={26} />,
     video: "/videos/airport.webm",
-    mobileVideo: "/videos/airpor_mobile.webm",
+    mobileVideo: "/videos/airpor_mobile-comp.webm",
   },
   {
     id: 8,
@@ -103,7 +103,7 @@ const ALL_NODES: NodeData[] = [
     label: "IT PARK",
     sub: "Corporate Neighborhood",
     icon: <Building size={26} />,
-    video: "/videos/IT-park.webm",
+    video: "/videos/IT-park-comp.webm",
     mobileVideo: "/videos/IT_park_mobile.webm",
   },
 ];
