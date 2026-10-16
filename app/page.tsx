@@ -1,6 +1,6 @@
 import Hero from "@/components/Hero";
 import Badge from "@/components/Badge";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 const FeaturesSection = lazy(() => import("@/components/FeaturesSections/zoom-parallax-demo"));
 
 export default function Home() {
