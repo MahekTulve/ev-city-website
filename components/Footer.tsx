@@ -7,6 +7,7 @@ import {
 } from "react-icons/fa";
 import styles from "./Footer.module.css";
 import Image from "next/image";
+import Link from 'next/link';
 const FooterSection = () => {
   return (
     <footer className={styles.footer}>
@@ -73,7 +74,9 @@ const FooterSection = () => {
                 </a>
               </li>
               <li>
-                <a href="#privacy">Privacy Policy</a>
+                <Link href="/privacy-policy">
+                  Privacy Policy
+                </Link>
               </li>
               <li>
                 <a href="#terms">Terms & Conditions</a>

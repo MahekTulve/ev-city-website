@@ -1,0 +1,256 @@
+.pageContainer {
+    color: #ffffff;
+    min-height: 100vh;
+    padding: 6rem 2rem;
+    font-family: var(--font-cormorant);
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to bottom,
+            #00030a 0%,
+            #00030b 40%,
+            #000207 60%,
+            #020202 85%);
+}
+
+.wrapper {
+    max-width: 85%;
+    width: 100%;
+}
+
+/* Header Section */
+.header {
+    text-align: center;
+    margin-bottom: 5rem;
+    position: relative;
+
+
+}
+
+.subtitle {
+    font-family: var(--font-cormorant);
+    letter-spacing: 1px;
+    color: #d8b86a;
+    font-size: 1.15rem;
+    margin-bottom: 1rem;
+    margin-top: 1.5rem;
+    line-height: 1.5rem;
+        letter-spacing: 0.5px;
+
+}
+
+.subtitle span {
+    color: #ffffff;
+}
+
+.sublink {
+    color: #6879fb;
+    text-decoration: underline;
+
+}
+
+.title {
+    font-family: var(--font-amsterdam);
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    margin: 0;
+    color: #ffffff;
+
+}
+
+.divider {
+    width: 60px;
+    height: 1px;
+    background-color: #d8b86a;
+    margin: 4.5rem auto 0 auto;
+}
+
+.metaInfo {
+    font-family: "Jura", sans-serif;
+    font-size: 0.85rem;
+    color: #ffffff;
+    opacity: 0.6;
+    text-align: center;
+    margin-bottom: 4rem;
+    letter-spacing: 1px;
+}
+
+.article {
+    margin-bottom: 3.5rem;
+}
+
+.sectionTitle {
+    font-family: var(--font-theSeasons);
+    font-size: 1.4rem;
+    color: #d8b86a;
+    margin-bottom: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+.dontFamily{
+    font-family: var(--font-jura);
+}
+.paragraph {
+    font-family: var(--font-cormorant);
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #ffffff;
+    opacity: 0.85;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    margin-left: 25px;
+    letter-spacing: 0.5px;
+}
+
+.list {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0;
+}
+
+.listItembold,
+.listItem {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.8rem;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    opacity: 0.85;
+    letter-spacing: 0.5px;
+
+}
+
+.listItembold {
+    color: #d8b86a;
+    font-weight: 600;
+}
+
+.listItembold::before,
+.listItem::before {
+    content: "—";
+    position: absolute;
+    left: 0;
+    color: #cdaa54;
+}
+
+/* Footer Note / Contact Box */
+.contactBox {
+    border: 1px solid rgba(216, 185, 106, 0.1);
+    padding: 2.5rem;
+    margin-top: 5rem;
+    text-align: center;
+    background-color: rgba(190, 136, 65, 0.049);
+    backdrop-filter: blur(5px);
+}
+
+.contactTitle {
+    font-family: var(--font-amsterdam);
+    font-size: 1.8rem;
+    color: #ffffff;
+    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    word-spacing: 5px;
+    margin-bottom: 25px;
+}
+.paragraph a{
+    font-family: var(--font-cormorant);
+    letter-spacing: 2px;
+}
+.contLast{
+     font-family: var(--font-theSeasons);
+}
+.link {
+    color: #d8b86a;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+    font-weight: 600;
+}
+
+.link:hover {
+    opacity: 0.8;
+}
+
+.closeButton {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: transparent;
+    border: 1px solid rgba(216, 184, 106, 0.4);
+    color: #d8b86a;
+    font-size: 1.5rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    /* Taki sabse upar dikhe */
+}
+
+.closeButton:hover {
+    background-color: #d8b86a;
+    color: #ffffff;
+    border-color: #d8b86a;
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .pageContainer {
+        padding: 3rem 1rem;
+    }
+
+    .closeButton {
+        top: 1rem;
+        right: 1rem;
+        width: 35px;
+        height: 35px;
+        font-size: 1.2rem;
+    }
+
+    .wrapper {
+        max-width: 90%;
+        width: 100%;
+    }
+
+    .title {
+        font-size: 2.5rem;
+    }
+
+    .sectionTitle {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 500px) {
+    .pageContainer {
+        padding: 3rem 1rem;
+    }
+
+    .wrapper {
+        max-width: 99%;
+        width: 100%;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        position: relative;
+    }
+
+
+    .contactBox {
+        padding: 0.5rem;
+        margin-top: 2rem;
+    }
+
+    .paragraph {
+        font-size: 0.9rem;
+    }
+
+    .article {
+        margin-bottom: 2rem;
+    }
+}

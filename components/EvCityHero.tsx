@@ -23,20 +23,20 @@ const topbarVariants: Variants = {
 };
 
 const leftSlideVariants: Variants = {
-  hidden: { opacity: 0, x: -50 },
+  hidden: { opacity: 0, x: -100 },
   visible: { 
     opacity: 1, 
     x: 0, 
-    transition: { duration: 0.8, ease: "easeOut" as const } 
+    transition: { duration: 1.3, ease: "easeOut" as const }
   },
 };
 
 const rightSlideVariants: Variants = {
-  hidden: { opacity: 0, x: 50 },
+  hidden: { opacity: 0, x: 100 },
   visible: { 
     opacity: 1, 
     x: 0, 
-    transition: { duration: 0.8, ease: "easeOut" as const } 
+   transition: { duration: 1.3, ease: "easeOut" as const }
   },
 };
 
