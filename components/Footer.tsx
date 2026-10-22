@@ -79,7 +79,10 @@ const FooterSection = () => {
                 </Link>
               </li>
               <li>
-                <a href="#terms">Terms & Conditions</a>
+                <Link href="/terms-conditions">
+                  Terms & Conditions
+                </Link>
+                
               </li>
             </ul>
           </div>

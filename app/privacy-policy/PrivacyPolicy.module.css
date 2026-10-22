@@ -34,7 +34,7 @@
     margin-bottom: 1rem;
     margin-top: 1.5rem;
     line-height: 1.5rem;
-        letter-spacing: 0.5px;
+    letter-spacing: 0.5px;
 
 }
 
@@ -87,9 +87,11 @@
     font-weight: 400;
     letter-spacing: 1px;
 }
-.dontFamily{
+
+.dontFamily {
     font-family: var(--font-jura);
 }
+
 .paragraph {
     font-family: var(--font-cormorant);
     font-size: 1.2rem;
@@ -152,13 +154,16 @@
     word-spacing: 5px;
     margin-bottom: 25px;
 }
-.paragraph a{
+
+.paragraph a {
     font-family: var(--font-cormorant);
     letter-spacing: 2px;
 }
-.contLast{
-     font-family: var(--font-theSeasons);
+
+.contLast {
+    font-family: var(--font-theSeasons);
 }
+
 .link {
     color: #d8b86a;
     text-decoration: none;
@@ -229,6 +234,10 @@
         padding: 3rem 1rem;
     }
 
+    .title {
+        font-size: 1.6rem;
+    }
+
     .wrapper {
         max-width: 99%;
         width: 100%;
@@ -250,7 +259,32 @@
         font-size: 0.9rem;
     }
 
+    .listItem {
+        font-size: 0.9rem;
+    }
+
     .article {
         margin-bottom: 2rem;
+    }
+
+    .subtitle {
+        letter-spacing: 0.5px;
+        font-size: 1rem;
+
+    }
+
+    .divider {
+        width: 60px;
+        height: 1px;
+        background-color: #d8b86a;
+        margin: 2.5rem auto 0 auto;
+    }
+
+    .contactTitle {
+        font-size: 1.4rem;
+        margin-top: 10px;
+    }
+    .contactBox .paragraph{
+       margin-left: 2px;
     }
 }
