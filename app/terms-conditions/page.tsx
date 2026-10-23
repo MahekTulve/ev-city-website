@@ -29,7 +29,7 @@ const TermsCondition: React.FC = () => {
                 <header className={styles.header}>
                     <h1 className={styles.title}>Terms and Conditions</h1>
                     <div className={styles.divider}></div>
-                    <p className={styles.subtitle}>Welcome to<span> EV Homes Constructions Pvt Ltd’s</span> website for the <span>EV CITY</span> project. By accessing and using this website, you agree to comply with and be bound by the following Terms and Conditions. Please read them carefully before proceeding.</p>
+                    <p className={styles.subtitle}>Welcome to the <span>EV CITY</span> website by<span> EV Homes Constructions Pvt. Ltd.</span> By accessing or using this website, you agree to these <span>Terms and Conditions</span>. Please read them carefully.</p>
 
                 </header>
 
@@ -38,98 +38,103 @@ const TermsCondition: React.FC = () => {
                     <section className={styles.article}>
                         <h2 className={styles.sectionTitle}>1. Project Information</h2>
                         <p className={styles.paragraph}>
-                            The EV CITY project is registered under the Maharashtra Real Estate Regulatory Authority (MAHARERA) as per the granted under section 5 of the Act.
-                            <br />
-                            <b>MAHARERA Registration Number :</b> <span style={{ color: "#d8b86a" }}>P51700028722</span>
+                            EV CITY presents a vision of connected urban living inspired by Copenhagen’s people-centric city planning and five-minute city philosophy, focusing on convenience, connectivity, nature, and community.
                             <br />
                             <b>Website :</b> <a href='https://ev-city-website.vercel.app/' className={styles.sublink}>ev-city-website.vercel.app</a>
-                            <br />
-                            For detailed project information, you may visit the MAHARERA website or contact our office.
                         </p>
 
                     </section>
 
                     <section className={styles.article}>
-                        <h2 className={styles.sectionTitle}>2. Rights To Advertise</h2>
-                        <p className={styles.paragraph}>EV Homes Constructions Pvt Ltd has received full rights to Market/Advertise/Sell the apartments in EV CITY vide applicable MAHARERA Registration permissions and approvals.</p>
+                        <h2 className={styles.sectionTitle}>2. Rights to Advertise</h2>
+                        <p className={styles.paragraph}>
+                            EV Homes Constructions Pvt. Ltd. may market and advertise EV CITY developments to the extent authorised and subject to applicable approvals and regulatory requirements.   </p>
 
                     </section>
 
                     <section className={styles.article}>
                         <h2 className={styles.sectionTitle}>3. Disclaimer</h2>
                         <p className={styles.paragraph}>
-                            The information and content provided on this website are for informational purposes only and do not constitute an offer or invitation to purchase any units or services.
+                            The information on this website is provided for general informational purposes only and does not constitute a binding offer to sell.
                             <br />
-                            All information about the EV CITY project, including prices, availability, and specifications, is subject to change without prior notice.
-                            EV Homes Constructions Pvt Ltd strives to ensure the accuracy of the content displayed on this site but does not warrant or guarantee the completeness or correctness of such information.
-                            <br />
-                            Buyers are encouraged to verify all project-related details from the official MAHARERA website.
-                        </p>
+                            Information may change without prior notice. Visitors should verify relevant project details before making any property-related decision. </p>
                     </section>
 
                     <section className={styles.article}>
-                        <h2 className={styles.sectionTitle}>4. Pricing and Availability</h2>
+                        <h2 className={styles.sectionTitle}><span className={styles.dontFamily}>4.</span> Pricing and Availability</h2>
                         <ul className={styles.list}>
-                            <li className={styles.listItem}>All prices mentioned on this website are indicative and subject to change without prior notice.</li>
-                            <li className={styles.listItem}>The availability of properties mentioned on the website is subject to confirmation.</li>
-                            <li className={styles.listItem}>Contact our sales team for the most up-to-date pricing and availability information.</li>
+                            <li className={styles.listItem}>This website presents the EV CITY concept and does not display property prices.</li>
+                            <li className={styles.listItem}>Property prices and availability are subject to confirmation by the respective project team.</li>
+                            <li className={styles.listItem}>For pricing or booking enquiries, please contact the relevant sales team.</li>
 
                         </ul>
                     </section>
                     <section className={styles.article}>
-                        <h2 className={styles.sectionTitle}>5. Communication</h2>
+                        <h2 className={styles.sectionTitle}>5. Communication and Marketing</h2>
                         <p className={styles.paragraph}>
-                            By providing your contact details on our website (including phone numbers and email addresses), you agree to receive communication from EV Homes Constructions Pvt Ltd.
+                            When you provide your contact details, we may use them to respond to your enquiries and share relevant information, subject to applicable consent requirements.
                             <br />
-                            This may include phone calls, SMS, and emails regarding project updates, offers, or information about our products and services.
+                            Marketing communications may be sent by phone, SMS, WhatsApp, or email where permitted.
                             <br />
-                            You can opt out of marketing communication at any time by contacting us or by following the unsubscribe instructions in our emails.
+                            You may opt out of marketing communications at any time by contacting us or using the available unsubscribe option.
                         </p>
                     </section>
                     <section className={styles.article}>
                         <h2 className={styles.sectionTitle}>6. Legal Compliance and Registration</h2>
                         <p className={styles.paragraph}>
-                            The EV CITY project is developed and marketed in accordance with the Real Estate (Regulation and Development) Act, granted under section 5.
-                            <br />
-                            Buyers are encouraged to visit the official MAHARERA website for complete project details, approvals, and registration status.
+                            Individual EV CITY developments are subject to their respective legal and regulatory requirements.
+                            Visitors should verify applicable approvals and MahaRERA registration details on the official MahaRERA website.
                         </p>
                     </section>
                     <section className={styles.article}>
                         <h2 className={styles.sectionTitle}>7. Intellectual Property</h2>
                         <p className={styles.paragraph}>
-                            All content, logos, images, and trademarks displayed on the website are the property of EV Homes Constructions Pvt Ltd or its affiliates and are protected under applicable copyright laws.
+                            All content, logos, images, and trademarks displayed on the website are the property of EV Homes Constructions Pvt. Ltd. or its affiliates and are protected under applicable copyright laws.
                             <br />
-                            You are prohibited from copying, distributing, or reproducing any content from this site without prior written consent from the company.
+                            You are prohibited from copying, distributing, or reproducing any content from this website without prior written consent from the company.
                         </p>
                     </section>
                     <section className={styles.article}>
-                        <h2 className={styles.sectionTitle}>8. Third-Party Links</h2>
+                        <h2 className={styles.sectionTitle}>8. Third<span className={styles.dontFamily}>-</span>Party Links</h2>
                         <p className={styles.paragraph}>
-                            The website may contain links to third-party websites. These links are provided for your convenience and do not imply any endorsement by EV Homes Constructions Pvt Ltd.
+                            This website may contain links to third-party websites and services. These links are provided for convenience.
                             <br />
-                            We are not responsible for the content or privacy practices of such third-party sites.</p>
+                            EV Homes Constructions Pvt. Ltd. does not control and is not responsible for third-party content or privacy practices.
+                            <br />
+                            Users should review the relevant third-party terms and privacy policies.</p>
                     </section>
                     <section className={styles.article}>
-                        <h2 className={styles.sectionTitle}>9. Limitation of Liability</h2>
+                        <h2 className={styles.sectionTitle}>9. Privacy, Cookies and Browser Storage</h2>
                         <p className={styles.paragraph}>
-                            EV Homes Constructions Pvt Ltd shall not be liable for any direct, indirect, incidental, or consequential damages arising from the use of this website or the information provided herein.                       </p>
+                            We may collect personal information, such as your name, phone number, or email address, when you voluntarily provide it through available contact or enquiry channels. Cookies and browser storage may be used where applicable for website functionality, preferences, or analytics.
+                            <br />
+                            Personal information may be shared with authorised service providers, such as website hosting, communication, or analytics providers, where necessary and permitted by law. Please refer to our Privacy Policy for further details.
+                        </p>
                     </section>
                     <section className={styles.article}>
-                        <h2 className={styles.sectionTitle}>10. Governing Law</h2>
+                        <h2 className={styles.sectionTitle}>10. Personal Data Rights, Deletion and Overseas Processing</h2>
+                        <p className={styles.paragraph}>
+                            Subject to applicable laws, users may request access to, correction of, or deletion of their personal information and withdraw consent where applicable.
+                            <br />
+                            Some of our service providers may store or process data outside India. When that happens we rely on providers with appropriate security safeguards, and we will follow any restrictions the Government of India places on such transfers.
+                        </p>
+                    </section>
+                    <section className={styles.article}>
+                        <h2 className={styles.sectionTitle}>11. Governing Law</h2>
                         <p className={styles.paragraph}>
                             These Terms and Conditions are governed by and construed in accordance with the laws of India.
-                            <br />
-                            Any disputes arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts located in <b> Navi Mumbai, Maharashtra.</b>
+                            Any disputes arising out of or in connection with these terms shall be subject to the exclusive jurisdiction of the courts located in <b>Navi Mumbai, Maharashtra.</b>
                         </p>
                     </section>
                     <section className={styles.article}>
-                        <h2 className={styles.sectionTitle}>11. Amendments</h2>
+                        <h2 className={styles.sectionTitle}>12. Amendments</h2>
                         <p className={styles.paragraph}>
                             EV Homes Constructions Pvt Ltd reserves the right to update or modify these Terms and Conditions at any time without prior notice.
                             <br />
                             It is your responsibility to review these terms periodically for any changes.
                         </p>
                     </section>
+
                     <section className={styles.contactBox}>
                         <h3 className={styles.contactTitle}>Contact Us</h3>
                         <p className={styles.paragraph} style={{ textAlign: 'center', marginBottom: 0, }}>
