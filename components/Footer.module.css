@@ -1,4 +1,3 @@
-
 .footer {
   position: relative;
   width: 100%;
@@ -132,7 +131,6 @@
 .contactItem {
   display: flex;
   flex-direction: column;
-  gap: 4px;
   margin-bottom: 18px;
 }
 
@@ -156,6 +154,18 @@
 
 .contactItem a:hover {
   color: #d4af37;
+}
+
+.contactItem button {
+  border: 1px solid #c5a059;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.contactItem button:hover {
+  color: #fffffe;
+  border: 1px solid #faf7f1;
+
 }
 
 .footerMap {
