@@ -1,0 +1,502 @@
+.aspire-enquiry-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+}
+
+.aspire-enquiry-wrapper .dialog-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(1, 12, 17, 0.832);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    animation: aspDialogFadeIn 0.3s ease-in-out;
+}
+
+/* Dialog Content */
+.aspire-enquiry-wrapper .popup-content,
+.aspire-enquiry-wrapper .dialog-content {
+    position: relative;
+    width: 100%;
+    max-width: 38rem;
+    margin: 0 1rem;
+    border-radius: 8px;
+    overflow: hidden;
+
+    border: 1px solid rgba(43, 206, 165, 0.125);
+    border-radius: 8px;
+
+    width: 100%;
+    max-width: 38rem;
+    margin: 0 1rem;
+    position: relative;
+    z-index: 10000;
+    animation: aspDialogSlideUp 0.35s ease-out;
+    overflow: hidden;
+}
+
+.aspire-enquiry-wrapper .dialog-content::before,
+.aspire-enquiry-wrapper .popup-content::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(to bottom,
+            #020202 0%,
+            #000510 40%,
+            #000511 60%,
+            #00040c 85%);
+    z-index: 1;
+}
+
+/* Noise texture overlay for depth */
+
+.aspire-enquiry-wrapper .dialog-content>*,
+.aspire-enquiry-wrapper .popup-content>* {
+    position: relative;
+    z-index: 2;
+}
+
+.aspire-enquiry-wrapper .popup-content {
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(4, 60, 42, 1) 0%, rgba(2, 28, 19, 1) 100%);
+}
+
+/* Decorative top glow line */
+.aspire-enquiry-wrapper .dialog-content::after,
+.aspire-enquiry-wrapper .popup-content::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(203, 207, 229, 0.55), transparent);
+    z-index: 2;
+}
+
+/* Close Button */
+.aspire-enquiry-wrapper .close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    color: rgb(219, 178, 65);
+    transition: color 0.2s;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    z-index: 3;
+}
+
+.aspire-enquiry-wrapper .close-btn:hover {
+    color: #ffffff;
+}
+
+/* Header */
+.aspire-enquiry-wrapper .dialog-header {
+    padding: 28px 28px 8px;
+}
+
+.aspire-enquiry-wrapper .dialog-title {
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: #caa35a;
+    margin-bottom: 10px;
+    line-height: 1.3;
+    font-family: var(--font-theSeasons);
+    letter-spacing: 0.01em;
+}
+
+.aspire-enquiry-wrapper .dialog-subtitle {
+    color: #c1e2de;
+    font-size: 1rem;
+    line-height: 1.3;
+    letter-spacing: 1px;
+    font-weight: 300;
+    font-family: var(--font-cormorant);
+}
+
+/* Form */
+.aspire-enquiry-wrapper .dialog-form {
+    padding: 16px 28px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Form Group */
+.aspire-enquiry-wrapper .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.aspire-enquiry-wrapper .form-label {
+    font-size: 15px;
+    color: #f7c587;
+    font-family: var(--font-cormorant);
+    letter-spacing: 0.03em;
+    text-align: start;
+}
+
+.aspire-enquiry-wrapper .required {
+    color: #e65454;
+    margin-right: 3px;
+}
+
+.aspire-enquiry-wrapper .form-input,
+.aspire-enquiry-wrapper .form-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid rgba(143, 164, 250, 0.781);
+    background: rgb(0, 9, 12);
+    color: #ffffff;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    font-family:'Times New Roman', Times, serif;
+    border-radius: 3px;
+    box-shadow:
+        0 0 8px rgba(3, 136, 103, 0.034),
+        inset 0 0 6px rgba(3, 136, 103, 0.04);
+}
+.aspire-enquiry-wrapper .countryCode{
+    font-family: 'Courier New', Courier, monospace;
+}
+.aspire-enquiry-wrapper .form-input::placeholder {
+    color: #dbe9e1;
+}
+
+.aspire-enquiry-wrapper .form-input:focus,
+.aspire-enquiry-wrapper .form-select:focus {
+    border-color: rgba(3, 18, 136, 0.7);
+    box-shadow:
+        0 0 12px rgba(3, 136, 103, 0.064),
+        0 0 30px rgba(3, 136, 103, 0.03),
+        inset 0 0 8px rgba(3, 136, 103, 0.023);
+}
+
+.aspire-enquiry-wrapper .form-input.error,
+.aspire-enquiry-wrapper .form-select.error {
+    border-color: #ef4444;
+}
+
+/* Select */
+.aspire-enquiry-wrapper .form-select {
+    cursor: pointer;
+    appearance: none;
+    padding-right: 28px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath fill='%23038867' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+    background-color: rgba(0, 0, 0, 0.25);
+    color: #c1e2de;
+}
+
+.aspire-enquiry-wrapper .form-select option {
+    background: #052a1d;
+    color: #c1e2de;
+}
+
+/* Error Text */
+.aspire-enquiry-wrapper .error-text {
+    color: #fca5a5;
+    font-size: 12px;
+    margin-top: 3px;
+}
+
+/* Row */
+.aspire-enquiry-wrapper .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 640px) {
+    .aspire-enquiry-wrapper .form-row {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Checkbox */
+.aspire-enquiry-wrapper .form-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 4px 0;
+}
+
+.aspire-enquiry-wrapper .checkbox-input {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    min-width: 16px;
+    border: 1px solid #c1e2de;
+    border-radius: 2px;
+    cursor: pointer;
+    position: relative;
+    display: grid;
+    place-content: center;
+    background: transparent;
+    margin-top: 2px;
+}
+
+.aspire-enquiry-wrapper .checkbox-input::before {
+    content: "";
+    width: 9px;
+    height: 9px;
+    transform: scale(0);
+    transition: 0.12s ease-in-out;
+    box-shadow: inset 1em 1em #038867;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+}
+
+.aspire-enquiry-wrapper .checkbox-input:checked::before {
+    transform: scale(1);
+}
+
+.aspire-enquiry-wrapper .checkbox-input:checked {
+    border-color: #038867;
+}
+
+.aspire-enquiry-wrapper .checkbox-label {
+    color: #c1e2de;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    flex: 1;
+    line-height: 1.4;
+    text-align: left;
+    font-family: var(--font-cormorant);
+}
+
+/* Submit Button */
+
+.aspire-enquiry-wrapper .submit-btn {
+    display: block;
+    margin: 4px auto 0;
+    padding: 12px 44px;
+    background: linear-gradient(135deg, #010c16c6, #001017b0);
+    color: #d2a758;
+    font-size: 17px;
+    font-weight: 500;
+    border: 1px solid rgba(209, 237, 253, 0.214);
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.06em;
+    font-family: var(--font-theSeasons);
+    position: relative;
+    overflow: hidden;
+    border-radius: 3px;
+}
+
+.aspire-enquiry-wrapper .submit-btn::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+            rgb(126, 123, 227) 50%,
+            transparent 100%);
+}
+
+.aspire-enquiry-wrapper .submit-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg,
+            transparent 0%,
+             rgb(126, 123, 227) 50%,
+            transparent 100%);
+}
+
+.aspire-enquiry-wrapper .submit-btn:hover {
+    box-shadow:
+        0 6px 20px rgba(3, 136, 103, 0.18),
+        0 0 16px rgba(3, 136, 103, 0.12),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.aspire-enquiry-wrapper .submit-btn:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Footer */
+.aspire-enquiry-wrapper .dialog-footer {
+    padding: 16px 28px;
+    border-top: 1px solid rgba(3, 136, 103, 0.15);
+    text-align: center;
+}
+
+.aspire-enquiry-wrapper .footer-text {
+    font-size: 13px;
+    color: #c1e2de;
+    font-family: var(--font-cormorant);
+    letter-spacing: 0.03em;
+}
+
+.aspire-enquiry-wrapper .phone-number {
+    color: #c1e2de;
+    font-weight: 500;
+    font-family:'Times New Roman', Times, serif;
+}
+
+/* Animations */
+@keyframes aspDialogFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes aspDialogSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+
+    .aspire-enquiry-wrapper .popup-content,
+    .aspire-enquiry-wrapper .dialog-content {
+        width: 92%;
+        margin: 0 auto;
+        max-width: none;
+    }
+
+    .aspire-enquiry-wrapper .dialog-subtitle {
+        font-size: 0.6rem;
+        line-height: 1.3;
+    }
+
+    .aspire-enquiry-wrapper .dialog-header {
+        padding: 22px 18px 6px;
+    }
+
+    .aspire-enquiry-wrapper .dialog-form {
+        padding: 10px 18px 16px;
+        gap: 12px;
+    }
+
+    .aspire-enquiry-wrapper .dialog-footer {
+        padding: 14px 18px;
+    }
+
+    .aspire-enquiry-wrapper .dialog-title {
+        font-size: 22px;
+    }
+
+    .aspire-enquiry-wrapper .form-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .aspire-enquiry-wrapper .checkbox-label {
+        font-size: 8px;
+    }
+
+    .aspire-enquiry-wrapper .submit-btn {
+        width: auto;
+        padding: 11px 32px;
+        font-size: 13px;
+    }
+
+    .aspire-enquiry-wrapper .close-btn {
+        top: 6px;
+        right: 6px;
+        font-size: 24px;
+    }
+
+    .aspire-enquiry-wrapper .footer-text {
+        font-size: 12px;
+    }
+}
+
+/* ===== Ultra Wide Screens (1600px and above) ===== */
+@media (min-width: 1600px) {
+
+    .aspire-enquiry-wrapper .popup-content,
+    .aspire-enquiry-wrapper .dialog-content {
+        max-width: 45rem;
+        /* increased from 38rem */
+        border-radius: 12px;
+    }
+
+    .aspire-enquiry-wrapper .dialog-header {
+        padding: 40px 40px 16px;
+    }
+
+    .aspire-enquiry-wrapper .dialog-title {
+        font-size: 2.1rem;
+    }
+
+    .aspire-enquiry-wrapper .dialog-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .aspire-enquiry-wrapper .dialog-form {
+        padding: 24px 40px 28px;
+        gap: 20px;
+    }
+
+    .aspire-enquiry-wrapper .form-input,
+    .aspire-enquiry-wrapper .form-select {
+        padding: 12px 14px;
+        font-size: 18px;
+    }
+
+    .aspire-enquiry-wrapper .checkbox-label {
+        font-size: 15px;
+    }
+
+    .aspire-enquiry-wrapper .submit-btn {
+        font-size: 20px;
+        letter-spacing: 1.6px;
+        padding: 14px 30px;
+    }
+
+    .aspire-enquiry-wrapper .dialog-footer {
+        padding: 20px 40px;
+    }
+
+    .aspire-enquiry-wrapper .footer-text {
+        font-size: 17px;
+    }
+
+    .aspire-enquiry-wrapper .close-btn {
+        top: 20px;
+        right: 20px;
+        font-size: 30px;
+    }
+}

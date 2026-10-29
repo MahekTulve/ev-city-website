@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState } from "react";
 import {
   FaFacebookF,
   FaInstagram,
@@ -8,8 +10,12 @@ import {
 import styles from "./Footer.module.css";
 import Image from "next/image";
 import Link from 'next/link';
+import EnquiryDialog from "./EnquiryDialog";
 const FooterSection = () => {
+  const [isEnquiryOpen, setIsEnquiryOpen] = useState(false);
+
   return (
+    <>
     <footer className={styles.footer}>
       <div className={styles.container}>
         <div className={styles.top}>
@@ -82,7 +88,7 @@ const FooterSection = () => {
                 <Link href="/terms-conditions">
                   Terms & Conditions
                 </Link>
-                
+
               </li>
             </ul>
           </div>
@@ -109,6 +115,16 @@ const FooterSection = () => {
               >
                 www.evgroup.in
               </a>
+            </div>
+            <div className={styles.contactItem}>
+              <button
+                type="button"
+                className={styles.contactLabel}
+                onClick={() => setIsEnquiryOpen(true)}
+              >
+                Enquiry now
+              </button>
+              
             </div>
           </div>
 
@@ -202,6 +218,11 @@ const FooterSection = () => {
         </div>
       </div>
     </footer>
+    <EnquiryDialog
+      isOpen={isEnquiryOpen}
+      onClose={() => setIsEnquiryOpen(false)}
+    />
+    </>
   );
 };
 
