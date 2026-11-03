@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import localFont from 'next/font/local';
 import { Cormorant_Garamond, Jura, Montez } from 'next/font/google';
 import './globals.css';
@@ -67,6 +68,69 @@ export default function RootLayout({
         >
           <main>{children}</main>
           <Footer />
+
+          <Script id="om-cookie-reset" strategy="beforeInteractive">
+            {`
+            (function (campaignId) {
+              var cookieNames = [
+                "om-" + campaignId,
+                "omSeen-" + campaignId,
+                "om-success-" + campaignId,
+                "omSuccess-" + campaignId,
+                "om-" + campaignId + "-closed",
+                "omSlideClosed-" + campaignId,
+                "om-global-cookie",
+                "omGlobalSuccessCookie",
+                "om-interaction-cookie",
+                "omGlobalInteractionCookie",
+                "om-success-cookie",
+                "omSuccessCookie",
+                "_omappvp",
+                "_omappvs"
+              ];
+
+              cookieNames.forEach(function (name) {
+                document.cookie =
+                  name +
+                  "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax";
+
+                document.cookie =
+                  name +
+                  "=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; domain=." +
+                  location.hostname +
+                  "; SameSite=Lax";
+              });
+
+              ["localStorage", "sessionStorage"].forEach(function (storageName) {
+                try {
+                  var storage = window[storageName];
+
+                  [
+                    "omFoldersSeen",
+                    "omFoldersOptin",
+                    "omFoldersClosed",
+                    "omLastSeen",
+                    "omSessionStart",
+                    "omSessionPageviews"
+                  ].forEach(function (key) {
+                    storage.removeItem(key);
+                  });
+                } catch (error) {}
+              });
+
+            })("xdcyswsstdkp0c8viywn");
+          `}
+          </Script>
+
+          {/* OptinMonster Campaign Script */}
+          <Script
+            id="optinmonster"
+            strategy="afterInteractive"
+            src="https://a.omappapi.com/app/js/api.min.js"
+            data-user="342269"
+            data-campaign="xdcyswsstdkp0c8viywn"
+          />
+
         </body>
       </SmoothScroll>
     </html>

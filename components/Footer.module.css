@@ -142,7 +142,17 @@
   font-weight: 600;
   font-family: var(--font-cormorant);
 }
-
+.enquiryButton{
+  color: #08090a;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid #7e6028;
+}
 .contactItem a {
   color: #f1f5f9;
   font-size: 15px;
