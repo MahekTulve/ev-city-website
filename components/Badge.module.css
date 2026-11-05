@@ -1,4 +1,3 @@
-
 .badge {
   position: fixed;
   top: 0.5rem;
@@ -140,10 +139,63 @@
   border-bottom: 1px solid #b98f2c;
   rotate: 45deg;
 }
+
 .railArrowUp {
   transform: rotate(180deg);
 }
+
+.enquireBtn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 0.2rem;
+  padding: 0.5rem 1.2rem;
+  text-decoration: none;
+  mix-blend-mode: difference;
+  color: #f8d857;
+  border-color: #fff;
+  font-family: var(--font-theSeasons);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  border: 1px solid rgba(245, 213, 137, 0.456);
+  background: #4e3e0037;
+  backdrop-filter: blur(10px);
+  transition: all 0.35s ease;
+}
+
+.enquireBtn:hover {
+  background: linear-gradient(110deg, #80601d, #b98f2c, #fcea93);
+  color: #111;
+  border-color: #fcea93;
+}
+
+.enquireArrow {
+  font-size: 1rem;
+  transition: transform 0.3s ease;
+}
+
+.enquireBtn:hover .enquireArrow {
+  transform: translate(3px, -3px);
+}
+
+
 @media screen and (max-width: 768px) {
+  .enquireBtn {
+    top: 0.7rem;
+    right: 1rem;
+    font-size: 0.6rem;
+    gap: 0.18rem;
+    padding: 0.1rem 0.5rem;
+
+  }
+
+
   .badge {
     width: 3.5rem;
     height: 3.5rem;
@@ -178,4 +230,10 @@
     font-size: 0.62rem;
   }
 
+}
+@media screen and (max-width: 425px) {
+  .enquireBtn {
+    font-weight: 600;
+
+  }
 }

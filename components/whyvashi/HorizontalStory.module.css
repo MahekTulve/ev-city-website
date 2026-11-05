@@ -998,7 +998,7 @@
   }
 
   .coastHeadingWrap {
-    top: clamp(1.25rem, 3.6svh, 2rem);
+    top: clamp(3rem, 3.6svh, 2rem);
     width: 94vw;
   }
 
