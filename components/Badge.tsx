@@ -220,9 +220,11 @@ export default function Badge() {
             />
           </defs>
           <text>
+
             <textPath href="#badgeCircle" startOffset="0%">
               EV CITY · THE 5 MINUTE CITY ·
             </textPath>
+
           </text>
         </svg>
         <Image
@@ -234,7 +236,7 @@ export default function Badge() {
           priority
         />
       </div>
-      <a   href="https://app.monstercampaigns.com/c/xdcyswsstdkp0c8viywn/" className={Style.enquireBtn}>
+      <a href="https://app.monstercampaigns.com/c/xdcyswsstdkp0c8viywn/" className={Style.enquireBtn}>
         <span>ENQUIRE</span>
         <span className={Style.enquireArrow}>↗</span>
       </a>
