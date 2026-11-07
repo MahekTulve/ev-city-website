@@ -237,8 +237,7 @@ export default function Badge() {
         />
       </div>
       <a href="https://app.monstercampaigns.com/c/xdcyswsstdkp0c8viywn/" className={Style.enquireBtn}>
-        <span>ENQUIRE</span>
-        <span className={Style.enquireArrow}>↗</span>
+        <span>Explore Now</span>
       </a>
       <div ref={railRef} className={Style.rail} aria-hidden="true">
         <span className={Style.railCount}>{activeSection}</span>
