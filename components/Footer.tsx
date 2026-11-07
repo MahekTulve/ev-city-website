@@ -117,7 +117,7 @@ const FooterSection = () => {
                   href="https://app.monstercampaigns.com/c/xdcyswsstdkp0c8viywn/"
                   className={`${styles.contactLabel} ${styles.enquiryButton}`}
                 >
-                  Enquiry now
+                  Explore Now
 
                 </a>
 
